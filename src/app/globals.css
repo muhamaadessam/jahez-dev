@@ -140,14 +140,15 @@ a { color: inherit; }
 .auth-controls { display: flex; align-items: center; justify-content: center; gap: 6px; line-height: 1; }
 .auth-button { min-height: 38px; padding: 6px 10px; border: 1px solid var(--border); border-radius: 9px; background: var(--surface); color: var(--text); font: inherit; font-size: .82rem; font-weight: 800; cursor: pointer; }
 .auth-button-primary { border-color: var(--brand); background: var(--brand); color: var(--on-brand); }
-.auth-overlay { position: fixed; inset: 0; z-index: 30; display: grid; place-items: center; padding: 20px; background: rgb(4 12 20 / 72%); backdrop-filter: blur(10px); }
-.auth-dialog { position: relative; width: min(440px, 100%); padding: clamp(24px, 5vw, 36px); border: 1px solid var(--border); border-radius: 22px; background: var(--surface); box-shadow: var(--shadow); }
+.auth-overlay { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; padding: 20px; background: rgb(4 12 20 / 76%); backdrop-filter: blur(10px); overflow-y: auto; }
+.auth-dialog { position: relative; width: min(440px, 100%); margin: auto; padding: clamp(24px, 5vw, 36px); border: 1px solid var(--border); border-radius: 22px; background: var(--surface); box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.45); }
 .auth-dialog h2 { margin-block: 16px 22px; }
 .auth-dialog form { display: grid; gap: 14px; }
 .auth-dialog label { display: grid; gap: 6px; color: var(--muted); font-weight: 800; }
 .auth-dialog input { width: 100%; min-height: 46px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 10px; background: var(--background); color: var(--text); font: inherit; }
 .auth-dialog input:focus-visible { outline: 3px solid color-mix(in srgb, var(--brand) 45%, transparent); outline-offset: 1px; }
-.auth-dialog-close { position: absolute; inset-block-start: 14px; inset-inline-end: 14px; width: 34px; height: 34px; border: 1px solid var(--border); border-radius: 50%; background: var(--background); color: var(--text); font-size: 1.25rem; line-height: 1; cursor: pointer; }
+.auth-dialog-close { position: absolute; inset-block-start: 14px; inset-inline-end: 14px; display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; padding: 0; border: 1px solid var(--border); border-radius: 50%; background: var(--background); color: var(--text); font-size: 1.25rem; line-height: 1; cursor: pointer; transition: background 150ms ease, border-color 150ms ease, color 150ms ease; }
+.auth-dialog-close:hover, .auth-dialog-close:focus-visible { border-color: var(--brand); background: var(--surface-soft); color: var(--brand-strong); }
 .auth-google-button { display: flex; width: 100%; min-height: 46px; align-items: center; justify-content: center; gap: 10px; border: 1px solid var(--border); border-radius: 10px; background: var(--background); color: var(--text); font: inherit; font-weight: 800; cursor: pointer; }
 .auth-google-button span { display: grid; width: 24px; height: 24px; place-items: center; border-radius: 50%; background: #fff; color: #4285f4; font-family: system-ui, sans-serif; font-weight: 800; }
 .auth-google-button:hover, .auth-google-button:focus-visible { border-color: var(--brand); background: var(--surface-soft); }
@@ -166,11 +167,12 @@ a { color: inherit; }
 .auth-account-profile { display: grid; gap: 1px; padding: 8px 10px 10px; border-block-end: 1px solid var(--border); }
 .auth-account-profile strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .auth-account-profile span { overflow: hidden; color: var(--muted); font-size: .76rem; text-overflow: ellipsis; white-space: nowrap; }
-.account-overlay { position: fixed; inset: 0; z-index: 30; display: grid; place-items: center; padding: 20px; background: rgb(4 12 20 / 72%); backdrop-filter: blur(10px); }
-.account-dialog { width: min(720px, 100%); max-height: min(760px, calc(100dvh - 40px)); overflow: auto; border: 1px solid var(--border); border-radius: 20px; background: var(--surface); box-shadow: var(--shadow); }
-.account-dialog-header { display: flex; align-items: start; justify-content: space-between; gap: 24px; padding: 28px 30px 20px; border-block-end: 1px solid var(--border); }
-.account-dialog-header h2 { margin: 12px 0 4px; }
+.account-overlay { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; padding: 20px; background: rgb(4 12 20 / 76%); backdrop-filter: blur(10px); overflow-y: auto; }
+.account-dialog { position: relative; width: min(720px, calc(100vw - 40px)); max-height: min(760px, calc(100dvh - 40px)); margin: auto; overflow-y: auto; border: 1px solid var(--border); border-radius: 20px; background: var(--surface); box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.45); }
+.account-dialog-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; padding: 28px 30px 20px; border-block-end: 1px solid var(--border); }
+.account-dialog-header h2 { margin: 10px 0 4px; }
 .account-dialog-header p { margin: 0; color: var(--muted); }
+.account-dialog .auth-dialog-close { position: static; flex: 0 0 auto; }
 .account-dialog-body { display: grid; grid-template-columns: 170px 1fr; min-height: 390px; }
 .account-tabs { display: grid; align-content: start; gap: 4px; padding: 20px 12px; border-inline-end: 1px solid var(--border); background: var(--surface-soft); }
 .account-tabs button { padding: 11px 13px; border: 0; border-radius: 10px; background: transparent; color: var(--muted); font: inherit; font-weight: 800; text-align: start; cursor: pointer; }
@@ -194,7 +196,7 @@ a { color: inherit; }
 .icon-control svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.8; }
 .locale-switcher:hover, .locale-switcher:focus-visible, .theme-toggle:hover, .theme-toggle:focus-visible { border-color: var(--brand); background: var(--surface-soft); }
 .mobile-menu-button, .mobile-navigation { display: none; }
-@media (max-width: 640px) { .account-dialog-header { padding: 22px 20px 16px; } .account-dialog-body { grid-template-columns: 1fr; } .account-tabs { grid-template-columns: 1fr 1fr; padding: 10px; border-inline-end: 0; border-block-end: 1px solid var(--border); } .account-tabs button { text-align: center; } .account-form, .account-security { padding: 22px 20px 24px; } .account-fields { grid-template-columns: 1fr; } }
+@media (max-width: 640px) { .account-dialog { width: 100%; max-height: calc(100dvh - 32px); } .account-dialog-header { padding: 20px 18px 16px; gap: 16px; } .account-dialog-body { grid-template-columns: 1fr; } .account-tabs { grid-template-columns: 1fr 1fr; padding: 8px; border-inline-end: 0; border-block-end: 1px solid var(--border); } .account-tabs button { text-align: center; padding: 9px 10px; } .account-form, .account-security { padding: 20px 18px 24px; } .account-fields { grid-template-columns: 1fr; } }
 
 .hero {
   display: grid;
