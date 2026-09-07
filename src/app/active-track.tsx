@@ -45,8 +45,8 @@ function ActiveTrackProvider({ children, authenticated, loading = false, userId,
   const pathname = usePathname() ?? "/";
   const locale = localeFromPathname(pathname);
   const [query, setQuery] = useState("");
-  const requestedTrack = new URLSearchParams(query).get("track");
   const [urlReady, setUrlReady] = useState(false);
+  const requestedTrack = useMemo(() => new URLSearchParams(query).get("track"), [query]);
   const [preferences, setPreferences] = useState<TrackPreferenceState | null>(null);
   const [publicTracks, setPublicTracks] = useState<typeof tracks>(tracks);
   const [phase, setPhase] = useState<Phase>(loading || authenticated ? "loading" : "ready");
@@ -129,14 +129,18 @@ function ActiveTrackProvider({ children, authenticated, loading = false, userId,
     window.history.replaceState(null, "", `${cleanPathname}?${params}`);
     window.dispatchEvent(new Event("urlchange"));
   }, [resolution.selectableTracks]);
-  const value = useMemo<ActiveTrackValue>(() => ({
-    phase: !urlReady || (authenticated && !preferences && phase === "ready") ? "loading" : phase,
-    authenticated,
-    ...resolution,
-    setActiveTrack,
-    trackHref: (path) => withQueryContext(path, query, resolution.activeTrack?.slug),
-    retry: () => setReload((current) => current + 1),
-  }), [authenticated, phase, preferences, query, resolution, setActiveTrack, urlReady]);
+  const value = useMemo<ActiveTrackValue>(() => {
+    const effectivePhase = !urlReady || (authenticated && !preferences && phase === "ready") ? "loading" : phase;
+    return {
+      phase: effectivePhase,
+      authenticated,
+      ...resolution,
+      activeTrack: effectivePhase === "loading" && !requestedTrack ? null : resolution.activeTrack,
+      setActiveTrack,
+      trackHref: (path) => withQueryContext(path, query, resolution.activeTrack?.slug),
+      retry: () => setReload((current) => current + 1),
+    };
+  }, [authenticated, phase, preferences, query, requestedTrack, resolution, setActiveTrack, urlReady]);
   return <ActiveTrackContext.Provider value={value}>{children}</ActiveTrackContext.Provider>;
 }
 
@@ -155,8 +159,20 @@ export function ActiveTrackSelector({ locale }: { locale: Locale }) {
   if (!activeTrack) return <div className="empty-state"><h2>{copy.emptyTrackTitle}</h2><p>{copy.emptyTrackDescription}</p>{authenticated && <Link className="button" href={localizedHref(locale, "/my-tracks")}>{copy.manageTrackPreferences}</Link>}</div>;
   return <div className="active-track-selector">
     <div className="active-track-selector-control">
-      <TrackLogo trackId={activeTrack.id} size={28} className="active-track-selector-logo" />
-      <label>{copy.activeTrack}<select value={activeTrack.id} onChange={(event) => setActiveTrack(event.target.value)}>{selectableTracks.map((track) => <option key={track.id} value={track.id}>{track.name}</option>)}</select></label>
+      <span className="active-track-selector-logo" aria-hidden="true">
+        <TrackLogo trackId={activeTrack.id} size={22} />
+      </span>
+      <label>
+        {copy.activeTrack}
+        <div className="active-track-selector-select-wrap">
+          <select value={activeTrack.id} onChange={(event) => setActiveTrack(event.target.value)}>
+            {selectableTracks.map((track) => <option key={track.id} value={track.id}>{track.name}</option>)}
+          </select>
+          <svg className="active-track-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" aria-hidden="true">
+            <path d="M6 8l4 4 4-4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </div>
+      </label>
     </div>
     {authenticated && <Link className="text-link" href={localizedHref(locale, "/my-tracks")}>{copy.manageTrackPreferences}</Link>}
   </div>;

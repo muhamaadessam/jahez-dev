@@ -6,7 +6,7 @@ type TrackLogoProps = {
   className?: string;
 };
 
-export function TrackLogo({ trackId, size = 40, className = "" }: TrackLogoProps): ReactElement {
+export function TrackLogo({ trackId, size = 32, className = "" }: TrackLogoProps): ReactElement {
   const normId = (trackId ?? "").toLowerCase().trim();
 
   switch (normId) {
@@ -16,22 +16,15 @@ export function TrackLogo({ trackId, size = 40, className = "" }: TrackLogoProps
           className={className}
           width={size}
           height={size}
-          viewBox="0 0 40 40"
+          viewBox="0 0 32 32"
           role="img"
           aria-label="Flutter"
           fill="none"
         >
-          <rect width="40" height="40" rx="10" fill="url(#flutter-bg)" />
-          <defs>
-            <linearGradient id="flutter-bg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
-              <stop stopColor="#042B48" />
-              <stop offset="1" stopColor="#021B30" />
-            </linearGradient>
-          </defs>
-          <path d="M24.2 7.5L8.5 23.2l4.8 4.8L33.8 7.5H24.2z" fill="#54C5F8" />
-          <path d="M24.2 23.3l-7.8 7.8 4.8 4.8 7.8-7.8-4.8-4.8z" fill="#02569B" />
-          <path d="M19.4 35.9l4.8 4.8h9.6L24.2 31.1l-4.8 4.8z" fill="#014275" />
-          <path d="M24.2 31.1l4.8-4.8 4.8 4.8-4.8 4.8-4.8-4.8z" fill="#29B6F6" />
+          <path d="M19.2 3.5L4.8 17.9l4.4 4.4L28 3.5h-8.8z" fill="#54C5F8" />
+          <path d="M19.2 18.1l-7.2 7.2 4.4 4.4 7.2-7.2-4.4-4.4z" fill="#02569B" />
+          <path d="M14.8 29.7l4.4 4.4h8.8l-8.8-8.8-4.4 4.4z" fill="#014275" />
+          <path d="M19.2 25.3l4.4-4.4 4.4 4.4-4.4 4.4-4.4-4.4z" fill="#29B6F6" />
         </svg>
       );
 
@@ -41,31 +34,24 @@ export function TrackLogo({ trackId, size = 40, className = "" }: TrackLogoProps
           className={className}
           width={size}
           height={size}
-          viewBox="0 0 40 40"
+          viewBox="0 0 32 32"
           role="img"
           aria-label="Android Native"
           fill="none"
         >
-          <rect width="40" height="40" rx="10" fill="url(#android-bg)" />
-          <defs>
-            <linearGradient id="android-bg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
-              <stop stopColor="#073021" />
-              <stop offset="1" stopColor="#031A11" />
-            </linearGradient>
-          </defs>
           {/* Antennae */}
-          <line x1="14" y1="12" x2="11" y2="7.5" stroke="#3DDC84" strokeWidth="2.4" strokeLinecap="round" />
-          <line x1="26" y1="12" x2="29" y2="7.5" stroke="#3DDC84" strokeWidth="2.4" strokeLinecap="round" />
+          <line x1="10" y1="10.5" x2="7.5" y2="6.5" stroke="var(--brand, #1a8738)" strokeWidth="2.2" strokeLinecap="round" />
+          <line x1="22" y1="10.5" x2="24.5" y2="6.5" stroke="var(--brand, #1a8738)" strokeWidth="2.2" strokeLinecap="round" />
           {/* Head dome */}
           <path
-            d="M10 24.5C10 18.15 14.48 13 20 13s10 5.15 10 11.5H10z"
-            fill="#3DDC84"
+            d="M6 21.5C6 15.15 10.48 10 16 10s10 5.15 10 11.5H6z"
+            fill="var(--brand, #1a8738)"
           />
           {/* Eyes */}
-          <circle cx="15.5" cy="19.5" r="1.5" fill="#073021" />
-          <circle cx="24.5" cy="19.5" r="1.5" fill="#073021" />
+          <circle cx="11.5" cy="16.5" r="1.5" fill="var(--surface, #ffffff)" />
+          <circle cx="20.5" cy="16.5" r="1.5" fill="var(--surface, #ffffff)" />
           {/* Collar detail */}
-          <rect x="10" y="27" width="20" height="2.5" rx="1.25" fill="#3DDC84" />
+          <rect x="6" y="23.5" width="20" height="2.5" rx="1.25" fill="var(--brand, #1a8738)" />
         </svg>
       );
 
@@ -75,33 +61,26 @@ export function TrackLogo({ trackId, size = 40, className = "" }: TrackLogoProps
           className={className}
           width={size}
           height={size}
-          viewBox="0 0 40 40"
+          viewBox="0 0 32 32"
           role="img"
           aria-label="Node.js"
           fill="none"
         >
-          <rect width="40" height="40" rx="10" fill="url(#node-bg)" />
-          <defs>
-            <linearGradient id="node-bg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
-              <stop stopColor="#122513" />
-              <stop offset="1" stopColor="#09150A" />
-            </linearGradient>
-          </defs>
           {/* Hexagon shape */}
           <path
-            d="M20 8l11.5 6.6v13.3L20 34.5 8.5 27.9V14.6L20 8z"
-            fill="#5FA04E"
+            d="M16 4.5l10.5 6v12L16 28.5 5.5 22.5v-12L16 4.5z"
+            fill="var(--brand, #3c873a)"
           />
           {/* Inner isometric facet lines */}
           <path
-            d="M20 8v13.3l11.5 6.6M20 21.3L8.5 27.9"
-            stroke="#3E7533"
-            strokeWidth="1.8"
+            d="M16 4.5v12l10.5 6M16 16.5L5.5 22.5"
+            stroke="color-mix(in srgb, var(--brand) 65%, #000000)"
+            strokeWidth="1.6"
             strokeLinejoin="round"
           />
-          {/* JS / Node text glyph */}
+          {/* Node text glyph */}
           <path
-            d="M15 16.5v7l4.5 2.5v-7L15 16.5zm7 2.2l3 1.7v4.8l-3-1.7v-4.8z"
+            d="M11.5 12.5v6.5l4 2.3v-6.5l-4-2.3zm6.5 2l2.8 1.6v4.4l-2.8-1.6v-4.4z"
             fill="#FFFFFF"
           />
         </svg>
@@ -113,24 +92,17 @@ export function TrackLogo({ trackId, size = 40, className = "" }: TrackLogoProps
           className={className}
           width={size}
           height={size}
-          viewBox="0 0 40 40"
+          viewBox="0 0 32 32"
           role="img"
           aria-label="PHP & Laravel"
           fill="none"
         >
-          <rect width="40" height="40" rx="10" fill="url(#laravel-bg)" />
-          <defs>
-            <linearGradient id="laravel-bg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
-              <stop stopColor="#300B09" />
-              <stop offset="1" stopColor="#1B0403" />
-            </linearGradient>
-          </defs>
           {/* Laravel Isometric 3D faceted cube */}
-          <path d="M20 7.5l11 6.3-11 6.3-11-6.3 11-6.3z" fill="#FF5245" />
-          <path d="M9 13.8l11 6.3v12.4l-11-6.3V13.8z" fill="#E02424" />
-          <path d="M20 20.1l11-6.3v12.4l-11 6.3V20.1z" fill="#B91C1C" />
-          {/* Geometric inner slash */}
-          <path d="M20 12.5l5.5 3.1-5.5 3.2-5.5-3.2 5.5-3.1z" fill="#FFFFFF" fillOpacity="0.85" />
+          <path d="M16 4.5l10 5.8-10 5.7-10-5.7 10-5.8z" fill="#FF5245" />
+          <path d="M6 10.3l10 5.7v11.5l-10-5.8V10.3z" fill="#E02424" />
+          <path d="M16 16l10-5.7v11.5l-10 5.7V16z" fill="#B91C1C" />
+          {/* Inner highlight */}
+          <path d="M16 9l5 2.9-5 2.8-5-2.8 5-2.9z" fill="#FFFFFF" fillOpacity="0.88" />
         </svg>
       );
 
@@ -140,24 +112,19 @@ export function TrackLogo({ trackId, size = 40, className = "" }: TrackLogoProps
           className={className}
           width={size}
           height={size}
-          viewBox="0 0 40 40"
+          viewBox="0 0 32 32"
           role="img"
           aria-label=".NET"
           fill="none"
         >
-          <rect width="40" height="40" rx="10" fill="url(#dotnet-bg)" />
-          <defs>
-            <linearGradient id="dotnet-bg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
-              <stop stopColor="#512BD4" />
-              <stop offset="1" stopColor="#2D1482" />
-            </linearGradient>
-          </defs>
-          {/* DotNet Wave Ribbon / Emblem */}
-          <circle cx="12" cy="27" r="3.2" fill="#FFFFFF" />
-          {/* Stylized .NET text / curve */}
+          {/* Purple circle badge */}
+          <circle cx="16" cy="16" r="13" fill="var(--brand, #512bd4)" />
+          {/* DotNet dot */}
+          <circle cx="9.5" cy="21.5" r="2.2" fill="var(--on-brand, #FFFFFF)" />
+          {/* .NET typography letter N */}
           <path
-            d="M17 27V13h3.5l5.5 9V13H29v14h-3.5l-5.5-9v9H17z"
-            fill="#FFFFFF"
+            d="M13.5 21.5V10.5h2.8l4.5 7.2v-7.2h2.5v11h-2.8l-4.5-7.2v7.2h-2.5z"
+            fill="var(--on-brand, #FFFFFF)"
           />
         </svg>
       );
@@ -168,41 +135,34 @@ export function TrackLogo({ trackId, size = 40, className = "" }: TrackLogoProps
           className={className}
           width={size}
           height={size}
-          viewBox="0 0 40 40"
+          viewBox="0 0 32 32"
           role="img"
           aria-label="React"
           fill="none"
         >
-          <rect width="40" height="40" rx="10" fill="url(#react-bg)" />
-          <defs>
-            <linearGradient id="react-bg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
-              <stop stopColor="#0B2536" />
-              <stop offset="1" stopColor="#051520" />
-            </linearGradient>
-          </defs>
           {/* React atom nucleus */}
-          <circle cx="20" cy="20" r="2.8" fill="#58C4DC" />
+          <circle cx="16" cy="16" r="2.5" fill="var(--brand, #087ea4)" />
           {/* Ellipse 1 (Horizontal) */}
-          <ellipse cx="20" cy="20" rx="14" ry="5.2" stroke="#58C4DC" strokeWidth="1.8" />
+          <ellipse cx="16" cy="16" rx="12" ry="4.5" stroke="var(--brand, #087ea4)" strokeWidth="1.8" />
           {/* Ellipse 2 (Rotated 60deg) */}
           <ellipse
-            cx="20"
-            cy="20"
-            rx="14"
-            ry="5.2"
-            stroke="#58C4DC"
+            cx="16"
+            cy="16"
+            rx="12"
+            ry="4.5"
+            stroke="var(--brand, #087ea4)"
             strokeWidth="1.8"
-            transform="rotate(60 20 20)"
+            transform="rotate(60 16 16)"
           />
           {/* Ellipse 3 (Rotated 120deg) */}
           <ellipse
-            cx="20"
-            cy="20"
-            rx="14"
-            ry="5.2"
-            stroke="#58C4DC"
+            cx="16"
+            cy="16"
+            rx="12"
+            ry="4.5"
+            stroke="var(--brand, #087ea4)"
             strokeWidth="1.8"
-            transform="rotate(120 20 20)"
+            transform="rotate(120 16 16)"
           />
         </svg>
       );
@@ -213,27 +173,20 @@ export function TrackLogo({ trackId, size = 40, className = "" }: TrackLogoProps
           className={className}
           width={size}
           height={size}
-          viewBox="0 0 40 40"
+          viewBox="0 0 32 32"
           role="img"
           aria-label="React Native"
           fill="none"
         >
-          <rect width="40" height="40" rx="10" fill="url(#rn-bg)" />
-          <defs>
-            <linearGradient id="rn-bg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
-              <stop stopColor="#082A45" />
-              <stop offset="1" stopColor="#031625" />
-            </linearGradient>
-          </defs>
           {/* Phone device frame */}
-          <rect x="9.5" y="6.5" width="21" height="27" rx="3.5" stroke="#38BDF8" strokeWidth="1.8" />
-          <circle cx="20" cy="9" r="0.75" fill="#38BDF8" />
-          <line x1="18" y1="31" x2="22" y2="31" stroke="#38BDF8" strokeWidth="1.5" strokeLinecap="round" />
+          <rect x="7.5" y="4" width="17" height="24" rx="3.5" stroke="var(--brand, #0284c7)" strokeWidth="1.8" />
+          <circle cx="16" cy="6.5" r="0.75" fill="var(--brand, #0284c7)" />
+          <line x1="14.5" y1="25.5" x2="17.5" y2="25.5" stroke="var(--brand, #0284c7)" strokeWidth="1.4" strokeLinecap="round" />
           {/* Mini React atom inside screen */}
-          <circle cx="20" cy="19.5" r="1.6" fill="#38BDF8" />
-          <ellipse cx="20" cy="19.5" rx="6.5" ry="2.6" stroke="#38BDF8" strokeWidth="1.2" />
-          <ellipse cx="20" cy="19.5" rx="6.5" ry="2.6" stroke="#38BDF8" strokeWidth="1.2" transform="rotate(60 20 19.5)" />
-          <ellipse cx="20" cy="19.5" rx="6.5" ry="2.6" stroke="#38BDF8" strokeWidth="1.2" transform="rotate(120 20 19.5)" />
+          <circle cx="16" cy="16" r="1.5" fill="var(--brand, #0284c7)" />
+          <ellipse cx="16" cy="16" rx="5.5" ry="2.2" stroke="var(--brand, #0284c7)" strokeWidth="1.1" />
+          <ellipse cx="16" cy="16" rx="5.5" ry="2.2" stroke="var(--brand, #0284c7)" strokeWidth="1.1" transform="rotate(60 16 16)" />
+          <ellipse cx="16" cy="16" rx="5.5" ry="2.2" stroke="var(--brand, #0284c7)" strokeWidth="1.1" transform="rotate(120 16 16)" />
         </svg>
       );
 
@@ -243,38 +196,31 @@ export function TrackLogo({ trackId, size = 40, className = "" }: TrackLogoProps
           className={className}
           width={size}
           height={size}
-          viewBox="0 0 40 40"
+          viewBox="0 0 32 32"
           role="img"
           aria-label="Software Fundamentals"
           fill="none"
         >
-          <rect width="40" height="40" rx="10" fill="url(#fund-bg)" />
-          <defs>
-            <linearGradient id="fund-bg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
-              <stop stopColor="#1E1B4B" />
-              <stop offset="1" stopColor="#0F0D29" />
-            </linearGradient>
-          </defs>
           {/* Microchip body */}
-          <rect x="11.5" y="11.5" width="17" height="17" rx="3" stroke="#818CF8" strokeWidth="1.8" />
+          <rect x="8" y="8" width="16" height="16" rx="3" stroke="var(--brand, #4f46e5)" strokeWidth="1.8" />
           {/* Pins top/bottom */}
-          <line x1="16" y1="8" x2="16" y2="11.5" stroke="#818CF8" strokeWidth="1.6" strokeLinecap="round" />
-          <line x1="20" y1="8" x2="20" y2="11.5" stroke="#818CF8" strokeWidth="1.6" strokeLinecap="round" />
-          <line x1="24" y1="8" x2="24" y2="11.5" stroke="#818CF8" strokeWidth="1.6" strokeLinecap="round" />
-          <line x1="16" y1="28.5" x2="16" y2="32" stroke="#818CF8" strokeWidth="1.6" strokeLinecap="round" />
-          <line x1="20" y1="28.5" x2="20" y2="32" stroke="#818CF8" strokeWidth="1.6" strokeLinecap="round" />
-          <line x1="24" y1="28.5" x2="24" y2="32" stroke="#818CF8" strokeWidth="1.6" strokeLinecap="round" />
+          <line x1="12" y1="4.5" x2="12" y2="8" stroke="var(--brand, #4f46e5)" strokeWidth="1.5" strokeLinecap="round" />
+          <line x1="16" y1="4.5" x2="16" y2="8" stroke="var(--brand, #4f46e5)" strokeWidth="1.5" strokeLinecap="round" />
+          <line x1="20" y1="4.5" x2="20" y2="8" stroke="var(--brand, #4f46e5)" strokeWidth="1.5" strokeLinecap="round" />
+          <line x1="12" y1="24" x2="12" y2="27.5" stroke="var(--brand, #4f46e5)" strokeWidth="1.5" strokeLinecap="round" />
+          <line x1="16" y1="24" x2="16" y2="27.5" stroke="var(--brand, #4f46e5)" strokeWidth="1.5" strokeLinecap="round" />
+          <line x1="20" y1="24" x2="20" y2="27.5" stroke="var(--brand, #4f46e5)" strokeWidth="1.5" strokeLinecap="round" />
           {/* Pins left/right */}
-          <line x1="8" y1="16" x2="11.5" y2="16" stroke="#818CF8" strokeWidth="1.6" strokeLinecap="round" />
-          <line x1="8" y1="20" x2="11.5" y2="20" stroke="#818CF8" strokeWidth="1.6" strokeLinecap="round" />
-          <line x1="8" y1="24" x2="11.5" y2="24" stroke="#818CF8" strokeWidth="1.6" strokeLinecap="round" />
-          <line x1="28.5" y1="16" x2="32" y2="16" stroke="#818CF8" strokeWidth="1.6" strokeLinecap="round" />
-          <line x1="28.5" y1="20" x2="32" y2="20" stroke="#818CF8" strokeWidth="1.6" strokeLinecap="round" />
-          <line x1="28.5" y1="24" x2="32" y2="24" stroke="#818CF8" strokeWidth="1.6" strokeLinecap="round" />
+          <line x1="4.5" y1="12" x2="8" y2="12" stroke="var(--brand, #4f46e5)" strokeWidth="1.5" strokeLinecap="round" />
+          <line x1="4.5" y1="16" x2="8" y2="16" stroke="var(--brand, #4f46e5)" strokeWidth="1.5" strokeLinecap="round" />
+          <line x1="4.5" y1="20" x2="8" y2="20" stroke="var(--brand, #4f46e5)" strokeWidth="1.5" strokeLinecap="round" />
+          <line x1="24" y1="12" x2="27.5" y2="12" stroke="var(--brand, #4f46e5)" strokeWidth="1.5" strokeLinecap="round" />
+          <line x1="24" y1="16" x2="27.5" y2="16" stroke="var(--brand, #4f46e5)" strokeWidth="1.5" strokeLinecap="round" />
+          <line x1="24" y1="20" x2="27.5" y2="20" stroke="var(--brand, #4f46e5)" strokeWidth="1.5" strokeLinecap="round" />
           {/* Code brackets inside chip */}
           <path
-            d="M17 17.5L14.8 20l2.2 2.5M23 17.5l2.2 2.5-2.2 2.5"
-            stroke="#A5B4FC"
+            d="M13 13.5L10.8 16l2.2 2.5M19 13.5l2.2 2.5-2.2 2.5"
+            stroke="var(--brand-strong, var(--brand, #4f46e5))"
             strokeWidth="1.6"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -288,24 +234,17 @@ export function TrackLogo({ trackId, size = 40, className = "" }: TrackLogoProps
           className={className}
           width={size}
           height={size}
-          viewBox="0 0 40 40"
+          viewBox="0 0 32 32"
           role="img"
           aria-label="UI / UX Design"
           fill="none"
         >
-          <rect width="40" height="40" rx="10" fill="url(#uiux-bg)" />
-          <defs>
-            <linearGradient id="uiux-bg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
-              <stop stopColor="#3B0764" />
-              <stop offset="1" stopColor="#1E0333" />
-            </linearGradient>
-          </defs>
-          {/* Figma-style geometric color circles & shapes */}
-          <rect x="12" y="9" width="8" height="8" rx="4" fill="#F24E1E" />
-          <rect x="20" y="9" width="8" height="8" rx="4" fill="#FF7262" />
-          <rect x="12" y="17" width="8" height="8" rx="4" fill="#A259FF" />
-          <circle cx="24" cy="21" r="4" fill="#1ABCFE" />
-          <path d="M12 25h4a4 4 0 0 1 4 4v0a4 4 0 0 1-4 4 4 4 0 0 1-4-4v-4z" fill="#0ACF83" />
+          {/* Figma-style geometric color shapes */}
+          <rect x="9" y="6" width="7" height="7" rx="3.5" fill="#F24E1E" />
+          <rect x="16" y="6" width="7" height="7" rx="3.5" fill="#FF7262" />
+          <rect x="9" y="13" width="7" height="7" rx="3.5" fill="#A259FF" />
+          <circle cx="19.5" cy="16.5" r="3.5" fill="#1ABCFE" />
+          <path d="M9 20h3.5a3.5 3.5 0 0 1 3.5 3.5v0a3.5 3.5 0 0 1-3.5 3.5 3.5 3.5 0 0 1-3.5-3.5V20z" fill="#0ACF83" />
         </svg>
       );
 
@@ -315,27 +254,20 @@ export function TrackLogo({ trackId, size = 40, className = "" }: TrackLogoProps
           className={className}
           width={size}
           height={size}
-          viewBox="0 0 40 40"
+          viewBox="0 0 32 32"
           role="img"
           aria-label="Tech Interview Prep"
           fill="none"
         >
-          <rect width="40" height="40" rx="10" fill="url(#fallback-gradient)" />
-          <defs>
-            <linearGradient id="fallback-gradient" x1="4" y1="4" x2="36" y2="36" gradientUnits="userSpaceOnUse">
-              <stop stopColor="var(--brand, #087ea4)" />
-              <stop offset="1" stopColor="var(--brand-strong, #056585)" />
-            </linearGradient>
-          </defs>
           <path
-            d="M12 16l4.5 4-4.5 4M28 16l-4.5 4 4.5 4"
+            d="M9 12l4 4-4 4M23 12l-4 4 4 4"
             fill="none"
-            stroke="#ffffff"
-            strokeWidth="2.4"
+            stroke="var(--brand, #087ea4)"
+            strokeWidth="2.2"
             strokeLinecap="round"
             strokeLinejoin="round"
           />
-          <path d="M18.5 27h3" stroke="#ffffff" strokeWidth="2.4" strokeLinecap="round" />
+          <path d="M14.5 22h3" stroke="var(--brand, #087ea4)" strokeWidth="2.2" strokeLinecap="round" />
         </svg>
       );
   }

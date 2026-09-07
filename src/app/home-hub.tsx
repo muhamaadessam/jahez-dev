@@ -146,7 +146,9 @@ export function HomeHub({ locale = "ar" }: { locale?: Locale }) {
               <div key={track.id} data-track-card={track.id} className={`card home-track-card ${isActive ? "active" : ""}`}>
                 <div className="home-track-header">
                   <div className="home-track-identity">
-                    <TrackLogo trackId={track.id} size={36} className="home-track-logo" />
+                    <span className="home-track-logo-wrap" aria-hidden="true">
+                      <TrackLogo trackId={track.id} size={28} />
+                    </span>
                     <h3 className="home-track-title">{track.name}</h3>
                   </div>
                   {isActive && <span className="chip chip-accent">{copy.currentTrack}</span>}
