@@ -33,7 +33,7 @@ export default async function QuestionDetailsPage({ params, locale = "ar" }: Pro
         <ActiveTrackLink className="text-link" locale={locale} path="/questions">{copy.backLibrary}</ActiveTrackLink>
         <div className="meta">
           {getQuestionTopics(question).map((topic) => (
-            <span className="chip" key={topic.id}>{topicName(locale, topic.id)}</span>
+            <span className="chip" key={topic.id} dir="ltr">{topicName(locale, topic.id)}</span>
           ))}
           <span className="chip">{question.difficulty}</span>
         </div>

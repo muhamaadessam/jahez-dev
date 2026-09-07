@@ -136,13 +136,13 @@ insert into public.topic_locales (topic_id, locale, name) values ('async-isolate
 
 insert into public.topics (id, slug, track_id) values ('flutter-animations', 'flutter-animations', 'flutter') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('flutter-animations', 'ar', 'الرسوميات والحركة والـ CustomPainter') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('flutter-animations', 'ar', 'Animations, Motion & Custom Painters') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('flutter-animations', 'en', 'Animations, Motion & Custom Painters') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('flutter-internals', 'flutter-internals', 'flutter') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('flutter-internals', 'ar', 'المعمارية الداخلية ومحرك الرندر') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('flutter-internals', 'ar', 'RenderObjects & Internals') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('flutter-internals', 'en', 'RenderObjects & Internals') on conflict (topic_id, locale) do update set name = excluded.name;
 
@@ -232,421 +232,421 @@ insert into public.topic_locales (topic_id, locale, name) values ('build-gradle'
 
 insert into public.topics (id, slug, track_id) values ('node-core', 'node-core', 'node') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('node-core', 'ar', 'أساسيات نود والـ Event Loop') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('node-core', 'ar', 'Node.js Core & Event Loop') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('node-core', 'en', 'Node.js Core & Event Loop') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('node-async', 'node-async', 'node') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('node-async', 'ar', 'البرمجة غير المتزامنة والمؤقتات') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('node-async', 'ar', 'Async Programming & Timers') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('node-async', 'en', 'Async Programming & Timers') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('node-streams', 'node-streams', 'node') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('node-streams', 'ar', 'الـ Streams والـ Buffers') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('node-streams', 'ar', 'Buffers & Streams') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('node-streams', 'en', 'Buffers & Streams') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('node-modules', 'node-modules', 'node') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('node-modules', 'ar', 'نظام الحزم والموديولات') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('node-modules', 'ar', 'Modules, ESM & Package Management') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('node-modules', 'en', 'Modules, ESM & Package Management') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('node-web', 'node-web', 'node') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('node-web', 'ar', 'خوادم الويب وأطر العمل') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('node-web', 'ar', 'HTTP, Fastify & Web Frameworks') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('node-web', 'en', 'HTTP, Fastify & Web Frameworks') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('node-database', 'node-database', 'node') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('node-database', 'ar', 'قواعد البيانات والـ ORMs') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('node-database', 'ar', 'Databases, ORMs & Transactions') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('node-database', 'en', 'Databases, ORMs & Transactions') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('node-security', 'node-security', 'node') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('node-security', 'ar', 'أمان وحماية تطبيقات نود') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('node-security', 'ar', 'Security & Best Practices') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('node-security', 'en', 'Security & Best Practices') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('node-perf', 'node-perf', 'node') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('node-perf', 'ar', 'تحسين الأداء وإدارة الذاكرة') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('node-perf', 'ar', 'Performance & Memory Profiling') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('node-perf', 'en', 'Performance & Memory Profiling') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('node-testing', 'node-testing', 'node') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('node-testing', 'ar', 'اختبار تطبيقات نود وجودتها') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('node-testing', 'ar', 'Testing & Quality Assurance') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('node-testing', 'en', 'Testing & Quality Assurance') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('node-arch', 'node-arch', 'node') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('node-arch', 'ar', 'المعمارية والأنظمة الموزعة') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('node-arch', 'ar', 'Microservices & Distributed Systems') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('node-arch', 'en', 'Microservices & Distributed Systems') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('php-core', 'php-core', 'php') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('php-core', 'ar', 'أساسيات لغة PHP ونظام الأنواع') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('php-core', 'ar', 'PHP Core Fundamentals') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('php-core', 'en', 'PHP Core Fundamentals') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('php-oop', 'php-oop', 'php') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('php-oop', 'ar', 'البرمجة كائنية التوجه وأنماط التصميم') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('php-oop', 'ar', 'OOP & Design Patterns in PHP') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('php-oop', 'en', 'OOP & Design Patterns in PHP') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('php-modern', 'php-modern', 'php') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('php-modern', 'ar', 'ميزات PHP الحديثة') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('php-modern', 'ar', 'Modern PHP 8.x Features') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('php-modern', 'en', 'Modern PHP 8.x Features') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('php-laravel-core', 'php-laravel-core', 'php') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('php-laravel-core', 'ar', 'معمارية ودورة حياة لارافيل') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('php-laravel-core', 'ar', 'Laravel Core Architecture & Lifecycle') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('php-laravel-core', 'en', 'Laravel Core Architecture & Lifecycle') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('php-eloquent', 'php-eloquent', 'php') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('php-eloquent', 'ar', 'Eloquent ORM وقواعد البيانات') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('php-eloquent', 'ar', 'Eloquent ORM & Database Design') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('php-eloquent', 'en', 'Eloquent ORM & Database Design') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('php-rest-api', 'php-rest-api', 'php') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('php-rest-api', 'ar', 'بناء الـ APIs والمصادقة') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('php-rest-api', 'ar', 'RESTful APIs & Authentication') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('php-rest-api', 'en', 'RESTful APIs & Authentication') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('php-security', 'php-security', 'php') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('php-security', 'ar', 'حماية وأمان تطبيقات الويب') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('php-security', 'ar', 'Security, OWASP & Hardening') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('php-security', 'en', 'Security, OWASP & Hardening') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('php-queues', 'php-queues', 'php') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('php-queues', 'ar', 'طوابير العمليات والمهام الخلفية') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('php-queues', 'ar', 'Queues, Jobs & Background Workers') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('php-queues', 'en', 'Queues, Jobs & Background Workers') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('php-performance-cache', 'php-performance-cache', 'php') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('php-performance-cache', 'ar', 'الكاش وتحسين الأداء') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('php-performance-cache', 'ar', 'Caching & Performance Optimization') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('php-performance-cache', 'en', 'Caching & Performance Optimization') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('php-testing', 'php-testing', 'php') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('php-testing', 'ar', 'اختبار التطبيقات وضمان الجودة') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('php-testing', 'ar', 'Testing & Quality Assurance') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('php-testing', 'en', 'Testing & Quality Assurance') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('dotnet-csharp', 'dotnet-csharp', 'dotnet') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('dotnet-csharp', 'ar', 'أساسيات وميزات C# الحديثة') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('dotnet-csharp', 'ar', 'C# Fundamentals & Modern Language Features') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('dotnet-csharp', 'en', 'C# Fundamentals & Modern Language Features') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('dotnet-runtime', 'dotnet-runtime', 'dotnet') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('dotnet-runtime', 'ar', 'محرك تشغيل دوت نت وإدارة الذاكرة') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('dotnet-runtime', 'ar', '.NET Runtime, CLR & Memory Management') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('dotnet-runtime', 'en', '.NET Runtime, CLR & Memory Management') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('dotnet-aspnet', 'dotnet-aspnet', 'dotnet') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('dotnet-aspnet', 'ar', 'ASP.NET Core والـ Web APIs') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('dotnet-aspnet', 'ar', 'ASP.NET Core & Web APIs') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('dotnet-aspnet', 'en', 'ASP.NET Core & Web APIs') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('dotnet-di', 'dotnet-di', 'dotnet') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('dotnet-di', 'ar', 'حقن الاعتماديات وإعدادات التطبيق') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('dotnet-di', 'ar', 'Dependency Injection & Configuration') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('dotnet-di', 'en', 'Dependency Injection & Configuration') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('dotnet-efcore', 'dotnet-efcore', 'dotnet') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('dotnet-efcore', 'ar', 'Entity Framework Core والتعامل مع البيانات') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('dotnet-efcore', 'ar', 'Entity Framework Core & Data Access') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('dotnet-efcore', 'en', 'Entity Framework Core & Data Access') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('dotnet-async', 'dotnet-async', 'dotnet') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('dotnet-async', 'ar', 'البرمجة غير المتزامنة وتعدد المسارات') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('dotnet-async', 'ar', 'Asynchronous & Multithreaded Programming') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('dotnet-async', 'en', 'Asynchronous & Multithreaded Programming') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('dotnet-security', 'dotnet-security', 'dotnet') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('dotnet-security', 'ar', 'الأمان والتحقق والتشفير') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('dotnet-security', 'ar', 'Security, Identity & Authentication') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('dotnet-security', 'en', 'Security, Identity & Authentication') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('dotnet-perf', 'dotnet-perf', 'dotnet') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('dotnet-perf', 'ar', 'الأداء العالي وتقليل التخصيص') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('dotnet-perf', 'ar', 'High Performance & Low Allocation Coding') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('dotnet-perf', 'en', 'High Performance & Low Allocation Coding') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('dotnet-testing', 'dotnet-testing', 'dotnet') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('dotnet-testing', 'ar', 'اختبار الوحدات والتكامل') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('dotnet-testing', 'ar', 'Unit & Integration Testing') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('dotnet-testing', 'en', 'Unit & Integration Testing') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('dotnet-architecture', 'dotnet-architecture', 'dotnet') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('dotnet-architecture', 'ar', 'الهندسة النظيفة والـ Microservices') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('dotnet-architecture', 'ar', 'Clean Architecture & Microservices') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('dotnet-architecture', 'en', 'Clean Architecture & Microservices') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('react-core', 'react-core', 'react') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('react-core', 'ar', 'أساسيات ريأكت وشجرة Virtual DOM') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('react-core', 'ar', 'React Core & Virtual DOM') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('react-core', 'en', 'React Core & Virtual DOM') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('react-hooks', 'react-hooks', 'react') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('react-hooks', 'ar', 'أساسيات الـ Hooks') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('react-hooks', 'ar', 'Hooks Fundamentals') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('react-hooks', 'en', 'Hooks Fundamentals') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('react-hooks-advanced', 'react-hooks-advanced', 'react') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('react-hooks-advanced', 'ar', 'الـ Hooks المتقدمة والـ Custom Hooks') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('react-hooks-advanced', 'ar', 'Advanced Hooks & Custom Hooks') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('react-hooks-advanced', 'en', 'Advanced Hooks & Custom Hooks') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('react-state-management', 'react-state-management', 'react') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('react-state-management', 'ar', 'إدارة الحالة والـ Context') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('react-state-management', 'ar', 'State Management & Context') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('react-state-management', 'en', 'State Management & Context') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('react-routing-navigation', 'react-routing-navigation', 'react') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('react-routing-navigation', 'ar', 'التوجيه وتطبيقات الصفحة الواحدة') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('react-routing-navigation', 'ar', 'Routing & Single Page Apps') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('react-routing-navigation', 'en', 'Routing & Single Page Apps') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('react-performance', 'react-performance', 'react') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('react-performance', 'ar', 'تحسين الأداء والـ Profiler') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('react-performance', 'ar', 'Performance Optimization & Profiling') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('react-performance', 'en', 'Performance Optimization & Profiling') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('react-rendering-ssr', 'react-rendering-ssr', 'react') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('react-rendering-ssr', 'ar', 'أنماط التصيير والـ Server Components') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('react-rendering-ssr', 'ar', 'SSR, SSG & Server Components') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('react-rendering-ssr', 'en', 'SSR, SSG & Server Components') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('react-forms-validation', 'react-forms-validation', 'react') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('react-forms-validation', 'ar', 'النماذج والتحقق من المدخلات') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('react-forms-validation', 'ar', 'Forms & Data Handling') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('react-forms-validation', 'en', 'Forms & Data Handling') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('react-testing', 'react-testing', 'react') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('react-testing', 'ar', 'اختبار مكونات ريأكت') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('react-testing', 'ar', 'Testing React Components') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('react-testing', 'en', 'Testing React Components') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('react-architecture-patterns', 'react-architecture-patterns', 'react') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('react-architecture-patterns', 'ar', 'أنماط المعمارية والتصميم') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('react-architecture-patterns', 'ar', 'Architecture, Component Patterns & Best Practices') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('react-architecture-patterns', 'en', 'Architecture, Component Patterns & Best Practices') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('react-native-core', 'react-native-core', 'react-native') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('react-native-core', 'ar', 'معمارية ريأكت نيتف والمعمارية الجديدة') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('react-native-core', 'ar', 'React Native Architecture & Bridge / New Architecture') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('react-native-core', 'en', 'React Native Architecture & Bridge / New Architecture') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('react-native-components', 'react-native-components', 'react-native') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('react-native-components', 'ar', 'المكونات الأساسية والقوائم') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('react-native-components', 'ar', 'Core Components & Primitives') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('react-native-components', 'en', 'Core Components & Primitives') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('react-native-styling', 'react-native-styling', 'react-native') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('react-native-styling', 'ar', 'التنسيق وتخطيط الفليكس بوكس') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('react-native-styling', 'ar', 'Styling, Layout & Flexbox') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('react-native-styling', 'en', 'Styling, Layout & Flexbox') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('react-native-navigation', 'react-native-navigation', 'react-native') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('react-native-navigation', 'ar', 'التنقل وإدارة الشاشات') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('react-native-navigation', 'ar', 'React Navigation & Screen Stacks') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('react-native-navigation', 'en', 'React Navigation & Screen Stacks') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('react-native-state-storage', 'react-native-state-storage', 'react-native') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('react-native-state-storage', 'ar', 'إدارة الحالة والتخزين المحلي') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('react-native-state-storage', 'ar', 'State & Local Storage (AsyncStorage, MMKV)') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('react-native-state-storage', 'en', 'State & Local Storage (AsyncStorage, MMKV)') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('react-native-animations', 'react-native-animations', 'react-native') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('react-native-animations', 'ar', 'التحريك والإيماءات') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('react-native-animations', 'ar', 'Animations & Gestures (Reanimated & RNGH)') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('react-native-animations', 'en', 'Animations & Gestures (Reanimated & RNGH)') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('react-native-device-native', 'react-native-device-native', 'react-native') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('react-native-device-native', 'ar', 'الربط مع عتاد الهاتف والـ Native') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('react-native-device-native', 'ar', 'Native Modules & Hardware APIs') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('react-native-device-native', 'en', 'Native Modules & Hardware APIs') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('react-native-performance', 'react-native-performance', 'react-native') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('react-native-performance', 'ar', 'تحسين الأداء والذاكرة') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('react-native-performance', 'ar', 'Performance & Memory Optimization') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('react-native-performance', 'en', 'Performance & Memory Optimization') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('react-native-expo', 'react-native-expo', 'react-native') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('react-native-expo', 'ar', 'منظومة إكسبو وأدوات EAS') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('react-native-expo', 'ar', 'Expo Ecosystem & EAS') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('react-native-expo', 'en', 'Expo Ecosystem & EAS') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('react-native-deployment', 'react-native-deployment', 'react-native') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('react-native-deployment', 'ar', 'النشر ومتاجر التطبيقات وأتمتة البناء') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('react-native-deployment', 'ar', 'Release, App Stores & CI/CD') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('react-native-deployment', 'en', 'Release, App Stores & CI/CD') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('fund-oop', 'fund-oop', 'fundamentals') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('fund-oop', 'ar', 'البرمجة كائنية التوجه (OOP)') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('fund-oop', 'ar', 'Object-Oriented Programming (OOP)') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('fund-oop', 'en', 'Object-Oriented Programming (OOP)') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('fund-solid', 'fund-solid', 'fundamentals') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('fund-solid', 'ar', 'مبادئ سولد (SOLID)') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('fund-solid', 'ar', 'SOLID Principles') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('fund-solid', 'en', 'SOLID Principles') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('fund-patterns', 'fund-patterns', 'fundamentals') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('fund-patterns', 'ar', 'أنماط التصميم (Design Patterns)') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('fund-patterns', 'ar', 'Design Patterns') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('fund-patterns', 'en', 'Design Patterns') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('fund-clean-code', 'fund-clean-code', 'fundamentals') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('fund-clean-code', 'ar', 'الشفرة النظيفة وإعادة الهيكلة') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('fund-clean-code', 'ar', 'Clean Code & Refactoring') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('fund-clean-code', 'en', 'Clean Code & Refactoring') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('fund-data-structures', 'fund-data-structures', 'fundamentals') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('fund-data-structures', 'ar', 'هياكل البيانات (Data Structures)') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('fund-data-structures', 'ar', 'Data Structures') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('fund-data-structures', 'en', 'Data Structures') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('fund-algorithms', 'fund-algorithms', 'fundamentals') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('fund-algorithms', 'ar', 'الخوارزميات والتعقيد الحسابي') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('fund-algorithms', 'ar', 'Algorithms & Complexity') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('fund-algorithms', 'en', 'Algorithms & Complexity') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('fund-concurrency', 'fund-concurrency', 'fundamentals') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('fund-concurrency', 'ar', 'التزامن وتعدد الخيوط (Concurrency)') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('fund-concurrency', 'ar', 'Concurrency & Multi-threading') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('fund-concurrency', 'en', 'Concurrency & Multi-threading') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('fund-system-design', 'fund-system-design', 'fundamentals') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('fund-system-design', 'ar', 'تصميم الأنظمة والمعمارية الموزعة') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('fund-system-design', 'ar', 'System Design & Architecture') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('fund-system-design', 'en', 'System Design & Architecture') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('fund-networking', 'fund-networking', 'fundamentals') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('fund-networking', 'ar', 'شبكات الحاسوب والبروتوكولات') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('fund-networking', 'ar', 'Computer Networks & Protocols') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('fund-networking', 'en', 'Computer Networks & Protocols') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('fund-testing', 'fund-testing', 'fundamentals') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('fund-testing', 'ar', 'اختبار البرمجيات وضمان الجودة') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('fund-testing', 'ar', 'Software Testing & Quality') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('fund-testing', 'en', 'Software Testing & Quality') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('ux-research', 'ux-research', 'ui-ux') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('ux-research', 'ar', 'أبحاث المستخدم واختبارات قابلية الاستخدام') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('ux-research', 'ar', 'UX Research & Usability Testing') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('ux-research', 'en', 'UX Research & Usability Testing') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('ux-principles', 'ux-principles', 'ui-ux') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('ux-principles', 'ar', 'قوانين تجربة المستخدم وعلم النفس الإدراكي') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('ux-principles', 'ar', 'UX Laws & Cognitive Psychology') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('ux-principles', 'en', 'UX Laws & Cognitive Psychology') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('information-architecture', 'information-architecture', 'ui-ux') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('information-architecture', 'ar', 'هندسة المعلومات وبنية التنقل') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('information-architecture', 'ar', 'Information Architecture & Navigation') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('information-architecture', 'en', 'Information Architecture & Navigation') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('wireframing-prototyping', 'wireframing-prototyping', 'ui-ux') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('wireframing-prototyping', 'ar', 'المخططات السلكية والنماذج التفاعلية') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('wireframing-prototyping', 'ar', 'Wireframing & Interactive Prototyping') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('wireframing-prototyping', 'en', 'Wireframing & Interactive Prototyping') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('ui-design-systems', 'ui-design-systems', 'ui-ux') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('ui-design-systems', 'ar', 'أنظمة التصميم ورموز Design Tokens') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('ui-design-systems', 'ar', 'Design Systems & Design Tokens') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('ui-design-systems', 'en', 'Design Systems & Design Tokens') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('visual-design', 'visual-design', 'ui-ux') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('visual-design', 'ar', 'التصميم البصري والتسلسل الهرمي') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('visual-design', 'ar', 'Visual Design & Hierarchy') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('visual-design', 'en', 'Visual Design & Hierarchy') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('interaction-motion', 'interaction-motion', 'ui-ux') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('interaction-motion', 'ar', 'تصميم التفاعل والحركة الدقيقة') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('interaction-motion', 'ar', 'Interaction Design & Micro-motion') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('interaction-motion', 'en', 'Interaction Design & Micro-motion') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('accessibility-inclusive', 'accessibility-inclusive', 'ui-ux') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('accessibility-inclusive', 'ar', 'إمكانية الوصول والتصميم الشامل (a11y)') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('accessibility-inclusive', 'ar', 'Accessibility & Inclusive Design (a11y)') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('accessibility-inclusive', 'en', 'Accessibility & Inclusive Design (a11y)') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('product-metrics', 'product-metrics', 'ui-ux') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('product-metrics', 'ar', 'مقاييس تجربة المستخدم وأداء المنتج') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('product-metrics', 'ar', 'UX Metrics & Product Performance') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('product-metrics', 'en', 'UX Metrics & Product Performance') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topics (id, slug, track_id) values ('mobile-platform-guidelines', 'mobile-platform-guidelines', 'ui-ux') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
 
-insert into public.topic_locales (topic_id, locale, name) values ('mobile-platform-guidelines', 'ar', 'إرشادات منصات الجوال (HIG و Material)') on conflict (topic_id, locale) do update set name = excluded.name;
+insert into public.topic_locales (topic_id, locale, name) values ('mobile-platform-guidelines', 'ar', 'Mobile Platform Guidelines (HIG & Material)') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('mobile-platform-guidelines', 'en', 'Mobile Platform Guidelines (HIG & Material)') on conflict (topic_id, locale) do update set name = excluded.name;
 

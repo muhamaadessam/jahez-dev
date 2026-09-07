@@ -118,7 +118,7 @@ export function HomeHub({ locale = "ar" }: { locale?: Locale }) {
           >
             <div className="meta">
               {getQuestionTopics(activeTrackQuestion).map((topic) => (
-                <span className="chip" key={topic.id}>
+                <span className="chip" key={topic.id} dir="ltr">
                   {topicName(locale, topic.id)}
                 </span>
               ))}
