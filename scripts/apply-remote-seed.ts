@@ -47,8 +47,9 @@ function revisionSql(question: InterviewQuestion): string {
   ].join("\n");
 }
 
-function followUpRelationsSql(): string[] {
-  return questions.flatMap((question) => (staticFollowUpTargets[question.id] ?? []).flatMap((targetId, index) => {
+function followUpRelationsSql(targetTrack?: string): string[] {
+  const pool = targetTrack ? questions.filter((q) => q.trackId === targetTrack) : questions;
+  return pool.flatMap((question) => (staticFollowUpTargets[question.id] ?? []).flatMap((targetId, index) => {
     const target = questions.find((candidate) => candidate.id === targetId);
     if (!target || target.trackId !== question.trackId) throw new Error(`Invalid follow-up target ${question.id} -> ${targetId}`);
     return `insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, ${sql(target.id)}, ${index + 1} from public.question_revisions source join public.interview_questions target on target.id = ${sql(target.id)} where source.question_id = ${sql(question.id)} and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;`;
@@ -72,7 +73,9 @@ function executeChunk(name: string, sqlStatements: string[]) {
 }
 
 async function main() {
-  console.log(`Starting remote database seeding for ${tracks.length} tracks and ${questions.length} questions...`);
+  const targetTrack = process.argv[2];
+  const targetQuestions = targetTrack ? questions.filter((q) => q.trackId === targetTrack) : questions;
+  console.log(`Starting remote database seeding for ${tracks.length} tracks and ${targetQuestions.length} questions (targetTrack: ${targetTrack ?? "all"})...`);
 
   // 1. Tracks and Topics
   const trackStatements = tracks.flatMap((track) => [
@@ -89,16 +92,16 @@ async function main() {
 
   // 2. Questions in chunks of 25 questions
   const BATCH_SIZE = 25;
-  for (let i = 0; i < questions.length; i += BATCH_SIZE) {
-    const batch = questions.slice(i, i + BATCH_SIZE);
+  for (let i = 0; i < targetQuestions.length; i += BATCH_SIZE) {
+    const batch = targetQuestions.slice(i, i + BATCH_SIZE);
     const batchStatements = batch.map(revisionSql);
     const startNum = i + 1;
-    const endNum = Math.min(i + BATCH_SIZE, questions.length);
-    executeChunk(`Questions ${startNum}-${endNum} of ${questions.length}`, batchStatements);
+    const endNum = Math.min(i + BATCH_SIZE, targetQuestions.length);
+    executeChunk(`Questions ${startNum}-${endNum} of ${targetQuestions.length}`, batchStatements);
   }
 
   // 3. Follow-up relations
-  const followUps = followUpRelationsSql();
+  const followUps = followUpRelationsSql(targetTrack);
   if (followUps.length > 0) {
     executeChunk("Follow-up relations", followUps);
   }
