@@ -30,24 +30,24 @@ async function mockQuestionApi(page: Page, options: { failFirst?: boolean } = {}
 test.describe("database-only question route", () => {
   test("loads a deep link, switches locale while preserving the slug, and renders noindex metadata", async ({ page }) => {
     await mockQuestionApi(page);
-    await page.goto("/ar/questions/view/?slug=dynamic-question");
+    await page.goto("/ar/questions/view?slug=dynamic-question");
     await expect(page.getByRole("heading", { name: "ما هو السؤال الديناميكي؟" })).toBeVisible();
     await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
     await page.getByRole("link", { name: "English" }).click();
-    await expect(page).toHaveURL(/\/en\/questions\/view\/\?slug=dynamic-question/);
+    await expect(page).toHaveURL(/\/en\/questions\/view\?slug=dynamic-question/);
     await expect(page.getByRole("heading", { name: "What is a dynamic question?" })).toBeVisible();
     await expect(page.locator("html")).toHaveAttribute("dir", "ltr");
   });
 
   test("shows an explicit not-found state for a missing slug", async ({ page }) => {
     await mockQuestionApi(page);
-    await page.goto("/ar/questions/view/?slug=missing");
+    await page.goto("/ar/questions/view?slug=missing");
     await expect(page.getByRole("heading", { name: "السؤال غير موجود" })).toBeVisible();
   });
 
   test("shows a retryable connection error", async ({ page }) => {
     const recover = await mockQuestionApi(page, { failFirst: true });
-    await page.goto("/en/questions/view/?slug=dynamic-question");
+    await page.goto("/en/questions/view?slug=dynamic-question");
     await expect(page.getByRole("heading", { name: "Could not load the question" })).toBeVisible();
     recover();
     await page.getByRole("button", { name: "Retry" }).click();

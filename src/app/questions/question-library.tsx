@@ -67,7 +67,8 @@ function QuestionLibraryContent({ questions, topics, locale = "ar", auth, clerkE
     setFilters(next);
     const params = new URLSearchParams(toSearchParams(next));
     if (activeTrack) params.set("track", activeTrack.slug);
-    window.history.replaceState(null, "", `${window.location.pathname}${params.size ? `?${params}` : ""}`);
+    const cleanPathname = window.location.pathname.replace(/\/+$/, "") || "/";
+    window.history.replaceState(null, "", `${cleanPathname}${params.size ? `?${params}` : ""}`);
     window.dispatchEvent(new Event("urlchange"));
   }
 

@@ -20,16 +20,16 @@ test.describe("Discovery, study session, and progress journey", () => {
     await page.click("text=عرض الأسئلة");
 
     // 2. Library Discovery & Filters
-    await expect(page).toHaveURL(/\/ar\/questions\/\?topic=dart/);
+    await expect(page).toHaveURL(/\/ar\/questions\?topic=dart/);
     const searchInput = page.getByLabel("ابحث في الأسئلة");
     await searchInput.fill("final");
 
     // Search and Topic reflected in URL, omitting personal progress / favorites
-    await expect(page).toHaveURL(/\/questions\/\?search=final&topic=dart/);
+    await expect(page).toHaveURL(/\/questions\?search=final&topic=dart/);
 
     // Select Difficulty Level
     await page.getByLabel("مستوى الصعوبة").selectOption("Junior");
-    await expect(page).toHaveURL(/\/questions\/\?search=final&topic=dart&difficulty=Junior/);
+    await expect(page).toHaveURL(/\/questions\?search=final&topic=dart&difficulty=Junior/);
 
     // Verify session button is available when topic & difficulty are set
     const sessionLink = page.getByRole("link", { name: "ابدأ جلسة المراجعة" });
@@ -37,7 +37,7 @@ test.describe("Discovery, study session, and progress journey", () => {
 
     // 3. Question Details & Answer Reveal
     await page.click("text=ما الفرق بين final و const في Dart؟");
-    await expect(page).toHaveURL(/\/questions\/final-vs-const-in-dart\//);
+    await expect(page).toHaveURL(/\/questions\/final-vs-const-in-dart/);
 
     // Answer hidden initially
     const revealButton = page.getByRole("button", { name: "اكشف الإجابة" });
@@ -67,7 +67,7 @@ test.describe("Discovery, study session, and progress journey", () => {
 
     // 5. Core Navigation Journey: Back to library & Study Session navigation
     await page.click("text=← مكتبة الأسئلة");
-    await expect(page).toHaveURL(/\/questions\//);
+    await expect(page).toHaveURL(/\/questions/);
 
     // Navigate to Study Session
     await page.goto("/session?topic=dart&difficulty=Junior");
@@ -97,26 +97,26 @@ test.describe("Discovery, study session, and progress journey", () => {
     await page.goto("/interview");
     await expect(page.getByRole("heading", { name: "ابنِ انترفيو شامل" })).toBeVisible();
     await page.getByRole("checkbox", { name: "Dart" }).check();
-    await page.getByRole("checkbox", { name: "OOP" }).check();
+    await page.getByRole("checkbox", { name: "Widgets" }).check();
     await page.getByLabel("مستوى المقابلة").selectOption("Senior");
-    await expect(page).toHaveURL(/topics=dart(?:%2C|,)oop&difficulty=Senior/);
+    await expect(page).toHaveURL(/topics=dart(?:%2C|,)widgets&difficulty=Senior/);
     await expect(page.getByText(/سؤال 1 من \d+/)).toBeVisible();
     await expect(page.getByRole("heading", { level: 2 })).toHaveText("ما الفرق بين final و const في Dart؟");
   });
 
   test("serves the English locale with LTR metadata and preserves study state", async ({ page }) => {
-    await page.goto("/en/");
+    await page.goto("/en");
     await expect(page.locator("html")).toHaveAttribute("lang", "en");
     await expect(page.locator("html")).toHaveAttribute("dir", "ltr");
     await expect(page.getByRole("heading", { name: "Walk into the interview with your answers organized." })).toBeVisible();
     await page.getByRole("link", { name: "Question Library" }).click();
-    await expect(page).toHaveURL(/\/en\/questions\/\?track=flutter$/);
+    await expect(page).toHaveURL(/\/en\/questions\?track=flutter$/);
     await expect(page.getByLabel("Search questions")).toBeVisible();
     await page.getByText("What should a Flutter developer know about Final Vs Const In Dart?").click();
-    await expect(page).toHaveURL(/\/en\/questions\/final-vs-const-in-dart\/\?track=flutter$/);
+    await expect(page).toHaveURL(/\/en\/questions\/final-vs-const-in-dart\?track=flutter$/);
     await expect(page.getByRole("heading", { name: "What should a Flutter developer know about Final Vs Const In Dart?" })).toBeVisible();
     await page.getByRole("link", { name: "العربية" }).click();
-    await expect(page).toHaveURL(/\/ar\/questions\/final-vs-const-in-dart\/\?track=flutter$/);
+    await expect(page).toHaveURL(/\/ar\/questions\/final-vs-const-in-dart\?track=flutter$/);
     await expect(page.locator("html")).toHaveAttribute("dir", "rtl");
   });
 });
