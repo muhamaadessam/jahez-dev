@@ -95,7 +95,7 @@ export function FullInterview({ questions, topics, locale = "ar" }: { questions:
           <legend>{copy.chooseTopics} <span className="topic-count">{selection.topicValues.length} {copy.selected}</span></legend>
           <div className="topic-options">
             {scoped.topics.map((topic) => (
-              <label key={topic.id}>
+              <label key={topic.id} className="checkbox-item" dir="ltr">
                 <input
                   type="checkbox"
                   checked={selection.topicValues.includes(topic.slug) || selection.topicValues.includes(topic.id)}
@@ -121,7 +121,7 @@ export function FullInterview({ questions, topics, locale = "ar" }: { questions:
           <div className="session-progress" aria-live="polite">{copy.question} {currentIndex + 1} {copy.of} {sessionQuestions.length}</div>
           <article className="question-body session-question">
             <div className="meta">
-              {scoped.topics.filter((topic) => question.topicIds.includes(topic.id) && selection.topicValues.includes(topic.slug)).map((topic) => <span className="chip" key={topic.id}>{topicName(locale, topic.id)}</span>)}
+              {scoped.topics.filter((topic) => question.topicIds.includes(topic.id) && selection.topicValues.includes(topic.slug)).map((topic) => <span className="chip" key={topic.id} dir="ltr">{topicName(locale, topic.id)}</span>)}
               <span className="chip">{question.difficulty}</span>
             </div>
             <h2>{getQuestionTranslation(question, locale).question}</h2>

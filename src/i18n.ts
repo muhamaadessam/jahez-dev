@@ -58,7 +58,7 @@ export function localeDirection(locale: Locale): "rtl" | "ltr" {
 }
 
 export function topicName(locale: Locale, topicId: string): string {
-  return topicTranslations[locale][topicId] ?? topicId;
+  return topicTranslations.en[topicId] ?? topicTranslations[locale]?.[topicId] ?? topicId;
 }
 
 function localeWithLatinDigits(locale: Locale): string {

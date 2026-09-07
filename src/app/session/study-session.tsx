@@ -73,7 +73,7 @@ export function StudySession({ questions, topics, locale = "ar" }: { questions: 
           {copy.topic}
           <select value={selection.topic} onChange={(event) => updateSelection({ topic: event.target.value })}>
             <option value="">{copy.chooseTopic}</option>
-            {scoped.topics.map((topic) => <option key={topic.id} value={topic.slug}>{topicName(locale, topic.id)}</option>)}
+            {scoped.topics.map((topic) => <option key={topic.id} value={topic.slug} dir="ltr">{topicName(locale, topic.id)}</option>)}
           </select>
         </label>
         <label>

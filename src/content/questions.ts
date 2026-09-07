@@ -86,7 +86,7 @@ export const topics: Topic[] = [
   { id: "testing", slug: "testing", trackId: "flutter", name: "Testing" },
   { id: "performance", slug: "performance", trackId: "flutter", name: "Performance" },
   { id: "async-isolates", slug: "async-isolates", trackId: "flutter", name: "Async & Isolates" },
-  { id: "flutter-animations", slug: "flutter-animations", trackId: "flutter", name: "Animations & Motion" },
+  { id: "flutter-animations", slug: "flutter-animations", trackId: "flutter", name: "Animations, Motion & Custom Painters" },
   { id: "flutter-internals", slug: "flutter-internals", trackId: "flutter", name: "RenderObjects & Internals" },
   { id: "kotlin", slug: "kotlin", trackId: "android-native", name: "Kotlin Fundamentals" },
   { id: "android-fundamentals", slug: "android-fundamentals", trackId: "android-native", name: "Android Fundamentals" },
@@ -176,16 +176,16 @@ export const topics: Topic[] = [
   { id: "fund-testing", slug: "fund-testing", trackId: "fundamentals", name: "Software Testing & Quality" },
 
   // UI / UX Design Topics
-  { id: "ux-research", slug: "ux-research", trackId: "ui-ux", name: "UX Research & Testing" },
-  { id: "ux-principles", slug: "ux-principles", trackId: "ui-ux", name: "UX Laws & Psychology" },
-  { id: "information-architecture", slug: "information-architecture", trackId: "ui-ux", name: "Information Architecture" },
-  { id: "wireframing-prototyping", slug: "wireframing-prototyping", trackId: "ui-ux", name: "Wireframing & Prototyping" },
-  { id: "ui-design-systems", slug: "ui-design-systems", trackId: "ui-ux", name: "Design Systems" },
+  { id: "ux-research", slug: "ux-research", trackId: "ui-ux", name: "UX Research & Usability Testing" },
+  { id: "ux-principles", slug: "ux-principles", trackId: "ui-ux", name: "UX Laws & Cognitive Psychology" },
+  { id: "information-architecture", slug: "information-architecture", trackId: "ui-ux", name: "Information Architecture & Navigation" },
+  { id: "wireframing-prototyping", slug: "wireframing-prototyping", trackId: "ui-ux", name: "Wireframing & Interactive Prototyping" },
+  { id: "ui-design-systems", slug: "ui-design-systems", trackId: "ui-ux", name: "Design Systems & Design Tokens" },
   { id: "visual-design", slug: "visual-design", trackId: "ui-ux", name: "Visual Design & Hierarchy" },
-  { id: "interaction-motion", slug: "interaction-motion", trackId: "ui-ux", name: "Interaction & Motion" },
-  { id: "accessibility-inclusive", slug: "accessibility-inclusive", trackId: "ui-ux", name: "Accessibility & Inclusive Design" },
-  { id: "product-metrics", slug: "product-metrics", trackId: "ui-ux", name: "Product & UX Metrics" },
-  { id: "mobile-platform-guidelines", slug: "mobile-platform-guidelines", trackId: "ui-ux", name: "Mobile & Platform Guidelines" },
+  { id: "interaction-motion", slug: "interaction-motion", trackId: "ui-ux", name: "Interaction Design & Micro-motion" },
+  { id: "accessibility-inclusive", slug: "accessibility-inclusive", trackId: "ui-ux", name: "Accessibility & Inclusive Design (a11y)" },
+  { id: "product-metrics", slug: "product-metrics", trackId: "ui-ux", name: "UX Metrics & Product Performance" },
+  { id: "mobile-platform-guidelines", slug: "mobile-platform-guidelines", trackId: "ui-ux", name: "Mobile Platform Guidelines (HIG & Material)" },
 ];
 
 const baseQuestions: Omit<InterviewQuestion, "translations">[] = [
@@ -1661,201 +1661,107 @@ export const questions: InterviewQuestion[] = [
   },
 }));
 
+const englishTopicTranslations: Record<string, string> = {
+  dart: "Dart", oop: "OOP", solid: "SOLID", "flutter-fundamentals": "Flutter Fundamentals", widgets: "Widgets",
+  "state-management": "State Management", navigation: "Navigation", networking: "Networking", realtime: "Realtime & WebSockets", "local-storage": "Local Storage",
+  "platform-integration": "Platform Integration", architecture: "Architecture", testing: "Testing", performance: "Performance", "async-isolates": "Async & Isolates",
+  kotlin: "Kotlin Fundamentals", "android-fundamentals": "Android Fundamentals", "android-ui": "UI & Layouts", "jetpack-compose": "Jetpack Compose",
+  "architecture-components": "Architecture Components", "coroutines-concurrency": "Coroutines & Concurrency", "dependency-injection": "Dependency Injection",
+  "networking-android": "Networking", "local-storage-android": "Local Storage", "background-processing": "Background Processing",
+  "performance-memory": "Performance & Memory", "security-android": "Security & Obfuscation", "testing-android": "Testing", "build-gradle": "Build & Gradle",
+
+  // Node.js
+  "node-core": "Node.js Core & Event Loop",
+  "node-async": "Async Programming & Timers",
+  "node-streams": "Buffers & Streams",
+  "node-modules": "Modules, ESM & Package Management",
+  "node-web": "HTTP, Fastify & Web Frameworks",
+  "node-database": "Databases, ORMs & Transactions",
+  "node-security": "Security & Best Practices",
+  "node-perf": "Performance & Memory Profiling",
+  "node-testing": "Testing & Quality Assurance",
+  "node-arch": "Microservices & Distributed Systems",
+
+  // PHP & Laravel
+  "php-core": "PHP Core Fundamentals",
+  "php-oop": "OOP & Design Patterns in PHP",
+  "php-modern": "Modern PHP 8.x Features",
+  "php-laravel-core": "Laravel Core Architecture & Lifecycle",
+  "php-eloquent": "Eloquent ORM & Database Design",
+  "php-rest-api": "RESTful APIs & Authentication",
+  "php-security": "Security, OWASP & Hardening",
+  "php-queues": "Queues, Jobs & Background Workers",
+  "php-performance-cache": "Caching & Performance Optimization",
+  "php-testing": "Testing & Quality Assurance",
+
+  // .NET
+  "dotnet-csharp": "C# Fundamentals & Modern Language Features",
+  "dotnet-runtime": ".NET Runtime, CLR & Memory Management",
+  "dotnet-aspnet": "ASP.NET Core & Web APIs",
+  "dotnet-di": "Dependency Injection & Configuration",
+  "dotnet-efcore": "Entity Framework Core & Data Access",
+  "dotnet-async": "Asynchronous & Multithreaded Programming",
+  "dotnet-security": "Security, Identity & Authentication",
+  "dotnet-perf": "High Performance & Low Allocation Coding",
+  "dotnet-testing": "Unit & Integration Testing",
+  "dotnet-architecture": "Clean Architecture & Microservices",
+
+  // React
+  "react-core": "React Core & Virtual DOM",
+  "react-hooks": "Hooks Fundamentals",
+  "react-hooks-advanced": "Advanced Hooks & Custom Hooks",
+  "react-state-management": "State Management & Context",
+  "react-routing-navigation": "Routing & Single Page Apps",
+  "react-performance": "Performance Optimization & Profiling",
+  "react-rendering-ssr": "SSR, SSG & Server Components",
+  "react-forms-validation": "Forms & Data Handling",
+  "react-testing": "Testing React Components",
+  "react-architecture-patterns": "Architecture, Component Patterns & Best Practices",
+
+  // React Native
+  "react-native-core": "React Native Architecture & Bridge / New Architecture",
+  "react-native-components": "Core Components & Primitives",
+  "react-native-styling": "Styling, Layout & Flexbox",
+  "react-native-navigation": "React Navigation & Screen Stacks",
+  "react-native-state-storage": "State & Local Storage (AsyncStorage, MMKV)",
+  "react-native-animations": "Animations & Gestures (Reanimated & RNGH)",
+  "react-native-device-native": "Native Modules & Hardware APIs",
+  "react-native-performance": "Performance & Memory Optimization",
+  "react-native-expo": "Expo Ecosystem & EAS",
+  "react-native-deployment": "Release, App Stores & CI/CD",
+
+  // Flutter Expansion
+  "flutter-animations": "Animations, Motion & Custom Painters",
+  "flutter-internals": "RenderObjects & Internals",
+
+  // Software Fundamentals
+  "fund-oop": "Object-Oriented Programming (OOP)",
+  "fund-solid": "SOLID Principles",
+  "fund-patterns": "Design Patterns",
+  "fund-clean-code": "Clean Code & Refactoring",
+  "fund-data-structures": "Data Structures",
+  "fund-algorithms": "Algorithms & Complexity",
+  "fund-concurrency": "Concurrency & Multi-threading",
+  "fund-system-design": "System Design & Architecture",
+  "fund-networking": "Computer Networks & Protocols",
+  "fund-testing": "Software Testing & Quality",
+
+  // UI / UX Design
+  "ux-research": "UX Research & Usability Testing",
+  "ux-principles": "UX Laws & Cognitive Psychology",
+  "information-architecture": "Information Architecture & Navigation",
+  "wireframing-prototyping": "Wireframing & Interactive Prototyping",
+  "ui-design-systems": "Design Systems & Design Tokens",
+  "visual-design": "Visual Design & Hierarchy",
+  "interaction-motion": "Interaction Design & Micro-motion",
+  "accessibility-inclusive": "Accessibility & Inclusive Design (a11y)",
+  "product-metrics": "UX Metrics & Product Performance",
+  "mobile-platform-guidelines": "Mobile Platform Guidelines (HIG & Material)",
+};
+
 export const topicTranslations: Record<Locale, Record<string, string>> = {
-  ar: {
-    dart: "Dart", oop: "OOP", solid: "SOLID", "flutter-fundamentals": "Flutter Fundamentals", widgets: "Widgets",
-    "state-management": "State Management", navigation: "Navigation", networking: "Networking", realtime: "Realtime & WebSockets", "local-storage": "Local Storage",
-    "platform-integration": "Platform Integration", architecture: "Architecture", testing: "Testing", performance: "Performance", "async-isolates": "Async & Isolates",
-    kotlin: "Kotlin Fundamentals", "android-fundamentals": "Android Fundamentals", "android-ui": "UI & Layouts", "jetpack-compose": "Jetpack Compose",
-    "architecture-components": "Architecture Components", "coroutines-concurrency": "Coroutines & Concurrency", "dependency-injection": "Dependency Injection",
-    "networking-android": "Networking", "local-storage-android": "Local Storage", "background-processing": "Background Processing",
-    "performance-memory": "Performance & Memory", "security-android": "Security & Obfuscation", "testing-android": "Testing", "build-gradle": "Build & Gradle",
-
-    // Node.js
-    "node-core": "أساسيات نود والـ Event Loop",
-    "node-async": "البرمجة غير المتزامنة والمؤقتات",
-    "node-streams": "الـ Streams والـ Buffers",
-    "node-modules": "نظام الحزم والموديولات",
-    "node-web": "خوادم الويب وأطر العمل",
-    "node-database": "قواعد البيانات والـ ORMs",
-    "node-security": "أمان وحماية تطبيقات نود",
-    "node-perf": "تحسين الأداء وإدارة الذاكرة",
-    "node-testing": "اختبار تطبيقات نود وجودتها",
-    "node-arch": "المعمارية والأنظمة الموزعة",
-
-    // PHP & Laravel
-    "php-core": "أساسيات لغة PHP ونظام الأنواع",
-    "php-oop": "البرمجة كائنية التوجه وأنماط التصميم",
-    "php-modern": "ميزات PHP الحديثة",
-    "php-laravel-core": "معمارية ودورة حياة لارافيل",
-    "php-eloquent": "Eloquent ORM وقواعد البيانات",
-    "php-rest-api": "بناء الـ APIs والمصادقة",
-    "php-security": "حماية وأمان تطبيقات الويب",
-    "php-queues": "طوابير العمليات والمهام الخلفية",
-    "php-performance-cache": "الكاش وتحسين الأداء",
-    "php-testing": "اختبار التطبيقات وضمان الجودة",
-
-    // .NET
-    "dotnet-csharp": "أساسيات وميزات C# الحديثة",
-    "dotnet-runtime": "محرك تشغيل دوت نت وإدارة الذاكرة",
-    "dotnet-aspnet": "ASP.NET Core والـ Web APIs",
-    "dotnet-di": "حقن الاعتماديات وإعدادات التطبيق",
-    "dotnet-efcore": "Entity Framework Core والتعامل مع البيانات",
-    "dotnet-async": "البرمجة غير المتزامنة وتعدد المسارات",
-    "dotnet-security": "الأمان والتحقق والتشفير",
-    "dotnet-perf": "الأداء العالي وتقليل التخصيص",
-    "dotnet-testing": "اختبار الوحدات والتكامل",
-    "dotnet-architecture": "الهندسة النظيفة والـ Microservices",
-
-    // React
-    "react-core": "أساسيات ريأكت وشجرة Virtual DOM",
-    "react-hooks": "أساسيات الـ Hooks",
-    "react-hooks-advanced": "الـ Hooks المتقدمة والـ Custom Hooks",
-    "react-state-management": "إدارة الحالة والـ Context",
-    "react-routing-navigation": "التوجيه وتطبيقات الصفحة الواحدة",
-    "react-performance": "تحسين الأداء والـ Profiler",
-    "react-rendering-ssr": "أنماط التصيير والـ Server Components",
-    "react-forms-validation": "النماذج والتحقق من المدخلات",
-    "react-testing": "اختبار مكونات ريأكت",
-    "react-architecture-patterns": "أنماط المعمارية والتصميم",
-
-    // React Native
-    "react-native-core": "معمارية ريأكت نيتف والمعمارية الجديدة",
-    "react-native-components": "المكونات الأساسية والقوائم",
-    "react-native-styling": "التنسيق وتخطيط الفليكس بوكس",
-    "react-native-navigation": "التنقل وإدارة الشاشات",
-    "react-native-state-storage": "إدارة الحالة والتخزين المحلي",
-    "react-native-animations": "التحريك والإيماءات",
-    "react-native-device-native": "الربط مع عتاد الهاتف والـ Native",
-    "react-native-performance": "تحسين الأداء والذاكرة",
-    "react-native-expo": "منظومة إكسبو وأدوات EAS",
-    "react-native-deployment": "النشر ومتاجر التطبيقات وأتمتة البناء",
-
-    // Flutter Expansion
-    "flutter-animations": "الرسوميات والحركة والـ CustomPainter",
-    "flutter-internals": "المعمارية الداخلية ومحرك الرندر",
-
-    // Software Fundamentals
-    "fund-oop": "البرمجة كائنية التوجه (OOP)",
-    "fund-solid": "مبادئ سولد (SOLID)",
-    "fund-patterns": "أنماط التصميم (Design Patterns)",
-    "fund-clean-code": "الشفرة النظيفة وإعادة الهيكلة",
-    "fund-data-structures": "هياكل البيانات (Data Structures)",
-    "fund-algorithms": "الخوارزميات والتعقيد الحسابي",
-    "fund-concurrency": "التزامن وتعدد الخيوط (Concurrency)",
-    "fund-system-design": "تصميم الأنظمة والمعمارية الموزعة",
-    "fund-networking": "شبكات الحاسوب والبروتوكولات",
-    "fund-testing": "اختبار البرمجيات وضمان الجودة",
-
-    // UI / UX Design
-    "ux-research": "أبحاث المستخدم واختبارات قابلية الاستخدام",
-    "ux-principles": "قوانين تجربة المستخدم وعلم النفس الإدراكي",
-    "information-architecture": "هندسة المعلومات وبنية التنقل",
-    "wireframing-prototyping": "المخططات السلكية والنماذج التفاعلية",
-    "ui-design-systems": "أنظمة التصميم ورموز Design Tokens",
-    "visual-design": "التصميم البصري والتسلسل الهرمي",
-    "interaction-motion": "تصميم التفاعل والحركة الدقيقة",
-    "accessibility-inclusive": "إمكانية الوصول والتصميم الشامل (a11y)",
-    "product-metrics": "مقاييس تجربة المستخدم وأداء المنتج",
-    "mobile-platform-guidelines": "إرشادات منصات الجوال (HIG و Material)",
-  },
-  en: {
-    dart: "Dart", oop: "OOP", solid: "SOLID", "flutter-fundamentals": "Flutter Fundamentals", widgets: "Widgets",
-    "state-management": "State Management", navigation: "Navigation", networking: "Networking", realtime: "Realtime & WebSockets", "local-storage": "Local Storage",
-    "platform-integration": "Platform Integration", architecture: "Architecture", testing: "Testing", performance: "Performance", "async-isolates": "Async & Isolates",
-    kotlin: "Kotlin Fundamentals", "android-fundamentals": "Android Fundamentals", "android-ui": "UI & Layouts", "jetpack-compose": "Jetpack Compose",
-    "architecture-components": "Architecture Components", "coroutines-concurrency": "Coroutines & Concurrency", "dependency-injection": "Dependency Injection",
-    "networking-android": "Networking", "local-storage-android": "Local Storage", "background-processing": "Background Processing",
-    "performance-memory": "Performance & Memory", "security-android": "Security & Obfuscation", "testing-android": "Testing", "build-gradle": "Build & Gradle",
-
-    // Node.js
-    "node-core": "Node.js Core & Event Loop",
-    "node-async": "Async Programming & Timers",
-    "node-streams": "Buffers & Streams",
-    "node-modules": "Modules, ESM & Package Management",
-    "node-web": "HTTP, Fastify & Web Frameworks",
-    "node-database": "Databases, ORMs & Transactions",
-    "node-security": "Security & Best Practices",
-    "node-perf": "Performance & Memory Profiling",
-    "node-testing": "Testing & Quality Assurance",
-    "node-arch": "Microservices & Distributed Systems",
-
-    // PHP & Laravel
-    "php-core": "PHP Core Fundamentals",
-    "php-oop": "OOP & Design Patterns in PHP",
-    "php-modern": "Modern PHP 8.x Features",
-    "php-laravel-core": "Laravel Core Architecture & Lifecycle",
-    "php-eloquent": "Eloquent ORM & Database Design",
-    "php-rest-api": "RESTful APIs & Authentication",
-    "php-security": "Security, OWASP & Hardening",
-    "php-queues": "Queues, Jobs & Background Workers",
-    "php-performance-cache": "Caching & Performance Optimization",
-    "php-testing": "Testing & Quality Assurance",
-
-    // .NET
-    "dotnet-csharp": "C# Fundamentals & Modern Language Features",
-    "dotnet-runtime": ".NET Runtime, CLR & Memory Management",
-    "dotnet-aspnet": "ASP.NET Core & Web APIs",
-    "dotnet-di": "Dependency Injection & Configuration",
-    "dotnet-efcore": "Entity Framework Core & Data Access",
-    "dotnet-async": "Asynchronous & Multithreaded Programming",
-    "dotnet-security": "Security, Identity & Authentication",
-    "dotnet-perf": "High Performance & Low Allocation Coding",
-    "dotnet-testing": "Unit & Integration Testing",
-    "dotnet-architecture": "Clean Architecture & Microservices",
-
-    // React
-    "react-core": "React Core & Virtual DOM",
-    "react-hooks": "Hooks Fundamentals",
-    "react-hooks-advanced": "Advanced Hooks & Custom Hooks",
-    "react-state-management": "State Management & Context",
-    "react-routing-navigation": "Routing & Single Page Apps",
-    "react-performance": "Performance Optimization & Profiling",
-    "react-rendering-ssr": "SSR, SSG & Server Components",
-    "react-forms-validation": "Forms & Data Handling",
-    "react-testing": "Testing React Components",
-    "react-architecture-patterns": "Architecture, Component Patterns & Best Practices",
-
-    // React Native
-    "react-native-core": "React Native Architecture & Bridge / New Architecture",
-    "react-native-components": "Core Components & Primitives",
-    "react-native-styling": "Styling, Layout & Flexbox",
-    "react-native-navigation": "React Navigation & Screen Stacks",
-    "react-native-state-storage": "State & Local Storage (AsyncStorage, MMKV)",
-    "react-native-animations": "Animations & Gestures (Reanimated & RNGH)",
-    "react-native-device-native": "Native Modules & Hardware APIs",
-    "react-native-performance": "Performance & Memory Optimization",
-    "react-native-expo": "Expo Ecosystem & EAS",
-    "react-native-deployment": "Release, App Stores & CI/CD",
-
-    // Flutter Expansion
-    "flutter-animations": "Animations, Motion & Custom Painters",
-    "flutter-internals": "RenderObjects & Internals",
-
-    // Software Fundamentals
-    "fund-oop": "Object-Oriented Programming (OOP)",
-    "fund-solid": "SOLID Principles",
-    "fund-patterns": "Design Patterns",
-    "fund-clean-code": "Clean Code & Refactoring",
-    "fund-data-structures": "Data Structures",
-    "fund-algorithms": "Algorithms & Complexity",
-    "fund-concurrency": "Concurrency & Multi-threading",
-    "fund-system-design": "System Design & Architecture",
-    "fund-networking": "Computer Networks & Protocols",
-    "fund-testing": "Software Testing & Quality",
-
-    // UI / UX Design
-    "ux-research": "UX Research & Usability Testing",
-    "ux-principles": "UX Laws & Cognitive Psychology",
-    "information-architecture": "Information Architecture & Navigation",
-    "wireframing-prototyping": "Wireframing & Interactive Prototyping",
-    "ui-design-systems": "Design Systems & Design Tokens",
-    "visual-design": "Visual Design & Hierarchy",
-    "interaction-motion": "Interaction Design & Micro-motion",
-    "accessibility-inclusive": "Accessibility & Inclusive Design (a11y)",
-    "product-metrics": "UX Metrics & Product Performance",
-    "mobile-platform-guidelines": "Mobile Platform Guidelines (HIG & Material)",
-  },
+  ar: englishTopicTranslations,
+  en: englishTopicTranslations,
 };
 
 export function getQuestionTranslation(question: InterviewQuestion, locale: Locale): QuestionTranslation {
