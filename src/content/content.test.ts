@@ -50,9 +50,9 @@ test("every question has complete Arabic and English translations", () => {
   }
 });
 
-test("production validation enforces the 106-question topic distribution", () => {
+test("production validation enforces the 206-question topic distribution", () => {
   assert.doesNotThrow(() => validateProductionCatalogue());
-  assert.throws(() => validateProductionCatalogue(questions.slice(0, -1)), /exactly 106 questions/);
+  assert.throws(() => validateProductionCatalogue(questions.slice(0, -1)), /exactly 206 questions/);
   const wrongDistribution = questions.map((question, index) => index === 0 ? { ...question, topicIds: ["oop"] } : question);
   assert.throws(() => validateProductionCatalogue(wrongDistribution), /Topic dart must contain exactly 12/);
   assert.throws(() => validateProductionCatalogue(questions.map((question, index) => index === 0 ? { ...question, difficulty: "Expert" as never } : question)), /invalid difficulty/);
@@ -252,7 +252,21 @@ test("the catalogue keeps official HTTPS sources and real review dates", () => {
     for (const source of question.sources) {
       const url = new URL(source.url);
       assert.equal(url.protocol, "https:");
-      assert.ok(["dart.dev", "api.dart.dev", "docs.flutter.dev", "api.flutter.dev", "blog.cleancoder.com", "www.rfc-editor.org"].includes(url.hostname));
+      assert.ok(["dart.dev", "api.dart.dev", "docs.flutter.dev", "api.flutter.dev", "blog.cleancoder.com", "www.rfc-editor.org", "developer.android.com", "kotlinlang.org"].includes(url.hostname));
     }
+  }
+});
+
+test("the Android Native track contains its 100 planned questions across 14 topics", () => {
+  const androidQuestions = questions.filter((question) => question.trackId === "android-native");
+  assert.equal(androidQuestions.length, 100);
+  assert.deepEqual(new Set(androidQuestions.map((question) => question.difficulty)), new Set(["Junior", "Mid", "Senior"]));
+  for (const question of androidQuestions) {
+    assert.ok(question.question);
+    assert.ok(question.shortAnswer);
+    assert.ok(question.explanation);
+    assert.match(question.lastReviewedAt, /^\d{4}-\d{2}-\d{2}$/);
+    assert.equal(new Date(`${question.lastReviewedAt}T00:00:00Z`).toISOString().slice(0, 10), question.lastReviewedAt);
+    assert.ok(question.sources.length > 0);
   }
 });

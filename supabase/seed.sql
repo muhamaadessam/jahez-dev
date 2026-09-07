@@ -8,6 +8,12 @@ insert into public.track_locales (track_id, locale, name) values ('flutter', 'ar
 
 insert into public.track_locales (track_id, locale, name) values ('flutter', 'en', 'Flutter') on conflict (track_id, locale) do update set name = excluded.name;
 
+insert into public.tracks (id, slug) values ('android-native', 'android-native') on conflict (id) do update set slug = excluded.slug;
+
+insert into public.track_locales (track_id, locale, name) values ('android-native', 'ar', 'Android Native') on conflict (track_id, locale) do update set name = excluded.name;
+
+insert into public.track_locales (track_id, locale, name) values ('android-native', 'en', 'Android Native') on conflict (track_id, locale) do update set name = excluded.name;
+
 insert into public.tracks (id, slug) values ('backend', 'backend') on conflict (id) do update set slug = excluded.slug;
 
 insert into public.track_locales (track_id, locale, name) values ('backend', 'ar', 'Backend') on conflict (track_id, locale) do update set name = excluded.name;
@@ -103,6 +109,90 @@ insert into public.topics (id, slug, track_id) values ('async-isolates', 'async-
 insert into public.topic_locales (topic_id, locale, name) values ('async-isolates', 'ar', 'Async & Isolates') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.topic_locales (topic_id, locale, name) values ('async-isolates', 'en', 'Async & Isolates') on conflict (topic_id, locale) do update set name = excluded.name;
+
+insert into public.topics (id, slug, track_id) values ('kotlin', 'kotlin', 'android-native') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
+
+insert into public.topic_locales (topic_id, locale, name) values ('kotlin', 'ar', 'Kotlin Fundamentals') on conflict (topic_id, locale) do update set name = excluded.name;
+
+insert into public.topic_locales (topic_id, locale, name) values ('kotlin', 'en', 'Kotlin Fundamentals') on conflict (topic_id, locale) do update set name = excluded.name;
+
+insert into public.topics (id, slug, track_id) values ('android-fundamentals', 'android-fundamentals', 'android-native') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
+
+insert into public.topic_locales (topic_id, locale, name) values ('android-fundamentals', 'ar', 'Android Fundamentals') on conflict (topic_id, locale) do update set name = excluded.name;
+
+insert into public.topic_locales (topic_id, locale, name) values ('android-fundamentals', 'en', 'Android Fundamentals') on conflict (topic_id, locale) do update set name = excluded.name;
+
+insert into public.topics (id, slug, track_id) values ('android-ui', 'android-ui', 'android-native') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
+
+insert into public.topic_locales (topic_id, locale, name) values ('android-ui', 'ar', 'UI & Layouts') on conflict (topic_id, locale) do update set name = excluded.name;
+
+insert into public.topic_locales (topic_id, locale, name) values ('android-ui', 'en', 'UI & Layouts') on conflict (topic_id, locale) do update set name = excluded.name;
+
+insert into public.topics (id, slug, track_id) values ('jetpack-compose', 'jetpack-compose', 'android-native') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
+
+insert into public.topic_locales (topic_id, locale, name) values ('jetpack-compose', 'ar', 'Jetpack Compose') on conflict (topic_id, locale) do update set name = excluded.name;
+
+insert into public.topic_locales (topic_id, locale, name) values ('jetpack-compose', 'en', 'Jetpack Compose') on conflict (topic_id, locale) do update set name = excluded.name;
+
+insert into public.topics (id, slug, track_id) values ('architecture-components', 'architecture-components', 'android-native') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
+
+insert into public.topic_locales (topic_id, locale, name) values ('architecture-components', 'ar', 'Architecture Components') on conflict (topic_id, locale) do update set name = excluded.name;
+
+insert into public.topic_locales (topic_id, locale, name) values ('architecture-components', 'en', 'Architecture Components') on conflict (topic_id, locale) do update set name = excluded.name;
+
+insert into public.topics (id, slug, track_id) values ('coroutines-concurrency', 'coroutines-concurrency', 'android-native') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
+
+insert into public.topic_locales (topic_id, locale, name) values ('coroutines-concurrency', 'ar', 'Coroutines & Concurrency') on conflict (topic_id, locale) do update set name = excluded.name;
+
+insert into public.topic_locales (topic_id, locale, name) values ('coroutines-concurrency', 'en', 'Coroutines & Concurrency') on conflict (topic_id, locale) do update set name = excluded.name;
+
+insert into public.topics (id, slug, track_id) values ('dependency-injection', 'dependency-injection', 'android-native') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
+
+insert into public.topic_locales (topic_id, locale, name) values ('dependency-injection', 'ar', 'Dependency Injection') on conflict (topic_id, locale) do update set name = excluded.name;
+
+insert into public.topic_locales (topic_id, locale, name) values ('dependency-injection', 'en', 'Dependency Injection') on conflict (topic_id, locale) do update set name = excluded.name;
+
+insert into public.topics (id, slug, track_id) values ('networking-android', 'networking-android', 'android-native') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
+
+insert into public.topic_locales (topic_id, locale, name) values ('networking-android', 'ar', 'Networking') on conflict (topic_id, locale) do update set name = excluded.name;
+
+insert into public.topic_locales (topic_id, locale, name) values ('networking-android', 'en', 'Networking') on conflict (topic_id, locale) do update set name = excluded.name;
+
+insert into public.topics (id, slug, track_id) values ('local-storage-android', 'local-storage-android', 'android-native') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
+
+insert into public.topic_locales (topic_id, locale, name) values ('local-storage-android', 'ar', 'Local Storage') on conflict (topic_id, locale) do update set name = excluded.name;
+
+insert into public.topic_locales (topic_id, locale, name) values ('local-storage-android', 'en', 'Local Storage') on conflict (topic_id, locale) do update set name = excluded.name;
+
+insert into public.topics (id, slug, track_id) values ('background-processing', 'background-processing', 'android-native') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
+
+insert into public.topic_locales (topic_id, locale, name) values ('background-processing', 'ar', 'Background Processing') on conflict (topic_id, locale) do update set name = excluded.name;
+
+insert into public.topic_locales (topic_id, locale, name) values ('background-processing', 'en', 'Background Processing') on conflict (topic_id, locale) do update set name = excluded.name;
+
+insert into public.topics (id, slug, track_id) values ('performance-memory', 'performance-memory', 'android-native') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
+
+insert into public.topic_locales (topic_id, locale, name) values ('performance-memory', 'ar', 'Performance & Memory') on conflict (topic_id, locale) do update set name = excluded.name;
+
+insert into public.topic_locales (topic_id, locale, name) values ('performance-memory', 'en', 'Performance & Memory') on conflict (topic_id, locale) do update set name = excluded.name;
+
+insert into public.topics (id, slug, track_id) values ('security-android', 'security-android', 'android-native') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
+
+insert into public.topic_locales (topic_id, locale, name) values ('security-android', 'ar', 'Security & Obfuscation') on conflict (topic_id, locale) do update set name = excluded.name;
+
+insert into public.topic_locales (topic_id, locale, name) values ('security-android', 'en', 'Security & Obfuscation') on conflict (topic_id, locale) do update set name = excluded.name;
+
+insert into public.topics (id, slug, track_id) values ('testing-android', 'testing-android', 'android-native') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
+
+insert into public.topic_locales (topic_id, locale, name) values ('testing-android', 'ar', 'Testing') on conflict (topic_id, locale) do update set name = excluded.name;
+
+insert into public.topic_locales (topic_id, locale, name) values ('testing-android', 'en', 'Testing') on conflict (topic_id, locale) do update set name = excluded.name;
+
+insert into public.topics (id, slug, track_id) values ('build-gradle', 'build-gradle', 'android-native') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id;
+
+insert into public.topic_locales (topic_id, locale, name) values ('build-gradle', 'ar', 'Build & Gradle') on conflict (topic_id, locale) do update set name = excluded.name;
+
+insert into public.topic_locales (topic_id, locale, name) values ('build-gradle', 'en', 'Build & Gradle') on conflict (topic_id, locale) do update set name = excluded.name;
 
 insert into public.interview_questions (id, slug, track_id, difficulty) values ('dart-001', 'final-vs-const-in-dart', 'flutter', 'Junior') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
 insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('dart-001', 1, 'draft', '2026-08-30') on conflict (question_id, revision_number) do nothing;
@@ -1764,6 +1854,4566 @@ insert into public.question_topics (question_id, topic_id) values ('test-006', '
 update public.question_revisions set status = 'published' where question_id = 'test-006' and revision_number = 1 and status = 'draft';
 update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'test-006' and revision_number = 1 and status = 'published') where id = 'test-006' and exists (select 1 from public.question_revisions where question_id = 'test-006' and revision_number = 1 and status = 'published');
 
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('kt-001', 'val-vs-var-in-kotlin', 'android-native', 'Junior') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('kt-001', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما الفرق بين val و var في لغة Kotlin؟', 'val تعرّف مرجعًا غير قابل لإعادة التعيين (Read-Only)، بينما var تعرّف متغيرًا قابلاً للتعديل وإعادة التعيين (Mutable).', 'في Kotlin يُفضَّل دائمًا استخدام val لتعزيز مبدأ Immutability وتجنب الآثار الجانبية أثناء تعدد المسارات. لاحظ أن val تمنع إعادة توجيه المرجع لكائن آخر، لكن إذا كان الكائن نفسه قابلاً للتعديل (مثل MutableList) فيمكن تعديل محتوياته الداخلية.', 'val name = "Android" // لا يمكن إعادة تعيينه
+// name = "Kotlin" // خطأ وقت الترجمة
+
+var counter = 0
+counter += 1 // مسموح
+
+val list = mutableListOf("A", "B")
+list.add("C") // مسموح لأن الكائن نفسه قابل للتعديل', '["الاعتقاد بأن val تعني أن محتويات الكائن غير قابلة للتغيير تمامًا (Deep Immutability) مثل const.","استخدام var بدون حاجة فعلية لتعديل القيمة، مما يقلل وضوح الكود ويزيد من احتمالية الأخطاء."]'::jsonb, '["كيف تختلف val عن const val في Kotlin؟","هل تدعم val وجود custom getter يعيد قيمة مختلفة في كل مرة؟"]'::jsonb, '[{"title":"Kotlin Docs — Basic syntax / Variables","url":"https://kotlinlang.org/docs/basic-syntax.html#variables"}]'::jsonb from public.question_revisions r where r.question_id = 'kt-001' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'kt-001' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما الفرق بين val و var في لغة Kotlin؟' or l.short_answer is distinct from 'val تعرّف مرجعًا غير قابل لإعادة التعيين (Read-Only)، بينما var تعرّف متغيرًا قابلاً للتعديل وإعادة التعيين (Mutable).' or l.explanation is distinct from 'في Kotlin يُفضَّل دائمًا استخدام val لتعزيز مبدأ Immutability وتجنب الآثار الجانبية أثناء تعدد المسارات. لاحظ أن val تمنع إعادة توجيه المرجع لكائن آخر، لكن إذا كان الكائن نفسه قابلاً للتعديل (مثل MutableList) فيمكن تعديل محتوياته الداخلية.' or l.code_example is distinct from 'val name = "Android" // لا يمكن إعادة تعيينه
+// name = "Kotlin" // خطأ وقت الترجمة
+
+var counter = 0
+counter += 1 // مسموح
+
+val list = mutableListOf("A", "B")
+list.add("C") // مسموح لأن الكائن نفسه قابل للتعديل' or l.common_mistakes is distinct from '["الاعتقاد بأن val تعني أن محتويات الكائن غير قابلة للتغيير تمامًا (Deep Immutability) مثل const.","استخدام var بدون حاجة فعلية لتعديل القيمة، مما يقلل وضوح الكود ويزيد من احتمالية الأخطاء."]'::jsonb or l.follow_up_questions is distinct from '["كيف تختلف val عن const val في Kotlin؟","هل تدعم val وجود custom getter يعيد قيمة مختلفة في كل مرة؟"]'::jsonb or l.sources is distinct from '[{"title":"Kotlin Docs — Basic syntax / Variables","url":"https://kotlinlang.org/docs/basic-syntax.html#variables"}]'::jsonb)) then raise exception 'Question kt-001 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Val Vs Var In Kotlin?', 'This question checks the core Val Vs Var In Kotlin concept and how to use it safely in Kotlin and Android.', 'Explain Val Vs Var In Kotlin with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', 'val name = "Android" // لا يمكن إعادة تعيينه
+// name = "Kotlin" // خطأ وقت الترجمة
+
+var counter = 0
+counter += 1 // مسموح
+
+val list = mutableListOf("A", "B")
+list.add("C") // مسموح لأن الكائن نفسه قابل للتعديل', '["Missing the key trade-off in Val Vs Var In Kotlin (point 1).","Missing the key trade-off in Val Vs Var In Kotlin (point 2)."]'::jsonb, '["How would you apply Val Vs Var In Kotlin in a production Android app (follow-up 1)?","How would you apply Val Vs Var In Kotlin in a production Android app (follow-up 2)?"]'::jsonb, '[{"title":"Kotlin Docs — Basic syntax / Variables","url":"https://kotlinlang.org/docs/basic-syntax.html#variables"}]'::jsonb from public.question_revisions r where r.question_id = 'kt-001' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'kt-001' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Val Vs Var In Kotlin?' or l.short_answer is distinct from 'This question checks the core Val Vs Var In Kotlin concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Val Vs Var In Kotlin with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from 'val name = "Android" // لا يمكن إعادة تعيينه
+// name = "Kotlin" // خطأ وقت الترجمة
+
+var counter = 0
+counter += 1 // مسموح
+
+val list = mutableListOf("A", "B")
+list.add("C") // مسموح لأن الكائن نفسه قابل للتعديل' or l.common_mistakes is distinct from '["Missing the key trade-off in Val Vs Var In Kotlin (point 1).","Missing the key trade-off in Val Vs Var In Kotlin (point 2)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Val Vs Var In Kotlin in a production Android app (follow-up 1)?","How would you apply Val Vs Var In Kotlin in a production Android app (follow-up 2)?"]'::jsonb or l.sources is distinct from '[{"title":"Kotlin Docs — Basic syntax / Variables","url":"https://kotlinlang.org/docs/basic-syntax.html#variables"}]'::jsonb)) then raise exception 'Question kt-001 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('kt-001', 'kotlin') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'kt-001' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'kt-001' and revision_number = 1 and status = 'published') where id = 'kt-001' and exists (select 1 from public.question_revisions where question_id = 'kt-001' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('kt-002', 'const-val-vs-val-in-kotlin', 'android-native', 'Junior') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('kt-002', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما الفرق بين const val و val في Kotlin؟', 'const val ثابت معروف وقت الترجمة (Compile-time constant) للأنواع الأولية والنصوص فقط، بينما val يُسند وقت التشغيل (Runtime).', 'يجب تعريف const val على مستوى الملف (top-level) أو داخل object/companion object، وتكون قيمتها محددة مسبقًا ويتم تضمينها مباشرة في bytecode عند كل استدعاء بدون دالة get. أما val العادية فيمكن أن تستقبل نتيجة دالة تُحسب وقت التشغيل مثل System.currentTimeMillis().', 'const val TIMEOUT_SECONDS = 30 // Compile-time constant
+// const val CURRENT_TIME = System.currentTimeMillis() // خطأ: غير مسموح
+
+val currentTime = System.currentTimeMillis() // مسموح: Runtime evaluation', '["محاولة استخدام const val مع كائنات مخصصة (Custom Objects) لا تنتمي للأنواع الأولية أو String.","تعريف const val كمتغير محلي داخل دالة أو داخل كلاس عادي مباشرة."]'::jsonb, '["أين يتم استبدال قيمة const val في الـ bytecode؟"]'::jsonb, '[{"title":"Kotlin Docs — Compile-time constants","url":"https://kotlinlang.org/docs/properties.html#compile-time-constants"}]'::jsonb from public.question_revisions r where r.question_id = 'kt-002' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'kt-002' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما الفرق بين const val و val في Kotlin؟' or l.short_answer is distinct from 'const val ثابت معروف وقت الترجمة (Compile-time constant) للأنواع الأولية والنصوص فقط، بينما val يُسند وقت التشغيل (Runtime).' or l.explanation is distinct from 'يجب تعريف const val على مستوى الملف (top-level) أو داخل object/companion object، وتكون قيمتها محددة مسبقًا ويتم تضمينها مباشرة في bytecode عند كل استدعاء بدون دالة get. أما val العادية فيمكن أن تستقبل نتيجة دالة تُحسب وقت التشغيل مثل System.currentTimeMillis().' or l.code_example is distinct from 'const val TIMEOUT_SECONDS = 30 // Compile-time constant
+// const val CURRENT_TIME = System.currentTimeMillis() // خطأ: غير مسموح
+
+val currentTime = System.currentTimeMillis() // مسموح: Runtime evaluation' or l.common_mistakes is distinct from '["محاولة استخدام const val مع كائنات مخصصة (Custom Objects) لا تنتمي للأنواع الأولية أو String.","تعريف const val كمتغير محلي داخل دالة أو داخل كلاس عادي مباشرة."]'::jsonb or l.follow_up_questions is distinct from '["أين يتم استبدال قيمة const val في الـ bytecode؟"]'::jsonb or l.sources is distinct from '[{"title":"Kotlin Docs — Compile-time constants","url":"https://kotlinlang.org/docs/properties.html#compile-time-constants"}]'::jsonb)) then raise exception 'Question kt-002 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Const Val Vs Val In Kotlin?', 'This question checks the core Const Val Vs Val In Kotlin concept and how to use it safely in Kotlin and Android.', 'Explain Const Val Vs Val In Kotlin with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', 'const val TIMEOUT_SECONDS = 30 // Compile-time constant
+// const val CURRENT_TIME = System.currentTimeMillis() // خطأ: غير مسموح
+
+val currentTime = System.currentTimeMillis() // مسموح: Runtime evaluation', '["Missing the key trade-off in Const Val Vs Val In Kotlin (point 1).","Missing the key trade-off in Const Val Vs Val In Kotlin (point 2)."]'::jsonb, '["How would you apply Const Val Vs Val In Kotlin in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Kotlin Docs — Compile-time constants","url":"https://kotlinlang.org/docs/properties.html#compile-time-constants"}]'::jsonb from public.question_revisions r where r.question_id = 'kt-002' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'kt-002' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Const Val Vs Val In Kotlin?' or l.short_answer is distinct from 'This question checks the core Const Val Vs Val In Kotlin concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Const Val Vs Val In Kotlin with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from 'const val TIMEOUT_SECONDS = 30 // Compile-time constant
+// const val CURRENT_TIME = System.currentTimeMillis() // خطأ: غير مسموح
+
+val currentTime = System.currentTimeMillis() // مسموح: Runtime evaluation' or l.common_mistakes is distinct from '["Missing the key trade-off in Const Val Vs Val In Kotlin (point 1).","Missing the key trade-off in Const Val Vs Val In Kotlin (point 2)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Const Val Vs Val In Kotlin in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Kotlin Docs — Compile-time constants","url":"https://kotlinlang.org/docs/properties.html#compile-time-constants"}]'::jsonb)) then raise exception 'Question kt-002 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('kt-002', 'kotlin') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'kt-002' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'kt-002' and revision_number = 1 and status = 'published') where id = 'kt-002' and exists (select 1 from public.question_revisions where question_id = 'kt-002' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('kt-003', 'null-safety-and-elvis-operator', 'android-native', 'Junior') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('kt-003', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'كيف يحمي نظام Null Safety في Kotlin من NullPointerException؟', 'يفصل Kotlin بين الأنواع غير القابلة لـ null والأنواع التي تقبلها (?)، ويوفر Safe Call (?.) و Elvis Operator (?:).', 'بشكل افتراضي، لا يمكن للمتغيرات حمل قيمة null إلا إذا أُضيفت علامة الاستفهام للنوع (Nullable Types). يمنع المترجم الوصول المباشر لخصائص المتغيرات القابلة لـ null دون فحص مسبق، أو باستخدام Safe Call (?.)، كما يتيح Elvis Operator (?:) تحديد قيمة بديلة أو تنفيذ return/throw عند وجود null.', 'var nonNullable: String = "Hello"
+// nonNullable = null // خطأ وقت الترجمة
+
+var nullable: String? = null
+val length: Int = nullable?.length ?: 0 // Safe call مع Elvis operator
+
+val safeValue = nullable ?: throw IllegalArgumentException("Value is missing")', '["الإفراط في استخدام مشغل التأكيد القطعي (!!) الذي يلغي ميزة Null Safety ويسبب NullPointerException عند الخطأ.","تجاهل استخدام Elvis Operator للتعامل مع الحالات الفارغة بشكل نظيف والاكتفاء بفحوصات if التقليدية المتكررة."]'::jsonb, '["متى يكون استخدام مشغل !! مقبولاً ومبرراً في الكود؟","كيف يتعامل Kotlin مع كود Java القديم الذي لا يحتوي على Nullability annotations؟"]'::jsonb, '[{"title":"Kotlin Docs — Null safety","url":"https://kotlinlang.org/docs/null-safety.html"}]'::jsonb from public.question_revisions r where r.question_id = 'kt-003' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'kt-003' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'كيف يحمي نظام Null Safety في Kotlin من NullPointerException؟' or l.short_answer is distinct from 'يفصل Kotlin بين الأنواع غير القابلة لـ null والأنواع التي تقبلها (?)، ويوفر Safe Call (?.) و Elvis Operator (?:).' or l.explanation is distinct from 'بشكل افتراضي، لا يمكن للمتغيرات حمل قيمة null إلا إذا أُضيفت علامة الاستفهام للنوع (Nullable Types). يمنع المترجم الوصول المباشر لخصائص المتغيرات القابلة لـ null دون فحص مسبق، أو باستخدام Safe Call (?.)، كما يتيح Elvis Operator (?:) تحديد قيمة بديلة أو تنفيذ return/throw عند وجود null.' or l.code_example is distinct from 'var nonNullable: String = "Hello"
+// nonNullable = null // خطأ وقت الترجمة
+
+var nullable: String? = null
+val length: Int = nullable?.length ?: 0 // Safe call مع Elvis operator
+
+val safeValue = nullable ?: throw IllegalArgumentException("Value is missing")' or l.common_mistakes is distinct from '["الإفراط في استخدام مشغل التأكيد القطعي (!!) الذي يلغي ميزة Null Safety ويسبب NullPointerException عند الخطأ.","تجاهل استخدام Elvis Operator للتعامل مع الحالات الفارغة بشكل نظيف والاكتفاء بفحوصات if التقليدية المتكررة."]'::jsonb or l.follow_up_questions is distinct from '["متى يكون استخدام مشغل !! مقبولاً ومبرراً في الكود؟","كيف يتعامل Kotlin مع كود Java القديم الذي لا يحتوي على Nullability annotations؟"]'::jsonb or l.sources is distinct from '[{"title":"Kotlin Docs — Null safety","url":"https://kotlinlang.org/docs/null-safety.html"}]'::jsonb)) then raise exception 'Question kt-003 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Null Safety And Elvis Operator?', 'This question checks the core Null Safety And Elvis Operator concept and how to use it safely in Kotlin and Android.', 'Explain Null Safety And Elvis Operator with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', 'var nonNullable: String = "Hello"
+// nonNullable = null // خطأ وقت الترجمة
+
+var nullable: String? = null
+val length: Int = nullable?.length ?: 0 // Safe call مع Elvis operator
+
+val safeValue = nullable ?: throw IllegalArgumentException("Value is missing")', '["Missing the key trade-off in Null Safety And Elvis Operator (point 1).","Missing the key trade-off in Null Safety And Elvis Operator (point 2)."]'::jsonb, '["How would you apply Null Safety And Elvis Operator in a production Android app (follow-up 1)?","How would you apply Null Safety And Elvis Operator in a production Android app (follow-up 2)?"]'::jsonb, '[{"title":"Kotlin Docs — Null safety","url":"https://kotlinlang.org/docs/null-safety.html"}]'::jsonb from public.question_revisions r where r.question_id = 'kt-003' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'kt-003' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Null Safety And Elvis Operator?' or l.short_answer is distinct from 'This question checks the core Null Safety And Elvis Operator concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Null Safety And Elvis Operator with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from 'var nonNullable: String = "Hello"
+// nonNullable = null // خطأ وقت الترجمة
+
+var nullable: String? = null
+val length: Int = nullable?.length ?: 0 // Safe call مع Elvis operator
+
+val safeValue = nullable ?: throw IllegalArgumentException("Value is missing")' or l.common_mistakes is distinct from '["Missing the key trade-off in Null Safety And Elvis Operator (point 1).","Missing the key trade-off in Null Safety And Elvis Operator (point 2)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Null Safety And Elvis Operator in a production Android app (follow-up 1)?","How would you apply Null Safety And Elvis Operator in a production Android app (follow-up 2)?"]'::jsonb or l.sources is distinct from '[{"title":"Kotlin Docs — Null safety","url":"https://kotlinlang.org/docs/null-safety.html"}]'::jsonb)) then raise exception 'Question kt-003 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('kt-003', 'kotlin') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'kt-003' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'kt-003' and revision_number = 1 and status = 'published') where id = 'kt-003' and exists (select 1 from public.question_revisions where question_id = 'kt-003' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('kt-004', 'data-classes-in-kotlin', 'android-native', 'Junior') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('kt-004', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما هي الـ Data Class في Kotlin وما الميثودات التي تولدها تلقائيًا؟', 'هي كلاسات مخصصة لحمل البيانات وتولّد تلقائيًا equals() و hashCode() و toString() و copy() ودوال الـ componentN().', 'توفر data class كتابة كمية كبيرة من boilerplate code في Java. لتعريفها يجب أن يحتوي الـ primary constructor على معامل واحد على الأقل معرّف بـ val أو var، ولا يمكن للكلاس أن يكون abstract أو open أو inner. دالة copy() تتيح نسخ الكائن مع تعديل بعض الخصائص بسهولة لدعم الـ immutability.', 'data class User(val id: Int, val name: String, val email: String)
+
+val user1 = User(1, "Ahmed", "ahmed@example.com")
+val user2 = user1.copy(email = "new_email@example.com") // Immutability pattern
+
+val (id, name) = user1 // Destructuring declaration عبر component1() و component2()', '["تعريف خصائص داخل جسم الكلاس وتوقع تضمينها في equals() و copy()، حيث تعتمد هذه الدوال فقط على معاملات الـ primary constructor.","جعل data class ترث من كلاس مفتوح أو محاولة جعلها open."]'::jsonb, '["كيف تؤثر الخصائص المعرفة في جسم الـ data class على دوال equals و hashCode؟"]'::jsonb, '[{"title":"Kotlin Docs — Data classes","url":"https://kotlinlang.org/docs/data-classes.html"}]'::jsonb from public.question_revisions r where r.question_id = 'kt-004' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'kt-004' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما هي الـ Data Class في Kotlin وما الميثودات التي تولدها تلقائيًا؟' or l.short_answer is distinct from 'هي كلاسات مخصصة لحمل البيانات وتولّد تلقائيًا equals() و hashCode() و toString() و copy() ودوال الـ componentN().' or l.explanation is distinct from 'توفر data class كتابة كمية كبيرة من boilerplate code في Java. لتعريفها يجب أن يحتوي الـ primary constructor على معامل واحد على الأقل معرّف بـ val أو var، ولا يمكن للكلاس أن يكون abstract أو open أو inner. دالة copy() تتيح نسخ الكائن مع تعديل بعض الخصائص بسهولة لدعم الـ immutability.' or l.code_example is distinct from 'data class User(val id: Int, val name: String, val email: String)
+
+val user1 = User(1, "Ahmed", "ahmed@example.com")
+val user2 = user1.copy(email = "new_email@example.com") // Immutability pattern
+
+val (id, name) = user1 // Destructuring declaration عبر component1() و component2()' or l.common_mistakes is distinct from '["تعريف خصائص داخل جسم الكلاس وتوقع تضمينها في equals() و copy()، حيث تعتمد هذه الدوال فقط على معاملات الـ primary constructor.","جعل data class ترث من كلاس مفتوح أو محاولة جعلها open."]'::jsonb or l.follow_up_questions is distinct from '["كيف تؤثر الخصائص المعرفة في جسم الـ data class على دوال equals و hashCode؟"]'::jsonb or l.sources is distinct from '[{"title":"Kotlin Docs — Data classes","url":"https://kotlinlang.org/docs/data-classes.html"}]'::jsonb)) then raise exception 'Question kt-004 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Data Classes In Kotlin?', 'This question checks the core Data Classes In Kotlin concept and how to use it safely in Kotlin and Android.', 'Explain Data Classes In Kotlin with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', 'data class User(val id: Int, val name: String, val email: String)
+
+val user1 = User(1, "Ahmed", "ahmed@example.com")
+val user2 = user1.copy(email = "new_email@example.com") // Immutability pattern
+
+val (id, name) = user1 // Destructuring declaration عبر component1() و component2()', '["Missing the key trade-off in Data Classes In Kotlin (point 1).","Missing the key trade-off in Data Classes In Kotlin (point 2)."]'::jsonb, '["How would you apply Data Classes In Kotlin in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Kotlin Docs — Data classes","url":"https://kotlinlang.org/docs/data-classes.html"}]'::jsonb from public.question_revisions r where r.question_id = 'kt-004' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'kt-004' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Data Classes In Kotlin?' or l.short_answer is distinct from 'This question checks the core Data Classes In Kotlin concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Data Classes In Kotlin with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from 'data class User(val id: Int, val name: String, val email: String)
+
+val user1 = User(1, "Ahmed", "ahmed@example.com")
+val user2 = user1.copy(email = "new_email@example.com") // Immutability pattern
+
+val (id, name) = user1 // Destructuring declaration عبر component1() و component2()' or l.common_mistakes is distinct from '["Missing the key trade-off in Data Classes In Kotlin (point 1).","Missing the key trade-off in Data Classes In Kotlin (point 2)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Data Classes In Kotlin in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Kotlin Docs — Data classes","url":"https://kotlinlang.org/docs/data-classes.html"}]'::jsonb)) then raise exception 'Question kt-004 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('kt-004', 'kotlin') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'kt-004' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'kt-004' and revision_number = 1 and status = 'published') where id = 'kt-004' and exists (select 1 from public.question_revisions where question_id = 'kt-004' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('kt-005', 'type-checks-and-smart-casts', 'android-native', 'Junior') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('kt-005', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'كيف يعمل الـ Smart Cast في Kotlin؟', 'يقوم المترجم تلقائيًا بتحويل النوع (Cast) بعد التحقق منه بواسطة is دون حاجة لتحويل صريح يدويًا.', 'عند فحص نوع متغير باستخدام is أو عند التحقق من عدم كونه null، يقوم المترجم بتتبعه وتحويله تلقائيًا إلى النوع الأضيق داخل نطاق الفحص (scope). يعمل Smart Cast مع المتغيرات المحلية من نوع val والخصائص الخاصة التي يضمن المترجم عدم تعديلها بين وقت الفحص ووقت الاستخدام.', 'fun printLength(obj: Any) {
+    if (obj is String) {
+        // Smart Cast تلقائي إلى String
+        println(obj.length)
+    }
+}
+
+val text: String? = "Hello"
+if (text != null) {
+    println(text.length) // Smart cast من String? إلى String
+}', '["توقع عمل Smart Cast مع متغيرات var أو خصائص مفتوحة (open properties) يمكن تعديلها بواسطة thread آخر بين وقت الفحص والاستخدام.","استخدام Unsafe Cast (as) بدلاً من Safe Cast (as?) عند وجود احتمال لعدم تطابق النوع."]'::jsonb, '["لماذا لا يمكن للمترجم تطبيق Smart Cast على خصائص var العامة (public var)؟"]'::jsonb, '[{"title":"Kotlin Docs — Type checks and casts","url":"https://kotlinlang.org/docs/typecasts.html"}]'::jsonb from public.question_revisions r where r.question_id = 'kt-005' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'kt-005' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'كيف يعمل الـ Smart Cast في Kotlin؟' or l.short_answer is distinct from 'يقوم المترجم تلقائيًا بتحويل النوع (Cast) بعد التحقق منه بواسطة is دون حاجة لتحويل صريح يدويًا.' or l.explanation is distinct from 'عند فحص نوع متغير باستخدام is أو عند التحقق من عدم كونه null، يقوم المترجم بتتبعه وتحويله تلقائيًا إلى النوع الأضيق داخل نطاق الفحص (scope). يعمل Smart Cast مع المتغيرات المحلية من نوع val والخصائص الخاصة التي يضمن المترجم عدم تعديلها بين وقت الفحص ووقت الاستخدام.' or l.code_example is distinct from 'fun printLength(obj: Any) {
+    if (obj is String) {
+        // Smart Cast تلقائي إلى String
+        println(obj.length)
+    }
+}
+
+val text: String? = "Hello"
+if (text != null) {
+    println(text.length) // Smart cast من String? إلى String
+}' or l.common_mistakes is distinct from '["توقع عمل Smart Cast مع متغيرات var أو خصائص مفتوحة (open properties) يمكن تعديلها بواسطة thread آخر بين وقت الفحص والاستخدام.","استخدام Unsafe Cast (as) بدلاً من Safe Cast (as?) عند وجود احتمال لعدم تطابق النوع."]'::jsonb or l.follow_up_questions is distinct from '["لماذا لا يمكن للمترجم تطبيق Smart Cast على خصائص var العامة (public var)؟"]'::jsonb or l.sources is distinct from '[{"title":"Kotlin Docs — Type checks and casts","url":"https://kotlinlang.org/docs/typecasts.html"}]'::jsonb)) then raise exception 'Question kt-005 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Type Checks And Smart Casts?', 'This question checks the core Type Checks And Smart Casts concept and how to use it safely in Kotlin and Android.', 'Explain Type Checks And Smart Casts with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', 'fun printLength(obj: Any) {
+    if (obj is String) {
+        // Smart Cast تلقائي إلى String
+        println(obj.length)
+    }
+}
+
+val text: String? = "Hello"
+if (text != null) {
+    println(text.length) // Smart cast من String? إلى String
+}', '["Missing the key trade-off in Type Checks And Smart Casts (point 1).","Missing the key trade-off in Type Checks And Smart Casts (point 2)."]'::jsonb, '["How would you apply Type Checks And Smart Casts in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Kotlin Docs — Type checks and casts","url":"https://kotlinlang.org/docs/typecasts.html"}]'::jsonb from public.question_revisions r where r.question_id = 'kt-005' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'kt-005' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Type Checks And Smart Casts?' or l.short_answer is distinct from 'This question checks the core Type Checks And Smart Casts concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Type Checks And Smart Casts with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from 'fun printLength(obj: Any) {
+    if (obj is String) {
+        // Smart Cast تلقائي إلى String
+        println(obj.length)
+    }
+}
+
+val text: String? = "Hello"
+if (text != null) {
+    println(text.length) // Smart cast من String? إلى String
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Type Checks And Smart Casts (point 1).","Missing the key trade-off in Type Checks And Smart Casts (point 2)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Type Checks And Smart Casts in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Kotlin Docs — Type checks and casts","url":"https://kotlinlang.org/docs/typecasts.html"}]'::jsonb)) then raise exception 'Question kt-005 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('kt-005', 'kotlin') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'kt-005' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'kt-005' and revision_number = 1 and status = 'published') where id = 'kt-005' and exists (select 1 from public.question_revisions where question_id = 'kt-005' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('kt-006', 'sealed-classes-vs-enums', 'android-native', 'Mid') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('kt-006', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما الفرق بين Sealed Class و Enum في Kotlin ومتى نستخدم كل منهما؟', 'Enum يمثل مجموعة ثابتة من القيم الفردية المتطابقة، بينما Sealed Class تمثل تسلسلاً هرميًا مقيدًا يسمح لكل فرع بامتلاك حالته وبياناته الخاصة.', 'تعتبر Sealed Class/Interface الخيار المثالي لتمثيل حالات واجهة المستخدم (UI State) وأحداثها في معمارية MVI/MVVM؛ لأن كل حالة (مثل Loading أو Success أو Error) قد تحتاج لبيانات مختلفة تمامًا. كلا النوعين يتيح استخدام when التعبيري بصورة حصرية وشاملة (Exhaustive) دون الحاجة لفرع else.', 'sealed interface UiState {
+    data object Loading : UiState
+    data class Success(val data: List<String>) : UiState
+    data class Error(val exception: Throwable) : UiState
+}
+
+fun render(state: UiState) = when (state) {
+    is UiState.Loading -> showProgressBar()
+    is UiState.Success -> showList(state.data)
+    is UiState.Error -> showError(state.exception.message)
+    // لا حاجة لـ else لأن جميع الحالات مغطاة بالكامل
+}', '["استخدام Enum لحالات تحتاج بيانات متغيرة مثل رسالة الخطأ أو قائمة البيانات.","إضافة فرع else غير ضروري في when مع Sealed Classes، مما يحرم المطور من تنبيه المترجم عند إضافة حالة جديدة لاحقًا."]'::jsonb, '["ما الفرق بين sealed class و sealed interface ومتى تفضل استخدام الـ interface؟"]'::jsonb, '[{"title":"Kotlin Docs — Sealed classes and interfaces","url":"https://kotlinlang.org/docs/sealed-classes.html"}]'::jsonb from public.question_revisions r where r.question_id = 'kt-006' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'kt-006' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما الفرق بين Sealed Class و Enum في Kotlin ومتى نستخدم كل منهما؟' or l.short_answer is distinct from 'Enum يمثل مجموعة ثابتة من القيم الفردية المتطابقة، بينما Sealed Class تمثل تسلسلاً هرميًا مقيدًا يسمح لكل فرع بامتلاك حالته وبياناته الخاصة.' or l.explanation is distinct from 'تعتبر Sealed Class/Interface الخيار المثالي لتمثيل حالات واجهة المستخدم (UI State) وأحداثها في معمارية MVI/MVVM؛ لأن كل حالة (مثل Loading أو Success أو Error) قد تحتاج لبيانات مختلفة تمامًا. كلا النوعين يتيح استخدام when التعبيري بصورة حصرية وشاملة (Exhaustive) دون الحاجة لفرع else.' or l.code_example is distinct from 'sealed interface UiState {
+    data object Loading : UiState
+    data class Success(val data: List<String>) : UiState
+    data class Error(val exception: Throwable) : UiState
+}
+
+fun render(state: UiState) = when (state) {
+    is UiState.Loading -> showProgressBar()
+    is UiState.Success -> showList(state.data)
+    is UiState.Error -> showError(state.exception.message)
+    // لا حاجة لـ else لأن جميع الحالات مغطاة بالكامل
+}' or l.common_mistakes is distinct from '["استخدام Enum لحالات تحتاج بيانات متغيرة مثل رسالة الخطأ أو قائمة البيانات.","إضافة فرع else غير ضروري في when مع Sealed Classes، مما يحرم المطور من تنبيه المترجم عند إضافة حالة جديدة لاحقًا."]'::jsonb or l.follow_up_questions is distinct from '["ما الفرق بين sealed class و sealed interface ومتى تفضل استخدام الـ interface؟"]'::jsonb or l.sources is distinct from '[{"title":"Kotlin Docs — Sealed classes and interfaces","url":"https://kotlinlang.org/docs/sealed-classes.html"}]'::jsonb)) then raise exception 'Question kt-006 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Sealed Classes Vs Enums?', 'This question checks the core Sealed Classes Vs Enums concept and how to use it safely in Kotlin and Android.', 'Explain Sealed Classes Vs Enums with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', 'sealed interface UiState {
+    data object Loading : UiState
+    data class Success(val data: List<String>) : UiState
+    data class Error(val exception: Throwable) : UiState
+}
+
+fun render(state: UiState) = when (state) {
+    is UiState.Loading -> showProgressBar()
+    is UiState.Success -> showList(state.data)
+    is UiState.Error -> showError(state.exception.message)
+    // لا حاجة لـ else لأن جميع الحالات مغطاة بالكامل
+}', '["Missing the key trade-off in Sealed Classes Vs Enums (point 1).","Missing the key trade-off in Sealed Classes Vs Enums (point 2)."]'::jsonb, '["How would you apply Sealed Classes Vs Enums in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Kotlin Docs — Sealed classes and interfaces","url":"https://kotlinlang.org/docs/sealed-classes.html"}]'::jsonb from public.question_revisions r where r.question_id = 'kt-006' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'kt-006' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Sealed Classes Vs Enums?' or l.short_answer is distinct from 'This question checks the core Sealed Classes Vs Enums concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Sealed Classes Vs Enums with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from 'sealed interface UiState {
+    data object Loading : UiState
+    data class Success(val data: List<String>) : UiState
+    data class Error(val exception: Throwable) : UiState
+}
+
+fun render(state: UiState) = when (state) {
+    is UiState.Loading -> showProgressBar()
+    is UiState.Success -> showList(state.data)
+    is UiState.Error -> showError(state.exception.message)
+    // لا حاجة لـ else لأن جميع الحالات مغطاة بالكامل
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Sealed Classes Vs Enums (point 1).","Missing the key trade-off in Sealed Classes Vs Enums (point 2)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Sealed Classes Vs Enums in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Kotlin Docs — Sealed classes and interfaces","url":"https://kotlinlang.org/docs/sealed-classes.html"}]'::jsonb)) then raise exception 'Question kt-006 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('kt-006', 'kotlin') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'kt-006' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'kt-006' and revision_number = 1 and status = 'published') where id = 'kt-006' and exists (select 1 from public.question_revisions where question_id = 'kt-006' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('kt-007', 'extension-functions-and-properties', 'android-native', 'Mid') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('kt-007', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'كيف تعمل الـ Extension Functions داخليًا في Kotlin؟', 'تُترجم كـ Static Methods في الـ Bytecode تستقبل الكائن الممتد (Receiver) كأول معامل، ولا تعدل الكلاس الأصلي.', 'تتيح Extension Functions إضافة وظائف للكلاسات الموجودة (حتى لو كانت من مكتبات خارجية) دون وراثة. يتم حل استدعاء دوال الامتداد بشكل ثابت (Statically resolved) في وقت الترجمة اعتمادًا على النوع المعلن للمتغير، وليس ديناميكيًا وقت التشغيل (Dynamic Dispatch) كما في الدوال العادية.', 'fun View.visible() {
+    this.visibility = View.VISIBLE
+}
+
+// في الـ Java Bytecode تُترجم إلى:
+// public static final void visible(View receiver) {
+//     receiver.setVisibility(View.VISIBLE);
+// }', '["الاعتقاد بأن دوال الامتداد يمكنها الوصول إلى الحقول الخاصة (private members) في الكلاس الأصلي.","توقع عمل الـ Polymorphism مع Extension Functions إذا كان لكلاس وابنه دالة امتداد بنفس الاسم."]'::jsonb, '["إذا احتوى الكلاس الأصلي ودالة الامتداد على نفس التوقيع (Signature)، أي منهما له الأولوية في التنفيذ؟"]'::jsonb, '[{"title":"Kotlin Docs — Extensions","url":"https://kotlinlang.org/docs/extensions.html"}]'::jsonb from public.question_revisions r where r.question_id = 'kt-007' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'kt-007' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'كيف تعمل الـ Extension Functions داخليًا في Kotlin؟' or l.short_answer is distinct from 'تُترجم كـ Static Methods في الـ Bytecode تستقبل الكائن الممتد (Receiver) كأول معامل، ولا تعدل الكلاس الأصلي.' or l.explanation is distinct from 'تتيح Extension Functions إضافة وظائف للكلاسات الموجودة (حتى لو كانت من مكتبات خارجية) دون وراثة. يتم حل استدعاء دوال الامتداد بشكل ثابت (Statically resolved) في وقت الترجمة اعتمادًا على النوع المعلن للمتغير، وليس ديناميكيًا وقت التشغيل (Dynamic Dispatch) كما في الدوال العادية.' or l.code_example is distinct from 'fun View.visible() {
+    this.visibility = View.VISIBLE
+}
+
+// في الـ Java Bytecode تُترجم إلى:
+// public static final void visible(View receiver) {
+//     receiver.setVisibility(View.VISIBLE);
+// }' or l.common_mistakes is distinct from '["الاعتقاد بأن دوال الامتداد يمكنها الوصول إلى الحقول الخاصة (private members) في الكلاس الأصلي.","توقع عمل الـ Polymorphism مع Extension Functions إذا كان لكلاس وابنه دالة امتداد بنفس الاسم."]'::jsonb or l.follow_up_questions is distinct from '["إذا احتوى الكلاس الأصلي ودالة الامتداد على نفس التوقيع (Signature)، أي منهما له الأولوية في التنفيذ؟"]'::jsonb or l.sources is distinct from '[{"title":"Kotlin Docs — Extensions","url":"https://kotlinlang.org/docs/extensions.html"}]'::jsonb)) then raise exception 'Question kt-007 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Extension Functions And Properties?', 'This question checks the core Extension Functions And Properties concept and how to use it safely in Kotlin and Android.', 'Explain Extension Functions And Properties with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', 'fun View.visible() {
+    this.visibility = View.VISIBLE
+}
+
+// في الـ Java Bytecode تُترجم إلى:
+// public static final void visible(View receiver) {
+//     receiver.setVisibility(View.VISIBLE);
+// }', '["Missing the key trade-off in Extension Functions And Properties (point 1).","Missing the key trade-off in Extension Functions And Properties (point 2)."]'::jsonb, '["How would you apply Extension Functions And Properties in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Kotlin Docs — Extensions","url":"https://kotlinlang.org/docs/extensions.html"}]'::jsonb from public.question_revisions r where r.question_id = 'kt-007' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'kt-007' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Extension Functions And Properties?' or l.short_answer is distinct from 'This question checks the core Extension Functions And Properties concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Extension Functions And Properties with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from 'fun View.visible() {
+    this.visibility = View.VISIBLE
+}
+
+// في الـ Java Bytecode تُترجم إلى:
+// public static final void visible(View receiver) {
+//     receiver.setVisibility(View.VISIBLE);
+// }' or l.common_mistakes is distinct from '["Missing the key trade-off in Extension Functions And Properties (point 1).","Missing the key trade-off in Extension Functions And Properties (point 2)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Extension Functions And Properties in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Kotlin Docs — Extensions","url":"https://kotlinlang.org/docs/extensions.html"}]'::jsonb)) then raise exception 'Question kt-007 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('kt-007', 'kotlin') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'kt-007' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'kt-007' and revision_number = 1 and status = 'published') where id = 'kt-007' and exists (select 1 from public.question_revisions where question_id = 'kt-007' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('kt-008', 'scope-functions-let-run-apply-also-with', 'android-native', 'Mid') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('kt-008', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما الفروق الأساسية بين دوال النطاق (Scope Functions) في Kotlin؟', 'تختلف في طريقة الإشارة للكائن (this أو it) وفي القيمة المعادة (الكائن نفسه Context Object أو نتيجة اللامدا Lambda Result).', 'تُستخدم apply و also لتهيئة الكائن وتنفيذ آثار جانبية وتُعيد الكائن نفسه (Context Object)، حيث تستخدم apply الإشارة this بينما تستخدم also المعامل it. أما let و run و with فتُعيد نتيجة تعبير اللامدا؛ تُستخدم let مع it لفحص null والتحويل، و run مع this لتجميع العمليات وحساب قيمة، بينما with تأخذ الكائن كمعامل مستقل.', '// apply: تهيئة الكائن وإرجاعه
+val intent = Intent().apply {
+    action = Intent.ACTION_VIEW
+    data = Uri.parse("https://developer.android.com")
+}
+
+// let: فحص null وتحويل النوع وإرجاع النتيجة
+val length = text?.let { it.trim().length } ?: 0
+
+// also: تنفيذ logging أو آثار جانبية وإرجاع الكائن
+val user = createUser().also { log("User created: ${it.id}") }', '["تداخل أكثر من Scope Function بشكل معقد مما يجعل الكود غامضًا وصعب القراءة والصيانة.","استخدام let فقط لفحص null عندما يكون if (x != null) أبسط وأوضح وأخف أداءً."]'::jsonb, '["متى تفضل استخدام also على apply عند الرغبة في إرجاع الكائن الأصلي؟"]'::jsonb, '[{"title":"Kotlin Docs — Scope functions","url":"https://kotlinlang.org/docs/scope-functions.html"}]'::jsonb from public.question_revisions r where r.question_id = 'kt-008' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'kt-008' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما الفروق الأساسية بين دوال النطاق (Scope Functions) في Kotlin؟' or l.short_answer is distinct from 'تختلف في طريقة الإشارة للكائن (this أو it) وفي القيمة المعادة (الكائن نفسه Context Object أو نتيجة اللامدا Lambda Result).' or l.explanation is distinct from 'تُستخدم apply و also لتهيئة الكائن وتنفيذ آثار جانبية وتُعيد الكائن نفسه (Context Object)، حيث تستخدم apply الإشارة this بينما تستخدم also المعامل it. أما let و run و with فتُعيد نتيجة تعبير اللامدا؛ تُستخدم let مع it لفحص null والتحويل، و run مع this لتجميع العمليات وحساب قيمة، بينما with تأخذ الكائن كمعامل مستقل.' or l.code_example is distinct from '// apply: تهيئة الكائن وإرجاعه
+val intent = Intent().apply {
+    action = Intent.ACTION_VIEW
+    data = Uri.parse("https://developer.android.com")
+}
+
+// let: فحص null وتحويل النوع وإرجاع النتيجة
+val length = text?.let { it.trim().length } ?: 0
+
+// also: تنفيذ logging أو آثار جانبية وإرجاع الكائن
+val user = createUser().also { log("User created: ${it.id}") }' or l.common_mistakes is distinct from '["تداخل أكثر من Scope Function بشكل معقد مما يجعل الكود غامضًا وصعب القراءة والصيانة.","استخدام let فقط لفحص null عندما يكون if (x != null) أبسط وأوضح وأخف أداءً."]'::jsonb or l.follow_up_questions is distinct from '["متى تفضل استخدام also على apply عند الرغبة في إرجاع الكائن الأصلي؟"]'::jsonb or l.sources is distinct from '[{"title":"Kotlin Docs — Scope functions","url":"https://kotlinlang.org/docs/scope-functions.html"}]'::jsonb)) then raise exception 'Question kt-008 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Scope Functions Let Run Apply Also With?', 'This question checks the core Scope Functions Let Run Apply Also With concept and how to use it safely in Kotlin and Android.', 'Explain Scope Functions Let Run Apply Also With with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', '// apply: تهيئة الكائن وإرجاعه
+val intent = Intent().apply {
+    action = Intent.ACTION_VIEW
+    data = Uri.parse("https://developer.android.com")
+}
+
+// let: فحص null وتحويل النوع وإرجاع النتيجة
+val length = text?.let { it.trim().length } ?: 0
+
+// also: تنفيذ logging أو آثار جانبية وإرجاع الكائن
+val user = createUser().also { log("User created: ${it.id}") }', '["Missing the key trade-off in Scope Functions Let Run Apply Also With (point 1).","Missing the key trade-off in Scope Functions Let Run Apply Also With (point 2)."]'::jsonb, '["How would you apply Scope Functions Let Run Apply Also With in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Kotlin Docs — Scope functions","url":"https://kotlinlang.org/docs/scope-functions.html"}]'::jsonb from public.question_revisions r where r.question_id = 'kt-008' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'kt-008' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Scope Functions Let Run Apply Also With?' or l.short_answer is distinct from 'This question checks the core Scope Functions Let Run Apply Also With concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Scope Functions Let Run Apply Also With with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from '// apply: تهيئة الكائن وإرجاعه
+val intent = Intent().apply {
+    action = Intent.ACTION_VIEW
+    data = Uri.parse("https://developer.android.com")
+}
+
+// let: فحص null وتحويل النوع وإرجاع النتيجة
+val length = text?.let { it.trim().length } ?: 0
+
+// also: تنفيذ logging أو آثار جانبية وإرجاع الكائن
+val user = createUser().also { log("User created: ${it.id}") }' or l.common_mistakes is distinct from '["Missing the key trade-off in Scope Functions Let Run Apply Also With (point 1).","Missing the key trade-off in Scope Functions Let Run Apply Also With (point 2)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Scope Functions Let Run Apply Also With in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Kotlin Docs — Scope functions","url":"https://kotlinlang.org/docs/scope-functions.html"}]'::jsonb)) then raise exception 'Question kt-008 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('kt-008', 'kotlin') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'kt-008' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'kt-008' and revision_number = 1 and status = 'published') where id = 'kt-008' and exists (select 1 from public.question_revisions where question_id = 'kt-008' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('kt-009', 'higher-order-functions-and-lambdas', 'android-native', 'Mid') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('kt-009', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما هي الدالة ذات الرتبة العليا (Higher-Order Function) في Kotlin؟', 'هي دالة تأخذ دالة أخرى كمعامل أو تعيد دالة كنتيجة.', 'تتعامل Kotlin مع الدوال كـ First-Class Citizens، مما يسمح بتخزين الدوال في متغيرات وتمريرها وإرجاعها باستخدام Function Types مثل (T) -> R. عندما تكون اللامدا هي المعامل الأخير للدالة، يمكن كتابتها خارج قوسي استدعاء الدالة (Trailing Lambda Syntax).', 'fun filterTransactions(
+    transactions: List<Double>,
+    predicate: (Double) -> Boolean
+): List<Double> {
+    val result = mutableListOf<Double>()
+    for (t in transactions) {
+        if (predicate(t)) result.add(t)
+    }
+    return result
+}
+
+// Trailing lambda
+val highValue = filterTransactions(transactions) { it > 1000.0 }', '["تجاهل تكلفة إنشاء كائنات Function في الذاكرة الحلقية عند تكرار استدعاء اللامدا دون استخدام inline."]'::jsonb, '["كيف تؤثر دوال inline على استخدام الـ Higher-Order Functions من حيث الأداء؟"]'::jsonb, '[{"title":"Kotlin Docs — Higher-order functions and lambdas","url":"https://kotlinlang.org/docs/lambdas.html"}]'::jsonb from public.question_revisions r where r.question_id = 'kt-009' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'kt-009' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما هي الدالة ذات الرتبة العليا (Higher-Order Function) في Kotlin؟' or l.short_answer is distinct from 'هي دالة تأخذ دالة أخرى كمعامل أو تعيد دالة كنتيجة.' or l.explanation is distinct from 'تتعامل Kotlin مع الدوال كـ First-Class Citizens، مما يسمح بتخزين الدوال في متغيرات وتمريرها وإرجاعها باستخدام Function Types مثل (T) -> R. عندما تكون اللامدا هي المعامل الأخير للدالة، يمكن كتابتها خارج قوسي استدعاء الدالة (Trailing Lambda Syntax).' or l.code_example is distinct from 'fun filterTransactions(
+    transactions: List<Double>,
+    predicate: (Double) -> Boolean
+): List<Double> {
+    val result = mutableListOf<Double>()
+    for (t in transactions) {
+        if (predicate(t)) result.add(t)
+    }
+    return result
+}
+
+// Trailing lambda
+val highValue = filterTransactions(transactions) { it > 1000.0 }' or l.common_mistakes is distinct from '["تجاهل تكلفة إنشاء كائنات Function في الذاكرة الحلقية عند تكرار استدعاء اللامدا دون استخدام inline."]'::jsonb or l.follow_up_questions is distinct from '["كيف تؤثر دوال inline على استخدام الـ Higher-Order Functions من حيث الأداء؟"]'::jsonb or l.sources is distinct from '[{"title":"Kotlin Docs — Higher-order functions and lambdas","url":"https://kotlinlang.org/docs/lambdas.html"}]'::jsonb)) then raise exception 'Question kt-009 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Higher Order Functions And Lambdas?', 'This question checks the core Higher Order Functions And Lambdas concept and how to use it safely in Kotlin and Android.', 'Explain Higher Order Functions And Lambdas with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', 'fun filterTransactions(
+    transactions: List<Double>,
+    predicate: (Double) -> Boolean
+): List<Double> {
+    val result = mutableListOf<Double>()
+    for (t in transactions) {
+        if (predicate(t)) result.add(t)
+    }
+    return result
+}
+
+// Trailing lambda
+val highValue = filterTransactions(transactions) { it > 1000.0 }', '["Missing the key trade-off in Higher Order Functions And Lambdas (point 1)."]'::jsonb, '["How would you apply Higher Order Functions And Lambdas in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Kotlin Docs — Higher-order functions and lambdas","url":"https://kotlinlang.org/docs/lambdas.html"}]'::jsonb from public.question_revisions r where r.question_id = 'kt-009' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'kt-009' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Higher Order Functions And Lambdas?' or l.short_answer is distinct from 'This question checks the core Higher Order Functions And Lambdas concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Higher Order Functions And Lambdas with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from 'fun filterTransactions(
+    transactions: List<Double>,
+    predicate: (Double) -> Boolean
+): List<Double> {
+    val result = mutableListOf<Double>()
+    for (t in transactions) {
+        if (predicate(t)) result.add(t)
+    }
+    return result
+}
+
+// Trailing lambda
+val highValue = filterTransactions(transactions) { it > 1000.0 }' or l.common_mistakes is distinct from '["Missing the key trade-off in Higher Order Functions And Lambdas (point 1)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Higher Order Functions And Lambdas in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Kotlin Docs — Higher-order functions and lambdas","url":"https://kotlinlang.org/docs/lambdas.html"}]'::jsonb)) then raise exception 'Question kt-009 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('kt-009', 'kotlin') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'kt-009' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'kt-009' and revision_number = 1 and status = 'published') where id = 'kt-009' and exists (select 1 from public.question_revisions where question_id = 'kt-009' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('kt-010', 'delegated-properties-and-by-lazy', 'android-native', 'Mid') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('kt-010', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'كيف تعمل الـ Delegated Properties وما فائدة by lazy في Kotlin؟', 'تفوّض getter و setter لكائن Delegate، وتضمن by lazy تهيئة القيمة مرة واحدة فقط عند أول وصول إليها.', 'تستخدم Delegated Properties الكلمة المفتاحية by لتمرير منطق القراءة والتعديل لكلاس يطبق getValue و setValue. الـ delegate الشائع by lazy يؤجل التهيئة الثقيلة حتى أول استدعاء ويكون Thread-Safe افتراضيًا (LazyThreadSafetyMode.SYNCHRONIZED)، مما يحافظ على سرعة الإقلاع واستهلاك الذاكرة.', 'val database: AppDatabase by lazy {
+    Room.databaseBuilder(context, AppDatabase::class.java, "app.db").build()
+}
+
+// Custom delegate
+class PreferenceDelegate<T>(val key: String, val default: T) {
+    operator fun getValue(thisRef: Any?, property: KProperty<*>): T = ...
+    operator fun setValue(thisRef: Any?, property: KProperty<*>, value: T) = ...
+}', '["استخدام by lazy مع المتغيرات القابلة للتعديل var (lazy تدعم val فقط).","الاعتماد على by lazy للوصول إلى Context أو View قبل اكتمال مرحلة onCreate في الـ Activity."]'::jsonb, '["ما هي أنماط الـ ThreadSafetyMode المتاحة لـ lazy ومتى نستخدم NONE؟"]'::jsonb, '[{"title":"Kotlin Docs — Delegated properties","url":"https://kotlinlang.org/docs/delegated-properties.html"}]'::jsonb from public.question_revisions r where r.question_id = 'kt-010' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'kt-010' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'كيف تعمل الـ Delegated Properties وما فائدة by lazy في Kotlin؟' or l.short_answer is distinct from 'تفوّض getter و setter لكائن Delegate، وتضمن by lazy تهيئة القيمة مرة واحدة فقط عند أول وصول إليها.' or l.explanation is distinct from 'تستخدم Delegated Properties الكلمة المفتاحية by لتمرير منطق القراءة والتعديل لكلاس يطبق getValue و setValue. الـ delegate الشائع by lazy يؤجل التهيئة الثقيلة حتى أول استدعاء ويكون Thread-Safe افتراضيًا (LazyThreadSafetyMode.SYNCHRONIZED)، مما يحافظ على سرعة الإقلاع واستهلاك الذاكرة.' or l.code_example is distinct from 'val database: AppDatabase by lazy {
+    Room.databaseBuilder(context, AppDatabase::class.java, "app.db").build()
+}
+
+// Custom delegate
+class PreferenceDelegate<T>(val key: String, val default: T) {
+    operator fun getValue(thisRef: Any?, property: KProperty<*>): T = ...
+    operator fun setValue(thisRef: Any?, property: KProperty<*>, value: T) = ...
+}' or l.common_mistakes is distinct from '["استخدام by lazy مع المتغيرات القابلة للتعديل var (lazy تدعم val فقط).","الاعتماد على by lazy للوصول إلى Context أو View قبل اكتمال مرحلة onCreate في الـ Activity."]'::jsonb or l.follow_up_questions is distinct from '["ما هي أنماط الـ ThreadSafetyMode المتاحة لـ lazy ومتى نستخدم NONE؟"]'::jsonb or l.sources is distinct from '[{"title":"Kotlin Docs — Delegated properties","url":"https://kotlinlang.org/docs/delegated-properties.html"}]'::jsonb)) then raise exception 'Question kt-010 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Delegated Properties And By Lazy?', 'This question checks the core Delegated Properties And By Lazy concept and how to use it safely in Kotlin and Android.', 'Explain Delegated Properties And By Lazy with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', 'val database: AppDatabase by lazy {
+    Room.databaseBuilder(context, AppDatabase::class.java, "app.db").build()
+}
+
+// Custom delegate
+class PreferenceDelegate<T>(val key: String, val default: T) {
+    operator fun getValue(thisRef: Any?, property: KProperty<*>): T = ...
+    operator fun setValue(thisRef: Any?, property: KProperty<*>, value: T) = ...
+}', '["Missing the key trade-off in Delegated Properties And By Lazy (point 1).","Missing the key trade-off in Delegated Properties And By Lazy (point 2)."]'::jsonb, '["How would you apply Delegated Properties And By Lazy in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Kotlin Docs — Delegated properties","url":"https://kotlinlang.org/docs/delegated-properties.html"}]'::jsonb from public.question_revisions r where r.question_id = 'kt-010' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'kt-010' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Delegated Properties And By Lazy?' or l.short_answer is distinct from 'This question checks the core Delegated Properties And By Lazy concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Delegated Properties And By Lazy with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from 'val database: AppDatabase by lazy {
+    Room.databaseBuilder(context, AppDatabase::class.java, "app.db").build()
+}
+
+// Custom delegate
+class PreferenceDelegate<T>(val key: String, val default: T) {
+    operator fun getValue(thisRef: Any?, property: KProperty<*>): T = ...
+    operator fun setValue(thisRef: Any?, property: KProperty<*>, value: T) = ...
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Delegated Properties And By Lazy (point 1).","Missing the key trade-off in Delegated Properties And By Lazy (point 2)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Delegated Properties And By Lazy in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Kotlin Docs — Delegated properties","url":"https://kotlinlang.org/docs/delegated-properties.html"}]'::jsonb)) then raise exception 'Question kt-010 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('kt-010', 'kotlin') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'kt-010' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'kt-010' and revision_number = 1 and status = 'published') where id = 'kt-010' and exists (select 1 from public.question_revisions where question_id = 'kt-010' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('kt-011', 'inline-noinline-and-crossinline', 'android-native', 'Senior') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('kt-011', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما الفرق بين inline و noinline و crossinline في Kotlin؟', 'inline تدمج كود الدالة واللامدا في مكان الاستدعاء؛ noinline تمنع دمج لامدا معينة؛ crossinline تسمح بالدمج وتمنع non-local returns.', 'تزيل inline عبء تخصيص كائنات للـ lambdas وتستبدل الاستدعاء بالكود المباشر. إذا كانت الدالة تستقبل أكثر من لامدا ونريد تمرير إحداها ككائن عادي نستخدم noinline. أما crossinline فتُستخدم عندما تُستدعى اللامدا داخل نطاق آخر (كـ Runnable أو Coroutine)، فتمنع اللامدا من تنفيذ return خارجي غير موضعي ينهي الدالة الأصلية.', 'inline fun performWork(
+    crossinline onAsyncCallback: () -> Unit,
+    noinline normalCallback: () -> Unit
+) {
+    Executor { onAsyncCallback() } // crossinline تمنع non-local return هنا
+    saveCallback(normalCallback) // noinline تسمح بتخزينها ككائن
+}', '["جعل الدوال الضخمة inline مما يؤدي لتضخم حجم الـ bytecode (Code Bloat).","محاولة استخدام inline على دوال عادية لا تستقبل معاملات من نوع Lambda دون تحقيق أي فائدة من التضمين."]'::jsonb, '["ما هو الـ non-local return وكيف يؤثر على التحكم في مسار التنفيذ؟"]'::jsonb, '[{"title":"Kotlin Docs — Inline functions","url":"https://kotlinlang.org/docs/inline-functions.html"}]'::jsonb from public.question_revisions r where r.question_id = 'kt-011' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'kt-011' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما الفرق بين inline و noinline و crossinline في Kotlin؟' or l.short_answer is distinct from 'inline تدمج كود الدالة واللامدا في مكان الاستدعاء؛ noinline تمنع دمج لامدا معينة؛ crossinline تسمح بالدمج وتمنع non-local returns.' or l.explanation is distinct from 'تزيل inline عبء تخصيص كائنات للـ lambdas وتستبدل الاستدعاء بالكود المباشر. إذا كانت الدالة تستقبل أكثر من لامدا ونريد تمرير إحداها ككائن عادي نستخدم noinline. أما crossinline فتُستخدم عندما تُستدعى اللامدا داخل نطاق آخر (كـ Runnable أو Coroutine)، فتمنع اللامدا من تنفيذ return خارجي غير موضعي ينهي الدالة الأصلية.' or l.code_example is distinct from 'inline fun performWork(
+    crossinline onAsyncCallback: () -> Unit,
+    noinline normalCallback: () -> Unit
+) {
+    Executor { onAsyncCallback() } // crossinline تمنع non-local return هنا
+    saveCallback(normalCallback) // noinline تسمح بتخزينها ككائن
+}' or l.common_mistakes is distinct from '["جعل الدوال الضخمة inline مما يؤدي لتضخم حجم الـ bytecode (Code Bloat).","محاولة استخدام inline على دوال عادية لا تستقبل معاملات من نوع Lambda دون تحقيق أي فائدة من التضمين."]'::jsonb or l.follow_up_questions is distinct from '["ما هو الـ non-local return وكيف يؤثر على التحكم في مسار التنفيذ؟"]'::jsonb or l.sources is distinct from '[{"title":"Kotlin Docs — Inline functions","url":"https://kotlinlang.org/docs/inline-functions.html"}]'::jsonb)) then raise exception 'Question kt-011 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Inline Noinline And Crossinline?', 'This question checks the core Inline Noinline And Crossinline concept and how to use it safely in Kotlin and Android.', 'Explain Inline Noinline And Crossinline with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', 'inline fun performWork(
+    crossinline onAsyncCallback: () -> Unit,
+    noinline normalCallback: () -> Unit
+) {
+    Executor { onAsyncCallback() } // crossinline تمنع non-local return هنا
+    saveCallback(normalCallback) // noinline تسمح بتخزينها ككائن
+}', '["Missing the key trade-off in Inline Noinline And Crossinline (point 1).","Missing the key trade-off in Inline Noinline And Crossinline (point 2)."]'::jsonb, '["How would you apply Inline Noinline And Crossinline in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Kotlin Docs — Inline functions","url":"https://kotlinlang.org/docs/inline-functions.html"}]'::jsonb from public.question_revisions r where r.question_id = 'kt-011' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'kt-011' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Inline Noinline And Crossinline?' or l.short_answer is distinct from 'This question checks the core Inline Noinline And Crossinline concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Inline Noinline And Crossinline with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from 'inline fun performWork(
+    crossinline onAsyncCallback: () -> Unit,
+    noinline normalCallback: () -> Unit
+) {
+    Executor { onAsyncCallback() } // crossinline تمنع non-local return هنا
+    saveCallback(normalCallback) // noinline تسمح بتخزينها ككائن
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Inline Noinline And Crossinline (point 1).","Missing the key trade-off in Inline Noinline And Crossinline (point 2)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Inline Noinline And Crossinline in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Kotlin Docs — Inline functions","url":"https://kotlinlang.org/docs/inline-functions.html"}]'::jsonb)) then raise exception 'Question kt-011 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('kt-011', 'kotlin') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'kt-011' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'kt-011' and revision_number = 1 and status = 'published') where id = 'kt-011' and exists (select 1 from public.question_revisions where question_id = 'kt-011' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('kt-012', 'reified-type-parameters', 'android-native', 'Senior') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('kt-012', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما فائدة الكلمة المفتاحية reified في Kotlin وكيف تتجاوز Type Erasure؟', 'تحتفظ بمعلومات النوع الحقيقي (Generics) وقت التشغيل بفضل دمج الكود في مكان الاستدعاء عبر دالة inline.', 'بسبب قيود JVM، يتم حذف معلومات Generic Types وقت الترجمة (Type Erasure)، فلا يمكن فحص T::class.java أو T is String مباشرة. بفضل inline مع reified، ينسخ المترجم الكود الفعلي ويستبدل T بالنوع الحقيقي المستدعى مباشرة في الـ bytecode، مما يتيح فحص النوع وبدء الـ Activities بدون تمرير Class<T> يدويًا.', '// بدون reified
+fun <T> start(context: Context, clazz: Class<T>) = Intent(context, clazz)
+
+// مع inline و reified
+inline fun <reified T : Activity> Context.launchActivity() {
+    val intent = Intent(this, T::class.java)
+    startActivity(intent)
+}
+
+// الاستدعاء النظيف:
+context.launchActivity<MainActivity>()', '["محاولة استخدام reified في دوال عادية ليست inline.","محاولة استدعاء دالة تحتوي على reified من كود لغة Java القديم (غير مدعوم لأن Java لا تفهم inlining)."]'::jsonb, '["لماذا لا يمكن استدعاء دوال reified من لغة Java؟"]'::jsonb, '[{"title":"Kotlin Docs — Inline functions / Reified type parameters","url":"https://kotlinlang.org/docs/inline-functions.html#reified-type-parameters"}]'::jsonb from public.question_revisions r where r.question_id = 'kt-012' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'kt-012' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما فائدة الكلمة المفتاحية reified في Kotlin وكيف تتجاوز Type Erasure؟' or l.short_answer is distinct from 'تحتفظ بمعلومات النوع الحقيقي (Generics) وقت التشغيل بفضل دمج الكود في مكان الاستدعاء عبر دالة inline.' or l.explanation is distinct from 'بسبب قيود JVM، يتم حذف معلومات Generic Types وقت الترجمة (Type Erasure)، فلا يمكن فحص T::class.java أو T is String مباشرة. بفضل inline مع reified، ينسخ المترجم الكود الفعلي ويستبدل T بالنوع الحقيقي المستدعى مباشرة في الـ bytecode، مما يتيح فحص النوع وبدء الـ Activities بدون تمرير Class<T> يدويًا.' or l.code_example is distinct from '// بدون reified
+fun <T> start(context: Context, clazz: Class<T>) = Intent(context, clazz)
+
+// مع inline و reified
+inline fun <reified T : Activity> Context.launchActivity() {
+    val intent = Intent(this, T::class.java)
+    startActivity(intent)
+}
+
+// الاستدعاء النظيف:
+context.launchActivity<MainActivity>()' or l.common_mistakes is distinct from '["محاولة استخدام reified في دوال عادية ليست inline.","محاولة استدعاء دالة تحتوي على reified من كود لغة Java القديم (غير مدعوم لأن Java لا تفهم inlining)."]'::jsonb or l.follow_up_questions is distinct from '["لماذا لا يمكن استدعاء دوال reified من لغة Java؟"]'::jsonb or l.sources is distinct from '[{"title":"Kotlin Docs — Inline functions / Reified type parameters","url":"https://kotlinlang.org/docs/inline-functions.html#reified-type-parameters"}]'::jsonb)) then raise exception 'Question kt-012 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Reified Type Parameters?', 'This question checks the core Reified Type Parameters concept and how to use it safely in Kotlin and Android.', 'Explain Reified Type Parameters with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', '// بدون reified
+fun <T> start(context: Context, clazz: Class<T>) = Intent(context, clazz)
+
+// مع inline و reified
+inline fun <reified T : Activity> Context.launchActivity() {
+    val intent = Intent(this, T::class.java)
+    startActivity(intent)
+}
+
+// الاستدعاء النظيف:
+context.launchActivity<MainActivity>()', '["Missing the key trade-off in Reified Type Parameters (point 1).","Missing the key trade-off in Reified Type Parameters (point 2)."]'::jsonb, '["How would you apply Reified Type Parameters in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Kotlin Docs — Inline functions / Reified type parameters","url":"https://kotlinlang.org/docs/inline-functions.html#reified-type-parameters"}]'::jsonb from public.question_revisions r where r.question_id = 'kt-012' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'kt-012' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Reified Type Parameters?' or l.short_answer is distinct from 'This question checks the core Reified Type Parameters concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Reified Type Parameters with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from '// بدون reified
+fun <T> start(context: Context, clazz: Class<T>) = Intent(context, clazz)
+
+// مع inline و reified
+inline fun <reified T : Activity> Context.launchActivity() {
+    val intent = Intent(this, T::class.java)
+    startActivity(intent)
+}
+
+// الاستدعاء النظيف:
+context.launchActivity<MainActivity>()' or l.common_mistakes is distinct from '["Missing the key trade-off in Reified Type Parameters (point 1).","Missing the key trade-off in Reified Type Parameters (point 2)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Reified Type Parameters in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Kotlin Docs — Inline functions / Reified type parameters","url":"https://kotlinlang.org/docs/inline-functions.html#reified-type-parameters"}]'::jsonb)) then raise exception 'Question kt-012 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('kt-012', 'kotlin') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'kt-012' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'kt-012' and revision_number = 1 and status = 'published') where id = 'kt-012' and exists (select 1 from public.question_revisions where question_id = 'kt-012' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('afund-001', 'activity-lifecycle-states-and-callbacks', 'android-native', 'Junior') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('afund-001', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما هي المراحل الأساسية لدورة حياة الـ Activity في أندرويد وكيف تنتقل بينها؟', 'تمر بست مراحل رئيسية: onCreate و onStart و onResume و onPause و onStop و onDestroy، وتكون مرئية وتفاعلية في onResume.', 'يتم إنشاء الـ View وربط البيانات في onCreate. تنتقل الـ Activity إلى onStart عندما تصبح مرئية للمستخدم ولكن دون تفاعل كامل. عند وصولها إلى onResume تكون في قمة الـ Backstack وجاهزة للتفاعل. عند ظهور Dialog كامل أو إشعار أو فتح Activity أخرى تنتقل إلى onPause، ثم onStop عند حجبها كليًا، وأخيرًا onDestroy لتحرير الموارد أو عند استدعاء finish().', 'class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // استئناف تحديثات الموقع أو الكاميرا
+    }
+
+    override fun onPause() {
+        super.onPause()
+        // إيقاف العمليات الحساسة لتوفير البطارية
+    }
+}', '["تنفيذ عمليات طويلة أو حجب الـ Main Thread داخل onPause مما يسبب ANR وبطء الانتقال للشاشة التالية.","الاعتماد على onDestroy لحفظ بيانات المستخدم الحساسة، لأن النظام قد ينهي العملية مباشرة دون استدعائها عند نقص الذاكرة."]'::jsonb, '["ما هي الحالات التي تستدعى فيها onPause دون أن تتبعها onStop؟","متى يجب استخدام onRestart في دورة حياة الـ Activity؟"]'::jsonb, '[{"title":"Android Developers — The Activity Lifecycle","url":"https://developer.android.com/guide/components/activities/activity-lifecycle"}]'::jsonb from public.question_revisions r where r.question_id = 'afund-001' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'afund-001' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما هي المراحل الأساسية لدورة حياة الـ Activity في أندرويد وكيف تنتقل بينها؟' or l.short_answer is distinct from 'تمر بست مراحل رئيسية: onCreate و onStart و onResume و onPause و onStop و onDestroy، وتكون مرئية وتفاعلية في onResume.' or l.explanation is distinct from 'يتم إنشاء الـ View وربط البيانات في onCreate. تنتقل الـ Activity إلى onStart عندما تصبح مرئية للمستخدم ولكن دون تفاعل كامل. عند وصولها إلى onResume تكون في قمة الـ Backstack وجاهزة للتفاعل. عند ظهور Dialog كامل أو إشعار أو فتح Activity أخرى تنتقل إلى onPause، ثم onStop عند حجبها كليًا، وأخيرًا onDestroy لتحرير الموارد أو عند استدعاء finish().' or l.code_example is distinct from 'class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // استئناف تحديثات الموقع أو الكاميرا
+    }
+
+    override fun onPause() {
+        super.onPause()
+        // إيقاف العمليات الحساسة لتوفير البطارية
+    }
+}' or l.common_mistakes is distinct from '["تنفيذ عمليات طويلة أو حجب الـ Main Thread داخل onPause مما يسبب ANR وبطء الانتقال للشاشة التالية.","الاعتماد على onDestroy لحفظ بيانات المستخدم الحساسة، لأن النظام قد ينهي العملية مباشرة دون استدعائها عند نقص الذاكرة."]'::jsonb or l.follow_up_questions is distinct from '["ما هي الحالات التي تستدعى فيها onPause دون أن تتبعها onStop؟","متى يجب استخدام onRestart في دورة حياة الـ Activity؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — The Activity Lifecycle","url":"https://developer.android.com/guide/components/activities/activity-lifecycle"}]'::jsonb)) then raise exception 'Question afund-001 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Activity Lifecycle States And Callbacks?', 'This question checks the core Activity Lifecycle States And Callbacks concept and how to use it safely in Kotlin and Android.', 'Explain Activity Lifecycle States And Callbacks with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', 'class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // استئناف تحديثات الموقع أو الكاميرا
+    }
+
+    override fun onPause() {
+        super.onPause()
+        // إيقاف العمليات الحساسة لتوفير البطارية
+    }
+}', '["Missing the key trade-off in Activity Lifecycle States And Callbacks (point 1).","Missing the key trade-off in Activity Lifecycle States And Callbacks (point 2)."]'::jsonb, '["How would you apply Activity Lifecycle States And Callbacks in a production Android app (follow-up 1)?","How would you apply Activity Lifecycle States And Callbacks in a production Android app (follow-up 2)?"]'::jsonb, '[{"title":"Android Developers — The Activity Lifecycle","url":"https://developer.android.com/guide/components/activities/activity-lifecycle"}]'::jsonb from public.question_revisions r where r.question_id = 'afund-001' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'afund-001' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Activity Lifecycle States And Callbacks?' or l.short_answer is distinct from 'This question checks the core Activity Lifecycle States And Callbacks concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Activity Lifecycle States And Callbacks with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from 'class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // استئناف تحديثات الموقع أو الكاميرا
+    }
+
+    override fun onPause() {
+        super.onPause()
+        // إيقاف العمليات الحساسة لتوفير البطارية
+    }
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Activity Lifecycle States And Callbacks (point 1).","Missing the key trade-off in Activity Lifecycle States And Callbacks (point 2)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Activity Lifecycle States And Callbacks in a production Android app (follow-up 1)?","How would you apply Activity Lifecycle States And Callbacks in a production Android app (follow-up 2)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — The Activity Lifecycle","url":"https://developer.android.com/guide/components/activities/activity-lifecycle"}]'::jsonb)) then raise exception 'Question afund-001 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('afund-001', 'android-fundamentals') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'afund-001' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'afund-001' and revision_number = 1 and status = 'published') where id = 'afund-001' and exists (select 1 from public.question_revisions where question_id = 'afund-001' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('afund-002', 'fragment-lifecycle-vs-activity-lifecycle', 'android-native', 'Junior') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('afund-002', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما الفرق بين دورة حياة الـ Fragment ودورة حياة الـ Activity ولماذا نستخدم viewLifecycleOwner؟', 'يمتلك الـ Fragment دورتي حياة: واحدة للـ Fragment نفسه وأخرى لواجهته (View)، ويجب استخدام viewLifecycleOwner لمراقبة البيانات لتفادي تسريب الذاكرة.', 'عند إضافة الـ Fragment إلى الـ Backstack واستبداله، يتم تدمير واجهته فقط (onDestroyView) بينما يبقى كائن الـ Fragment حيًا في الذاكرة. إذا تم تسجيل مراقب (Observer) باستخدام this، فسيستمر في استقبال البيانات والاحتفاظ بواجهات قديمة مهملة، لذلك يجب دائمًا استخدام viewLifecycleOwner الذي ينتهي بمجرد تدمير الـ View.', 'class UserFragment : Fragment(R.layout.fragment_user) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // الصحيح: استخدام viewLifecycleOwner
+        viewModel.userFlow.collectWithLifecycle(viewLifecycleOwner) { user ->
+            bindUser(user)
+        }
+    }
+}', '["تمرير this كـ LifecycleOwner لمراقبة LiveData أو Flow داخل الـ Fragment بدلاً من viewLifecycleOwner.","الاحتفاظ بمرجع قوي لـ ViewBinding دون تفريغه في onDestroyView، مما يسبب Memory Leak."]'::jsonb, '["ماذا يحدث لواجهة الـ Fragment عند نقله إلى الـ Backstack عبر addToBackStack؟"]'::jsonb, '[{"title":"Android Developers — Fragment lifecycle","url":"https://developer.android.com/guide/fragments/lifecycle"}]'::jsonb from public.question_revisions r where r.question_id = 'afund-002' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'afund-002' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما الفرق بين دورة حياة الـ Fragment ودورة حياة الـ Activity ولماذا نستخدم viewLifecycleOwner؟' or l.short_answer is distinct from 'يمتلك الـ Fragment دورتي حياة: واحدة للـ Fragment نفسه وأخرى لواجهته (View)، ويجب استخدام viewLifecycleOwner لمراقبة البيانات لتفادي تسريب الذاكرة.' or l.explanation is distinct from 'عند إضافة الـ Fragment إلى الـ Backstack واستبداله، يتم تدمير واجهته فقط (onDestroyView) بينما يبقى كائن الـ Fragment حيًا في الذاكرة. إذا تم تسجيل مراقب (Observer) باستخدام this، فسيستمر في استقبال البيانات والاحتفاظ بواجهات قديمة مهملة، لذلك يجب دائمًا استخدام viewLifecycleOwner الذي ينتهي بمجرد تدمير الـ View.' or l.code_example is distinct from 'class UserFragment : Fragment(R.layout.fragment_user) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // الصحيح: استخدام viewLifecycleOwner
+        viewModel.userFlow.collectWithLifecycle(viewLifecycleOwner) { user ->
+            bindUser(user)
+        }
+    }
+}' or l.common_mistakes is distinct from '["تمرير this كـ LifecycleOwner لمراقبة LiveData أو Flow داخل الـ Fragment بدلاً من viewLifecycleOwner.","الاحتفاظ بمرجع قوي لـ ViewBinding دون تفريغه في onDestroyView، مما يسبب Memory Leak."]'::jsonb or l.follow_up_questions is distinct from '["ماذا يحدث لواجهة الـ Fragment عند نقله إلى الـ Backstack عبر addToBackStack؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Fragment lifecycle","url":"https://developer.android.com/guide/fragments/lifecycle"}]'::jsonb)) then raise exception 'Question afund-002 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Fragment Lifecycle Vs Activity Lifecycle?', 'This question checks the core Fragment Lifecycle Vs Activity Lifecycle concept and how to use it safely in Kotlin and Android.', 'Explain Fragment Lifecycle Vs Activity Lifecycle with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', 'class UserFragment : Fragment(R.layout.fragment_user) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // الصحيح: استخدام viewLifecycleOwner
+        viewModel.userFlow.collectWithLifecycle(viewLifecycleOwner) { user ->
+            bindUser(user)
+        }
+    }
+}', '["Missing the key trade-off in Fragment Lifecycle Vs Activity Lifecycle (point 1).","Missing the key trade-off in Fragment Lifecycle Vs Activity Lifecycle (point 2)."]'::jsonb, '["How would you apply Fragment Lifecycle Vs Activity Lifecycle in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Fragment lifecycle","url":"https://developer.android.com/guide/fragments/lifecycle"}]'::jsonb from public.question_revisions r where r.question_id = 'afund-002' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'afund-002' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Fragment Lifecycle Vs Activity Lifecycle?' or l.short_answer is distinct from 'This question checks the core Fragment Lifecycle Vs Activity Lifecycle concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Fragment Lifecycle Vs Activity Lifecycle with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from 'class UserFragment : Fragment(R.layout.fragment_user) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // الصحيح: استخدام viewLifecycleOwner
+        viewModel.userFlow.collectWithLifecycle(viewLifecycleOwner) { user ->
+            bindUser(user)
+        }
+    }
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Fragment Lifecycle Vs Activity Lifecycle (point 1).","Missing the key trade-off in Fragment Lifecycle Vs Activity Lifecycle (point 2)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Fragment Lifecycle Vs Activity Lifecycle in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Fragment lifecycle","url":"https://developer.android.com/guide/fragments/lifecycle"}]'::jsonb)) then raise exception 'Question afund-002 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('afund-002', 'android-fundamentals') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'afund-002' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'afund-002' and revision_number = 1 and status = 'published') where id = 'afund-002' and exists (select 1 from public.question_revisions where question_id = 'afund-002' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('afund-003', 'context-application-vs-activity', 'android-native', 'Junior') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('afund-003', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما الفرق بين Application Context و Activity Context ومتى تستخدم كلاً منهما؟', 'Activity Context مرتبط بدورة حياة الشاشة والثيمات وواجهات المستخدم، بينما Application Context يعيش طوال فترة تشغيل التطبيق وتستخدمه للعمليات العامة والـ Singletons.', 'يحتوي Activity Context على معلومات الثيم (Theme) والـ Window Manager، لذلك يجب استخدامه لعرض Dialogs وبدء شاشات جديدة وتضخيم الواجهات (Inflating Views). أما Application Context فيُستخدم للعمليات المستمرة مثل تهيئة قواعد البيانات والمكتبات المركزية؛ وتمرير Activity Context لكائن يعيش طويلاً (كـ Singleton) يؤدي لتسريب الـ Activity بالكامل في الذاكرة.', '// صحيح للـ Singletons ومستودعات البيانات:
+class Repository(private val appContext: Context) // تمرير applicationContext
+
+// مطلوب لإنشاء الـ Dialogs وعرض الـ UI:
+val builder = AlertDialog.Builder(activity) // استخدام Activity Context', '["تمرير Activity Context إلى كلاس Singleton أو كائن ثابت (Static) مما يمنع الـ Garbage Collector من تحرير الـ Activity.","استخدام Application Context لإنشاء Dialog أو Toast بدون ثيم مناسب مما يسبب كراش أو أخطاء مظهرية."]'::jsonb, '["هل يمكن استخدام Application Context لتضخيم ملفات الـ Layout بأمان؟"]'::jsonb, '[{"title":"Android Developers — Context","url":"https://developer.android.com/reference/android/content/Context"}]'::jsonb from public.question_revisions r where r.question_id = 'afund-003' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'afund-003' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما الفرق بين Application Context و Activity Context ومتى تستخدم كلاً منهما؟' or l.short_answer is distinct from 'Activity Context مرتبط بدورة حياة الشاشة والثيمات وواجهات المستخدم، بينما Application Context يعيش طوال فترة تشغيل التطبيق وتستخدمه للعمليات العامة والـ Singletons.' or l.explanation is distinct from 'يحتوي Activity Context على معلومات الثيم (Theme) والـ Window Manager، لذلك يجب استخدامه لعرض Dialogs وبدء شاشات جديدة وتضخيم الواجهات (Inflating Views). أما Application Context فيُستخدم للعمليات المستمرة مثل تهيئة قواعد البيانات والمكتبات المركزية؛ وتمرير Activity Context لكائن يعيش طويلاً (كـ Singleton) يؤدي لتسريب الـ Activity بالكامل في الذاكرة.' or l.code_example is distinct from '// صحيح للـ Singletons ومستودعات البيانات:
+class Repository(private val appContext: Context) // تمرير applicationContext
+
+// مطلوب لإنشاء الـ Dialogs وعرض الـ UI:
+val builder = AlertDialog.Builder(activity) // استخدام Activity Context' or l.common_mistakes is distinct from '["تمرير Activity Context إلى كلاس Singleton أو كائن ثابت (Static) مما يمنع الـ Garbage Collector من تحرير الـ Activity.","استخدام Application Context لإنشاء Dialog أو Toast بدون ثيم مناسب مما يسبب كراش أو أخطاء مظهرية."]'::jsonb or l.follow_up_questions is distinct from '["هل يمكن استخدام Application Context لتضخيم ملفات الـ Layout بأمان؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Context","url":"https://developer.android.com/reference/android/content/Context"}]'::jsonb)) then raise exception 'Question afund-003 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Context Application Vs Activity?', 'This question checks the core Context Application Vs Activity concept and how to use it safely in Kotlin and Android.', 'Explain Context Application Vs Activity with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', '// صحيح للـ Singletons ومستودعات البيانات:
+class Repository(private val appContext: Context) // تمرير applicationContext
+
+// مطلوب لإنشاء الـ Dialogs وعرض الـ UI:
+val builder = AlertDialog.Builder(activity) // استخدام Activity Context', '["Missing the key trade-off in Context Application Vs Activity (point 1).","Missing the key trade-off in Context Application Vs Activity (point 2)."]'::jsonb, '["How would you apply Context Application Vs Activity in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Context","url":"https://developer.android.com/reference/android/content/Context"}]'::jsonb from public.question_revisions r where r.question_id = 'afund-003' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'afund-003' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Context Application Vs Activity?' or l.short_answer is distinct from 'This question checks the core Context Application Vs Activity concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Context Application Vs Activity with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from '// صحيح للـ Singletons ومستودعات البيانات:
+class Repository(private val appContext: Context) // تمرير applicationContext
+
+// مطلوب لإنشاء الـ Dialogs وعرض الـ UI:
+val builder = AlertDialog.Builder(activity) // استخدام Activity Context' or l.common_mistakes is distinct from '["Missing the key trade-off in Context Application Vs Activity (point 1).","Missing the key trade-off in Context Application Vs Activity (point 2)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Context Application Vs Activity in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Context","url":"https://developer.android.com/reference/android/content/Context"}]'::jsonb)) then raise exception 'Question afund-003 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('afund-003', 'android-fundamentals') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'afund-003' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'afund-003' and revision_number = 1 and status = 'published') where id = 'afund-003' and exists (select 1 from public.question_revisions where question_id = 'afund-003' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('afund-004', 'explicit-vs-implicit-intents', 'android-native', 'Junior') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('afund-004', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما الفرق بين الـ Explicit Intent والـ Implicit Intent في أندرويد؟', 'الـ Explicit يحدد المكون المستهدف بالاسم الصريح داخل التطبيق، بينما الـ Implicit يعلن عن الإجراء المطلوب (Action) ليقوم النظام باختيار التطبيق المناسب.', 'يُستخدم Explicit Intent للتنقل الداخلي بين أنشطة التطبيق (Activities) وخدماته بكتابة الكلاس المستهدف مباشرة. أما Implicit Intent فيصف عملية عامة مثل فتح رابط ويب (ACTION_VIEW) أو التقاط صورة أو إرسال بريد؛ يقوم نظام أندرويد بمطابقة هذا الطلب مع الـ Intent Filters المسجلة في الـ Manifest لجميع التطبيقات وتخيير المستخدم.', '// Explicit Intent
+val internalIntent = Intent(context, ProfileActivity::class.java)
+startActivity(internalIntent)
+
+// Implicit Intent
+val webIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://developer.android.com"))
+if (webIntent.resolveActivity(packageManager) != null) {
+    startActivity(webIntent)
+}', '["استدعاء startActivity مع Implicit Intent دون التحقق من وجود تطبيق قادر على التعامل معه، مما يؤدي إلى ActivityNotFoundException."]'::jsonb, '["كيف تحمي المكونات الداخلية في الـ Manifest من الاستدعاء الخارجي غير المصرح به عبر android:exported؟"]'::jsonb, '[{"title":"Android Developers — Intents and Intent Filters","url":"https://developer.android.com/guide/components/intents-filters"}]'::jsonb from public.question_revisions r where r.question_id = 'afund-004' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'afund-004' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما الفرق بين الـ Explicit Intent والـ Implicit Intent في أندرويد؟' or l.short_answer is distinct from 'الـ Explicit يحدد المكون المستهدف بالاسم الصريح داخل التطبيق، بينما الـ Implicit يعلن عن الإجراء المطلوب (Action) ليقوم النظام باختيار التطبيق المناسب.' or l.explanation is distinct from 'يُستخدم Explicit Intent للتنقل الداخلي بين أنشطة التطبيق (Activities) وخدماته بكتابة الكلاس المستهدف مباشرة. أما Implicit Intent فيصف عملية عامة مثل فتح رابط ويب (ACTION_VIEW) أو التقاط صورة أو إرسال بريد؛ يقوم نظام أندرويد بمطابقة هذا الطلب مع الـ Intent Filters المسجلة في الـ Manifest لجميع التطبيقات وتخيير المستخدم.' or l.code_example is distinct from '// Explicit Intent
+val internalIntent = Intent(context, ProfileActivity::class.java)
+startActivity(internalIntent)
+
+// Implicit Intent
+val webIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://developer.android.com"))
+if (webIntent.resolveActivity(packageManager) != null) {
+    startActivity(webIntent)
+}' or l.common_mistakes is distinct from '["استدعاء startActivity مع Implicit Intent دون التحقق من وجود تطبيق قادر على التعامل معه، مما يؤدي إلى ActivityNotFoundException."]'::jsonb or l.follow_up_questions is distinct from '["كيف تحمي المكونات الداخلية في الـ Manifest من الاستدعاء الخارجي غير المصرح به عبر android:exported؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Intents and Intent Filters","url":"https://developer.android.com/guide/components/intents-filters"}]'::jsonb)) then raise exception 'Question afund-004 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Explicit Vs Implicit Intents?', 'This question checks the core Explicit Vs Implicit Intents concept and how to use it safely in Kotlin and Android.', 'Explain Explicit Vs Implicit Intents with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', '// Explicit Intent
+val internalIntent = Intent(context, ProfileActivity::class.java)
+startActivity(internalIntent)
+
+// Implicit Intent
+val webIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://developer.android.com"))
+if (webIntent.resolveActivity(packageManager) != null) {
+    startActivity(webIntent)
+}', '["Missing the key trade-off in Explicit Vs Implicit Intents (point 1)."]'::jsonb, '["How would you apply Explicit Vs Implicit Intents in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Intents and Intent Filters","url":"https://developer.android.com/guide/components/intents-filters"}]'::jsonb from public.question_revisions r where r.question_id = 'afund-004' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'afund-004' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Explicit Vs Implicit Intents?' or l.short_answer is distinct from 'This question checks the core Explicit Vs Implicit Intents concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Explicit Vs Implicit Intents with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from '// Explicit Intent
+val internalIntent = Intent(context, ProfileActivity::class.java)
+startActivity(internalIntent)
+
+// Implicit Intent
+val webIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://developer.android.com"))
+if (webIntent.resolveActivity(packageManager) != null) {
+    startActivity(webIntent)
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Explicit Vs Implicit Intents (point 1)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Explicit Vs Implicit Intents in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Intents and Intent Filters","url":"https://developer.android.com/guide/components/intents-filters"}]'::jsonb)) then raise exception 'Question afund-004 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('afund-004', 'android-fundamentals') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'afund-004' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'afund-004' and revision_number = 1 and status = 'published') where id = 'afund-004' and exists (select 1 from public.question_revisions where question_id = 'afund-004' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('afund-005', 'activity-launch-modes', 'android-native', 'Mid') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('afund-005', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما هي أنماط الإطلاق (Launch Modes) للـ Activity وما تأثيرها على الـ Backstack؟', 'تحدد كيفية فتح الـ Activity في المهام: standard (نسخة جديدة دائمًا)، singleTop (إعادة استخدام القمة)، singleTask (نسخة واحدة في المهمة)، و singleInstance (مهمة معزولة).', 'standard ينشئ نسخة جديدة في كل استدعاء. singleTop يعيد استخدام النشاط إذا كان بالفعل في قمة الـ stack ويستدعي onNewIntent(). singleTask ينشئ مهمة جديدة أو يوجه المستخدم إلى النشاط إذا كان موجودًا في المهمة مع حذف كل الأنشطة التي تعلوه (Clear Top). singleInstance يعزل النشاط في مهمة مستقلة تمامًا ولا يسمح بفتح أنشطة أخرى داخل نفس المهمة.', '<!-- تعريف launchMode في AndroidManifest.xml -->
+<activity
+    android:name=".SearchActivity"
+    android:launchMode="singleTop" />
+
+// استقبال البيانات عند إعادة الاستخدام:
+override fun onNewIntent(intent: Intent) {
+    super.onNewIntent(intent)
+    setIntent(intent)
+    handleSearchQuery(intent)
+}', '["نسيان استدعاء setIntent(intent) داخل onNewIntent() مما يبقي الـ Activity معتمدة على الـ Intent القديم.","الإفراط في استخدام singleTask و singleInstance لكسر السلوك الطبيعي للـ Backstack مما يربك المستخدم."]'::jsonb, '["ما الفرق بين تحديد Launch Mode في الـ Manifest واستخدام Intent Flags مثل FLAG_ACTIVITY_CLEAR_TOP؟"]'::jsonb, '[{"title":"Android Developers — Tasks and the back stack","url":"https://developer.android.com/guide/components/activities/tasks-and-back-stack"}]'::jsonb from public.question_revisions r where r.question_id = 'afund-005' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'afund-005' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما هي أنماط الإطلاق (Launch Modes) للـ Activity وما تأثيرها على الـ Backstack؟' or l.short_answer is distinct from 'تحدد كيفية فتح الـ Activity في المهام: standard (نسخة جديدة دائمًا)، singleTop (إعادة استخدام القمة)، singleTask (نسخة واحدة في المهمة)، و singleInstance (مهمة معزولة).' or l.explanation is distinct from 'standard ينشئ نسخة جديدة في كل استدعاء. singleTop يعيد استخدام النشاط إذا كان بالفعل في قمة الـ stack ويستدعي onNewIntent(). singleTask ينشئ مهمة جديدة أو يوجه المستخدم إلى النشاط إذا كان موجودًا في المهمة مع حذف كل الأنشطة التي تعلوه (Clear Top). singleInstance يعزل النشاط في مهمة مستقلة تمامًا ولا يسمح بفتح أنشطة أخرى داخل نفس المهمة.' or l.code_example is distinct from '<!-- تعريف launchMode في AndroidManifest.xml -->
+<activity
+    android:name=".SearchActivity"
+    android:launchMode="singleTop" />
+
+// استقبال البيانات عند إعادة الاستخدام:
+override fun onNewIntent(intent: Intent) {
+    super.onNewIntent(intent)
+    setIntent(intent)
+    handleSearchQuery(intent)
+}' or l.common_mistakes is distinct from '["نسيان استدعاء setIntent(intent) داخل onNewIntent() مما يبقي الـ Activity معتمدة على الـ Intent القديم.","الإفراط في استخدام singleTask و singleInstance لكسر السلوك الطبيعي للـ Backstack مما يربك المستخدم."]'::jsonb or l.follow_up_questions is distinct from '["ما الفرق بين تحديد Launch Mode في الـ Manifest واستخدام Intent Flags مثل FLAG_ACTIVITY_CLEAR_TOP؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Tasks and the back stack","url":"https://developer.android.com/guide/components/activities/tasks-and-back-stack"}]'::jsonb)) then raise exception 'Question afund-005 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Activity Launch Modes?', 'This question checks the core Activity Launch Modes concept and how to use it safely in Kotlin and Android.', 'Explain Activity Launch Modes with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', '<!-- تعريف launchMode في AndroidManifest.xml -->
+<activity
+    android:name=".SearchActivity"
+    android:launchMode="singleTop" />
+
+// استقبال البيانات عند إعادة الاستخدام:
+override fun onNewIntent(intent: Intent) {
+    super.onNewIntent(intent)
+    setIntent(intent)
+    handleSearchQuery(intent)
+}', '["Missing the key trade-off in Activity Launch Modes (point 1).","Missing the key trade-off in Activity Launch Modes (point 2)."]'::jsonb, '["How would you apply Activity Launch Modes in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Tasks and the back stack","url":"https://developer.android.com/guide/components/activities/tasks-and-back-stack"}]'::jsonb from public.question_revisions r where r.question_id = 'afund-005' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'afund-005' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Activity Launch Modes?' or l.short_answer is distinct from 'This question checks the core Activity Launch Modes concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Activity Launch Modes with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from '<!-- تعريف launchMode في AndroidManifest.xml -->
+<activity
+    android:name=".SearchActivity"
+    android:launchMode="singleTop" />
+
+// استقبال البيانات عند إعادة الاستخدام:
+override fun onNewIntent(intent: Intent) {
+    super.onNewIntent(intent)
+    setIntent(intent)
+    handleSearchQuery(intent)
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Activity Launch Modes (point 1).","Missing the key trade-off in Activity Launch Modes (point 2)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Activity Launch Modes in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Tasks and the back stack","url":"https://developer.android.com/guide/components/activities/tasks-and-back-stack"}]'::jsonb)) then raise exception 'Question afund-005 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('afund-005', 'android-fundamentals') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'afund-005' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'afund-005' and revision_number = 1 and status = 'published') where id = 'afund-005' and exists (select 1 from public.question_revisions where question_id = 'afund-005' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('afund-006', 'configuration-changes-and-state-loss', 'android-native', 'Mid') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('afund-006', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ماذا يحدث عند حدوث Configuration Change (كدوران الشاشة) وكيف نحافظ على البيانات؟', 'يقوم النظام بإعادة إنشاء الـ Activity بالكامل؛ ونحافظ على البيانات غير العابرة عبر ViewModel والبيانات الحساسة عبر SavedStateHandle أو onSaveInstanceState.', 'أثناء تغيير اللغة أو دوران الشاشة، تُدمج الموارد الجديدة بإعادة بناء الـ Activity (تستدعى onDestroy ثم onCreate). يحتفظ ViewModel بالبيانات الثقيلة وحالات الشاشة طالما أن الـ Activity لم تُغلق عمدًا، بينما يُستخدم onSaveInstanceState أو SavedStateHandle لحفظ البيانات النصية ومعرفات العناصر الخفيفة التي تكفي لإعادة بناء الشاشة عند موت العملية.', 'class DetailViewModel(
+    private val savedStateHandle: SavedStateHandle
+) : ViewModel() {
+    // يستعيد المعرف حتى بعد قتل النظام للتطبيق
+    val itemId: String = checkNotNull(savedStateHandle["item_id"])
+}', '["محاولة تخزين كائنات ضخمة أو Bitmap داخل onSaveInstanceState Bundle، مما يسبب TransactionTooLargeException.","استخدام android:configChanges في الـ Manifest للهروب من معالجة إعادة بناء الشاشة بشكل صحيح."]'::jsonb, '["ما هو الحد الأقصى الآمن لحجم البيانات التي يمكن تخزينها في الـ SavedInstanceState؟"]'::jsonb, '[{"title":"Android Developers — Handle configuration changes","url":"https://developer.android.com/guide/topics/resources/runtime-changes"}]'::jsonb from public.question_revisions r where r.question_id = 'afund-006' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'afund-006' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ماذا يحدث عند حدوث Configuration Change (كدوران الشاشة) وكيف نحافظ على البيانات؟' or l.short_answer is distinct from 'يقوم النظام بإعادة إنشاء الـ Activity بالكامل؛ ونحافظ على البيانات غير العابرة عبر ViewModel والبيانات الحساسة عبر SavedStateHandle أو onSaveInstanceState.' or l.explanation is distinct from 'أثناء تغيير اللغة أو دوران الشاشة، تُدمج الموارد الجديدة بإعادة بناء الـ Activity (تستدعى onDestroy ثم onCreate). يحتفظ ViewModel بالبيانات الثقيلة وحالات الشاشة طالما أن الـ Activity لم تُغلق عمدًا، بينما يُستخدم onSaveInstanceState أو SavedStateHandle لحفظ البيانات النصية ومعرفات العناصر الخفيفة التي تكفي لإعادة بناء الشاشة عند موت العملية.' or l.code_example is distinct from 'class DetailViewModel(
+    private val savedStateHandle: SavedStateHandle
+) : ViewModel() {
+    // يستعيد المعرف حتى بعد قتل النظام للتطبيق
+    val itemId: String = checkNotNull(savedStateHandle["item_id"])
+}' or l.common_mistakes is distinct from '["محاولة تخزين كائنات ضخمة أو Bitmap داخل onSaveInstanceState Bundle، مما يسبب TransactionTooLargeException.","استخدام android:configChanges في الـ Manifest للهروب من معالجة إعادة بناء الشاشة بشكل صحيح."]'::jsonb or l.follow_up_questions is distinct from '["ما هو الحد الأقصى الآمن لحجم البيانات التي يمكن تخزينها في الـ SavedInstanceState؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Handle configuration changes","url":"https://developer.android.com/guide/topics/resources/runtime-changes"}]'::jsonb)) then raise exception 'Question afund-006 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Configuration Changes And State Loss?', 'This question checks the core Configuration Changes And State Loss concept and how to use it safely in Kotlin and Android.', 'Explain Configuration Changes And State Loss with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', 'class DetailViewModel(
+    private val savedStateHandle: SavedStateHandle
+) : ViewModel() {
+    // يستعيد المعرف حتى بعد قتل النظام للتطبيق
+    val itemId: String = checkNotNull(savedStateHandle["item_id"])
+}', '["Missing the key trade-off in Configuration Changes And State Loss (point 1).","Missing the key trade-off in Configuration Changes And State Loss (point 2)."]'::jsonb, '["How would you apply Configuration Changes And State Loss in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Handle configuration changes","url":"https://developer.android.com/guide/topics/resources/runtime-changes"}]'::jsonb from public.question_revisions r where r.question_id = 'afund-006' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'afund-006' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Configuration Changes And State Loss?' or l.short_answer is distinct from 'This question checks the core Configuration Changes And State Loss concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Configuration Changes And State Loss with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from 'class DetailViewModel(
+    private val savedStateHandle: SavedStateHandle
+) : ViewModel() {
+    // يستعيد المعرف حتى بعد قتل النظام للتطبيق
+    val itemId: String = checkNotNull(savedStateHandle["item_id"])
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Configuration Changes And State Loss (point 1).","Missing the key trade-off in Configuration Changes And State Loss (point 2)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Configuration Changes And State Loss in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Handle configuration changes","url":"https://developer.android.com/guide/topics/resources/runtime-changes"}]'::jsonb)) then raise exception 'Question afund-006 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('afund-006', 'android-fundamentals') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'afund-006' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'afund-006' and revision_number = 1 and status = 'published') where id = 'afund-006' and exists (select 1 from public.question_revisions where question_id = 'afund-006' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('afund-007', 'content-providers-and-data-sharing', 'android-native', 'Mid') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('afund-007', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما هو دور الـ ContentProvider في معمارية أندرويد ومتى تحتاجه؟', 'هو مكوّن مركزي لإدارة ومشاركة البيانات المهيكلة بين التطبيقات المختلفة بأمان عبر واجهة تعتمد على مسارات الـ Uri.', 'يعمل ContentProvider كوسيط آمن بين التطبيقات، ويغلف قاعدة البيانات الداخلية أو الملفات ويقدم واجهة CRUD قياسية. تحتاجه عند الرغبة في مشاركة بيانات تطبيقك مع تطبيقات خارجية، أو عند التعامل مع بيانات النظام مثل جهات الاتصال (Contacts) والوسائط (MediaStore)، أو لاستخدام FileProvider لمشاركة ملفات آمنة دون كشف مسار التخزين الحقيقي.', 'val cursor = contentResolver.query(
+    MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+    arrayOf(MediaStore.Images.Media._ID, MediaStore.Images.Media.DISPLAY_NAME),
+    null, null, null
+)
+cursor?.use {
+    while (it.moveToNext()) {
+        val name = it.getString(it.getColumnIndexOrThrow(MediaStore.Images.Media.DISPLAY_NAME))
+    }
+}', '["تنفيذ استعلامات ContentResolver على الـ Main Thread مما يسبب تعليق الواجهة وبطء التمرير.","عدم إغلاق الـ Cursor بعد الانتهاء منه مما يسبب تسريبًا في مراجع قواعد البيانات وذاكرة المؤشرات."]'::jsonb, '["كيف يعمل FileProvider وما فائدته الأمنية مقارنة بمشاركة مسارات الـ file:// المباشرة؟"]'::jsonb, '[{"title":"Android Developers — Content provider basics","url":"https://developer.android.com/guide/topics/providers/content-provider-basics"}]'::jsonb from public.question_revisions r where r.question_id = 'afund-007' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'afund-007' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما هو دور الـ ContentProvider في معمارية أندرويد ومتى تحتاجه؟' or l.short_answer is distinct from 'هو مكوّن مركزي لإدارة ومشاركة البيانات المهيكلة بين التطبيقات المختلفة بأمان عبر واجهة تعتمد على مسارات الـ Uri.' or l.explanation is distinct from 'يعمل ContentProvider كوسيط آمن بين التطبيقات، ويغلف قاعدة البيانات الداخلية أو الملفات ويقدم واجهة CRUD قياسية. تحتاجه عند الرغبة في مشاركة بيانات تطبيقك مع تطبيقات خارجية، أو عند التعامل مع بيانات النظام مثل جهات الاتصال (Contacts) والوسائط (MediaStore)، أو لاستخدام FileProvider لمشاركة ملفات آمنة دون كشف مسار التخزين الحقيقي.' or l.code_example is distinct from 'val cursor = contentResolver.query(
+    MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+    arrayOf(MediaStore.Images.Media._ID, MediaStore.Images.Media.DISPLAY_NAME),
+    null, null, null
+)
+cursor?.use {
+    while (it.moveToNext()) {
+        val name = it.getString(it.getColumnIndexOrThrow(MediaStore.Images.Media.DISPLAY_NAME))
+    }
+}' or l.common_mistakes is distinct from '["تنفيذ استعلامات ContentResolver على الـ Main Thread مما يسبب تعليق الواجهة وبطء التمرير.","عدم إغلاق الـ Cursor بعد الانتهاء منه مما يسبب تسريبًا في مراجع قواعد البيانات وذاكرة المؤشرات."]'::jsonb or l.follow_up_questions is distinct from '["كيف يعمل FileProvider وما فائدته الأمنية مقارنة بمشاركة مسارات الـ file:// المباشرة؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Content provider basics","url":"https://developer.android.com/guide/topics/providers/content-provider-basics"}]'::jsonb)) then raise exception 'Question afund-007 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Content Providers And Data Sharing?', 'This question checks the core Content Providers And Data Sharing concept and how to use it safely in Kotlin and Android.', 'Explain Content Providers And Data Sharing with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', 'val cursor = contentResolver.query(
+    MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+    arrayOf(MediaStore.Images.Media._ID, MediaStore.Images.Media.DISPLAY_NAME),
+    null, null, null
+)
+cursor?.use {
+    while (it.moveToNext()) {
+        val name = it.getString(it.getColumnIndexOrThrow(MediaStore.Images.Media.DISPLAY_NAME))
+    }
+}', '["Missing the key trade-off in Content Providers And Data Sharing (point 1).","Missing the key trade-off in Content Providers And Data Sharing (point 2)."]'::jsonb, '["How would you apply Content Providers And Data Sharing in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Content provider basics","url":"https://developer.android.com/guide/topics/providers/content-provider-basics"}]'::jsonb from public.question_revisions r where r.question_id = 'afund-007' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'afund-007' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Content Providers And Data Sharing?' or l.short_answer is distinct from 'This question checks the core Content Providers And Data Sharing concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Content Providers And Data Sharing with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from 'val cursor = contentResolver.query(
+    MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+    arrayOf(MediaStore.Images.Media._ID, MediaStore.Images.Media.DISPLAY_NAME),
+    null, null, null
+)
+cursor?.use {
+    while (it.moveToNext()) {
+        val name = it.getString(it.getColumnIndexOrThrow(MediaStore.Images.Media.DISPLAY_NAME))
+    }
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Content Providers And Data Sharing (point 1).","Missing the key trade-off in Content Providers And Data Sharing (point 2)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Content Providers And Data Sharing in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Content provider basics","url":"https://developer.android.com/guide/topics/providers/content-provider-basics"}]'::jsonb)) then raise exception 'Question afund-007 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('afund-007', 'android-fundamentals') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'afund-007' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'afund-007' and revision_number = 1 and status = 'published') where id = 'afund-007' and exists (select 1 from public.question_revisions where question_id = 'afund-007' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('afund-008', 'broadcast-receivers-static-vs-dynamic', 'android-native', 'Mid') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('afund-008', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما الفرق بين BroadcastReceiver المسجل استاتيكيًا والمسجل ديناميكيًا؟', 'المسجل استاتيكيًا يُعرّف في Manifest ويستيقظ التطبيق لاستقباله، بينما الديناميكي يُسجل برمجيًا في الكود ويعيش مع دورة حياة المكون المسجل له.', 'قامت إصدارات أندرويد الحديثة (بدءًا من Android 8.0) بتقييد معظم الـ Implicit Broadcasts في الـ Manifest للحد من استنزاف البطارية وإيقاظ التطبيقات غير الضروري. لذلك تُسجل معظم الأحداث الحساسة (مثل تغير الاتصال بالشبكة) ديناميكيًا عبر registerReceiver في onStart وتُلغى في onStop لتفادي التسريب.', 'val receiver = object : BroadcastReceiver() {
+    override fun onReceive(context: Context, intent: Intent) {
+        // تنفيذ معالجة سريعة
+    }
+}
+
+override fun onStart() {
+    super.onStart()
+    registerReceiver(receiver, IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED))
+}
+
+override fun onStop() {
+    super.onStop()
+    unregisterReceiver(receiver)
+}', '["نسيان استدعاء unregisterReceiver عند تدمير المكون مما يؤدي إلى تسريب الـ Context وكراش عند التكرار.","تنفيذ عمليات معقدة أو استدعاءات شبكة طويلة داخل onReceive المحدودة بزمن استجابة قصير جدًا."]'::jsonb, '["ما هي مدة المهلة القصوى لتنفيذ كود داخل دالة onReceive قبل أن يطلق النظام خطأ ANR؟"]'::jsonb, '[{"title":"Android Developers — Broadcasts overview","url":"https://developer.android.com/guide/components/broadcasts"}]'::jsonb from public.question_revisions r where r.question_id = 'afund-008' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'afund-008' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما الفرق بين BroadcastReceiver المسجل استاتيكيًا والمسجل ديناميكيًا؟' or l.short_answer is distinct from 'المسجل استاتيكيًا يُعرّف في Manifest ويستيقظ التطبيق لاستقباله، بينما الديناميكي يُسجل برمجيًا في الكود ويعيش مع دورة حياة المكون المسجل له.' or l.explanation is distinct from 'قامت إصدارات أندرويد الحديثة (بدءًا من Android 8.0) بتقييد معظم الـ Implicit Broadcasts في الـ Manifest للحد من استنزاف البطارية وإيقاظ التطبيقات غير الضروري. لذلك تُسجل معظم الأحداث الحساسة (مثل تغير الاتصال بالشبكة) ديناميكيًا عبر registerReceiver في onStart وتُلغى في onStop لتفادي التسريب.' or l.code_example is distinct from 'val receiver = object : BroadcastReceiver() {
+    override fun onReceive(context: Context, intent: Intent) {
+        // تنفيذ معالجة سريعة
+    }
+}
+
+override fun onStart() {
+    super.onStart()
+    registerReceiver(receiver, IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED))
+}
+
+override fun onStop() {
+    super.onStop()
+    unregisterReceiver(receiver)
+}' or l.common_mistakes is distinct from '["نسيان استدعاء unregisterReceiver عند تدمير المكون مما يؤدي إلى تسريب الـ Context وكراش عند التكرار.","تنفيذ عمليات معقدة أو استدعاءات شبكة طويلة داخل onReceive المحدودة بزمن استجابة قصير جدًا."]'::jsonb or l.follow_up_questions is distinct from '["ما هي مدة المهلة القصوى لتنفيذ كود داخل دالة onReceive قبل أن يطلق النظام خطأ ANR؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Broadcasts overview","url":"https://developer.android.com/guide/components/broadcasts"}]'::jsonb)) then raise exception 'Question afund-008 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Broadcast Receivers Static Vs Dynamic?', 'This question checks the core Broadcast Receivers Static Vs Dynamic concept and how to use it safely in Kotlin and Android.', 'Explain Broadcast Receivers Static Vs Dynamic with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', 'val receiver = object : BroadcastReceiver() {
+    override fun onReceive(context: Context, intent: Intent) {
+        // تنفيذ معالجة سريعة
+    }
+}
+
+override fun onStart() {
+    super.onStart()
+    registerReceiver(receiver, IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED))
+}
+
+override fun onStop() {
+    super.onStop()
+    unregisterReceiver(receiver)
+}', '["Missing the key trade-off in Broadcast Receivers Static Vs Dynamic (point 1).","Missing the key trade-off in Broadcast Receivers Static Vs Dynamic (point 2)."]'::jsonb, '["How would you apply Broadcast Receivers Static Vs Dynamic in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Broadcasts overview","url":"https://developer.android.com/guide/components/broadcasts"}]'::jsonb from public.question_revisions r where r.question_id = 'afund-008' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'afund-008' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Broadcast Receivers Static Vs Dynamic?' or l.short_answer is distinct from 'This question checks the core Broadcast Receivers Static Vs Dynamic concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Broadcast Receivers Static Vs Dynamic with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from 'val receiver = object : BroadcastReceiver() {
+    override fun onReceive(context: Context, intent: Intent) {
+        // تنفيذ معالجة سريعة
+    }
+}
+
+override fun onStart() {
+    super.onStart()
+    registerReceiver(receiver, IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED))
+}
+
+override fun onStop() {
+    super.onStop()
+    unregisterReceiver(receiver)
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Broadcast Receivers Static Vs Dynamic (point 1).","Missing the key trade-off in Broadcast Receivers Static Vs Dynamic (point 2)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Broadcast Receivers Static Vs Dynamic in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Broadcasts overview","url":"https://developer.android.com/guide/components/broadcasts"}]'::jsonb)) then raise exception 'Question afund-008 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('afund-008', 'android-fundamentals') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'afund-008' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'afund-008' and revision_number = 1 and status = 'published') where id = 'afund-008' and exists (select 1 from public.question_revisions where question_id = 'afund-008' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('afund-009', 'process-death-vs-activity-destruction', 'android-native', 'Senior') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('afund-009', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما الفرق بين موت العملية الكامل (Process Death) وإغلاق الـ Activity بواسطة المستخدم؟', 'إغلاق المستخدم ينهي الـ Activity ويمسح كائناتها وحالتها بإرادته، بينما موت العملية يحدث قسرًا بواسطة النظام لتفريغ الذاكرة مع حفظ الـ SavedState لاستعادتها لاحقًا.', 'عندما يكون التطبيق في الخلفية، قد يقرر الـ Low Memory Killer (LMK) قتل عملية التطبيق بالكامل لتحرير RAM لتطبيق نشط آخر. عند عودة المستخدم، ينشئ النظام عملية جديدة تمامًا وتكون كائنات الـ Singleton والـ ViewModel القديمة ممسوحة من الذاكرة، ويقوم النظام فقط بتمرير الـ Bundle المحفوظة إلى onCreate و SavedStateHandle لإعادة بناء الحالة.', '// اختبار موت العملية عبر adb:
+// adb shell am kill com.example.app
+
+class ProfileViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
+    // يستعيد المعرف بأمان حتى بعد Process Death
+    val userId: StateFlow<String> = savedStateHandle.getStateFlow("user_id", "")
+}', '["الاعتماد الكامل على المتغيرات الثابتة (Static Singletons) أو الـ In-Memory Cache وافتراض بقائها حية دائمًا أثناء تنقل المستخدم.","عدم اختبار سلوك التطبيق تحت سيناريو Process Death مما يؤدي لكراشات مفاجئة بسبب Null Pointer عند إعادة الدخول."]'::jsonb, '["كيف يمكنك اختبار سيناريو Process Death بدقة داخل بيئة Android Studio أو عبر سطر الأوامر؟"]'::jsonb, '[{"title":"Android Developers — Processes and app lifecycle","url":"https://developer.android.com/guide/components/activities/process-lifecycle"}]'::jsonb from public.question_revisions r where r.question_id = 'afund-009' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'afund-009' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما الفرق بين موت العملية الكامل (Process Death) وإغلاق الـ Activity بواسطة المستخدم؟' or l.short_answer is distinct from 'إغلاق المستخدم ينهي الـ Activity ويمسح كائناتها وحالتها بإرادته، بينما موت العملية يحدث قسرًا بواسطة النظام لتفريغ الذاكرة مع حفظ الـ SavedState لاستعادتها لاحقًا.' or l.explanation is distinct from 'عندما يكون التطبيق في الخلفية، قد يقرر الـ Low Memory Killer (LMK) قتل عملية التطبيق بالكامل لتحرير RAM لتطبيق نشط آخر. عند عودة المستخدم، ينشئ النظام عملية جديدة تمامًا وتكون كائنات الـ Singleton والـ ViewModel القديمة ممسوحة من الذاكرة، ويقوم النظام فقط بتمرير الـ Bundle المحفوظة إلى onCreate و SavedStateHandle لإعادة بناء الحالة.' or l.code_example is distinct from '// اختبار موت العملية عبر adb:
+// adb shell am kill com.example.app
+
+class ProfileViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
+    // يستعيد المعرف بأمان حتى بعد Process Death
+    val userId: StateFlow<String> = savedStateHandle.getStateFlow("user_id", "")
+}' or l.common_mistakes is distinct from '["الاعتماد الكامل على المتغيرات الثابتة (Static Singletons) أو الـ In-Memory Cache وافتراض بقائها حية دائمًا أثناء تنقل المستخدم.","عدم اختبار سلوك التطبيق تحت سيناريو Process Death مما يؤدي لكراشات مفاجئة بسبب Null Pointer عند إعادة الدخول."]'::jsonb or l.follow_up_questions is distinct from '["كيف يمكنك اختبار سيناريو Process Death بدقة داخل بيئة Android Studio أو عبر سطر الأوامر؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Processes and app lifecycle","url":"https://developer.android.com/guide/components/activities/process-lifecycle"}]'::jsonb)) then raise exception 'Question afund-009 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Process Death Vs Activity Destruction?', 'This question checks the core Process Death Vs Activity Destruction concept and how to use it safely in Kotlin and Android.', 'Explain Process Death Vs Activity Destruction with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', '// اختبار موت العملية عبر adb:
+// adb shell am kill com.example.app
+
+class ProfileViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
+    // يستعيد المعرف بأمان حتى بعد Process Death
+    val userId: StateFlow<String> = savedStateHandle.getStateFlow("user_id", "")
+}', '["Missing the key trade-off in Process Death Vs Activity Destruction (point 1).","Missing the key trade-off in Process Death Vs Activity Destruction (point 2)."]'::jsonb, '["How would you apply Process Death Vs Activity Destruction in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Processes and app lifecycle","url":"https://developer.android.com/guide/components/activities/process-lifecycle"}]'::jsonb from public.question_revisions r where r.question_id = 'afund-009' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'afund-009' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Process Death Vs Activity Destruction?' or l.short_answer is distinct from 'This question checks the core Process Death Vs Activity Destruction concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Process Death Vs Activity Destruction with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from '// اختبار موت العملية عبر adb:
+// adb shell am kill com.example.app
+
+class ProfileViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
+    // يستعيد المعرف بأمان حتى بعد Process Death
+    val userId: StateFlow<String> = savedStateHandle.getStateFlow("user_id", "")
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Process Death Vs Activity Destruction (point 1).","Missing the key trade-off in Process Death Vs Activity Destruction (point 2)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Process Death Vs Activity Destruction in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Processes and app lifecycle","url":"https://developer.android.com/guide/components/activities/process-lifecycle"}]'::jsonb)) then raise exception 'Question afund-009 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('afund-009', 'android-fundamentals') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'afund-009' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'afund-009' and revision_number = 1 and status = 'published') where id = 'afund-009' and exists (select 1 from public.question_revisions where question_id = 'afund-009' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('afund-010', 'android-permissions-runtime-model', 'android-native', 'Senior') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('afund-010', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'كيف تطبق نموذج الصلاحيات الديناميكية (Runtime Permissions) في أندرويد الحديث؟', 'تطلب الصلاحيات الخطرة (Dangerous Permissions) وقت الحاجة إليها فقط أثناء تشغيل التطبيق مع تقديم تبرير منطقي (Rationale) والتعامل مع الرفض الدائم.', 'بدءًا من Android 6.0 أصبحت الصلاحيات التي تمس خصوصية المستخدم (كالكاميرا والموقع والميكروفون وإشعارات Android 13+) تتطلب موافقة وقت التشغيل عبر Activity Result API (ActivityResultContracts.RequestPermission). يجب فحص shouldShowRequestPermissionRationale لتوضيح سبب الحاجة للصلاحية للمستخدم قبل توجيهه للإعدادات في حال الرفض المتكرر.', 'val requestPermissionLauncher = registerForActivityResult(
+    ActivityResultContracts.RequestPermission()
+) { isGranted: Boolean ->
+    if (isGranted) {
+        startCamera()
+    } else {
+        showRationaleOrSettingsDialog()
+    }
+}
+
+// طلب الصلاحية عند ضغط زر الكاميرا:
+requestPermissionLauncher.launch(Manifest.permission.CAMERA)', '["طلب جميع الصلاحيات دفعة واحدة عند إقلاع التطبيق لأول مرة مما يقلل ثقة المستخدم ويزيد معدل الرفض.","تجاهل إضافة الصلاحية في AndroidManifest.xml وافتراض أن طلبها وقت التشغيل فقط يكفي."]'::jsonb, '["كيف تختلف صلاحيات الوصول للموقع في الخلفية (ACCESS_BACKGROUND_LOCATION) عن صلاحيات الموقع أثناء الاستخدام؟"]'::jsonb, '[{"title":"Android Developers — Request app permissions","url":"https://developer.android.com/training/permissions/requesting"}]'::jsonb from public.question_revisions r where r.question_id = 'afund-010' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'afund-010' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'كيف تطبق نموذج الصلاحيات الديناميكية (Runtime Permissions) في أندرويد الحديث؟' or l.short_answer is distinct from 'تطلب الصلاحيات الخطرة (Dangerous Permissions) وقت الحاجة إليها فقط أثناء تشغيل التطبيق مع تقديم تبرير منطقي (Rationale) والتعامل مع الرفض الدائم.' or l.explanation is distinct from 'بدءًا من Android 6.0 أصبحت الصلاحيات التي تمس خصوصية المستخدم (كالكاميرا والموقع والميكروفون وإشعارات Android 13+) تتطلب موافقة وقت التشغيل عبر Activity Result API (ActivityResultContracts.RequestPermission). يجب فحص shouldShowRequestPermissionRationale لتوضيح سبب الحاجة للصلاحية للمستخدم قبل توجيهه للإعدادات في حال الرفض المتكرر.' or l.code_example is distinct from 'val requestPermissionLauncher = registerForActivityResult(
+    ActivityResultContracts.RequestPermission()
+) { isGranted: Boolean ->
+    if (isGranted) {
+        startCamera()
+    } else {
+        showRationaleOrSettingsDialog()
+    }
+}
+
+// طلب الصلاحية عند ضغط زر الكاميرا:
+requestPermissionLauncher.launch(Manifest.permission.CAMERA)' or l.common_mistakes is distinct from '["طلب جميع الصلاحيات دفعة واحدة عند إقلاع التطبيق لأول مرة مما يقلل ثقة المستخدم ويزيد معدل الرفض.","تجاهل إضافة الصلاحية في AndroidManifest.xml وافتراض أن طلبها وقت التشغيل فقط يكفي."]'::jsonb or l.follow_up_questions is distinct from '["كيف تختلف صلاحيات الوصول للموقع في الخلفية (ACCESS_BACKGROUND_LOCATION) عن صلاحيات الموقع أثناء الاستخدام؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Request app permissions","url":"https://developer.android.com/training/permissions/requesting"}]'::jsonb)) then raise exception 'Question afund-010 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Android Permissions Runtime Model?', 'This question checks the core Android Permissions Runtime Model concept and how to use it safely in Kotlin and Android.', 'Explain Android Permissions Runtime Model with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', 'val requestPermissionLauncher = registerForActivityResult(
+    ActivityResultContracts.RequestPermission()
+) { isGranted: Boolean ->
+    if (isGranted) {
+        startCamera()
+    } else {
+        showRationaleOrSettingsDialog()
+    }
+}
+
+// طلب الصلاحية عند ضغط زر الكاميرا:
+requestPermissionLauncher.launch(Manifest.permission.CAMERA)', '["Missing the key trade-off in Android Permissions Runtime Model (point 1).","Missing the key trade-off in Android Permissions Runtime Model (point 2)."]'::jsonb, '["How would you apply Android Permissions Runtime Model in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Request app permissions","url":"https://developer.android.com/training/permissions/requesting"}]'::jsonb from public.question_revisions r where r.question_id = 'afund-010' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'afund-010' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Android Permissions Runtime Model?' or l.short_answer is distinct from 'This question checks the core Android Permissions Runtime Model concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Android Permissions Runtime Model with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from 'val requestPermissionLauncher = registerForActivityResult(
+    ActivityResultContracts.RequestPermission()
+) { isGranted: Boolean ->
+    if (isGranted) {
+        startCamera()
+    } else {
+        showRationaleOrSettingsDialog()
+    }
+}
+
+// طلب الصلاحية عند ضغط زر الكاميرا:
+requestPermissionLauncher.launch(Manifest.permission.CAMERA)' or l.common_mistakes is distinct from '["Missing the key trade-off in Android Permissions Runtime Model (point 1).","Missing the key trade-off in Android Permissions Runtime Model (point 2)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Android Permissions Runtime Model in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Request app permissions","url":"https://developer.android.com/training/permissions/requesting"}]'::jsonb)) then raise exception 'Question afund-010 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('afund-010', 'android-fundamentals') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'afund-010' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'afund-010' and revision_number = 1 and status = 'published') where id = 'afund-010' and exists (select 1 from public.question_revisions where question_id = 'afund-010' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('aui-001', 'view-hierarchy-and-custom-views', 'android-native', 'Junior') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('aui-001', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما هي المراحل الثلاث الأساسية لرسم أي View على الشاشة في أندرويد؟', 'تمر بثلاث مراحل متتالية: القياس (Measure) ثم التموضع (Layout) ثم الرسم (Draw).', 'في مرحلة onMeasure يحدد الـ View حجمه بناءً على قيود الأب (MeasureSpec: EXACTLY, AT_MOST, UNSPECIFIED). في مرحلة onLayout يتم حساب إحداثيات الزوايا الأربع للـ View وموضعه بالنسبة للأب. في مرحلة onDraw يقوم الـ View برسم محتواه البصري على كائن الـ Canvas باستخدام الـ Paint.', 'class CircleView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
+    private val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = Color.BLUE }
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        setMeasuredDimension(200, 200) // تحديد الحجم
+    }
+
+    override fun onDraw(canvas: Canvas) {
+        super.onDraw(canvas)
+        canvas.drawCircle(width / 2f, height / 2f, width / 2f, paint)
+    }
+}', '["إنشاء كائنات جديدة مثل Paint أو Path داخل دالة onDraw مما يرهق الـ Garbage Collector ويسبب تقطيع الإطارات (Jank).","استدعاء requestLayout بدلاً من invalidate عند الرغبة فقط في تحديث الألوان دون تغيير أبعاد الـ View."]'::jsonb, '["ما الفرق بين invalidate() و requestLayout() ومتى تستخدم كلاً منهما؟"]'::jsonb, '[{"title":"Android Developers — Custom View components","url":"https://developer.android.com/guide/topics/ui/custom-components"}]'::jsonb from public.question_revisions r where r.question_id = 'aui-001' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'aui-001' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما هي المراحل الثلاث الأساسية لرسم أي View على الشاشة في أندرويد؟' or l.short_answer is distinct from 'تمر بثلاث مراحل متتالية: القياس (Measure) ثم التموضع (Layout) ثم الرسم (Draw).' or l.explanation is distinct from 'في مرحلة onMeasure يحدد الـ View حجمه بناءً على قيود الأب (MeasureSpec: EXACTLY, AT_MOST, UNSPECIFIED). في مرحلة onLayout يتم حساب إحداثيات الزوايا الأربع للـ View وموضعه بالنسبة للأب. في مرحلة onDraw يقوم الـ View برسم محتواه البصري على كائن الـ Canvas باستخدام الـ Paint.' or l.code_example is distinct from 'class CircleView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
+    private val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = Color.BLUE }
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        setMeasuredDimension(200, 200) // تحديد الحجم
+    }
+
+    override fun onDraw(canvas: Canvas) {
+        super.onDraw(canvas)
+        canvas.drawCircle(width / 2f, height / 2f, width / 2f, paint)
+    }
+}' or l.common_mistakes is distinct from '["إنشاء كائنات جديدة مثل Paint أو Path داخل دالة onDraw مما يرهق الـ Garbage Collector ويسبب تقطيع الإطارات (Jank).","استدعاء requestLayout بدلاً من invalidate عند الرغبة فقط في تحديث الألوان دون تغيير أبعاد الـ View."]'::jsonb or l.follow_up_questions is distinct from '["ما الفرق بين invalidate() و requestLayout() ومتى تستخدم كلاً منهما؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Custom View components","url":"https://developer.android.com/guide/topics/ui/custom-components"}]'::jsonb)) then raise exception 'Question aui-001 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about View Hierarchy And Custom Views?', 'This question checks the core View Hierarchy And Custom Views concept and how to use it safely in Kotlin and Android.', 'Explain View Hierarchy And Custom Views with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', 'class CircleView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
+    private val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = Color.BLUE }
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        setMeasuredDimension(200, 200) // تحديد الحجم
+    }
+
+    override fun onDraw(canvas: Canvas) {
+        super.onDraw(canvas)
+        canvas.drawCircle(width / 2f, height / 2f, width / 2f, paint)
+    }
+}', '["Missing the key trade-off in View Hierarchy And Custom Views (point 1).","Missing the key trade-off in View Hierarchy And Custom Views (point 2)."]'::jsonb, '["How would you apply View Hierarchy And Custom Views in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Custom View components","url":"https://developer.android.com/guide/topics/ui/custom-components"}]'::jsonb from public.question_revisions r where r.question_id = 'aui-001' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'aui-001' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about View Hierarchy And Custom Views?' or l.short_answer is distinct from 'This question checks the core View Hierarchy And Custom Views concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain View Hierarchy And Custom Views with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from 'class CircleView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
+    private val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = Color.BLUE }
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        setMeasuredDimension(200, 200) // تحديد الحجم
+    }
+
+    override fun onDraw(canvas: Canvas) {
+        super.onDraw(canvas)
+        canvas.drawCircle(width / 2f, height / 2f, width / 2f, paint)
+    }
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in View Hierarchy And Custom Views (point 1).","Missing the key trade-off in View Hierarchy And Custom Views (point 2)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply View Hierarchy And Custom Views in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Custom View components","url":"https://developer.android.com/guide/topics/ui/custom-components"}]'::jsonb)) then raise exception 'Question aui-001 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('aui-001', 'android-ui') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'aui-001' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'aui-001' and revision_number = 1 and status = 'published') where id = 'aui-001' and exists (select 1 from public.question_revisions where question_id = 'aui-001' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('aui-002', 'viewbinding-vs-databinding', 'android-native', 'Junior') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('aui-002', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما الفرق بين ViewBinding و DataBinding في تطوير أندرويد؟', 'ViewBinding يوفر وصولاً سريعًا وآمنًا للأنواع (Type-safe) لعناصر الـ XML بدون كلفة ترجمة ثقيلة، بينما DataBinding يدعم ربط البيانات ثنائي الاتجاه داخل ملف الـ XML نفسه.', 'يحل ViewBinding محل findViewById و Kotlin Synthetics بالكامل، وهو أسرع في وقت الترجمة ولا يتطلب تاجات <layout> خاصة. أما DataBinding فهو أثقل ويسمح بكتابة تعبيرات منطقية وربط كائنات الـ Observable أو LiveData مباشرة داخل ملفات التصميم الـ XML، مع دعم Two-way Binding (@={}).', '// ViewBinding:
+class ProfileActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityProfileBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityProfileBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        binding.usernameTextView.text = "Ahmed"
+    }
+}', '["الاعتماد على DataBinding فقط للوصول إلى عناصر الـ View بالمعرفات دون استخدام ميزاته البرمجية داخل XML، مما يبطئ وقت البناء بلا داع.","عدم تفريغ كائن الـ binding (_binding = null) داخل onDestroyView في الـ Fragments مما يسبب تسريب الذاكرة."]'::jsonb, '["لماذا يعتبر ViewBinding أكثر أمانًا من findViewById في تجنب NullPointerExceptions؟"]'::jsonb, '[{"title":"Android Developers — View Binding","url":"https://developer.android.com/topic/libraries/view-binding"}]'::jsonb from public.question_revisions r where r.question_id = 'aui-002' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'aui-002' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما الفرق بين ViewBinding و DataBinding في تطوير أندرويد؟' or l.short_answer is distinct from 'ViewBinding يوفر وصولاً سريعًا وآمنًا للأنواع (Type-safe) لعناصر الـ XML بدون كلفة ترجمة ثقيلة، بينما DataBinding يدعم ربط البيانات ثنائي الاتجاه داخل ملف الـ XML نفسه.' or l.explanation is distinct from 'يحل ViewBinding محل findViewById و Kotlin Synthetics بالكامل، وهو أسرع في وقت الترجمة ولا يتطلب تاجات <layout> خاصة. أما DataBinding فهو أثقل ويسمح بكتابة تعبيرات منطقية وربط كائنات الـ Observable أو LiveData مباشرة داخل ملفات التصميم الـ XML، مع دعم Two-way Binding (@={}).' or l.code_example is distinct from '// ViewBinding:
+class ProfileActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityProfileBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityProfileBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        binding.usernameTextView.text = "Ahmed"
+    }
+}' or l.common_mistakes is distinct from '["الاعتماد على DataBinding فقط للوصول إلى عناصر الـ View بالمعرفات دون استخدام ميزاته البرمجية داخل XML، مما يبطئ وقت البناء بلا داع.","عدم تفريغ كائن الـ binding (_binding = null) داخل onDestroyView في الـ Fragments مما يسبب تسريب الذاكرة."]'::jsonb or l.follow_up_questions is distinct from '["لماذا يعتبر ViewBinding أكثر أمانًا من findViewById في تجنب NullPointerExceptions؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — View Binding","url":"https://developer.android.com/topic/libraries/view-binding"}]'::jsonb)) then raise exception 'Question aui-002 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Viewbinding Vs Databinding?', 'This question checks the core Viewbinding Vs Databinding concept and how to use it safely in Kotlin and Android.', 'Explain Viewbinding Vs Databinding with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', '// ViewBinding:
+class ProfileActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityProfileBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityProfileBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        binding.usernameTextView.text = "Ahmed"
+    }
+}', '["Missing the key trade-off in Viewbinding Vs Databinding (point 1).","Missing the key trade-off in Viewbinding Vs Databinding (point 2)."]'::jsonb, '["How would you apply Viewbinding Vs Databinding in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — View Binding","url":"https://developer.android.com/topic/libraries/view-binding"}]'::jsonb from public.question_revisions r where r.question_id = 'aui-002' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'aui-002' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Viewbinding Vs Databinding?' or l.short_answer is distinct from 'This question checks the core Viewbinding Vs Databinding concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Viewbinding Vs Databinding with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from '// ViewBinding:
+class ProfileActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityProfileBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityProfileBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        binding.usernameTextView.text = "Ahmed"
+    }
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Viewbinding Vs Databinding (point 1).","Missing the key trade-off in Viewbinding Vs Databinding (point 2)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Viewbinding Vs Databinding in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — View Binding","url":"https://developer.android.com/topic/libraries/view-binding"}]'::jsonb)) then raise exception 'Question aui-002 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('aui-002', 'android-ui') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'aui-002' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'aui-002' and revision_number = 1 and status = 'published') where id = 'aui-002' and exists (select 1 from public.question_revisions where question_id = 'aui-002' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('aui-003', 'recyclerview-viewholder-pattern', 'android-native', 'Junior') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('aui-003', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'كيف يعمل نمط ViewHolder داخل الـ RecyclerView ولماذا يعتبر فعالاً؟', 'يعيد تدوير الـ Views التي تخرج عن نطاق الشاشة لعرض عناصر جديدة بدل إنشائها من الصفر، مما يمنع استدعاءات findViewById المتكررة.', 'يحتفظ ViewHolder بمراجع عناصر الواجهة في الذاكرة. عند التمرير، لا يقوم الـ RecyclerView بإنشاء View جديدة، بل يستدعي onCreateViewHolder فقط لعدد كافٍ لملء الشاشة مع هامش بسيط، ثم يعيد استخدام هذه الحاويات عبر onBindViewHolder لتحديث النصوص والصور فقط، مما يوفر سلاسة فائقة بمعدل 60/120 إطار في الثانية.', 'class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
+    class UserViewHolder(val binding: ItemUserBinding) : RecyclerView.ViewHolder(binding.root)
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
+        val binding = ItemUserBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return UserViewHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
+        holder.binding.nameText.text = items[position].name
+    }
+}', '["تنفيذ عمليات معالجة مكلفة أو حسابات معقدة داخل onBindViewHolder مما يسبب تقطيعاً ملحوظاً أثناء التمرير.","نسيان ضبط setHasFixedSize(true) عندما تكون أبعاد القائمة ثابتة ومستقلة عن محتوياتها."]'::jsonb, '["ما الفرق بين onCreateViewHolder و onBindViewHolder من حيث عدد مرات الاستدعاء؟"]'::jsonb, '[{"title":"Android Developers — Create dynamic lists with RecyclerView","url":"https://developer.android.com/develop/ui/views/layout/recyclerview"}]'::jsonb from public.question_revisions r where r.question_id = 'aui-003' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'aui-003' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'كيف يعمل نمط ViewHolder داخل الـ RecyclerView ولماذا يعتبر فعالاً؟' or l.short_answer is distinct from 'يعيد تدوير الـ Views التي تخرج عن نطاق الشاشة لعرض عناصر جديدة بدل إنشائها من الصفر، مما يمنع استدعاءات findViewById المتكررة.' or l.explanation is distinct from 'يحتفظ ViewHolder بمراجع عناصر الواجهة في الذاكرة. عند التمرير، لا يقوم الـ RecyclerView بإنشاء View جديدة، بل يستدعي onCreateViewHolder فقط لعدد كافٍ لملء الشاشة مع هامش بسيط، ثم يعيد استخدام هذه الحاويات عبر onBindViewHolder لتحديث النصوص والصور فقط، مما يوفر سلاسة فائقة بمعدل 60/120 إطار في الثانية.' or l.code_example is distinct from 'class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
+    class UserViewHolder(val binding: ItemUserBinding) : RecyclerView.ViewHolder(binding.root)
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
+        val binding = ItemUserBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return UserViewHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
+        holder.binding.nameText.text = items[position].name
+    }
+}' or l.common_mistakes is distinct from '["تنفيذ عمليات معالجة مكلفة أو حسابات معقدة داخل onBindViewHolder مما يسبب تقطيعاً ملحوظاً أثناء التمرير.","نسيان ضبط setHasFixedSize(true) عندما تكون أبعاد القائمة ثابتة ومستقلة عن محتوياتها."]'::jsonb or l.follow_up_questions is distinct from '["ما الفرق بين onCreateViewHolder و onBindViewHolder من حيث عدد مرات الاستدعاء؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Create dynamic lists with RecyclerView","url":"https://developer.android.com/develop/ui/views/layout/recyclerview"}]'::jsonb)) then raise exception 'Question aui-003 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Recyclerview Viewholder Pattern?', 'This question checks the core Recyclerview Viewholder Pattern concept and how to use it safely in Kotlin and Android.', 'Explain Recyclerview Viewholder Pattern with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', 'class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
+    class UserViewHolder(val binding: ItemUserBinding) : RecyclerView.ViewHolder(binding.root)
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
+        val binding = ItemUserBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return UserViewHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
+        holder.binding.nameText.text = items[position].name
+    }
+}', '["Missing the key trade-off in Recyclerview Viewholder Pattern (point 1).","Missing the key trade-off in Recyclerview Viewholder Pattern (point 2)."]'::jsonb, '["How would you apply Recyclerview Viewholder Pattern in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Create dynamic lists with RecyclerView","url":"https://developer.android.com/develop/ui/views/layout/recyclerview"}]'::jsonb from public.question_revisions r where r.question_id = 'aui-003' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'aui-003' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Recyclerview Viewholder Pattern?' or l.short_answer is distinct from 'This question checks the core Recyclerview Viewholder Pattern concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Recyclerview Viewholder Pattern with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from 'class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
+    class UserViewHolder(val binding: ItemUserBinding) : RecyclerView.ViewHolder(binding.root)
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
+        val binding = ItemUserBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return UserViewHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
+        holder.binding.nameText.text = items[position].name
+    }
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Recyclerview Viewholder Pattern (point 1).","Missing the key trade-off in Recyclerview Viewholder Pattern (point 2)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Recyclerview Viewholder Pattern in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Create dynamic lists with RecyclerView","url":"https://developer.android.com/develop/ui/views/layout/recyclerview"}]'::jsonb)) then raise exception 'Question aui-003 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('aui-003', 'android-ui') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'aui-003' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'aui-003' and revision_number = 1 and status = 'published') where id = 'aui-003' and exists (select 1 from public.question_revisions where question_id = 'aui-003' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('aui-004', 'diffutil-and-listadapter', 'android-native', 'Mid') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('aui-004', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما فائدة DiffUtil و ListAdapter مقارنة باستدعاء notifyDataSetChanged()؟', 'يحسب DiffUtil الفروقات بين قائمتين في خلفية غير متزامنة ويطبق تحريكات دقيقة وموضعية للعناصر المتغيرة فقط بدلاً من إعادة رسم القائمة بأكملها.', 'استدعاء notifyDataSetChanged يعيد بناء وتحديث كل عنصر مرئي على الشاشة ويلغي أنيميشن التمرير. يحسب DiffUtil أصغر تسلسل من عمليات التعديل (إضافة، حذف، تحريك، تعديل جزئي) باستخدام خوارزمية Eugene W. Myers. ويغلف ListAdapter هذا المنطق في كلاس جاهز يرسل القوائم الجديدة تلقائيًا عبر submitList على background thread.', 'class UserDiffCallback : DiffUtil.ItemCallback<User>() {
+    override fun areItemsTheSame(oldItem: User, newItem: User): Boolean = oldItem.id == newItem.id
+    override fun areContentsTheSame(oldItem: User, newItem: User): Boolean = oldItem == newItem
+}
+
+class UserListAdapter : ListAdapter<User, UserViewHolder>(UserDiffCallback()) { ... }
+
+// التحديث السلس:
+userListAdapter.submitList(newList)', '["تمرير نفس المرجع القابل للتعديل (MutableList) إلى submitList دون إنشاء قائمة جديدة، مما يمنع DiffUtil من اكتشاف أي تغيير.","كتابة شروط خاطئة داخل areItemsTheSame تجعل الـ ID يتطابق مع عناصر مختلفة تمامًا."]'::jsonb, '["متى نستخدم getChangePayload في DiffUtil لتنفيذ تحديثات بصرية جزئية (Partial Binds)؟"]'::jsonb, '[{"title":"Android Developers — DiffUtil","url":"https://developer.android.com/reference/androidx/recyclerview/widget/DiffUtil"}]'::jsonb from public.question_revisions r where r.question_id = 'aui-004' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'aui-004' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما فائدة DiffUtil و ListAdapter مقارنة باستدعاء notifyDataSetChanged()؟' or l.short_answer is distinct from 'يحسب DiffUtil الفروقات بين قائمتين في خلفية غير متزامنة ويطبق تحريكات دقيقة وموضعية للعناصر المتغيرة فقط بدلاً من إعادة رسم القائمة بأكملها.' or l.explanation is distinct from 'استدعاء notifyDataSetChanged يعيد بناء وتحديث كل عنصر مرئي على الشاشة ويلغي أنيميشن التمرير. يحسب DiffUtil أصغر تسلسل من عمليات التعديل (إضافة، حذف، تحريك، تعديل جزئي) باستخدام خوارزمية Eugene W. Myers. ويغلف ListAdapter هذا المنطق في كلاس جاهز يرسل القوائم الجديدة تلقائيًا عبر submitList على background thread.' or l.code_example is distinct from 'class UserDiffCallback : DiffUtil.ItemCallback<User>() {
+    override fun areItemsTheSame(oldItem: User, newItem: User): Boolean = oldItem.id == newItem.id
+    override fun areContentsTheSame(oldItem: User, newItem: User): Boolean = oldItem == newItem
+}
+
+class UserListAdapter : ListAdapter<User, UserViewHolder>(UserDiffCallback()) { ... }
+
+// التحديث السلس:
+userListAdapter.submitList(newList)' or l.common_mistakes is distinct from '["تمرير نفس المرجع القابل للتعديل (MutableList) إلى submitList دون إنشاء قائمة جديدة، مما يمنع DiffUtil من اكتشاف أي تغيير.","كتابة شروط خاطئة داخل areItemsTheSame تجعل الـ ID يتطابق مع عناصر مختلفة تمامًا."]'::jsonb or l.follow_up_questions is distinct from '["متى نستخدم getChangePayload في DiffUtil لتنفيذ تحديثات بصرية جزئية (Partial Binds)؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — DiffUtil","url":"https://developer.android.com/reference/androidx/recyclerview/widget/DiffUtil"}]'::jsonb)) then raise exception 'Question aui-004 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Diffutil And Listadapter?', 'This question checks the core Diffutil And Listadapter concept and how to use it safely in Kotlin and Android.', 'Explain Diffutil And Listadapter with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', 'class UserDiffCallback : DiffUtil.ItemCallback<User>() {
+    override fun areItemsTheSame(oldItem: User, newItem: User): Boolean = oldItem.id == newItem.id
+    override fun areContentsTheSame(oldItem: User, newItem: User): Boolean = oldItem == newItem
+}
+
+class UserListAdapter : ListAdapter<User, UserViewHolder>(UserDiffCallback()) { ... }
+
+// التحديث السلس:
+userListAdapter.submitList(newList)', '["Missing the key trade-off in Diffutil And Listadapter (point 1).","Missing the key trade-off in Diffutil And Listadapter (point 2)."]'::jsonb, '["How would you apply Diffutil And Listadapter in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — DiffUtil","url":"https://developer.android.com/reference/androidx/recyclerview/widget/DiffUtil"}]'::jsonb from public.question_revisions r where r.question_id = 'aui-004' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'aui-004' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Diffutil And Listadapter?' or l.short_answer is distinct from 'This question checks the core Diffutil And Listadapter concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Diffutil And Listadapter with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from 'class UserDiffCallback : DiffUtil.ItemCallback<User>() {
+    override fun areItemsTheSame(oldItem: User, newItem: User): Boolean = oldItem.id == newItem.id
+    override fun areContentsTheSame(oldItem: User, newItem: User): Boolean = oldItem == newItem
+}
+
+class UserListAdapter : ListAdapter<User, UserViewHolder>(UserDiffCallback()) { ... }
+
+// التحديث السلس:
+userListAdapter.submitList(newList)' or l.common_mistakes is distinct from '["Missing the key trade-off in Diffutil And Listadapter (point 1).","Missing the key trade-off in Diffutil And Listadapter (point 2)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Diffutil And Listadapter in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — DiffUtil","url":"https://developer.android.com/reference/androidx/recyclerview/widget/DiffUtil"}]'::jsonb)) then raise exception 'Question aui-004 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('aui-004', 'android-ui') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'aui-004' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'aui-004' and revision_number = 1 and status = 'published') where id = 'aui-004' and exists (select 1 from public.question_revisions where question_id = 'aui-004' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('aui-005', 'constraintlayout-flat-hierarchy', 'android-native', 'Mid') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('aui-005', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'كيف يساهم ConstraintLayout في تحسين أداء واجهة المستخدم مقارنة بـ LinearLayouts المتداخلة؟', 'يتيح بناء واجهات مستخدم معقدة بتسلسل هرمي مسطح (Flat Hierarchy) دون تداخل الحاويات، مما يقلل كلفة Measure و Layout المزدوجة.', 'عند تداخل عدة LinearLayouts تستخدم layout_weight، يضطر النظام لتنفيذ دورات قياس متعددة لكل مستوى تداخل (Double Taxation)، مما يؤثر سلبًا على الـ UI Rendering. يحل ConstraintLayout كل العلاقات النسبية بين العناصر (كالمحاذاة والنسب المئوية والـ Chains والـ Guidelines) في خطوة قياس رياضية واحدة مستوية.', '<!-- واجهة مسطحة باستخدام قيود واضحة -->
+<androidx.constraintlayout.widget.ConstraintLayout ...>
+    <ImageView
+        android:id="@+id/avatar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" ... />
+
+    <TextView
+        android:id="@+id/title"
+        app:layout_constraintStart_toEndOf="@id/avatar"
+        app:layout_constraintTop_toTopOf="@id/avatar" ... />
+</androidx.constraintlayout.widget.ConstraintLayout>', '["استخدام ConstraintLayout في كل مكان حتى للواجهات البسيطة جدًا المكونة من عنصرين، حيث يكون LinearLayout العادي أسرع وأخف."]'::jsonb, '["ما هي الـ Chains والـ Guidelines في ConstraintLayout وكيف تساعد في توزيع العناصر؟"]'::jsonb, '[{"title":"Android Developers — Build a Responsive UI with ConstraintLayout","url":"https://developer.android.com/develop/ui/views/layout/constraint-layout"}]'::jsonb from public.question_revisions r where r.question_id = 'aui-005' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'aui-005' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'كيف يساهم ConstraintLayout في تحسين أداء واجهة المستخدم مقارنة بـ LinearLayouts المتداخلة؟' or l.short_answer is distinct from 'يتيح بناء واجهات مستخدم معقدة بتسلسل هرمي مسطح (Flat Hierarchy) دون تداخل الحاويات، مما يقلل كلفة Measure و Layout المزدوجة.' or l.explanation is distinct from 'عند تداخل عدة LinearLayouts تستخدم layout_weight، يضطر النظام لتنفيذ دورات قياس متعددة لكل مستوى تداخل (Double Taxation)، مما يؤثر سلبًا على الـ UI Rendering. يحل ConstraintLayout كل العلاقات النسبية بين العناصر (كالمحاذاة والنسب المئوية والـ Chains والـ Guidelines) في خطوة قياس رياضية واحدة مستوية.' or l.code_example is distinct from '<!-- واجهة مسطحة باستخدام قيود واضحة -->
+<androidx.constraintlayout.widget.ConstraintLayout ...>
+    <ImageView
+        android:id="@+id/avatar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" ... />
+
+    <TextView
+        android:id="@+id/title"
+        app:layout_constraintStart_toEndOf="@id/avatar"
+        app:layout_constraintTop_toTopOf="@id/avatar" ... />
+</androidx.constraintlayout.widget.ConstraintLayout>' or l.common_mistakes is distinct from '["استخدام ConstraintLayout في كل مكان حتى للواجهات البسيطة جدًا المكونة من عنصرين، حيث يكون LinearLayout العادي أسرع وأخف."]'::jsonb or l.follow_up_questions is distinct from '["ما هي الـ Chains والـ Guidelines في ConstraintLayout وكيف تساعد في توزيع العناصر؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Build a Responsive UI with ConstraintLayout","url":"https://developer.android.com/develop/ui/views/layout/constraint-layout"}]'::jsonb)) then raise exception 'Question aui-005 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Constraintlayout Flat Hierarchy?', 'This question checks the core Constraintlayout Flat Hierarchy concept and how to use it safely in Kotlin and Android.', 'Explain Constraintlayout Flat Hierarchy with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', '<!-- واجهة مسطحة باستخدام قيود واضحة -->
+<androidx.constraintlayout.widget.ConstraintLayout ...>
+    <ImageView
+        android:id="@+id/avatar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" ... />
+
+    <TextView
+        android:id="@+id/title"
+        app:layout_constraintStart_toEndOf="@id/avatar"
+        app:layout_constraintTop_toTopOf="@id/avatar" ... />
+</androidx.constraintlayout.widget.ConstraintLayout>', '["Missing the key trade-off in Constraintlayout Flat Hierarchy (point 1)."]'::jsonb, '["How would you apply Constraintlayout Flat Hierarchy in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Build a Responsive UI with ConstraintLayout","url":"https://developer.android.com/develop/ui/views/layout/constraint-layout"}]'::jsonb from public.question_revisions r where r.question_id = 'aui-005' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'aui-005' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Constraintlayout Flat Hierarchy?' or l.short_answer is distinct from 'This question checks the core Constraintlayout Flat Hierarchy concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Constraintlayout Flat Hierarchy with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from '<!-- واجهة مسطحة باستخدام قيود واضحة -->
+<androidx.constraintlayout.widget.ConstraintLayout ...>
+    <ImageView
+        android:id="@+id/avatar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" ... />
+
+    <TextView
+        android:id="@+id/title"
+        app:layout_constraintStart_toEndOf="@id/avatar"
+        app:layout_constraintTop_toTopOf="@id/avatar" ... />
+</androidx.constraintlayout.widget.ConstraintLayout>' or l.common_mistakes is distinct from '["Missing the key trade-off in Constraintlayout Flat Hierarchy (point 1)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Constraintlayout Flat Hierarchy in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Build a Responsive UI with ConstraintLayout","url":"https://developer.android.com/develop/ui/views/layout/constraint-layout"}]'::jsonb)) then raise exception 'Question aui-005 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('aui-005', 'android-ui') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'aui-005' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'aui-005' and revision_number = 1 and status = 'published') where id = 'aui-005' and exists (select 1 from public.question_revisions where question_id = 'aui-005' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('aui-006', 'custom-views-drawing-and-touch', 'android-native', 'Senior') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('aui-006', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'كيف تدير أحداث اللمس المتعدد والاعتراض (Touch Interception) في Custom ViewGroup؟', 'تتحكم في مسار اللمس عبر dispatchTouchEvent، وتقرر الحاوية اعتراضا عبر onInterceptTouchEvent، بينما تتعامل الـ View مع اللمس الفعلي في onTouchEvent.', 'تبدأ لمسة المستخدم من أعلى الشجرة نزولاً للأبناء عبر dispatchTouchEvent. يمكن للـ ViewGroup فحص اللمسة واعتراضها بالعودة بـ true من onInterceptTouchEvent (مثل حركة التمرير في ScrollView)، مما يرسل حدث ACTION_CANCEL للابن الحالي ويوجه بقية الأحداث لـ onTouchEvent الخاص بالحاوية. كما يمكن للابن طلب عدم اعتراض اللمسة عبر requestDisallowInterceptTouchEvent(true).', 'override fun onInterceptTouchEvent(ev: MotionEvent): Boolean {
+    return when (ev.actionMasked) {
+        MotionEvent.ACTION_MOVE -> shouldInterceptScroll(ev) // اعتراض التمرير
+        else -> false
+    }
+}
+
+override fun onTouchEvent(event: MotionEvent): Boolean {
+    // تنفيذ حركة السحب الفعلية
+    return gestureDetector.onTouchEvent(event)
+}', '["إرجاع true في ACTION_DOWN داخل onInterceptTouchEvent دون قصد، مما يمنع الأبناء من استقبال أي أحداث نقر تمامًا."]'::jsonb, '["ما هو دور NestedScrollingChild و NestedScrollingParent في حل تعارض التمرير بين قائمتين؟"]'::jsonb, '[{"title":"Android Developers — Manage touch events in a ViewGroup","url":"https://developer.android.com/training/gestures/viewgroup"}]'::jsonb from public.question_revisions r where r.question_id = 'aui-006' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'aui-006' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'كيف تدير أحداث اللمس المتعدد والاعتراض (Touch Interception) في Custom ViewGroup؟' or l.short_answer is distinct from 'تتحكم في مسار اللمس عبر dispatchTouchEvent، وتقرر الحاوية اعتراضا عبر onInterceptTouchEvent، بينما تتعامل الـ View مع اللمس الفعلي في onTouchEvent.' or l.explanation is distinct from 'تبدأ لمسة المستخدم من أعلى الشجرة نزولاً للأبناء عبر dispatchTouchEvent. يمكن للـ ViewGroup فحص اللمسة واعتراضها بالعودة بـ true من onInterceptTouchEvent (مثل حركة التمرير في ScrollView)، مما يرسل حدث ACTION_CANCEL للابن الحالي ويوجه بقية الأحداث لـ onTouchEvent الخاص بالحاوية. كما يمكن للابن طلب عدم اعتراض اللمسة عبر requestDisallowInterceptTouchEvent(true).' or l.code_example is distinct from 'override fun onInterceptTouchEvent(ev: MotionEvent): Boolean {
+    return when (ev.actionMasked) {
+        MotionEvent.ACTION_MOVE -> shouldInterceptScroll(ev) // اعتراض التمرير
+        else -> false
+    }
+}
+
+override fun onTouchEvent(event: MotionEvent): Boolean {
+    // تنفيذ حركة السحب الفعلية
+    return gestureDetector.onTouchEvent(event)
+}' or l.common_mistakes is distinct from '["إرجاع true في ACTION_DOWN داخل onInterceptTouchEvent دون قصد، مما يمنع الأبناء من استقبال أي أحداث نقر تمامًا."]'::jsonb or l.follow_up_questions is distinct from '["ما هو دور NestedScrollingChild و NestedScrollingParent في حل تعارض التمرير بين قائمتين؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Manage touch events in a ViewGroup","url":"https://developer.android.com/training/gestures/viewgroup"}]'::jsonb)) then raise exception 'Question aui-006 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Custom Views Drawing And Touch?', 'This question checks the core Custom Views Drawing And Touch concept and how to use it safely in Kotlin and Android.', 'Explain Custom Views Drawing And Touch with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', 'override fun onInterceptTouchEvent(ev: MotionEvent): Boolean {
+    return when (ev.actionMasked) {
+        MotionEvent.ACTION_MOVE -> shouldInterceptScroll(ev) // اعتراض التمرير
+        else -> false
+    }
+}
+
+override fun onTouchEvent(event: MotionEvent): Boolean {
+    // تنفيذ حركة السحب الفعلية
+    return gestureDetector.onTouchEvent(event)
+}', '["Missing the key trade-off in Custom Views Drawing And Touch (point 1)."]'::jsonb, '["How would you apply Custom Views Drawing And Touch in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Manage touch events in a ViewGroup","url":"https://developer.android.com/training/gestures/viewgroup"}]'::jsonb from public.question_revisions r where r.question_id = 'aui-006' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'aui-006' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Custom Views Drawing And Touch?' or l.short_answer is distinct from 'This question checks the core Custom Views Drawing And Touch concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Custom Views Drawing And Touch with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from 'override fun onInterceptTouchEvent(ev: MotionEvent): Boolean {
+    return when (ev.actionMasked) {
+        MotionEvent.ACTION_MOVE -> shouldInterceptScroll(ev) // اعتراض التمرير
+        else -> false
+    }
+}
+
+override fun onTouchEvent(event: MotionEvent): Boolean {
+    // تنفيذ حركة السحب الفعلية
+    return gestureDetector.onTouchEvent(event)
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Custom Views Drawing And Touch (point 1)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Custom Views Drawing And Touch in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Manage touch events in a ViewGroup","url":"https://developer.android.com/training/gestures/viewgroup"}]'::jsonb)) then raise exception 'Question aui-006 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('aui-006', 'android-ui') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'aui-006' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'aui-006' and revision_number = 1 and status = 'published') where id = 'aui-006' and exists (select 1 from public.question_revisions where question_id = 'aui-006' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('compose-001', 'declarative-vs-imperative-ui', 'android-native', 'Junior') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('compose-001', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما هو Jetpack Compose وما الفرق بين الواجهات التصريحية والإجرائية؟', 'Compose إطار عمل تصريحي (Declarative) يصف شكل الواجهة بناءً على الحالة الحالية، بينما النهج الإجرائي القديم (Imperative) يعتمد على تعديل شجرة الـ Views يدويًا.', 'في نظام Views التقليدي (Imperative)، تقوم بتهيئة الـ View وتعديل خصائصها يدويًا مثل textView.setText() أو visibility = GONE، مما قد يسبب عدم اتساق بين البيانات المعروضة والحالة الفعلية. في Jetpack Compose، تصف الواجهة كدالة تستقبل الحالة، وعندما تتغير الحالة يعيد Compose استدعاء الدوال المتأثرة تلقائيًا (Recomposition).', '@Composable
+fun Greeting(name: String, isVisible: Boolean) {
+    if (isVisible) {
+        Text(text = "مرحبًا بك، $name!", style = MaterialTheme.typography.bodyLarge)
+    }
+}', '["محاولة الاحتفاظ بمرجع لدالة الـ Composable أو محاولة تعديل خصائصها بعد تنفيذها كما كان يحدث مع كائنات View القديمة."]'::jsonb, '["كيف تترجم دوال Composable إلى شجرة مكونات حقيقية على شاشة أندرويد؟"]'::jsonb, '[{"title":"Android Developers — Thinking in Compose","url":"https://developer.android.com/develop/ui/compose/mental-model"}]'::jsonb from public.question_revisions r where r.question_id = 'compose-001' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'compose-001' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما هو Jetpack Compose وما الفرق بين الواجهات التصريحية والإجرائية؟' or l.short_answer is distinct from 'Compose إطار عمل تصريحي (Declarative) يصف شكل الواجهة بناءً على الحالة الحالية، بينما النهج الإجرائي القديم (Imperative) يعتمد على تعديل شجرة الـ Views يدويًا.' or l.explanation is distinct from 'في نظام Views التقليدي (Imperative)، تقوم بتهيئة الـ View وتعديل خصائصها يدويًا مثل textView.setText() أو visibility = GONE، مما قد يسبب عدم اتساق بين البيانات المعروضة والحالة الفعلية. في Jetpack Compose، تصف الواجهة كدالة تستقبل الحالة، وعندما تتغير الحالة يعيد Compose استدعاء الدوال المتأثرة تلقائيًا (Recomposition).' or l.code_example is distinct from '@Composable
+fun Greeting(name: String, isVisible: Boolean) {
+    if (isVisible) {
+        Text(text = "مرحبًا بك، $name!", style = MaterialTheme.typography.bodyLarge)
+    }
+}' or l.common_mistakes is distinct from '["محاولة الاحتفاظ بمرجع لدالة الـ Composable أو محاولة تعديل خصائصها بعد تنفيذها كما كان يحدث مع كائنات View القديمة."]'::jsonb or l.follow_up_questions is distinct from '["كيف تترجم دوال Composable إلى شجرة مكونات حقيقية على شاشة أندرويد؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Thinking in Compose","url":"https://developer.android.com/develop/ui/compose/mental-model"}]'::jsonb)) then raise exception 'Question compose-001 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Declarative Vs Imperative Ui?', 'This question checks the core Declarative Vs Imperative Ui concept and how to use it safely in Kotlin and Android.', 'Explain Declarative Vs Imperative Ui with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', '@Composable
+fun Greeting(name: String, isVisible: Boolean) {
+    if (isVisible) {
+        Text(text = "مرحبًا بك، $name!", style = MaterialTheme.typography.bodyLarge)
+    }
+}', '["Missing the key trade-off in Declarative Vs Imperative Ui (point 1)."]'::jsonb, '["How would you apply Declarative Vs Imperative Ui in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Thinking in Compose","url":"https://developer.android.com/develop/ui/compose/mental-model"}]'::jsonb from public.question_revisions r where r.question_id = 'compose-001' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'compose-001' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Declarative Vs Imperative Ui?' or l.short_answer is distinct from 'This question checks the core Declarative Vs Imperative Ui concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Declarative Vs Imperative Ui with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from '@Composable
+fun Greeting(name: String, isVisible: Boolean) {
+    if (isVisible) {
+        Text(text = "مرحبًا بك، $name!", style = MaterialTheme.typography.bodyLarge)
+    }
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Declarative Vs Imperative Ui (point 1)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Declarative Vs Imperative Ui in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Thinking in Compose","url":"https://developer.android.com/develop/ui/compose/mental-model"}]'::jsonb)) then raise exception 'Question compose-001 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('compose-001', 'jetpack-compose') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'compose-001' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'compose-001' and revision_number = 1 and status = 'published') where id = 'compose-001' and exists (select 1 from public.question_revisions where question_id = 'compose-001' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('compose-002', 'recomposition-and-composable-lifecycle', 'android-native', 'Junior') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('compose-002', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما هي الـ Recomposition في Jetpack Compose وكيف تعمل بكفاءة؟', 'هي عملية إعادة استدعاء دوال الـ Composable تلقائيًا عندما تتغير حالتها (State) لتحديث الشاشة مع تخطي المكونات التي لم تتغير مدخلاتها.', 'تعتبر Recomposition ذكية (Intelligent Skipping)؛ حيث يقارن Compose المعاملات الجديدة بالقديمة، وإذا كانت متطابقة ومستقرة، فإنه يتجاوز تنفيذ جسم الدالة تمامًا. يمكن للـ Recomposition أن تحدث بتردد عالٍ، ويجب ألا تحتوي دوال الـ Composable على أي Side Effects مباشرة داخل جسمها.', '@Composable
+fun Counter() {
+    var count by remember { mutableStateOf(0) }
+
+    Button(onClick = { count++ }) {
+        Text("العدد: $count") // فقط هذا الجزء يعاد تكوينه عند تغير count
+    }
+}', '["وضع عمليات حسابية مكلفة أو إنشاء كائنات جديدة داخل جسم Composable دون استخدام remember، مما يتسبب في تكرارها في كل إطار."]'::jsonb, '["هل تضمن دوال الـ Composable الترتيب الزمني نفسه للتنفيذ في كل دورة Recomposition؟"]'::jsonb, '[{"title":"Android Developers — Lifecycle of composables","url":"https://developer.android.com/develop/ui/compose/lifecycle"}]'::jsonb from public.question_revisions r where r.question_id = 'compose-002' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'compose-002' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما هي الـ Recomposition في Jetpack Compose وكيف تعمل بكفاءة؟' or l.short_answer is distinct from 'هي عملية إعادة استدعاء دوال الـ Composable تلقائيًا عندما تتغير حالتها (State) لتحديث الشاشة مع تخطي المكونات التي لم تتغير مدخلاتها.' or l.explanation is distinct from 'تعتبر Recomposition ذكية (Intelligent Skipping)؛ حيث يقارن Compose المعاملات الجديدة بالقديمة، وإذا كانت متطابقة ومستقرة، فإنه يتجاوز تنفيذ جسم الدالة تمامًا. يمكن للـ Recomposition أن تحدث بتردد عالٍ، ويجب ألا تحتوي دوال الـ Composable على أي Side Effects مباشرة داخل جسمها.' or l.code_example is distinct from '@Composable
+fun Counter() {
+    var count by remember { mutableStateOf(0) }
+
+    Button(onClick = { count++ }) {
+        Text("العدد: $count") // فقط هذا الجزء يعاد تكوينه عند تغير count
+    }
+}' or l.common_mistakes is distinct from '["وضع عمليات حسابية مكلفة أو إنشاء كائنات جديدة داخل جسم Composable دون استخدام remember، مما يتسبب في تكرارها في كل إطار."]'::jsonb or l.follow_up_questions is distinct from '["هل تضمن دوال الـ Composable الترتيب الزمني نفسه للتنفيذ في كل دورة Recomposition؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Lifecycle of composables","url":"https://developer.android.com/develop/ui/compose/lifecycle"}]'::jsonb)) then raise exception 'Question compose-002 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Recomposition And Composable Lifecycle?', 'This question checks the core Recomposition And Composable Lifecycle concept and how to use it safely in Kotlin and Android.', 'Explain Recomposition And Composable Lifecycle with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', '@Composable
+fun Counter() {
+    var count by remember { mutableStateOf(0) }
+
+    Button(onClick = { count++ }) {
+        Text("العدد: $count") // فقط هذا الجزء يعاد تكوينه عند تغير count
+    }
+}', '["Missing the key trade-off in Recomposition And Composable Lifecycle (point 1)."]'::jsonb, '["How would you apply Recomposition And Composable Lifecycle in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Lifecycle of composables","url":"https://developer.android.com/develop/ui/compose/lifecycle"}]'::jsonb from public.question_revisions r where r.question_id = 'compose-002' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'compose-002' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Recomposition And Composable Lifecycle?' or l.short_answer is distinct from 'This question checks the core Recomposition And Composable Lifecycle concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Recomposition And Composable Lifecycle with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from '@Composable
+fun Counter() {
+    var count by remember { mutableStateOf(0) }
+
+    Button(onClick = { count++ }) {
+        Text("العدد: $count") // فقط هذا الجزء يعاد تكوينه عند تغير count
+    }
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Recomposition And Composable Lifecycle (point 1)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Recomposition And Composable Lifecycle in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Lifecycle of composables","url":"https://developer.android.com/develop/ui/compose/lifecycle"}]'::jsonb)) then raise exception 'Question compose-002 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('compose-002', 'jetpack-compose') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'compose-002' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'compose-002' and revision_number = 1 and status = 'published') where id = 'compose-002' and exists (select 1 from public.question_revisions where question_id = 'compose-002' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('compose-003', 'state-hoisting-in-compose', 'android-native', 'Junior') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('compose-003', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما هو مبدأ رفع الحالة (State Hoisting) في Jetpack Compose؟', 'هو نمط نقل إدارة الحالة إلى المكون الأب لجعل المكون الابن عديم الحالة (Stateless)، قابلاً لإعادة الاستخدام وسهل الاختبار.', 'يتم تطبيق State Hoisting باستبدال المتغير الداخلي بمعاملين: القيمة الحالية (value: T) ودالة رد الاتصال للأحداث (onValueChange: (T) -> Unit). يضمن هذا النمط تدفق البيانات في اتجاه واحد (Unidirectional Data Flow)، حيث تتدفق الحالة للأسفل وتتدفق الأحداث للأعلى.', '// Stateless Composable قابل للاختبار وإعادة الاستخدام
+@Composable
+fun SearchInput(
+    query: String,
+    onQueryChange: (String) -> Unit
+) {
+    TextField(
+        value = query,
+        onValueChange = onQueryChange,
+        label = { Text("ابحث هنا...") }
+    )
+}', '["تضمين إدارة الحالة والـ ViewModel مباشرة داخل المكونات البصرية الفرعية، مما يمنع إعادة استخدامها في أماكن أخرى أو في Preview."]'::jsonb, '["ما هي فوائد State Hoisting بالنسبة لكتابة Unit Tests لاختبار الـ UI؟"]'::jsonb, '[{"title":"Android Developers — Where to hoist state","url":"https://developer.android.com/develop/ui/compose/state-hoisting"}]'::jsonb from public.question_revisions r where r.question_id = 'compose-003' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'compose-003' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما هو مبدأ رفع الحالة (State Hoisting) في Jetpack Compose؟' or l.short_answer is distinct from 'هو نمط نقل إدارة الحالة إلى المكون الأب لجعل المكون الابن عديم الحالة (Stateless)، قابلاً لإعادة الاستخدام وسهل الاختبار.' or l.explanation is distinct from 'يتم تطبيق State Hoisting باستبدال المتغير الداخلي بمعاملين: القيمة الحالية (value: T) ودالة رد الاتصال للأحداث (onValueChange: (T) -> Unit). يضمن هذا النمط تدفق البيانات في اتجاه واحد (Unidirectional Data Flow)، حيث تتدفق الحالة للأسفل وتتدفق الأحداث للأعلى.' or l.code_example is distinct from '// Stateless Composable قابل للاختبار وإعادة الاستخدام
+@Composable
+fun SearchInput(
+    query: String,
+    onQueryChange: (String) -> Unit
+) {
+    TextField(
+        value = query,
+        onValueChange = onQueryChange,
+        label = { Text("ابحث هنا...") }
+    )
+}' or l.common_mistakes is distinct from '["تضمين إدارة الحالة والـ ViewModel مباشرة داخل المكونات البصرية الفرعية، مما يمنع إعادة استخدامها في أماكن أخرى أو في Preview."]'::jsonb or l.follow_up_questions is distinct from '["ما هي فوائد State Hoisting بالنسبة لكتابة Unit Tests لاختبار الـ UI؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Where to hoist state","url":"https://developer.android.com/develop/ui/compose/state-hoisting"}]'::jsonb)) then raise exception 'Question compose-003 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about State Hoisting In Compose?', 'This question checks the core State Hoisting In Compose concept and how to use it safely in Kotlin and Android.', 'Explain State Hoisting In Compose with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', '// Stateless Composable قابل للاختبار وإعادة الاستخدام
+@Composable
+fun SearchInput(
+    query: String,
+    onQueryChange: (String) -> Unit
+) {
+    TextField(
+        value = query,
+        onValueChange = onQueryChange,
+        label = { Text("ابحث هنا...") }
+    )
+}', '["Missing the key trade-off in State Hoisting In Compose (point 1)."]'::jsonb, '["How would you apply State Hoisting In Compose in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Where to hoist state","url":"https://developer.android.com/develop/ui/compose/state-hoisting"}]'::jsonb from public.question_revisions r where r.question_id = 'compose-003' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'compose-003' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about State Hoisting In Compose?' or l.short_answer is distinct from 'This question checks the core State Hoisting In Compose concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain State Hoisting In Compose with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from '// Stateless Composable قابل للاختبار وإعادة الاستخدام
+@Composable
+fun SearchInput(
+    query: String,
+    onQueryChange: (String) -> Unit
+) {
+    TextField(
+        value = query,
+        onValueChange = onQueryChange,
+        label = { Text("ابحث هنا...") }
+    )
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in State Hoisting In Compose (point 1)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply State Hoisting In Compose in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Where to hoist state","url":"https://developer.android.com/develop/ui/compose/state-hoisting"}]'::jsonb)) then raise exception 'Question compose-003 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('compose-003', 'jetpack-compose') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'compose-003' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'compose-003' and revision_number = 1 and status = 'published') where id = 'compose-003' and exists (select 1 from public.question_revisions where question_id = 'compose-003' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('compose-004', 'remember-vs-remembersaveable', 'android-native', 'Mid') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('compose-004', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما الفرق بين remember و rememberSaveable في Jetpack Compose؟', 'remember تحتفظ بالحالة عبر دورات الـ Recomposition فقط، بينما rememberSaveable تحتفظ بها عبر دورات دوران الشاشة وموت العملية (Process Death).', 'تخزن remember القيمة في شجرة الـ Composition وتفقد قيمتها عند إعادة إنشاء الـ Activity (مثل تدوير الجهاز). أما rememberSaveable فتستخدم آلية SavedInstanceState الداخلية لنظام أندرويد لحفظ القيم واسترجاعها تلقائيًا للأنواع الأولية أو للكائنات المخصصة باستخدام Saver مخصص أو Parcelize.', '@Composable
+fun SearchScreen() {
+    // تبقى القيمة محفوظة حتى بعد دوران الهاتف:
+    var text by rememberSaveable { mutableStateOf("") }
+
+    TextField(value = text, onValueChange = { text = it })
+}', '["استخدام remember لحفظ مدخلات المستخدم في النماذج دون إدراك أنها ستضيع فور تدوير الهاتف.","تمرير كائنات معقدة لا تطبق Parcelable أو ليس لها Saver مخصص إلى rememberSaveable مما يسبب كراش وقت التشغيل."]'::jsonb, '["كيف يمكنك كتابة Custom Saver لتخزين كائن مخصص داخل rememberSaveable؟"]'::jsonb, '[{"title":"Android Developers — State and Jetpack Compose / Restore state","url":"https://developer.android.com/develop/ui/compose/state#restore-ui-state"}]'::jsonb from public.question_revisions r where r.question_id = 'compose-004' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'compose-004' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما الفرق بين remember و rememberSaveable في Jetpack Compose؟' or l.short_answer is distinct from 'remember تحتفظ بالحالة عبر دورات الـ Recomposition فقط، بينما rememberSaveable تحتفظ بها عبر دورات دوران الشاشة وموت العملية (Process Death).' or l.explanation is distinct from 'تخزن remember القيمة في شجرة الـ Composition وتفقد قيمتها عند إعادة إنشاء الـ Activity (مثل تدوير الجهاز). أما rememberSaveable فتستخدم آلية SavedInstanceState الداخلية لنظام أندرويد لحفظ القيم واسترجاعها تلقائيًا للأنواع الأولية أو للكائنات المخصصة باستخدام Saver مخصص أو Parcelize.' or l.code_example is distinct from '@Composable
+fun SearchScreen() {
+    // تبقى القيمة محفوظة حتى بعد دوران الهاتف:
+    var text by rememberSaveable { mutableStateOf("") }
+
+    TextField(value = text, onValueChange = { text = it })
+}' or l.common_mistakes is distinct from '["استخدام remember لحفظ مدخلات المستخدم في النماذج دون إدراك أنها ستضيع فور تدوير الهاتف.","تمرير كائنات معقدة لا تطبق Parcelable أو ليس لها Saver مخصص إلى rememberSaveable مما يسبب كراش وقت التشغيل."]'::jsonb or l.follow_up_questions is distinct from '["كيف يمكنك كتابة Custom Saver لتخزين كائن مخصص داخل rememberSaveable؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — State and Jetpack Compose / Restore state","url":"https://developer.android.com/develop/ui/compose/state#restore-ui-state"}]'::jsonb)) then raise exception 'Question compose-004 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Remember Vs Remembersaveable?', 'This question checks the core Remember Vs Remembersaveable concept and how to use it safely in Kotlin and Android.', 'Explain Remember Vs Remembersaveable with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', '@Composable
+fun SearchScreen() {
+    // تبقى القيمة محفوظة حتى بعد دوران الهاتف:
+    var text by rememberSaveable { mutableStateOf("") }
+
+    TextField(value = text, onValueChange = { text = it })
+}', '["Missing the key trade-off in Remember Vs Remembersaveable (point 1).","Missing the key trade-off in Remember Vs Remembersaveable (point 2)."]'::jsonb, '["How would you apply Remember Vs Remembersaveable in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — State and Jetpack Compose / Restore state","url":"https://developer.android.com/develop/ui/compose/state#restore-ui-state"}]'::jsonb from public.question_revisions r where r.question_id = 'compose-004' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'compose-004' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Remember Vs Remembersaveable?' or l.short_answer is distinct from 'This question checks the core Remember Vs Remembersaveable concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Remember Vs Remembersaveable with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from '@Composable
+fun SearchScreen() {
+    // تبقى القيمة محفوظة حتى بعد دوران الهاتف:
+    var text by rememberSaveable { mutableStateOf("") }
+
+    TextField(value = text, onValueChange = { text = it })
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Remember Vs Remembersaveable (point 1).","Missing the key trade-off in Remember Vs Remembersaveable (point 2)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Remember Vs Remembersaveable in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — State and Jetpack Compose / Restore state","url":"https://developer.android.com/develop/ui/compose/state#restore-ui-state"}]'::jsonb)) then raise exception 'Question compose-004 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('compose-004', 'jetpack-compose') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'compose-004' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'compose-004' and revision_number = 1 and status = 'published') where id = 'compose-004' and exists (select 1 from public.question_revisions where question_id = 'compose-004' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('compose-005', 'side-effects-launchedeffect-and-disposableeffect', 'android-native', 'Mid') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('compose-005', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما هي الآثار الجانبية (Side Effects) في Compose وما الفرق بين LaunchedEffect و DisposableEffect؟', 'LaunchedEffect يطلق Coroutine لإجراء مهمة غير متزامنة عند تغير مفتاح؛ DisposableEffect ينفذ كودًا مع توفير تنظيف إلزامي (onDispose) عند خروج المكون.', 'الـ Side Effect هو أي تغيير في حالة التطبيق يحدث خارج نطاق دالة الـ Composable. ينفذ LaunchedEffect الكود في CoroutineScope مرتبط بدورة حياة المكون ويلغى تلقائيًا إذا غادر الشاشة أو تغيرت المفاتيح (Key). أما DisposableEffect فيُستخدم لتسجيل المستمعين (Observers/Callbacks) التي تتطلب إلغاء اشتراك واضح داخل كتلة onDispose.', '// LaunchedEffect: استدعاء API عند تغيير userId
+LaunchedEffect(userId) {
+    viewModel.loadUserDetails(userId)
+}
+
+// DisposableEffect: تسجيل مستمع وإلغاءه
+DisposableEffect(lifecycleOwner) {
+    val observer = LifecycleEventObserver { _, event -> ... }
+    lifecycleOwner.lifecycle.addObserver(observer)
+    onDispose {
+        lifecycleOwner.lifecycle.removeObserver(observer)
+    }
+}', '["إطلاق Coroutine أو استدعاء عمليات شبكية مباشرة داخل جسم دالة Composable بدون استخدام Side-effect API.","نسيان إضافة المفتاح المناسب لـ LaunchedEffect(key) مما يمنع إعادة تشغيله عند تغير المعطيات."]'::jsonb, '["متى نستخدم rememberCoroutineScope بدلاً من LaunchedEffect لإطلاق Coroutine في Compose؟"]'::jsonb, '[{"title":"Android Developers — Side-effects in Compose","url":"https://developer.android.com/develop/ui/compose/side-effects"}]'::jsonb from public.question_revisions r where r.question_id = 'compose-005' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'compose-005' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما هي الآثار الجانبية (Side Effects) في Compose وما الفرق بين LaunchedEffect و DisposableEffect؟' or l.short_answer is distinct from 'LaunchedEffect يطلق Coroutine لإجراء مهمة غير متزامنة عند تغير مفتاح؛ DisposableEffect ينفذ كودًا مع توفير تنظيف إلزامي (onDispose) عند خروج المكون.' or l.explanation is distinct from 'الـ Side Effect هو أي تغيير في حالة التطبيق يحدث خارج نطاق دالة الـ Composable. ينفذ LaunchedEffect الكود في CoroutineScope مرتبط بدورة حياة المكون ويلغى تلقائيًا إذا غادر الشاشة أو تغيرت المفاتيح (Key). أما DisposableEffect فيُستخدم لتسجيل المستمعين (Observers/Callbacks) التي تتطلب إلغاء اشتراك واضح داخل كتلة onDispose.' or l.code_example is distinct from '// LaunchedEffect: استدعاء API عند تغيير userId
+LaunchedEffect(userId) {
+    viewModel.loadUserDetails(userId)
+}
+
+// DisposableEffect: تسجيل مستمع وإلغاءه
+DisposableEffect(lifecycleOwner) {
+    val observer = LifecycleEventObserver { _, event -> ... }
+    lifecycleOwner.lifecycle.addObserver(observer)
+    onDispose {
+        lifecycleOwner.lifecycle.removeObserver(observer)
+    }
+}' or l.common_mistakes is distinct from '["إطلاق Coroutine أو استدعاء عمليات شبكية مباشرة داخل جسم دالة Composable بدون استخدام Side-effect API.","نسيان إضافة المفتاح المناسب لـ LaunchedEffect(key) مما يمنع إعادة تشغيله عند تغير المعطيات."]'::jsonb or l.follow_up_questions is distinct from '["متى نستخدم rememberCoroutineScope بدلاً من LaunchedEffect لإطلاق Coroutine في Compose؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Side-effects in Compose","url":"https://developer.android.com/develop/ui/compose/side-effects"}]'::jsonb)) then raise exception 'Question compose-005 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Side Effects Launchedeffect And Disposableeffect?', 'This question checks the core Side Effects Launchedeffect And Disposableeffect concept and how to use it safely in Kotlin and Android.', 'Explain Side Effects Launchedeffect And Disposableeffect with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', '// LaunchedEffect: استدعاء API عند تغيير userId
+LaunchedEffect(userId) {
+    viewModel.loadUserDetails(userId)
+}
+
+// DisposableEffect: تسجيل مستمع وإلغاءه
+DisposableEffect(lifecycleOwner) {
+    val observer = LifecycleEventObserver { _, event -> ... }
+    lifecycleOwner.lifecycle.addObserver(observer)
+    onDispose {
+        lifecycleOwner.lifecycle.removeObserver(observer)
+    }
+}', '["Missing the key trade-off in Side Effects Launchedeffect And Disposableeffect (point 1).","Missing the key trade-off in Side Effects Launchedeffect And Disposableeffect (point 2)."]'::jsonb, '["How would you apply Side Effects Launchedeffect And Disposableeffect in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Side-effects in Compose","url":"https://developer.android.com/develop/ui/compose/side-effects"}]'::jsonb from public.question_revisions r where r.question_id = 'compose-005' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'compose-005' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Side Effects Launchedeffect And Disposableeffect?' or l.short_answer is distinct from 'This question checks the core Side Effects Launchedeffect And Disposableeffect concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Side Effects Launchedeffect And Disposableeffect with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from '// LaunchedEffect: استدعاء API عند تغيير userId
+LaunchedEffect(userId) {
+    viewModel.loadUserDetails(userId)
+}
+
+// DisposableEffect: تسجيل مستمع وإلغاءه
+DisposableEffect(lifecycleOwner) {
+    val observer = LifecycleEventObserver { _, event -> ... }
+    lifecycleOwner.lifecycle.addObserver(observer)
+    onDispose {
+        lifecycleOwner.lifecycle.removeObserver(observer)
+    }
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Side Effects Launchedeffect And Disposableeffect (point 1).","Missing the key trade-off in Side Effects Launchedeffect And Disposableeffect (point 2)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Side Effects Launchedeffect And Disposableeffect in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Side-effects in Compose","url":"https://developer.android.com/develop/ui/compose/side-effects"}]'::jsonb)) then raise exception 'Question compose-005 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('compose-005', 'jetpack-compose') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'compose-005' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'compose-005' and revision_number = 1 and status = 'published') where id = 'compose-005' and exists (select 1 from public.question_revisions where question_id = 'compose-005' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('compose-006', 'compositionlocal-implicit-dependencies', 'android-native', 'Mid') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('compose-006', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما هو دور CompositionLocal في Jetpack Compose ومتى يجب استخدامه؟', 'أداة لتمرير البيانات والتبعيات ضمنيًا عبر شجرة المكونات دون الحاجة لتمريرها كمعامل في كل دالة Composable فرعية.', 'يُستخدم CompositionLocal للمعلومات المنتشرة في كل مكان وتتشاركها الشاشات مثل الثيمات (MaterialTheme.colorScheme) أو سياق أندرويد (LocalContext.current) أو إدارة لوحة المفاتيح (LocalSoftwareKeyboardController). يوفر نمطين للإنشاء: compositionLocalOf للمتغيرات متكررة التغير، و staticCompositionLocalOf للقيم الثابتة نادرًا ما تتغير لتحسين أداء Recomposition.', '// توفير قيمة داخل نطاق محدد:
+val LocalSpacing = staticCompositionLocalOf { Spacing() }
+
+CompositionLocalProvider(LocalSpacing provides CustomSpacing()) {
+    // يمكن لأي Composable فرعي الوصول للقيمة مباشرة:
+    val spacing = LocalSpacing.current
+}', '["استخدام CompositionLocal لتمرير حالات أو بيانات عادية لـ Feature معينة بدلاً من تمريرها صراحة بالمعاملات، مما يجعل تدفق البيانات غامضًا وصعب التتبع."]'::jsonb, '["ما الفرق الدقيق في الأداء بين staticCompositionLocalOf و compositionLocalOf؟"]'::jsonb, '[{"title":"Android Developers — Locally scoped data with CompositionLocal","url":"https://developer.android.com/develop/ui/compose/compositionlocal"}]'::jsonb from public.question_revisions r where r.question_id = 'compose-006' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'compose-006' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما هو دور CompositionLocal في Jetpack Compose ومتى يجب استخدامه؟' or l.short_answer is distinct from 'أداة لتمرير البيانات والتبعيات ضمنيًا عبر شجرة المكونات دون الحاجة لتمريرها كمعامل في كل دالة Composable فرعية.' or l.explanation is distinct from 'يُستخدم CompositionLocal للمعلومات المنتشرة في كل مكان وتتشاركها الشاشات مثل الثيمات (MaterialTheme.colorScheme) أو سياق أندرويد (LocalContext.current) أو إدارة لوحة المفاتيح (LocalSoftwareKeyboardController). يوفر نمطين للإنشاء: compositionLocalOf للمتغيرات متكررة التغير، و staticCompositionLocalOf للقيم الثابتة نادرًا ما تتغير لتحسين أداء Recomposition.' or l.code_example is distinct from '// توفير قيمة داخل نطاق محدد:
+val LocalSpacing = staticCompositionLocalOf { Spacing() }
+
+CompositionLocalProvider(LocalSpacing provides CustomSpacing()) {
+    // يمكن لأي Composable فرعي الوصول للقيمة مباشرة:
+    val spacing = LocalSpacing.current
+}' or l.common_mistakes is distinct from '["استخدام CompositionLocal لتمرير حالات أو بيانات عادية لـ Feature معينة بدلاً من تمريرها صراحة بالمعاملات، مما يجعل تدفق البيانات غامضًا وصعب التتبع."]'::jsonb or l.follow_up_questions is distinct from '["ما الفرق الدقيق في الأداء بين staticCompositionLocalOf و compositionLocalOf؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Locally scoped data with CompositionLocal","url":"https://developer.android.com/develop/ui/compose/compositionlocal"}]'::jsonb)) then raise exception 'Question compose-006 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Compositionlocal Implicit Dependencies?', 'This question checks the core Compositionlocal Implicit Dependencies concept and how to use it safely in Kotlin and Android.', 'Explain Compositionlocal Implicit Dependencies with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', '// توفير قيمة داخل نطاق محدد:
+val LocalSpacing = staticCompositionLocalOf { Spacing() }
+
+CompositionLocalProvider(LocalSpacing provides CustomSpacing()) {
+    // يمكن لأي Composable فرعي الوصول للقيمة مباشرة:
+    val spacing = LocalSpacing.current
+}', '["Missing the key trade-off in Compositionlocal Implicit Dependencies (point 1)."]'::jsonb, '["How would you apply Compositionlocal Implicit Dependencies in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Locally scoped data with CompositionLocal","url":"https://developer.android.com/develop/ui/compose/compositionlocal"}]'::jsonb from public.question_revisions r where r.question_id = 'compose-006' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'compose-006' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Compositionlocal Implicit Dependencies?' or l.short_answer is distinct from 'This question checks the core Compositionlocal Implicit Dependencies concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Compositionlocal Implicit Dependencies with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from '// توفير قيمة داخل نطاق محدد:
+val LocalSpacing = staticCompositionLocalOf { Spacing() }
+
+CompositionLocalProvider(LocalSpacing provides CustomSpacing()) {
+    // يمكن لأي Composable فرعي الوصول للقيمة مباشرة:
+    val spacing = LocalSpacing.current
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Compositionlocal Implicit Dependencies (point 1)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Compositionlocal Implicit Dependencies in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Locally scoped data with CompositionLocal","url":"https://developer.android.com/develop/ui/compose/compositionlocal"}]'::jsonb)) then raise exception 'Question compose-006 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('compose-006', 'jetpack-compose') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'compose-006' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'compose-006' and revision_number = 1 and status = 'published') where id = 'compose-006' and exists (select 1 from public.question_revisions where question_id = 'compose-006' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('compose-007', 'derivedstateof-vs-remember-keys', 'android-native', 'Mid') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('compose-007', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'متى نستخدم derivedStateOf في Compose ولماذا تختلف عن remember(keys)؟', 'تُستخدم derivedStateOf لتحديث الحالة فقط عندما تتغير نتيجة الحساب الفعلية، فتمنع الـ Recomposition غير الضرورية الناتجة عن التغيرات المستمرة في المدخلات.', 'تعتبر derivedStateOf الخيار الذهبي لمراقبة حالات تتغير بسرعة أكبر من حاجتنا، مثل مراقبة موضع تمرير قائمة (LazyListState.firstVisibleItemIndex). لو استخدمنا remember(state.firstVisibleItemIndex) سيعاد حساب وتكوين الدالة مع كل بكسل يتم تمريره؛ بينما تضمن derivedStateOf ألا تنطلق Recomposition إلا إذا تغير الشرط النهائي فقط (مثل ظهور زر العودة للأعلى).', 'val listState = rememberLazyListState()
+
+// صحيح: Recomposition تحدث فقط عندما يتحول الناتج من false إلى true والعكس
+val showScrollToTopButton by remember {
+    derivedStateOf { listState.firstVisibleItemIndex > 5 }
+}', '["استخدام derivedStateOf مع كائنات ليست من نوع State، حيث لا تقدم أي ميزة إضافية في هذه الحالة.","استخدام remember(key) لمراقبة Scroll Position بدلاً من derivedStateOf مما يسبب بطء التمرير وهبوط الإطارات."]'::jsonb, '["لماذا يعتبر استخدام derivedStateOf غير ضروري عند دمج حالتي State نادرتي التغير؟"]'::jsonb, '[{"title":"Android Developers — derivedStateOf in Jetpack Compose","url":"https://developer.android.com/develop/ui/compose/side-effects#derivedstateof"}]'::jsonb from public.question_revisions r where r.question_id = 'compose-007' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'compose-007' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'متى نستخدم derivedStateOf في Compose ولماذا تختلف عن remember(keys)؟' or l.short_answer is distinct from 'تُستخدم derivedStateOf لتحديث الحالة فقط عندما تتغير نتيجة الحساب الفعلية، فتمنع الـ Recomposition غير الضرورية الناتجة عن التغيرات المستمرة في المدخلات.' or l.explanation is distinct from 'تعتبر derivedStateOf الخيار الذهبي لمراقبة حالات تتغير بسرعة أكبر من حاجتنا، مثل مراقبة موضع تمرير قائمة (LazyListState.firstVisibleItemIndex). لو استخدمنا remember(state.firstVisibleItemIndex) سيعاد حساب وتكوين الدالة مع كل بكسل يتم تمريره؛ بينما تضمن derivedStateOf ألا تنطلق Recomposition إلا إذا تغير الشرط النهائي فقط (مثل ظهور زر العودة للأعلى).' or l.code_example is distinct from 'val listState = rememberLazyListState()
+
+// صحيح: Recomposition تحدث فقط عندما يتحول الناتج من false إلى true والعكس
+val showScrollToTopButton by remember {
+    derivedStateOf { listState.firstVisibleItemIndex > 5 }
+}' or l.common_mistakes is distinct from '["استخدام derivedStateOf مع كائنات ليست من نوع State، حيث لا تقدم أي ميزة إضافية في هذه الحالة.","استخدام remember(key) لمراقبة Scroll Position بدلاً من derivedStateOf مما يسبب بطء التمرير وهبوط الإطارات."]'::jsonb or l.follow_up_questions is distinct from '["لماذا يعتبر استخدام derivedStateOf غير ضروري عند دمج حالتي State نادرتي التغير؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — derivedStateOf in Jetpack Compose","url":"https://developer.android.com/develop/ui/compose/side-effects#derivedstateof"}]'::jsonb)) then raise exception 'Question compose-007 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Derivedstateof Vs Remember Keys?', 'This question checks the core Derivedstateof Vs Remember Keys concept and how to use it safely in Kotlin and Android.', 'Explain Derivedstateof Vs Remember Keys with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', 'val listState = rememberLazyListState()
+
+// صحيح: Recomposition تحدث فقط عندما يتحول الناتج من false إلى true والعكس
+val showScrollToTopButton by remember {
+    derivedStateOf { listState.firstVisibleItemIndex > 5 }
+}', '["Missing the key trade-off in Derivedstateof Vs Remember Keys (point 1).","Missing the key trade-off in Derivedstateof Vs Remember Keys (point 2)."]'::jsonb, '["How would you apply Derivedstateof Vs Remember Keys in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — derivedStateOf in Jetpack Compose","url":"https://developer.android.com/develop/ui/compose/side-effects#derivedstateof"}]'::jsonb from public.question_revisions r where r.question_id = 'compose-007' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'compose-007' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Derivedstateof Vs Remember Keys?' or l.short_answer is distinct from 'This question checks the core Derivedstateof Vs Remember Keys concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Derivedstateof Vs Remember Keys with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from 'val listState = rememberLazyListState()
+
+// صحيح: Recomposition تحدث فقط عندما يتحول الناتج من false إلى true والعكس
+val showScrollToTopButton by remember {
+    derivedStateOf { listState.firstVisibleItemIndex > 5 }
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Derivedstateof Vs Remember Keys (point 1).","Missing the key trade-off in Derivedstateof Vs Remember Keys (point 2)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Derivedstateof Vs Remember Keys in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — derivedStateOf in Jetpack Compose","url":"https://developer.android.com/develop/ui/compose/side-effects#derivedstateof"}]'::jsonb)) then raise exception 'Question compose-007 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('compose-007', 'jetpack-compose') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'compose-007' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'compose-007' and revision_number = 1 and status = 'published') where id = 'compose-007' and exists (select 1 from public.question_revisions where question_id = 'compose-007' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('compose-008', 'compose-modifiers-order-of-execution', 'android-native', 'Mid') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('compose-008', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'لماذا يعد ترتيب استدعاء الـ Modifiers جوهريًا في Jetpack Compose؟', 'لأن الـ Modifiers تطبق بالتسلسل من الخارج للداخل؛ فالترتيب يحدد منطقة النقر والأبعاد وحواف الرسم بدقة.', 'تُعامل الـ Modifiers كسلسلة مغلفة؛ فإذا وضعت clickable قبل padding، فإن مساحة النقر ستشمل الـ padding الخارجي. أما إذا عكست الترتيب (padding أولاً ثم clickable) فستكون مساحة النقر محصورة فقط داخل العنصر دون الهوامش. كذلك وضع background قبل padding يلون الحاوية كاملة بينما وضعها بعده يلون المحتوى الداخلي فقط.', '// النقر يشمل الهوامش واللون يغطي الحاوية:
+Modifier
+    .background(Color.Yellow)
+    .clickable { }
+    .padding(16.dp)
+
+// النقر لا يشمل الهوامش واللون يغطي المحتوى الداخلي فقط:
+Modifier
+    .padding(16.dp)
+    .background(Color.Yellow)
+    .clickable { }', '["الافتراض بأن ترتيب الـ Modifiers تجميلي ولا يؤثر على منطقة التفاعل (Touch Target) أو المساحة المحجوزة."]'::jsonb, '["كيف يؤثر Modifier.fillMaxWidth متبوعًا بـ Modifier.wrapContentWidth على المحاذاة؟"]'::jsonb, '[{"title":"Android Developers — Compose modifiers overview","url":"https://developer.android.com/develop/ui/compose/modifiers"}]'::jsonb from public.question_revisions r where r.question_id = 'compose-008' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'compose-008' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'لماذا يعد ترتيب استدعاء الـ Modifiers جوهريًا في Jetpack Compose؟' or l.short_answer is distinct from 'لأن الـ Modifiers تطبق بالتسلسل من الخارج للداخل؛ فالترتيب يحدد منطقة النقر والأبعاد وحواف الرسم بدقة.' or l.explanation is distinct from 'تُعامل الـ Modifiers كسلسلة مغلفة؛ فإذا وضعت clickable قبل padding، فإن مساحة النقر ستشمل الـ padding الخارجي. أما إذا عكست الترتيب (padding أولاً ثم clickable) فستكون مساحة النقر محصورة فقط داخل العنصر دون الهوامش. كذلك وضع background قبل padding يلون الحاوية كاملة بينما وضعها بعده يلون المحتوى الداخلي فقط.' or l.code_example is distinct from '// النقر يشمل الهوامش واللون يغطي الحاوية:
+Modifier
+    .background(Color.Yellow)
+    .clickable { }
+    .padding(16.dp)
+
+// النقر لا يشمل الهوامش واللون يغطي المحتوى الداخلي فقط:
+Modifier
+    .padding(16.dp)
+    .background(Color.Yellow)
+    .clickable { }' or l.common_mistakes is distinct from '["الافتراض بأن ترتيب الـ Modifiers تجميلي ولا يؤثر على منطقة التفاعل (Touch Target) أو المساحة المحجوزة."]'::jsonb or l.follow_up_questions is distinct from '["كيف يؤثر Modifier.fillMaxWidth متبوعًا بـ Modifier.wrapContentWidth على المحاذاة؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Compose modifiers overview","url":"https://developer.android.com/develop/ui/compose/modifiers"}]'::jsonb)) then raise exception 'Question compose-008 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Compose Modifiers Order Of Execution?', 'This question checks the core Compose Modifiers Order Of Execution concept and how to use it safely in Kotlin and Android.', 'Explain Compose Modifiers Order Of Execution with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', '// النقر يشمل الهوامش واللون يغطي الحاوية:
+Modifier
+    .background(Color.Yellow)
+    .clickable { }
+    .padding(16.dp)
+
+// النقر لا يشمل الهوامش واللون يغطي المحتوى الداخلي فقط:
+Modifier
+    .padding(16.dp)
+    .background(Color.Yellow)
+    .clickable { }', '["Missing the key trade-off in Compose Modifiers Order Of Execution (point 1)."]'::jsonb, '["How would you apply Compose Modifiers Order Of Execution in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Compose modifiers overview","url":"https://developer.android.com/develop/ui/compose/modifiers"}]'::jsonb from public.question_revisions r where r.question_id = 'compose-008' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'compose-008' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Compose Modifiers Order Of Execution?' or l.short_answer is distinct from 'This question checks the core Compose Modifiers Order Of Execution concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Compose Modifiers Order Of Execution with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from '// النقر يشمل الهوامش واللون يغطي الحاوية:
+Modifier
+    .background(Color.Yellow)
+    .clickable { }
+    .padding(16.dp)
+
+// النقر لا يشمل الهوامش واللون يغطي المحتوى الداخلي فقط:
+Modifier
+    .padding(16.dp)
+    .background(Color.Yellow)
+    .clickable { }' or l.common_mistakes is distinct from '["Missing the key trade-off in Compose Modifiers Order Of Execution (point 1)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Compose Modifiers Order Of Execution in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Compose modifiers overview","url":"https://developer.android.com/develop/ui/compose/modifiers"}]'::jsonb)) then raise exception 'Question compose-008 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('compose-008', 'jetpack-compose') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'compose-008' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'compose-008' and revision_number = 1 and status = 'published') where id = 'compose-008' and exists (select 1 from public.question_revisions where question_id = 'compose-008' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('compose-009', 'lazycolumn-performance-and-keys', 'android-native', 'Senior') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('compose-009', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'كيف تضمن أعلى أداء وسلاسة للقوائم الكبيرة في LazyColumn؟', 'بتوفير key ثابت وفريد لكل عنصر، وتحديد contentType، والابتعاد عن العمليات الحسابية داخل العناصر أثناء التمرير.', 'عند غياب الـ key، يعتمد Compose على موضع العنصر (Position) في القائمة، فإذا حُذف عنصر من البداية، يعاد تكوين القائمة بأكملها وتضيع حالات الرسوم المتحركة وعناصر التمرير. توفير key فريد يسمح لـ Compose بتتبع العناصر وتحريكها بكفاءة، بينما يساعد contentType مجمع العناصر على إعادة استخدام التكوين المشابه كما في نمط ViewType القديم.', 'LazyColumn {
+    items(
+        items = messages,
+        key = { message -> message.id }, // مفتاح فريد وثابت
+        contentType = { message -> message.type } // تصنيف نوع العنصر
+    ) { message ->
+        MessageItem(message)
+    }
+}', '["استخدام مؤشر القائمة (index) كـ key، مما يلغي فائدة تتبع العناصر عند الإضافة أو الحذف.","تضمين كائنات قابلة للتعديل وغير مستقرة (مثل Unstable Lists) كمعاملات لعناصر القائمة مما يمنع skipping."]'::jsonb, '["كيف يفيد contentType في تجنب إعادة حساب قياس العناصر في القوائم غير المتجانسة؟"]'::jsonb, '[{"title":"Android Developers — Lazy lists in Compose","url":"https://developer.android.com/develop/ui/compose/lists"}]'::jsonb from public.question_revisions r where r.question_id = 'compose-009' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'compose-009' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'كيف تضمن أعلى أداء وسلاسة للقوائم الكبيرة في LazyColumn؟' or l.short_answer is distinct from 'بتوفير key ثابت وفريد لكل عنصر، وتحديد contentType، والابتعاد عن العمليات الحسابية داخل العناصر أثناء التمرير.' or l.explanation is distinct from 'عند غياب الـ key، يعتمد Compose على موضع العنصر (Position) في القائمة، فإذا حُذف عنصر من البداية، يعاد تكوين القائمة بأكملها وتضيع حالات الرسوم المتحركة وعناصر التمرير. توفير key فريد يسمح لـ Compose بتتبع العناصر وتحريكها بكفاءة، بينما يساعد contentType مجمع العناصر على إعادة استخدام التكوين المشابه كما في نمط ViewType القديم.' or l.code_example is distinct from 'LazyColumn {
+    items(
+        items = messages,
+        key = { message -> message.id }, // مفتاح فريد وثابت
+        contentType = { message -> message.type } // تصنيف نوع العنصر
+    ) { message ->
+        MessageItem(message)
+    }
+}' or l.common_mistakes is distinct from '["استخدام مؤشر القائمة (index) كـ key، مما يلغي فائدة تتبع العناصر عند الإضافة أو الحذف.","تضمين كائنات قابلة للتعديل وغير مستقرة (مثل Unstable Lists) كمعاملات لعناصر القائمة مما يمنع skipping."]'::jsonb or l.follow_up_questions is distinct from '["كيف يفيد contentType في تجنب إعادة حساب قياس العناصر في القوائم غير المتجانسة؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Lazy lists in Compose","url":"https://developer.android.com/develop/ui/compose/lists"}]'::jsonb)) then raise exception 'Question compose-009 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Lazycolumn Performance And Keys?', 'This question checks the core Lazycolumn Performance And Keys concept and how to use it safely in Kotlin and Android.', 'Explain Lazycolumn Performance And Keys with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', 'LazyColumn {
+    items(
+        items = messages,
+        key = { message -> message.id }, // مفتاح فريد وثابت
+        contentType = { message -> message.type } // تصنيف نوع العنصر
+    ) { message ->
+        MessageItem(message)
+    }
+}', '["Missing the key trade-off in Lazycolumn Performance And Keys (point 1).","Missing the key trade-off in Lazycolumn Performance And Keys (point 2)."]'::jsonb, '["How would you apply Lazycolumn Performance And Keys in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Lazy lists in Compose","url":"https://developer.android.com/develop/ui/compose/lists"}]'::jsonb from public.question_revisions r where r.question_id = 'compose-009' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'compose-009' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Lazycolumn Performance And Keys?' or l.short_answer is distinct from 'This question checks the core Lazycolumn Performance And Keys concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Lazycolumn Performance And Keys with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from 'LazyColumn {
+    items(
+        items = messages,
+        key = { message -> message.id }, // مفتاح فريد وثابت
+        contentType = { message -> message.type } // تصنيف نوع العنصر
+    ) { message ->
+        MessageItem(message)
+    }
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Lazycolumn Performance And Keys (point 1).","Missing the key trade-off in Lazycolumn Performance And Keys (point 2)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Lazycolumn Performance And Keys in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Lazy lists in Compose","url":"https://developer.android.com/develop/ui/compose/lists"}]'::jsonb)) then raise exception 'Question compose-009 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('compose-009', 'jetpack-compose') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'compose-009' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'compose-009' and revision_number = 1 and status = 'published') where id = 'compose-009' and exists (select 1 from public.question_revisions where question_id = 'compose-009' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('compose-010', 'compose-stability-and-skipping', 'android-native', 'Senior') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('compose-010', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'كيف يحدد Compose استقرار البيانات (Stability) لتخطي الـ Recomposition (Smart Skipping)؟', 'يصنف المترجم الأنواع كـ Stable أو Immutable بناءً على ثبات قيمها؛ إذا كانت كل معاملات الدالة مستقرة ولم تتغير قيمها، يتم تخطي الدالة بالكامل.', 'يعتبر النوع Immutable إذا كانت كل خصائصه المعلنة val من أنواع بدائية أو أنواع غير قابلة للتغيير. أما النوع Stable فيضمن إشعار Compose عند حدوث أي تعديل (مثل MutableState). المشكلة الشائعة تحدث مع مجموعات Kotlin القياسية (مثل List<T>) التي يعتبرها مترجم Compose غير مستقرة لأنها قد تكون MutableList في الحقيقة، مما يمنع skipping حتى لو لم تتغير المحتويات.', '// كلاس مستقر يسمح بتخطي التكوين
+@Immutable
+data class UserUiModel(val id: String, val name: String)
+
+// لتفادي اعتبار List غير مستقرة، نستخدم Kotlinx Immutable Collections:
+@Composable
+fun UserList(users: PersistentList<UserUiModel>) {
+    // تتخطى دالة التكوين بنجاح إذا لم تتغير القائمة
+}', '["تمرير List عادية من وحدة خارجية تجعل المترجم يصنف المكون كـ Non-skippable دون انتباه المطور.","استخدام دوال لامدا تلتقط متغيرات متغيرة دون تذكرها عبر remember."]'::jsonb, '["ما هي أداة Compose Compiler Metrics وكيف تستخدمها لتحليل استقرار المكونات؟"]'::jsonb, '[{"title":"Android Developers — Jetpack Compose Stability","url":"https://developer.android.com/develop/ui/compose/performance/stability"}]'::jsonb from public.question_revisions r where r.question_id = 'compose-010' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'compose-010' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'كيف يحدد Compose استقرار البيانات (Stability) لتخطي الـ Recomposition (Smart Skipping)؟' or l.short_answer is distinct from 'يصنف المترجم الأنواع كـ Stable أو Immutable بناءً على ثبات قيمها؛ إذا كانت كل معاملات الدالة مستقرة ولم تتغير قيمها، يتم تخطي الدالة بالكامل.' or l.explanation is distinct from 'يعتبر النوع Immutable إذا كانت كل خصائصه المعلنة val من أنواع بدائية أو أنواع غير قابلة للتغيير. أما النوع Stable فيضمن إشعار Compose عند حدوث أي تعديل (مثل MutableState). المشكلة الشائعة تحدث مع مجموعات Kotlin القياسية (مثل List<T>) التي يعتبرها مترجم Compose غير مستقرة لأنها قد تكون MutableList في الحقيقة، مما يمنع skipping حتى لو لم تتغير المحتويات.' or l.code_example is distinct from '// كلاس مستقر يسمح بتخطي التكوين
+@Immutable
+data class UserUiModel(val id: String, val name: String)
+
+// لتفادي اعتبار List غير مستقرة، نستخدم Kotlinx Immutable Collections:
+@Composable
+fun UserList(users: PersistentList<UserUiModel>) {
+    // تتخطى دالة التكوين بنجاح إذا لم تتغير القائمة
+}' or l.common_mistakes is distinct from '["تمرير List عادية من وحدة خارجية تجعل المترجم يصنف المكون كـ Non-skippable دون انتباه المطور.","استخدام دوال لامدا تلتقط متغيرات متغيرة دون تذكرها عبر remember."]'::jsonb or l.follow_up_questions is distinct from '["ما هي أداة Compose Compiler Metrics وكيف تستخدمها لتحليل استقرار المكونات؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Jetpack Compose Stability","url":"https://developer.android.com/develop/ui/compose/performance/stability"}]'::jsonb)) then raise exception 'Question compose-010 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Compose Stability And Skipping?', 'This question checks the core Compose Stability And Skipping concept and how to use it safely in Kotlin and Android.', 'Explain Compose Stability And Skipping with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', '// كلاس مستقر يسمح بتخطي التكوين
+@Immutable
+data class UserUiModel(val id: String, val name: String)
+
+// لتفادي اعتبار List غير مستقرة، نستخدم Kotlinx Immutable Collections:
+@Composable
+fun UserList(users: PersistentList<UserUiModel>) {
+    // تتخطى دالة التكوين بنجاح إذا لم تتغير القائمة
+}', '["Missing the key trade-off in Compose Stability And Skipping (point 1).","Missing the key trade-off in Compose Stability And Skipping (point 2)."]'::jsonb, '["How would you apply Compose Stability And Skipping in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Jetpack Compose Stability","url":"https://developer.android.com/develop/ui/compose/performance/stability"}]'::jsonb from public.question_revisions r where r.question_id = 'compose-010' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'compose-010' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Compose Stability And Skipping?' or l.short_answer is distinct from 'This question checks the core Compose Stability And Skipping concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Compose Stability And Skipping with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from '// كلاس مستقر يسمح بتخطي التكوين
+@Immutable
+data class UserUiModel(val id: String, val name: String)
+
+// لتفادي اعتبار List غير مستقرة، نستخدم Kotlinx Immutable Collections:
+@Composable
+fun UserList(users: PersistentList<UserUiModel>) {
+    // تتخطى دالة التكوين بنجاح إذا لم تتغير القائمة
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Compose Stability And Skipping (point 1).","Missing the key trade-off in Compose Stability And Skipping (point 2)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Compose Stability And Skipping in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Jetpack Compose Stability","url":"https://developer.android.com/develop/ui/compose/performance/stability"}]'::jsonb)) then raise exception 'Question compose-010 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('compose-010', 'jetpack-compose') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'compose-010' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'compose-010' and revision_number = 1 and status = 'published') where id = 'compose-010' and exists (select 1 from public.question_revisions where question_id = 'compose-010' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('aarch-001', 'viewmodel-purpose-and-lifecycle', 'android-native', 'Junior') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('aarch-001', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما هو دور الـ ViewModel في بنية تطبيقات أندرويد وكيف تختلف دورة حياته عن الـ Activity؟', 'يفصل بيانات ومنطق الواجهة عن دورة حياة الشاشة، ويبقى حيًا في الذاكرة أثناء إعادة إنشاء الـ Activity عند تدوير الجهاز ولا ينتهي إلا بإغلاق الشاشة نهائيًا.', 'يُنشأ الـ ViewModel بواسطة ViewModelProvider وتديره ViewModelStoreOwner. عند حدوث Configuration Change كدوران الشاشة، لا يُدمر الـ ViewModel بل يُعاد ربطه بنسخة الـ Activity الجديدة. يستدعى onCleared() الخاص به فقط عند انتهاء دورة حياة المالك الحقيقية (استدعاء finish() أو خروج المستخدم من الـ Backstack).', 'class UserViewModel : ViewModel() {
+    private val _users = MutableStateFlow<List<User>>(emptyList())
+    val users: StateFlow<List<User>> = _users.asStateFlow()
+
+    override fun onCleared() {
+        super.onCleared()
+        // تنظيف الموارد والاشتراكات النشطة
+    }
+}', '["تمرير مرجع للـ Activity أو Context أو أي كائن View داخل الـ ViewModel، مما يسبب تسريب ذاكرة مؤكدًا (Memory Leak).","إنشاء نسخة ViewModel يدويًا عبر UserViewModel() بدلاً من استخدام ViewModelProvider أو Delegate من Jetpack (by viewModels())."]'::jsonb, '["إذا كنت بحاجة إلى Context داخل ViewModel، فما هو البديل الآمن؟"]'::jsonb, '[{"title":"Android Developers — ViewModel overview","url":"https://developer.android.com/topic/libraries/architecture/viewmodel"}]'::jsonb from public.question_revisions r where r.question_id = 'aarch-001' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'aarch-001' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما هو دور الـ ViewModel في بنية تطبيقات أندرويد وكيف تختلف دورة حياته عن الـ Activity؟' or l.short_answer is distinct from 'يفصل بيانات ومنطق الواجهة عن دورة حياة الشاشة، ويبقى حيًا في الذاكرة أثناء إعادة إنشاء الـ Activity عند تدوير الجهاز ولا ينتهي إلا بإغلاق الشاشة نهائيًا.' or l.explanation is distinct from 'يُنشأ الـ ViewModel بواسطة ViewModelProvider وتديره ViewModelStoreOwner. عند حدوث Configuration Change كدوران الشاشة، لا يُدمر الـ ViewModel بل يُعاد ربطه بنسخة الـ Activity الجديدة. يستدعى onCleared() الخاص به فقط عند انتهاء دورة حياة المالك الحقيقية (استدعاء finish() أو خروج المستخدم من الـ Backstack).' or l.code_example is distinct from 'class UserViewModel : ViewModel() {
+    private val _users = MutableStateFlow<List<User>>(emptyList())
+    val users: StateFlow<List<User>> = _users.asStateFlow()
+
+    override fun onCleared() {
+        super.onCleared()
+        // تنظيف الموارد والاشتراكات النشطة
+    }
+}' or l.common_mistakes is distinct from '["تمرير مرجع للـ Activity أو Context أو أي كائن View داخل الـ ViewModel، مما يسبب تسريب ذاكرة مؤكدًا (Memory Leak).","إنشاء نسخة ViewModel يدويًا عبر UserViewModel() بدلاً من استخدام ViewModelProvider أو Delegate من Jetpack (by viewModels())."]'::jsonb or l.follow_up_questions is distinct from '["إذا كنت بحاجة إلى Context داخل ViewModel، فما هو البديل الآمن؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — ViewModel overview","url":"https://developer.android.com/topic/libraries/architecture/viewmodel"}]'::jsonb)) then raise exception 'Question aarch-001 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Viewmodel Purpose And Lifecycle?', 'This question checks the core Viewmodel Purpose And Lifecycle concept and how to use it safely in Kotlin and Android.', 'Explain Viewmodel Purpose And Lifecycle with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', 'class UserViewModel : ViewModel() {
+    private val _users = MutableStateFlow<List<User>>(emptyList())
+    val users: StateFlow<List<User>> = _users.asStateFlow()
+
+    override fun onCleared() {
+        super.onCleared()
+        // تنظيف الموارد والاشتراكات النشطة
+    }
+}', '["Missing the key trade-off in Viewmodel Purpose And Lifecycle (point 1).","Missing the key trade-off in Viewmodel Purpose And Lifecycle (point 2)."]'::jsonb, '["How would you apply Viewmodel Purpose And Lifecycle in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — ViewModel overview","url":"https://developer.android.com/topic/libraries/architecture/viewmodel"}]'::jsonb from public.question_revisions r where r.question_id = 'aarch-001' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'aarch-001' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Viewmodel Purpose And Lifecycle?' or l.short_answer is distinct from 'This question checks the core Viewmodel Purpose And Lifecycle concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Viewmodel Purpose And Lifecycle with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from 'class UserViewModel : ViewModel() {
+    private val _users = MutableStateFlow<List<User>>(emptyList())
+    val users: StateFlow<List<User>> = _users.asStateFlow()
+
+    override fun onCleared() {
+        super.onCleared()
+        // تنظيف الموارد والاشتراكات النشطة
+    }
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Viewmodel Purpose And Lifecycle (point 1).","Missing the key trade-off in Viewmodel Purpose And Lifecycle (point 2)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Viewmodel Purpose And Lifecycle in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — ViewModel overview","url":"https://developer.android.com/topic/libraries/architecture/viewmodel"}]'::jsonb)) then raise exception 'Question aarch-001 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('aarch-001', 'architecture-components') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'aarch-001' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'aarch-001' and revision_number = 1 and status = 'published') where id = 'aarch-001' and exists (select 1 from public.question_revisions where question_id = 'aarch-001' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('aarch-002', 'livedata-vs-stateflow-in-viewmodel', 'android-native', 'Junior') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('aarch-002', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما الفرق بين LiveData و StateFlow ولماذا يُفضل StateFlow في تطبيقات Kotlin الحديثة؟', 'LiveData مدمجة مع دورة حياة أندرويد وتعمل فقط على الـ Main Thread؛ بينما StateFlow تنتمي لـ Kotlin Coroutines وتدعم مشغلات التدفق والعمل على أي Dispatcher وتعتبر نقية من تبعيات أندرويد.', 'تعتبر LiveData حلاً كلاسيكيًا مرتبطًا بـ Android SDK، مما يجعلها غير صالحة لطبقات الـ Domain أو بيئة Kotlin Multiplatform. في المقابل، توفر StateFlow دائمًا قيمة أولية (Initial Value)، وتدعم مشغلات Flow القوية (مثل map, filter, combine, debounce)، ويمكن جمع بياناتها في واجهات أندرويد بأمان باستخدام repeatOnLifecycle.', '// StateFlow النظيف في ViewModel:
+class CounterViewModel : ViewModel() {
+    private val _count = MutableStateFlow(0)
+    val count: StateFlow<Int> = _count.asStateFlow()
+
+    fun increment() { _count.value++ }
+}', '["جمع بيانات StateFlow داخل الـ UI باستخدام lifecycleScope.launch العادي دون repeatOnLifecycle، مما يبقي جمع البيانات نشطًا في الخلفية ويهدر الموارد."]'::jsonb, '["ما هي أداة collectAsStateWithLifecycle في Jetpack Compose وكيف تضمن أمان دورة الحياة؟"]'::jsonb, '[{"title":"Android Developers — StateFlow and SharedFlow","url":"https://developer.android.com/kotlin/flow/stateflow-and-sharedflow"}]'::jsonb from public.question_revisions r where r.question_id = 'aarch-002' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'aarch-002' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما الفرق بين LiveData و StateFlow ولماذا يُفضل StateFlow في تطبيقات Kotlin الحديثة؟' or l.short_answer is distinct from 'LiveData مدمجة مع دورة حياة أندرويد وتعمل فقط على الـ Main Thread؛ بينما StateFlow تنتمي لـ Kotlin Coroutines وتدعم مشغلات التدفق والعمل على أي Dispatcher وتعتبر نقية من تبعيات أندرويد.' or l.explanation is distinct from 'تعتبر LiveData حلاً كلاسيكيًا مرتبطًا بـ Android SDK، مما يجعلها غير صالحة لطبقات الـ Domain أو بيئة Kotlin Multiplatform. في المقابل، توفر StateFlow دائمًا قيمة أولية (Initial Value)، وتدعم مشغلات Flow القوية (مثل map, filter, combine, debounce)، ويمكن جمع بياناتها في واجهات أندرويد بأمان باستخدام repeatOnLifecycle.' or l.code_example is distinct from '// StateFlow النظيف في ViewModel:
+class CounterViewModel : ViewModel() {
+    private val _count = MutableStateFlow(0)
+    val count: StateFlow<Int> = _count.asStateFlow()
+
+    fun increment() { _count.value++ }
+}' or l.common_mistakes is distinct from '["جمع بيانات StateFlow داخل الـ UI باستخدام lifecycleScope.launch العادي دون repeatOnLifecycle، مما يبقي جمع البيانات نشطًا في الخلفية ويهدر الموارد."]'::jsonb or l.follow_up_questions is distinct from '["ما هي أداة collectAsStateWithLifecycle في Jetpack Compose وكيف تضمن أمان دورة الحياة؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — StateFlow and SharedFlow","url":"https://developer.android.com/kotlin/flow/stateflow-and-sharedflow"}]'::jsonb)) then raise exception 'Question aarch-002 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Livedata Vs Stateflow In Viewmodel?', 'This question checks the core Livedata Vs Stateflow In Viewmodel concept and how to use it safely in Kotlin and Android.', 'Explain Livedata Vs Stateflow In Viewmodel with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', '// StateFlow النظيف في ViewModel:
+class CounterViewModel : ViewModel() {
+    private val _count = MutableStateFlow(0)
+    val count: StateFlow<Int> = _count.asStateFlow()
+
+    fun increment() { _count.value++ }
+}', '["Missing the key trade-off in Livedata Vs Stateflow In Viewmodel (point 1)."]'::jsonb, '["How would you apply Livedata Vs Stateflow In Viewmodel in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — StateFlow and SharedFlow","url":"https://developer.android.com/kotlin/flow/stateflow-and-sharedflow"}]'::jsonb from public.question_revisions r where r.question_id = 'aarch-002' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'aarch-002' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Livedata Vs Stateflow In Viewmodel?' or l.short_answer is distinct from 'This question checks the core Livedata Vs Stateflow In Viewmodel concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Livedata Vs Stateflow In Viewmodel with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from '// StateFlow النظيف في ViewModel:
+class CounterViewModel : ViewModel() {
+    private val _count = MutableStateFlow(0)
+    val count: StateFlow<Int> = _count.asStateFlow()
+
+    fun increment() { _count.value++ }
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Livedata Vs Stateflow In Viewmodel (point 1)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Livedata Vs Stateflow In Viewmodel in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — StateFlow and SharedFlow","url":"https://developer.android.com/kotlin/flow/stateflow-and-sharedflow"}]'::jsonb)) then raise exception 'Question aarch-002 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('aarch-002', 'architecture-components') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'aarch-002' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'aarch-002' and revision_number = 1 and status = 'published') where id = 'aarch-002' and exists (select 1 from public.question_revisions where question_id = 'aarch-002' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('aarch-003', 'unidirectional-data-flow-in-android', 'android-native', 'Junior') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('aarch-003', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما هو نمط تدفق البيانات أحادي الاتجاه (Unidirectional Data Flow - UDF)؟', 'نمط معماري تتدفق فيه الحالة (State) للأسفل نحو الواجهة، وتتدفق الأحداث وتفاعلات المستخدم (Events) للأعلى نحو الـ ViewModel.', 'يضمن UDF وجود مصدر وحيد للحقيقة (Single Source of Truth). لا تقوم واجهة المستخدم بتعديل المتغيرات مباشرة؛ بل تطلق Intent/Event (مثل OnItemClicked). يستقبل الـ ViewModel هذا الحدث، وينفذ منطق العمل المطلوب عبر المستودعات، ثم ينتج حالة جديدة غير قابلة للتغيير (Immutable State) تلتقطها الواجهة وتعيد رسم نفسها.', '// 1. الحالة تتدفق للأسفل
+val uiState: StateFlow<NewsUiState>
+
+// 2. الأحداث تتدفق للأعلى
+fun onEvent(event: NewsUiEvent) {
+    when (event) {
+        is NewsUiEvent.Refresh -> fetchNews()
+        is NewsUiEvent.Bookmark -> saveArticle(event.articleId)
+    }
+}', '["تعديل الحالة من أماكن متعددة داخل الواجهة بدلاً من جعل الـ ViewModel هو المسؤول الحصري عن إصدار الحالات."]'::jsonb, '["كيف يسهل نمط UDF كتابة اختبارات آلية واضحة ومستقلة لطبقة الـ ViewModel؟"]'::jsonb, '[{"title":"Android Developers — Architecture guide / UI Layer","url":"https://developer.android.com/topic/architecture/ui-layer"}]'::jsonb from public.question_revisions r where r.question_id = 'aarch-003' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'aarch-003' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما هو نمط تدفق البيانات أحادي الاتجاه (Unidirectional Data Flow - UDF)؟' or l.short_answer is distinct from 'نمط معماري تتدفق فيه الحالة (State) للأسفل نحو الواجهة، وتتدفق الأحداث وتفاعلات المستخدم (Events) للأعلى نحو الـ ViewModel.' or l.explanation is distinct from 'يضمن UDF وجود مصدر وحيد للحقيقة (Single Source of Truth). لا تقوم واجهة المستخدم بتعديل المتغيرات مباشرة؛ بل تطلق Intent/Event (مثل OnItemClicked). يستقبل الـ ViewModel هذا الحدث، وينفذ منطق العمل المطلوب عبر المستودعات، ثم ينتج حالة جديدة غير قابلة للتغيير (Immutable State) تلتقطها الواجهة وتعيد رسم نفسها.' or l.code_example is distinct from '// 1. الحالة تتدفق للأسفل
+val uiState: StateFlow<NewsUiState>
+
+// 2. الأحداث تتدفق للأعلى
+fun onEvent(event: NewsUiEvent) {
+    when (event) {
+        is NewsUiEvent.Refresh -> fetchNews()
+        is NewsUiEvent.Bookmark -> saveArticle(event.articleId)
+    }
+}' or l.common_mistakes is distinct from '["تعديل الحالة من أماكن متعددة داخل الواجهة بدلاً من جعل الـ ViewModel هو المسؤول الحصري عن إصدار الحالات."]'::jsonb or l.follow_up_questions is distinct from '["كيف يسهل نمط UDF كتابة اختبارات آلية واضحة ومستقلة لطبقة الـ ViewModel؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Architecture guide / UI Layer","url":"https://developer.android.com/topic/architecture/ui-layer"}]'::jsonb)) then raise exception 'Question aarch-003 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Unidirectional Data Flow In Android?', 'This question checks the core Unidirectional Data Flow In Android concept and how to use it safely in Kotlin and Android.', 'Explain Unidirectional Data Flow In Android with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', '// 1. الحالة تتدفق للأسفل
+val uiState: StateFlow<NewsUiState>
+
+// 2. الأحداث تتدفق للأعلى
+fun onEvent(event: NewsUiEvent) {
+    when (event) {
+        is NewsUiEvent.Refresh -> fetchNews()
+        is NewsUiEvent.Bookmark -> saveArticle(event.articleId)
+    }
+}', '["Missing the key trade-off in Unidirectional Data Flow In Android (point 1)."]'::jsonb, '["How would you apply Unidirectional Data Flow In Android in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Architecture guide / UI Layer","url":"https://developer.android.com/topic/architecture/ui-layer"}]'::jsonb from public.question_revisions r where r.question_id = 'aarch-003' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'aarch-003' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Unidirectional Data Flow In Android?' or l.short_answer is distinct from 'This question checks the core Unidirectional Data Flow In Android concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Unidirectional Data Flow In Android with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from '// 1. الحالة تتدفق للأسفل
+val uiState: StateFlow<NewsUiState>
+
+// 2. الأحداث تتدفق للأعلى
+fun onEvent(event: NewsUiEvent) {
+    when (event) {
+        is NewsUiEvent.Refresh -> fetchNews()
+        is NewsUiEvent.Bookmark -> saveArticle(event.articleId)
+    }
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Unidirectional Data Flow In Android (point 1)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Unidirectional Data Flow In Android in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Architecture guide / UI Layer","url":"https://developer.android.com/topic/architecture/ui-layer"}]'::jsonb)) then raise exception 'Question aarch-003 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('aarch-003', 'architecture-components') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'aarch-003' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'aarch-003' and revision_number = 1 and status = 'published') where id = 'aarch-003' and exists (select 1 from public.question_revisions where question_id = 'aarch-003' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('aarch-004', 'viewmodel-savedstatehandle', 'android-native', 'Mid') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('aarch-004', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما هي فائدة SavedStateHandle وكيف تحمي التطبيق من موت العملية (Process Death)؟', 'تخزن وتسترجع البيانات الحساسة للـ ViewModel تلقائيًا عند إنهاء النظام لعملية التطبيق في الخلفية، وتعمل كـ Map مفتاح-قيمة مدمج مع StateFlow.', 'بينما يحمي الـ ViewModel من دوران الشاشة، فإنه لا يحمي من قتل النظام للعملية بالكامل لتوفير الذاكرة. يحقن Hilt تلقائيًا SavedStateHandle في ViewModel، وتتيح قراءة معاملات الـ Navigation وحفظ الحالات الخفيفة عبر دالة getStateFlow()، فتستعاد تلقائيًا وبسلاسة بمجرد إعادة تشغيل الشاشة.', 'class DetailViewModel(
+    private val savedStateHandle: SavedStateHandle
+) : ViewModel() {
+    // قراءة معامل مرسل عبر Navigation Component:
+    val userId: String = checkNotNull(savedStateHandle["userId"])
+
+    // تحويل القيمة لتدفق متفاعل:
+    val query: StateFlow<String> = savedStateHandle.getStateFlow("query", "")
+
+    fun updateQuery(newQuery: String) {
+        savedStateHandle["query"] = newQuery
+    }
+}', '["تخزين كائنات معقدة أو قوائم ضخمة في SavedStateHandle، مما يتجاوز حد الـ 1MB المسموح به لنظام Binder."]'::jsonb, '["ما هو الحد المسموح لحجم البيانات المخزنة في SavedStateHandle وما الاستثناء الذي يطلقه النظام عند تجاوزه؟"]'::jsonb, '[{"title":"Android Developers — Saved State module for ViewModel","url":"https://developer.android.com/topic/libraries/architecture/viewmodel/viewmodel-savedstate"}]'::jsonb from public.question_revisions r where r.question_id = 'aarch-004' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'aarch-004' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما هي فائدة SavedStateHandle وكيف تحمي التطبيق من موت العملية (Process Death)؟' or l.short_answer is distinct from 'تخزن وتسترجع البيانات الحساسة للـ ViewModel تلقائيًا عند إنهاء النظام لعملية التطبيق في الخلفية، وتعمل كـ Map مفتاح-قيمة مدمج مع StateFlow.' or l.explanation is distinct from 'بينما يحمي الـ ViewModel من دوران الشاشة، فإنه لا يحمي من قتل النظام للعملية بالكامل لتوفير الذاكرة. يحقن Hilt تلقائيًا SavedStateHandle في ViewModel، وتتيح قراءة معاملات الـ Navigation وحفظ الحالات الخفيفة عبر دالة getStateFlow()، فتستعاد تلقائيًا وبسلاسة بمجرد إعادة تشغيل الشاشة.' or l.code_example is distinct from 'class DetailViewModel(
+    private val savedStateHandle: SavedStateHandle
+) : ViewModel() {
+    // قراءة معامل مرسل عبر Navigation Component:
+    val userId: String = checkNotNull(savedStateHandle["userId"])
+
+    // تحويل القيمة لتدفق متفاعل:
+    val query: StateFlow<String> = savedStateHandle.getStateFlow("query", "")
+
+    fun updateQuery(newQuery: String) {
+        savedStateHandle["query"] = newQuery
+    }
+}' or l.common_mistakes is distinct from '["تخزين كائنات معقدة أو قوائم ضخمة في SavedStateHandle، مما يتجاوز حد الـ 1MB المسموح به لنظام Binder."]'::jsonb or l.follow_up_questions is distinct from '["ما هو الحد المسموح لحجم البيانات المخزنة في SavedStateHandle وما الاستثناء الذي يطلقه النظام عند تجاوزه؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Saved State module for ViewModel","url":"https://developer.android.com/topic/libraries/architecture/viewmodel/viewmodel-savedstate"}]'::jsonb)) then raise exception 'Question aarch-004 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Viewmodel Savedstatehandle?', 'This question checks the core Viewmodel Savedstatehandle concept and how to use it safely in Kotlin and Android.', 'Explain Viewmodel Savedstatehandle with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', 'class DetailViewModel(
+    private val savedStateHandle: SavedStateHandle
+) : ViewModel() {
+    // قراءة معامل مرسل عبر Navigation Component:
+    val userId: String = checkNotNull(savedStateHandle["userId"])
+
+    // تحويل القيمة لتدفق متفاعل:
+    val query: StateFlow<String> = savedStateHandle.getStateFlow("query", "")
+
+    fun updateQuery(newQuery: String) {
+        savedStateHandle["query"] = newQuery
+    }
+}', '["Missing the key trade-off in Viewmodel Savedstatehandle (point 1)."]'::jsonb, '["How would you apply Viewmodel Savedstatehandle in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Saved State module for ViewModel","url":"https://developer.android.com/topic/libraries/architecture/viewmodel/viewmodel-savedstate"}]'::jsonb from public.question_revisions r where r.question_id = 'aarch-004' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'aarch-004' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Viewmodel Savedstatehandle?' or l.short_answer is distinct from 'This question checks the core Viewmodel Savedstatehandle concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Viewmodel Savedstatehandle with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from 'class DetailViewModel(
+    private val savedStateHandle: SavedStateHandle
+) : ViewModel() {
+    // قراءة معامل مرسل عبر Navigation Component:
+    val userId: String = checkNotNull(savedStateHandle["userId"])
+
+    // تحويل القيمة لتدفق متفاعل:
+    val query: StateFlow<String> = savedStateHandle.getStateFlow("query", "")
+
+    fun updateQuery(newQuery: String) {
+        savedStateHandle["query"] = newQuery
+    }
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Viewmodel Savedstatehandle (point 1)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Viewmodel Savedstatehandle in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Saved State module for ViewModel","url":"https://developer.android.com/topic/libraries/architecture/viewmodel/viewmodel-savedstate"}]'::jsonb)) then raise exception 'Question aarch-004 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('aarch-004', 'architecture-components') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'aarch-004' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'aarch-004' and revision_number = 1 and status = 'published') where id = 'aarch-004' and exists (select 1 from public.question_revisions where question_id = 'aarch-004' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('aarch-005', 'mvi-vs-mvvm-in-android', 'android-native', 'Mid') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('aarch-005', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما الفرق المعماري بين نمط MVVM ونمط MVI في أندرويد؟', 'يعتمد MVVM عادة على عدة تدفقات لحالات مستقلة، بينما يفرض MVI حالة موحدة وحيدة غير قابلة للتعديل (Single Immutable State) مع تدفق صارم للأحداث (Intents) والآثار الجانبية (Side Effects).', 'في MVVM التقليدي قد تجد isLoading و users و errorMessage كـ StateFlows منفصلة، مما قد يسبب حالات غير متناسقة أحيانًا. في MVI (Model-View-Intent) تُمثل شاشة العرض كحالة واحدة شاملة عبر data class أو sealed interface، ويتم استقبال رغبات المستخدم كـ Intent والتعبير عن الأحداث الفردية السريعة (مثل التنقل أو عرض Snackbar) كـ Single-event Side Effects.', '// MVI State
+data class ProfileState(
+    val isLoading: Boolean = false,
+    val profile: Profile? = null,
+    val error: String? = null
+)
+
+// MVI Intent
+sealed interface ProfileIntent {
+    data object Load : ProfileIntent
+    data class UpdateBio(val newBio: String) : ProfileIntent
+}', '["إعادة إرسال نفس الحدث العابر (One-off Event) كإظهار Toast في كل مرة يعاد فيها تكوين الواجهة في MVI لعدم عزله عن State."]'::jsonb, '["كيف يتم التعامل مع One-off Events مثل فتح شاشة أو إظهار Snackbar في MVI بدون إعادة تكرارها عند تدوير الشاشة؟"]'::jsonb, '[{"title":"Android Developers — Architecture guide / UI events","url":"https://developer.android.com/topic/architecture/ui-layer/events"}]'::jsonb from public.question_revisions r where r.question_id = 'aarch-005' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'aarch-005' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما الفرق المعماري بين نمط MVVM ونمط MVI في أندرويد؟' or l.short_answer is distinct from 'يعتمد MVVM عادة على عدة تدفقات لحالات مستقلة، بينما يفرض MVI حالة موحدة وحيدة غير قابلة للتعديل (Single Immutable State) مع تدفق صارم للأحداث (Intents) والآثار الجانبية (Side Effects).' or l.explanation is distinct from 'في MVVM التقليدي قد تجد isLoading و users و errorMessage كـ StateFlows منفصلة، مما قد يسبب حالات غير متناسقة أحيانًا. في MVI (Model-View-Intent) تُمثل شاشة العرض كحالة واحدة شاملة عبر data class أو sealed interface، ويتم استقبال رغبات المستخدم كـ Intent والتعبير عن الأحداث الفردية السريعة (مثل التنقل أو عرض Snackbar) كـ Single-event Side Effects.' or l.code_example is distinct from '// MVI State
+data class ProfileState(
+    val isLoading: Boolean = false,
+    val profile: Profile? = null,
+    val error: String? = null
+)
+
+// MVI Intent
+sealed interface ProfileIntent {
+    data object Load : ProfileIntent
+    data class UpdateBio(val newBio: String) : ProfileIntent
+}' or l.common_mistakes is distinct from '["إعادة إرسال نفس الحدث العابر (One-off Event) كإظهار Toast في كل مرة يعاد فيها تكوين الواجهة في MVI لعدم عزله عن State."]'::jsonb or l.follow_up_questions is distinct from '["كيف يتم التعامل مع One-off Events مثل فتح شاشة أو إظهار Snackbar في MVI بدون إعادة تكرارها عند تدوير الشاشة؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Architecture guide / UI events","url":"https://developer.android.com/topic/architecture/ui-layer/events"}]'::jsonb)) then raise exception 'Question aarch-005 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Mvi Vs Mvvm In Android?', 'This question checks the core Mvi Vs Mvvm In Android concept and how to use it safely in Kotlin and Android.', 'Explain Mvi Vs Mvvm In Android with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', '// MVI State
+data class ProfileState(
+    val isLoading: Boolean = false,
+    val profile: Profile? = null,
+    val error: String? = null
+)
+
+// MVI Intent
+sealed interface ProfileIntent {
+    data object Load : ProfileIntent
+    data class UpdateBio(val newBio: String) : ProfileIntent
+}', '["Missing the key trade-off in Mvi Vs Mvvm In Android (point 1)."]'::jsonb, '["How would you apply Mvi Vs Mvvm In Android in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Architecture guide / UI events","url":"https://developer.android.com/topic/architecture/ui-layer/events"}]'::jsonb from public.question_revisions r where r.question_id = 'aarch-005' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'aarch-005' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Mvi Vs Mvvm In Android?' or l.short_answer is distinct from 'This question checks the core Mvi Vs Mvvm In Android concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Mvi Vs Mvvm In Android with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from '// MVI State
+data class ProfileState(
+    val isLoading: Boolean = false,
+    val profile: Profile? = null,
+    val error: String? = null
+)
+
+// MVI Intent
+sealed interface ProfileIntent {
+    data object Load : ProfileIntent
+    data class UpdateBio(val newBio: String) : ProfileIntent
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Mvi Vs Mvvm In Android (point 1)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Mvi Vs Mvvm In Android in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Architecture guide / UI events","url":"https://developer.android.com/topic/architecture/ui-layer/events"}]'::jsonb)) then raise exception 'Question aarch-005 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('aarch-005', 'architecture-components') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'aarch-005' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'aarch-005' and revision_number = 1 and status = 'published') where id = 'aarch-005' and exists (select 1 from public.question_revisions where question_id = 'aarch-005' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('aarch-006', 'clean-architecture-layers-in-android', 'android-native', 'Mid') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('aarch-006', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما هي طبقات Clean Architecture الموصى بها في أندرويد وما اتجاه التبعيات بينها؟', 'تتكون من: Presentation (UI, ViewModel)، Domain (Use Cases, Models)، و Data (Repositories, Data Sources). تعتمد الطبقات الخارجية على الداخلية ويكون الـ Domain نقيًا ومستقلاً تمامًا.', 'تحافظ Clean Architecture على استقلالية منطق العمل (Domain Layer) عن أي إطار عمل خارجي أو مكتبات أندرويد. تطلب Presentation البيانات من الـ Use Cases، وتقوم Use Cases بتنفيذ القواعد وتنسيق البيانات عبر واجهات Repositories (Dependency Inversion). توفر Data Layer التطبيق الفعلي للمستودع عبر مصادر البيانات المحلية (Room) والبعيدة (Retrofit).', '// Domain Layer (Pure Kotlin):
+class GetRecentOrdersUseCase(private val repository: OrderRepository) {
+    operator fun invoke(): Flow<List<Order>> = repository.getOrders()
+}
+
+// Data Layer (Implements Domain Interface):
+class OrderRepositoryImpl(
+    private val remoteSource: ApiService,
+    private val localSource: OrderDao
+) : OrderRepository { ... }', '["إنشاء Use Case لكل دالة في الـ Repository بشكل أعمى بدون وجود منطق عمل حقيقي (Forwarding Use Case)، مما يضيف تعقيدًا غير مبرر.","تسريب كائنات أندرويد (مثل Context أو Intent) إلى داخل كلاسات الـ Domain Layer."]'::jsonb, '["متى تكون طبقة الـ Domain اختيارية ويمكن للـ ViewModel التخاطب مباشرة مع الـ Repository؟"]'::jsonb, '[{"title":"Android Developers — Guide to app architecture","url":"https://developer.android.com/topic/architecture"}]'::jsonb from public.question_revisions r where r.question_id = 'aarch-006' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'aarch-006' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما هي طبقات Clean Architecture الموصى بها في أندرويد وما اتجاه التبعيات بينها؟' or l.short_answer is distinct from 'تتكون من: Presentation (UI, ViewModel)، Domain (Use Cases, Models)، و Data (Repositories, Data Sources). تعتمد الطبقات الخارجية على الداخلية ويكون الـ Domain نقيًا ومستقلاً تمامًا.' or l.explanation is distinct from 'تحافظ Clean Architecture على استقلالية منطق العمل (Domain Layer) عن أي إطار عمل خارجي أو مكتبات أندرويد. تطلب Presentation البيانات من الـ Use Cases، وتقوم Use Cases بتنفيذ القواعد وتنسيق البيانات عبر واجهات Repositories (Dependency Inversion). توفر Data Layer التطبيق الفعلي للمستودع عبر مصادر البيانات المحلية (Room) والبعيدة (Retrofit).' or l.code_example is distinct from '// Domain Layer (Pure Kotlin):
+class GetRecentOrdersUseCase(private val repository: OrderRepository) {
+    operator fun invoke(): Flow<List<Order>> = repository.getOrders()
+}
+
+// Data Layer (Implements Domain Interface):
+class OrderRepositoryImpl(
+    private val remoteSource: ApiService,
+    private val localSource: OrderDao
+) : OrderRepository { ... }' or l.common_mistakes is distinct from '["إنشاء Use Case لكل دالة في الـ Repository بشكل أعمى بدون وجود منطق عمل حقيقي (Forwarding Use Case)، مما يضيف تعقيدًا غير مبرر.","تسريب كائنات أندرويد (مثل Context أو Intent) إلى داخل كلاسات الـ Domain Layer."]'::jsonb or l.follow_up_questions is distinct from '["متى تكون طبقة الـ Domain اختيارية ويمكن للـ ViewModel التخاطب مباشرة مع الـ Repository؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Guide to app architecture","url":"https://developer.android.com/topic/architecture"}]'::jsonb)) then raise exception 'Question aarch-006 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Clean Architecture Layers In Android?', 'This question checks the core Clean Architecture Layers In Android concept and how to use it safely in Kotlin and Android.', 'Explain Clean Architecture Layers In Android with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', '// Domain Layer (Pure Kotlin):
+class GetRecentOrdersUseCase(private val repository: OrderRepository) {
+    operator fun invoke(): Flow<List<Order>> = repository.getOrders()
+}
+
+// Data Layer (Implements Domain Interface):
+class OrderRepositoryImpl(
+    private val remoteSource: ApiService,
+    private val localSource: OrderDao
+) : OrderRepository { ... }', '["Missing the key trade-off in Clean Architecture Layers In Android (point 1).","Missing the key trade-off in Clean Architecture Layers In Android (point 2)."]'::jsonb, '["How would you apply Clean Architecture Layers In Android in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Guide to app architecture","url":"https://developer.android.com/topic/architecture"}]'::jsonb from public.question_revisions r where r.question_id = 'aarch-006' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'aarch-006' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Clean Architecture Layers In Android?' or l.short_answer is distinct from 'This question checks the core Clean Architecture Layers In Android concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Clean Architecture Layers In Android with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from '// Domain Layer (Pure Kotlin):
+class GetRecentOrdersUseCase(private val repository: OrderRepository) {
+    operator fun invoke(): Flow<List<Order>> = repository.getOrders()
+}
+
+// Data Layer (Implements Domain Interface):
+class OrderRepositoryImpl(
+    private val remoteSource: ApiService,
+    private val localSource: OrderDao
+) : OrderRepository { ... }' or l.common_mistakes is distinct from '["Missing the key trade-off in Clean Architecture Layers In Android (point 1).","Missing the key trade-off in Clean Architecture Layers In Android (point 2)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Clean Architecture Layers In Android in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Guide to app architecture","url":"https://developer.android.com/topic/architecture"}]'::jsonb)) then raise exception 'Question aarch-006 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('aarch-006', 'architecture-components') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'aarch-006' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'aarch-006' and revision_number = 1 and status = 'published') where id = 'aarch-006' and exists (select 1 from public.question_revisions where question_id = 'aarch-006' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('aarch-007', 'repository-pattern-and-single-source-of-truth', 'android-native', 'Mid') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('aarch-007', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'كيف يحقق نمط المستودع (Repository Pattern) مبدأ المصدر الوحيد للحقيقة (Single Source of Truth)؟', 'يخفي تفاصيل جلب وتخزين البيانات ويوجه تدفق القراءة دائمًا من قاعدة البيانات المحلية (الكاش)، بينما تستقبل البيانات الجديدة من الشبكة وتحدث الكاش فقط.', 'بدلاً من أن تقرر الواجهة متى تجلب البيانات من الشبكة أو الكاش، يوفر الـ Repository واجهة موحدة. يقوم التطبيق بمراقبة قاعدة البيانات المحلية (مثل Room عبر Flow) كمصدر وحيد للحقيقة؛ وعند استدعاء refresh يقوم الـ Repository بجلب البيانات من الخادم، وتحديث قاعدة البيانات، لتقوم Room تلقائيًا ببث البيانات الجديدة لكل المراقبين.', 'class UserRepository(
+    private val userDao: UserDao,
+    private val userApi: UserApi
+) {
+    // الواجهة تراقب الكاش المحلي دائمًا
+    val users: Flow<List<User>> = userDao.getAllUsers()
+
+    suspend fun refreshUsers() {
+        val remoteUsers = userApi.fetchUsers()
+        userDao.insertAll(remoteUsers) // التحديث ينعكس تلقائيًا في users Flow
+    }
+}', '["إرجاع البيانات من دالة الـ API مباشرة إلى الـ ViewModel وتجاوز قاعدة البيانات المحلية، مما يفقد التطبيق دعمه للعمل دون إنترنت (Offline-first)."]'::jsonb, '["كيف توازن بين عرض الكاش القديم فورًا وإشعار المستخدم بوجود تحديث جديد في معمارية Offline-first؟"]'::jsonb, '[{"title":"Android Developers — Architecture guide / Data Layer","url":"https://developer.android.com/topic/architecture/data-layer"}]'::jsonb from public.question_revisions r where r.question_id = 'aarch-007' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'aarch-007' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'كيف يحقق نمط المستودع (Repository Pattern) مبدأ المصدر الوحيد للحقيقة (Single Source of Truth)؟' or l.short_answer is distinct from 'يخفي تفاصيل جلب وتخزين البيانات ويوجه تدفق القراءة دائمًا من قاعدة البيانات المحلية (الكاش)، بينما تستقبل البيانات الجديدة من الشبكة وتحدث الكاش فقط.' or l.explanation is distinct from 'بدلاً من أن تقرر الواجهة متى تجلب البيانات من الشبكة أو الكاش، يوفر الـ Repository واجهة موحدة. يقوم التطبيق بمراقبة قاعدة البيانات المحلية (مثل Room عبر Flow) كمصدر وحيد للحقيقة؛ وعند استدعاء refresh يقوم الـ Repository بجلب البيانات من الخادم، وتحديث قاعدة البيانات، لتقوم Room تلقائيًا ببث البيانات الجديدة لكل المراقبين.' or l.code_example is distinct from 'class UserRepository(
+    private val userDao: UserDao,
+    private val userApi: UserApi
+) {
+    // الواجهة تراقب الكاش المحلي دائمًا
+    val users: Flow<List<User>> = userDao.getAllUsers()
+
+    suspend fun refreshUsers() {
+        val remoteUsers = userApi.fetchUsers()
+        userDao.insertAll(remoteUsers) // التحديث ينعكس تلقائيًا في users Flow
+    }
+}' or l.common_mistakes is distinct from '["إرجاع البيانات من دالة الـ API مباشرة إلى الـ ViewModel وتجاوز قاعدة البيانات المحلية، مما يفقد التطبيق دعمه للعمل دون إنترنت (Offline-first)."]'::jsonb or l.follow_up_questions is distinct from '["كيف توازن بين عرض الكاش القديم فورًا وإشعار المستخدم بوجود تحديث جديد في معمارية Offline-first؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Architecture guide / Data Layer","url":"https://developer.android.com/topic/architecture/data-layer"}]'::jsonb)) then raise exception 'Question aarch-007 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Repository Pattern And Single Source Of Truth?', 'This question checks the core Repository Pattern And Single Source Of Truth concept and how to use it safely in Kotlin and Android.', 'Explain Repository Pattern And Single Source Of Truth with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', 'class UserRepository(
+    private val userDao: UserDao,
+    private val userApi: UserApi
+) {
+    // الواجهة تراقب الكاش المحلي دائمًا
+    val users: Flow<List<User>> = userDao.getAllUsers()
+
+    suspend fun refreshUsers() {
+        val remoteUsers = userApi.fetchUsers()
+        userDao.insertAll(remoteUsers) // التحديث ينعكس تلقائيًا في users Flow
+    }
+}', '["Missing the key trade-off in Repository Pattern And Single Source Of Truth (point 1)."]'::jsonb, '["How would you apply Repository Pattern And Single Source Of Truth in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Architecture guide / Data Layer","url":"https://developer.android.com/topic/architecture/data-layer"}]'::jsonb from public.question_revisions r where r.question_id = 'aarch-007' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'aarch-007' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Repository Pattern And Single Source Of Truth?' or l.short_answer is distinct from 'This question checks the core Repository Pattern And Single Source Of Truth concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Repository Pattern And Single Source Of Truth with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from 'class UserRepository(
+    private val userDao: UserDao,
+    private val userApi: UserApi
+) {
+    // الواجهة تراقب الكاش المحلي دائمًا
+    val users: Flow<List<User>> = userDao.getAllUsers()
+
+    suspend fun refreshUsers() {
+        val remoteUsers = userApi.fetchUsers()
+        userDao.insertAll(remoteUsers) // التحديث ينعكس تلقائيًا في users Flow
+    }
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Repository Pattern And Single Source Of Truth (point 1)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Repository Pattern And Single Source Of Truth in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Architecture guide / Data Layer","url":"https://developer.android.com/topic/architecture/data-layer"}]'::jsonb)) then raise exception 'Question aarch-007 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('aarch-007', 'architecture-components') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'aarch-007' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'aarch-007' and revision_number = 1 and status = 'published') where id = 'aarch-007' and exists (select 1 from public.question_revisions where question_id = 'aarch-007' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('aarch-008', 'repeatonlifecycle-vs-lifecycle-scope', 'android-native', 'Mid') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('aarch-008', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'لماذا ينصح باستخدام repeatOnLifecycle بدلاً من إطلاق lifecycleScope.launch المباشر عند جمع تدفقات الـ Flow في الـ UI؟', 'لأن repeatOnLifecycle توقف جمع التدفقات تلقائيًا وتلغي الكوروتين عندما تذهب الشاشة للخلفية (مثل onStop) وتعيد إطلاقه عند العودة، لتوفير المعالج والبطارية.', 'عند استخدام lifecycleScope.launch العادي، يستمر جمع بيانات الـ Flow حتى يتم تدمير الـ Activity نهائيًا (onDestroy). هذا يعني أن التطبيق في الخلفية سيستمر في معالجة تحديثات الموقع أو الشبكة واستهلاك الذاكرة. تضمن repeatOnLifecycle(Lifecycle.State.STARTED) تجميد وإلغاء الاستهلاك بمجرد أن تصبح الشاشة غير مرئية للمستخدم.', 'viewLifecycleOwner.lifecycleScope.launch {
+    viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+        viewModel.articles.collect { articles ->
+            adapter.submitList(articles)
+        }
+    }
+}', '["جمع Flow داخل lifecycleScope.launch العادي بدون repeatOnLifecycle وافتراض أنه يتوقف في الخلفية تلقائيًا."]'::jsonb, '["ما المكافئ المباشر لـ repeatOnLifecycle عند استخدام Jetpack Compose؟"]'::jsonb, '[{"title":"Android Developers — RepeatOnLifecycle","url":"https://developer.android.com/reference/androidx/lifecycle/RepeatOnLifecycleKt"}]'::jsonb from public.question_revisions r where r.question_id = 'aarch-008' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'aarch-008' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'لماذا ينصح باستخدام repeatOnLifecycle بدلاً من إطلاق lifecycleScope.launch المباشر عند جمع تدفقات الـ Flow في الـ UI؟' or l.short_answer is distinct from 'لأن repeatOnLifecycle توقف جمع التدفقات تلقائيًا وتلغي الكوروتين عندما تذهب الشاشة للخلفية (مثل onStop) وتعيد إطلاقه عند العودة، لتوفير المعالج والبطارية.' or l.explanation is distinct from 'عند استخدام lifecycleScope.launch العادي، يستمر جمع بيانات الـ Flow حتى يتم تدمير الـ Activity نهائيًا (onDestroy). هذا يعني أن التطبيق في الخلفية سيستمر في معالجة تحديثات الموقع أو الشبكة واستهلاك الذاكرة. تضمن repeatOnLifecycle(Lifecycle.State.STARTED) تجميد وإلغاء الاستهلاك بمجرد أن تصبح الشاشة غير مرئية للمستخدم.' or l.code_example is distinct from 'viewLifecycleOwner.lifecycleScope.launch {
+    viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+        viewModel.articles.collect { articles ->
+            adapter.submitList(articles)
+        }
+    }
+}' or l.common_mistakes is distinct from '["جمع Flow داخل lifecycleScope.launch العادي بدون repeatOnLifecycle وافتراض أنه يتوقف في الخلفية تلقائيًا."]'::jsonb or l.follow_up_questions is distinct from '["ما المكافئ المباشر لـ repeatOnLifecycle عند استخدام Jetpack Compose؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — RepeatOnLifecycle","url":"https://developer.android.com/reference/androidx/lifecycle/RepeatOnLifecycleKt"}]'::jsonb)) then raise exception 'Question aarch-008 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Repeatonlifecycle Vs Lifecycle Scope?', 'This question checks the core Repeatonlifecycle Vs Lifecycle Scope concept and how to use it safely in Kotlin and Android.', 'Explain Repeatonlifecycle Vs Lifecycle Scope with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', 'viewLifecycleOwner.lifecycleScope.launch {
+    viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+        viewModel.articles.collect { articles ->
+            adapter.submitList(articles)
+        }
+    }
+}', '["Missing the key trade-off in Repeatonlifecycle Vs Lifecycle Scope (point 1)."]'::jsonb, '["How would you apply Repeatonlifecycle Vs Lifecycle Scope in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — RepeatOnLifecycle","url":"https://developer.android.com/reference/androidx/lifecycle/RepeatOnLifecycleKt"}]'::jsonb from public.question_revisions r where r.question_id = 'aarch-008' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'aarch-008' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Repeatonlifecycle Vs Lifecycle Scope?' or l.short_answer is distinct from 'This question checks the core Repeatonlifecycle Vs Lifecycle Scope concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Repeatonlifecycle Vs Lifecycle Scope with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from 'viewLifecycleOwner.lifecycleScope.launch {
+    viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+        viewModel.articles.collect { articles ->
+            adapter.submitList(articles)
+        }
+    }
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Repeatonlifecycle Vs Lifecycle Scope (point 1)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Repeatonlifecycle Vs Lifecycle Scope in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — RepeatOnLifecycle","url":"https://developer.android.com/reference/androidx/lifecycle/RepeatOnLifecycleKt"}]'::jsonb)) then raise exception 'Question aarch-008 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('aarch-008', 'architecture-components') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'aarch-008' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'aarch-008' and revision_number = 1 and status = 'published') where id = 'aarch-008' and exists (select 1 from public.question_revisions where question_id = 'aarch-008' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('aarch-009', 'navigation-component-deep-linking-and-backstack', 'android-native', 'Senior') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('aarch-009', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'كيف يدير Jetpack Navigation الـ Backstack والـ Deep Links المعقدة؟', 'ينشئ NavHost مع NavController لتوحيد الانتقالات، ويوفر Safe Args لتمرير المعاملات بأمان، ويبني مسار العودة الصحيح (Synthetic Backstack) تلقائيًا عند الدخول عبر Deep Link.', 'يضمن Navigation Component التماسك التام لزر الرجوع (Up/Back Button). عند وصول المستخدم عبر رابط خارجي (Deep Link) لصفحة عميقة (مثل تفاصيل طلب معين)، يقوم المكون بإنشاء تسلسل الأنشطة والشاشات السابقة منطقيًا في الـ Backstack، بحيث إذا ضغط المستخدم رجوعًا فإنه يعود للصفحة الرئيسية للتطبيق بدلاً من إغلاقه مباشرة.', '<!-- تعريف Deep Link في nav_graph.xml -->
+<fragment
+    android:id="@+id/orderDetailFragment"
+    android:name="com.example.OrderDetailFragment">
+    <deepLink app:uri="myapp://orders/{orderId}" />
+    <argument
+        android:name="orderId"
+        app:argType="string" />
+</fragment>', '["تمرير كائنات ضخمة بين الشاشات عبر Navigation Args بدلاً من تمرير الـ ID فقط وجلب البيانات من الـ Repository.","كسر الـ Backstack الافتراضي باستخدام popUpTo بطريقة غير محسوبة تحذف شاشات أساسية."]'::jsonb, '["كيف تختلف مكتبة Navigation Compose في إعلان الشاشات والـ Deep Links مقارنة بـ XML NavGraph التقليدي؟"]'::jsonb, '[{"title":"Android Developers — Principles of navigation","url":"https://developer.android.com/guide/navigation/principles"}]'::jsonb from public.question_revisions r where r.question_id = 'aarch-009' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'aarch-009' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'كيف يدير Jetpack Navigation الـ Backstack والـ Deep Links المعقدة؟' or l.short_answer is distinct from 'ينشئ NavHost مع NavController لتوحيد الانتقالات، ويوفر Safe Args لتمرير المعاملات بأمان، ويبني مسار العودة الصحيح (Synthetic Backstack) تلقائيًا عند الدخول عبر Deep Link.' or l.explanation is distinct from 'يضمن Navigation Component التماسك التام لزر الرجوع (Up/Back Button). عند وصول المستخدم عبر رابط خارجي (Deep Link) لصفحة عميقة (مثل تفاصيل طلب معين)، يقوم المكون بإنشاء تسلسل الأنشطة والشاشات السابقة منطقيًا في الـ Backstack، بحيث إذا ضغط المستخدم رجوعًا فإنه يعود للصفحة الرئيسية للتطبيق بدلاً من إغلاقه مباشرة.' or l.code_example is distinct from '<!-- تعريف Deep Link في nav_graph.xml -->
+<fragment
+    android:id="@+id/orderDetailFragment"
+    android:name="com.example.OrderDetailFragment">
+    <deepLink app:uri="myapp://orders/{orderId}" />
+    <argument
+        android:name="orderId"
+        app:argType="string" />
+</fragment>' or l.common_mistakes is distinct from '["تمرير كائنات ضخمة بين الشاشات عبر Navigation Args بدلاً من تمرير الـ ID فقط وجلب البيانات من الـ Repository.","كسر الـ Backstack الافتراضي باستخدام popUpTo بطريقة غير محسوبة تحذف شاشات أساسية."]'::jsonb or l.follow_up_questions is distinct from '["كيف تختلف مكتبة Navigation Compose في إعلان الشاشات والـ Deep Links مقارنة بـ XML NavGraph التقليدي؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Principles of navigation","url":"https://developer.android.com/guide/navigation/principles"}]'::jsonb)) then raise exception 'Question aarch-009 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Navigation Component Deep Linking And Backstack?', 'This question checks the core Navigation Component Deep Linking And Backstack concept and how to use it safely in Kotlin and Android.', 'Explain Navigation Component Deep Linking And Backstack with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', '<!-- تعريف Deep Link في nav_graph.xml -->
+<fragment
+    android:id="@+id/orderDetailFragment"
+    android:name="com.example.OrderDetailFragment">
+    <deepLink app:uri="myapp://orders/{orderId}" />
+    <argument
+        android:name="orderId"
+        app:argType="string" />
+</fragment>', '["Missing the key trade-off in Navigation Component Deep Linking And Backstack (point 1).","Missing the key trade-off in Navigation Component Deep Linking And Backstack (point 2)."]'::jsonb, '["How would you apply Navigation Component Deep Linking And Backstack in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Principles of navigation","url":"https://developer.android.com/guide/navigation/principles"}]'::jsonb from public.question_revisions r where r.question_id = 'aarch-009' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'aarch-009' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Navigation Component Deep Linking And Backstack?' or l.short_answer is distinct from 'This question checks the core Navigation Component Deep Linking And Backstack concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Navigation Component Deep Linking And Backstack with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from '<!-- تعريف Deep Link في nav_graph.xml -->
+<fragment
+    android:id="@+id/orderDetailFragment"
+    android:name="com.example.OrderDetailFragment">
+    <deepLink app:uri="myapp://orders/{orderId}" />
+    <argument
+        android:name="orderId"
+        app:argType="string" />
+</fragment>' or l.common_mistakes is distinct from '["Missing the key trade-off in Navigation Component Deep Linking And Backstack (point 1).","Missing the key trade-off in Navigation Component Deep Linking And Backstack (point 2)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Navigation Component Deep Linking And Backstack in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Principles of navigation","url":"https://developer.android.com/guide/navigation/principles"}]'::jsonb)) then raise exception 'Question aarch-009 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('aarch-009', 'architecture-components') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'aarch-009' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'aarch-009' and revision_number = 1 and status = 'published') where id = 'aarch-009' and exists (select 1 from public.question_revisions where question_id = 'aarch-009' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('aarch-010', 'paging-3-library-architecture', 'android-native', 'Senior') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('aarch-010', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما هي المكونات المعمارية لمكتبة Paging 3 وكيف تدير التخزين المؤقت المتقدم؟', 'تتكون من PagingSource لتحميل البيانات، و Pager لإنشاء التدفق، و RemoteMediator للدمج بين الكاش المحلي والشبكة، وتدفق PagingData لربطها بالواجهة.', 'تعتبر Paging 3 متوافقة أصليًا مع Coroutines و Flow. يتولى RemoteMediator اكتشاف وصول المستخدم لنهاية البيانات المخزنة محليًا (Boundary Callback)، فيطلب الصفحة التالية من الـ API ويحفظها في قاعدة بيانات Room. تعمل Room بعد ذلك كـ PagingSource المستمر، مما يتيح التمرير اللانهائي واستعادة موضع القائمة بعد إغلاق التطبيق.', 'class PostRemoteMediator(
+    private val database: AppDatabase,
+    private val networkApi: NetworkApi
+) : RemoteMediator<Int, PostEntity>() {
+    override suspend fun load(
+        loadType: LoadType,
+        state: PagingState<Int, PostEntity>
+    ): MediatorResult {
+        // حساب مفتاح الصفحة وجلب البيانات وتخزينها في Room داخل Transaction
+        return MediatorResult.Success(endOfPaginationReached = ...)
+    }
+}', '["إجراء عمليات تحويل أو تصفية (filter/map) على تدفق PagingData بعد وصوله للـ UI بدلاً من تنفيذها في الـ ViewModel عبر cachedIn(viewModelScope)."]'::jsonb, '["لماذا يجب استدعاء .cachedIn(viewModelScope) مع Paging 3 وماذا يحدث إذا أهملتها؟"]'::jsonb, '[{"title":"Android Developers — Paging 3 library overview","url":"https://developer.android.com/topic/libraries/architecture/paging/v3-overview"}]'::jsonb from public.question_revisions r where r.question_id = 'aarch-010' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'aarch-010' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما هي المكونات المعمارية لمكتبة Paging 3 وكيف تدير التخزين المؤقت المتقدم؟' or l.short_answer is distinct from 'تتكون من PagingSource لتحميل البيانات، و Pager لإنشاء التدفق، و RemoteMediator للدمج بين الكاش المحلي والشبكة، وتدفق PagingData لربطها بالواجهة.' or l.explanation is distinct from 'تعتبر Paging 3 متوافقة أصليًا مع Coroutines و Flow. يتولى RemoteMediator اكتشاف وصول المستخدم لنهاية البيانات المخزنة محليًا (Boundary Callback)، فيطلب الصفحة التالية من الـ API ويحفظها في قاعدة بيانات Room. تعمل Room بعد ذلك كـ PagingSource المستمر، مما يتيح التمرير اللانهائي واستعادة موضع القائمة بعد إغلاق التطبيق.' or l.code_example is distinct from 'class PostRemoteMediator(
+    private val database: AppDatabase,
+    private val networkApi: NetworkApi
+) : RemoteMediator<Int, PostEntity>() {
+    override suspend fun load(
+        loadType: LoadType,
+        state: PagingState<Int, PostEntity>
+    ): MediatorResult {
+        // حساب مفتاح الصفحة وجلب البيانات وتخزينها في Room داخل Transaction
+        return MediatorResult.Success(endOfPaginationReached = ...)
+    }
+}' or l.common_mistakes is distinct from '["إجراء عمليات تحويل أو تصفية (filter/map) على تدفق PagingData بعد وصوله للـ UI بدلاً من تنفيذها في الـ ViewModel عبر cachedIn(viewModelScope)."]'::jsonb or l.follow_up_questions is distinct from '["لماذا يجب استدعاء .cachedIn(viewModelScope) مع Paging 3 وماذا يحدث إذا أهملتها؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Paging 3 library overview","url":"https://developer.android.com/topic/libraries/architecture/paging/v3-overview"}]'::jsonb)) then raise exception 'Question aarch-010 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Paging 3 Library Architecture?', 'This question checks the core Paging 3 Library Architecture concept and how to use it safely in Kotlin and Android.', 'Explain Paging 3 Library Architecture with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', 'class PostRemoteMediator(
+    private val database: AppDatabase,
+    private val networkApi: NetworkApi
+) : RemoteMediator<Int, PostEntity>() {
+    override suspend fun load(
+        loadType: LoadType,
+        state: PagingState<Int, PostEntity>
+    ): MediatorResult {
+        // حساب مفتاح الصفحة وجلب البيانات وتخزينها في Room داخل Transaction
+        return MediatorResult.Success(endOfPaginationReached = ...)
+    }
+}', '["Missing the key trade-off in Paging 3 Library Architecture (point 1)."]'::jsonb, '["How would you apply Paging 3 Library Architecture in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Paging 3 library overview","url":"https://developer.android.com/topic/libraries/architecture/paging/v3-overview"}]'::jsonb from public.question_revisions r where r.question_id = 'aarch-010' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'aarch-010' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Paging 3 Library Architecture?' or l.short_answer is distinct from 'This question checks the core Paging 3 Library Architecture concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Paging 3 Library Architecture with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from 'class PostRemoteMediator(
+    private val database: AppDatabase,
+    private val networkApi: NetworkApi
+) : RemoteMediator<Int, PostEntity>() {
+    override suspend fun load(
+        loadType: LoadType,
+        state: PagingState<Int, PostEntity>
+    ): MediatorResult {
+        // حساب مفتاح الصفحة وجلب البيانات وتخزينها في Room داخل Transaction
+        return MediatorResult.Success(endOfPaginationReached = ...)
+    }
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Paging 3 Library Architecture (point 1)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Paging 3 Library Architecture in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Paging 3 library overview","url":"https://developer.android.com/topic/libraries/architecture/paging/v3-overview"}]'::jsonb)) then raise exception 'Question aarch-010 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('aarch-010', 'architecture-components') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'aarch-010' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'aarch-010' and revision_number = 1 and status = 'published') where id = 'aarch-010' and exists (select 1 from public.question_revisions where question_id = 'aarch-010' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('coro-001', 'coroutines-vs-threads', 'android-native', 'Junior') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('coro-001', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما هي الـ Coroutines في Kotlin وكيف تختلف عن الـ Threads التقليدية لنظام التشغيل؟', 'هي خيوط عمل خفيفة جدًا (Lightweight Threads) يديرها وقت تشغيل Kotlin في وضع المستخدم (User-space) بدلاً من أن يديرها نظام التشغيل مباشرة.', 'تخصيص Thread في نظام التشغيل يستهلك حوالي 1MB من الذاكرة ويحتاج إلى Context Switching مكلف عبر نواة النظام (Kernel). بينما الـ Coroutine لا تحجز مساحة مكدس (Stack) مخصصة؛ يمكن إيقافها واستئنافها دون حجب الـ Thread الفعلي، مما يسمح بتشغيل مئات الآلاف من الـ Coroutines في وقت واحد بكفاءة عالية على عدد محدود من الـ Threads.', '// إطلاق 100,000 كوروتين خفيف بسلاسة دون استنزاف الذاكرة:
+fun main() = runBlocking {
+    repeat(100_000) {
+        launch {
+            delay(1000L)
+            print(".")
+        }
+    }
+}', '["حجب الـ Thread بواسطة Thread.sleep() داخل Coroutine بدلاً من استخدام دالة التعليق delay() غير الحاجبة.","الاعتقاد بأن Coroutine تعني دائمًا العمل على Background Thread؛ إذ يمكن أن تعمل على الـ Main Thread إذا حُدد Dispatchers.Main."]'::jsonb, '["ماذا يحدث للـ Thread الأصلي عندما يتم تعليق Coroutine عبر delay()؟"]'::jsonb, '[{"title":"Kotlin Docs — Coroutines basics","url":"https://kotlinlang.org/docs/coroutines-basics.html"}]'::jsonb from public.question_revisions r where r.question_id = 'coro-001' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'coro-001' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما هي الـ Coroutines في Kotlin وكيف تختلف عن الـ Threads التقليدية لنظام التشغيل؟' or l.short_answer is distinct from 'هي خيوط عمل خفيفة جدًا (Lightweight Threads) يديرها وقت تشغيل Kotlin في وضع المستخدم (User-space) بدلاً من أن يديرها نظام التشغيل مباشرة.' or l.explanation is distinct from 'تخصيص Thread في نظام التشغيل يستهلك حوالي 1MB من الذاكرة ويحتاج إلى Context Switching مكلف عبر نواة النظام (Kernel). بينما الـ Coroutine لا تحجز مساحة مكدس (Stack) مخصصة؛ يمكن إيقافها واستئنافها دون حجب الـ Thread الفعلي، مما يسمح بتشغيل مئات الآلاف من الـ Coroutines في وقت واحد بكفاءة عالية على عدد محدود من الـ Threads.' or l.code_example is distinct from '// إطلاق 100,000 كوروتين خفيف بسلاسة دون استنزاف الذاكرة:
+fun main() = runBlocking {
+    repeat(100_000) {
+        launch {
+            delay(1000L)
+            print(".")
+        }
+    }
+}' or l.common_mistakes is distinct from '["حجب الـ Thread بواسطة Thread.sleep() داخل Coroutine بدلاً من استخدام دالة التعليق delay() غير الحاجبة.","الاعتقاد بأن Coroutine تعني دائمًا العمل على Background Thread؛ إذ يمكن أن تعمل على الـ Main Thread إذا حُدد Dispatchers.Main."]'::jsonb or l.follow_up_questions is distinct from '["ماذا يحدث للـ Thread الأصلي عندما يتم تعليق Coroutine عبر delay()؟"]'::jsonb or l.sources is distinct from '[{"title":"Kotlin Docs — Coroutines basics","url":"https://kotlinlang.org/docs/coroutines-basics.html"}]'::jsonb)) then raise exception 'Question coro-001 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Coroutines Vs Threads?', 'This question checks the core Coroutines Vs Threads concept and how to use it safely in Kotlin and Android.', 'Explain Coroutines Vs Threads with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', '// إطلاق 100,000 كوروتين خفيف بسلاسة دون استنزاف الذاكرة:
+fun main() = runBlocking {
+    repeat(100_000) {
+        launch {
+            delay(1000L)
+            print(".")
+        }
+    }
+}', '["Missing the key trade-off in Coroutines Vs Threads (point 1).","Missing the key trade-off in Coroutines Vs Threads (point 2)."]'::jsonb, '["How would you apply Coroutines Vs Threads in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Kotlin Docs — Coroutines basics","url":"https://kotlinlang.org/docs/coroutines-basics.html"}]'::jsonb from public.question_revisions r where r.question_id = 'coro-001' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'coro-001' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Coroutines Vs Threads?' or l.short_answer is distinct from 'This question checks the core Coroutines Vs Threads concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Coroutines Vs Threads with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from '// إطلاق 100,000 كوروتين خفيف بسلاسة دون استنزاف الذاكرة:
+fun main() = runBlocking {
+    repeat(100_000) {
+        launch {
+            delay(1000L)
+            print(".")
+        }
+    }
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Coroutines Vs Threads (point 1).","Missing the key trade-off in Coroutines Vs Threads (point 2)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Coroutines Vs Threads in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Kotlin Docs — Coroutines basics","url":"https://kotlinlang.org/docs/coroutines-basics.html"}]'::jsonb)) then raise exception 'Question coro-001 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('coro-001', 'coroutines-concurrency') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'coro-001' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'coro-001' and revision_number = 1 and status = 'published') where id = 'coro-001' and exists (select 1 from public.question_revisions where question_id = 'coro-001' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('coro-002', 'suspend-functions-internal-working', 'android-native', 'Junior') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('coro-002', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'كيف تعمل الـ Suspend Function في Kotlin تحت الغطاء (Under the hood)؟', 'يحولها المترجم باستخدام نمط تمرير الاستمرار (Continuation-Passing Style - CPS) إلى آلة حالات (State Machine) تستقبل كائن Continuation كمعامل إضافي.', 'عند تعريف دالة بـ suspend، يضيف المترجم معامل Continuation<T> في الـ Bytecode. في كل نقطة تعليق (Suspension Point)، تحفظ آلة الحالة موضع التنفيذ والمتغيرات المحلية، وتُرجع علامة خاصة COROUTINE_SUSPENDED. عندما تنتهي العملية غير المتزامنة، يُستدعى continuation.resumeWith() لاستئناف التنفيذ من نفس النقطة بدون حجب.', '// كود Kotlin الأصلي:
+suspend fun fetchUserData(): String
+
+// ما يولده المترجم تقريبًا في Bytecode:
+fun fetchUserData(continuation: Continuation<String>): Any?', '["محاولة استدعاء Suspend Function من دالة عادية غير متزامنة دون إطلاق CoroutineScope مناسب."]'::jsonb, '["ما هو دور كائن Continuation في حفظ وإعادة بناء الـ Call Stack للـ Coroutine؟"]'::jsonb, '[{"title":"Kotlin Docs — Coroutines under the hood","url":"https://kotlinlang.org/docs/coroutines-guide.html"}]'::jsonb from public.question_revisions r where r.question_id = 'coro-002' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'coro-002' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'كيف تعمل الـ Suspend Function في Kotlin تحت الغطاء (Under the hood)؟' or l.short_answer is distinct from 'يحولها المترجم باستخدام نمط تمرير الاستمرار (Continuation-Passing Style - CPS) إلى آلة حالات (State Machine) تستقبل كائن Continuation كمعامل إضافي.' or l.explanation is distinct from 'عند تعريف دالة بـ suspend، يضيف المترجم معامل Continuation<T> في الـ Bytecode. في كل نقطة تعليق (Suspension Point)، تحفظ آلة الحالة موضع التنفيذ والمتغيرات المحلية، وتُرجع علامة خاصة COROUTINE_SUSPENDED. عندما تنتهي العملية غير المتزامنة، يُستدعى continuation.resumeWith() لاستئناف التنفيذ من نفس النقطة بدون حجب.' or l.code_example is distinct from '// كود Kotlin الأصلي:
+suspend fun fetchUserData(): String
+
+// ما يولده المترجم تقريبًا في Bytecode:
+fun fetchUserData(continuation: Continuation<String>): Any?' or l.common_mistakes is distinct from '["محاولة استدعاء Suspend Function من دالة عادية غير متزامنة دون إطلاق CoroutineScope مناسب."]'::jsonb or l.follow_up_questions is distinct from '["ما هو دور كائن Continuation في حفظ وإعادة بناء الـ Call Stack للـ Coroutine؟"]'::jsonb or l.sources is distinct from '[{"title":"Kotlin Docs — Coroutines under the hood","url":"https://kotlinlang.org/docs/coroutines-guide.html"}]'::jsonb)) then raise exception 'Question coro-002 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Suspend Functions Internal Working?', 'This question checks the core Suspend Functions Internal Working concept and how to use it safely in Kotlin and Android.', 'Explain Suspend Functions Internal Working with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', '// كود Kotlin الأصلي:
+suspend fun fetchUserData(): String
+
+// ما يولده المترجم تقريبًا في Bytecode:
+fun fetchUserData(continuation: Continuation<String>): Any?', '["Missing the key trade-off in Suspend Functions Internal Working (point 1)."]'::jsonb, '["How would you apply Suspend Functions Internal Working in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Kotlin Docs — Coroutines under the hood","url":"https://kotlinlang.org/docs/coroutines-guide.html"}]'::jsonb from public.question_revisions r where r.question_id = 'coro-002' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'coro-002' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Suspend Functions Internal Working?' or l.short_answer is distinct from 'This question checks the core Suspend Functions Internal Working concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Suspend Functions Internal Working with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from '// كود Kotlin الأصلي:
+suspend fun fetchUserData(): String
+
+// ما يولده المترجم تقريبًا في Bytecode:
+fun fetchUserData(continuation: Continuation<String>): Any?' or l.common_mistakes is distinct from '["Missing the key trade-off in Suspend Functions Internal Working (point 1)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Suspend Functions Internal Working in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Kotlin Docs — Coroutines under the hood","url":"https://kotlinlang.org/docs/coroutines-guide.html"}]'::jsonb)) then raise exception 'Question coro-002 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('coro-002', 'coroutines-concurrency') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'coro-002' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'coro-002' and revision_number = 1 and status = 'published') where id = 'coro-002' and exists (select 1 from public.question_revisions where question_id = 'coro-002' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('coro-003', 'coroutine-dispatchers', 'android-native', 'Junior') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('coro-003', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما الفرق بين الموزعات المختلفة (Dispatchers: Main, IO, Default, Unconfined) في أندرويد؟', 'Main مخصص للواجهة والتفاعل، IO مخصص لعمليات الإدخال والإخراج والشبكة، Default مخصص للعمليات الحسابية المكثفة للمعالج، و Unconfined يبدأ على الخيط الحالي دون تقييد.', 'Dispatchers.Main يدير المهام على الـ UI Thread. Dispatchers.IO يمتلك مجمع خيوط مرن (تصل إلى 64 خيطًا افتراضيًا) ومصمم لعمليات الانتظار الطويلة كقراءة الملفات والشبكة وقواعد البيانات. Dispatchers.Default يعتمد على عدد أنوية المعالج (CPU Cores) ومناسب لمعالجة الصور والـ JSON الكبير والخوارزميات المعقدة.', '// استخدام withContext للتبديل السلس بين الخيوط:
+suspend fun loadAndParseData(): Result = withContext(Dispatchers.IO) {
+    val rawJson = networkClient.download() // IO work
+    withContext(Dispatchers.Default) {
+        parseHeavyJson(rawJson) // CPU work
+    }
+}', '["تنفيذ عمليات فك تشفير صور ضخمة أو فرز قوائم عملاقة على Dispatchers.IO بدلاً من Dispatchers.Default.","تنفيذ استعلامات قواعد البيانات أو مكالمات الشبكة على Dispatchers.Main مما يسبب تجميد الواجهة والـ ANR."]'::jsonb, '["كيف يمكنك ضبط موزع مخصص (Custom Dispatcher) باستخدام مُجمّع خيوط محدد ExecutorService؟"]'::jsonb, '[{"title":"Kotlin Docs — Coroutine context and dispatchers","url":"https://kotlinlang.org/docs/coroutine-context-and-dispatchers.html"}]'::jsonb from public.question_revisions r where r.question_id = 'coro-003' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'coro-003' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما الفرق بين الموزعات المختلفة (Dispatchers: Main, IO, Default, Unconfined) في أندرويد؟' or l.short_answer is distinct from 'Main مخصص للواجهة والتفاعل، IO مخصص لعمليات الإدخال والإخراج والشبكة، Default مخصص للعمليات الحسابية المكثفة للمعالج، و Unconfined يبدأ على الخيط الحالي دون تقييد.' or l.explanation is distinct from 'Dispatchers.Main يدير المهام على الـ UI Thread. Dispatchers.IO يمتلك مجمع خيوط مرن (تصل إلى 64 خيطًا افتراضيًا) ومصمم لعمليات الانتظار الطويلة كقراءة الملفات والشبكة وقواعد البيانات. Dispatchers.Default يعتمد على عدد أنوية المعالج (CPU Cores) ومناسب لمعالجة الصور والـ JSON الكبير والخوارزميات المعقدة.' or l.code_example is distinct from '// استخدام withContext للتبديل السلس بين الخيوط:
+suspend fun loadAndParseData(): Result = withContext(Dispatchers.IO) {
+    val rawJson = networkClient.download() // IO work
+    withContext(Dispatchers.Default) {
+        parseHeavyJson(rawJson) // CPU work
+    }
+}' or l.common_mistakes is distinct from '["تنفيذ عمليات فك تشفير صور ضخمة أو فرز قوائم عملاقة على Dispatchers.IO بدلاً من Dispatchers.Default.","تنفيذ استعلامات قواعد البيانات أو مكالمات الشبكة على Dispatchers.Main مما يسبب تجميد الواجهة والـ ANR."]'::jsonb or l.follow_up_questions is distinct from '["كيف يمكنك ضبط موزع مخصص (Custom Dispatcher) باستخدام مُجمّع خيوط محدد ExecutorService؟"]'::jsonb or l.sources is distinct from '[{"title":"Kotlin Docs — Coroutine context and dispatchers","url":"https://kotlinlang.org/docs/coroutine-context-and-dispatchers.html"}]'::jsonb)) then raise exception 'Question coro-003 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Coroutine Dispatchers?', 'This question checks the core Coroutine Dispatchers concept and how to use it safely in Kotlin and Android.', 'Explain Coroutine Dispatchers with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', '// استخدام withContext للتبديل السلس بين الخيوط:
+suspend fun loadAndParseData(): Result = withContext(Dispatchers.IO) {
+    val rawJson = networkClient.download() // IO work
+    withContext(Dispatchers.Default) {
+        parseHeavyJson(rawJson) // CPU work
+    }
+}', '["Missing the key trade-off in Coroutine Dispatchers (point 1).","Missing the key trade-off in Coroutine Dispatchers (point 2)."]'::jsonb, '["How would you apply Coroutine Dispatchers in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Kotlin Docs — Coroutine context and dispatchers","url":"https://kotlinlang.org/docs/coroutine-context-and-dispatchers.html"}]'::jsonb from public.question_revisions r where r.question_id = 'coro-003' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'coro-003' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Coroutine Dispatchers?' or l.short_answer is distinct from 'This question checks the core Coroutine Dispatchers concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Coroutine Dispatchers with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from '// استخدام withContext للتبديل السلس بين الخيوط:
+suspend fun loadAndParseData(): Result = withContext(Dispatchers.IO) {
+    val rawJson = networkClient.download() // IO work
+    withContext(Dispatchers.Default) {
+        parseHeavyJson(rawJson) // CPU work
+    }
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Coroutine Dispatchers (point 1).","Missing the key trade-off in Coroutine Dispatchers (point 2)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Coroutine Dispatchers in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Kotlin Docs — Coroutine context and dispatchers","url":"https://kotlinlang.org/docs/coroutine-context-and-dispatchers.html"}]'::jsonb)) then raise exception 'Question coro-003 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('coro-003', 'coroutines-concurrency') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'coro-003' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'coro-003' and revision_number = 1 and status = 'published') where id = 'coro-003' and exists (select 1 from public.question_revisions where question_id = 'coro-003' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('coro-004', 'launch-vs-async-in-coroutines', 'android-native', 'Mid') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('coro-004', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما الفرق بين باني الكوروتين launch وباني async ومتى نستخدم كل منهما؟', 'launch يطلق كوروتين بنمط ''أطلق وانسَ'' (Fire-and-forget) ويعيد كائن Job؛ بينما async يطلق مهمة تعيد نتيجة متوقعة كـ Deferred<T> وتُسترجع عبر await().', 'يُستخدم launch عندما لا نحتاج لقيمة معادة من الكوروتين (مثل تسجيل حدث أو حفظ سجل). أما async فيُستخدم عند الرغبة في حساب قيمة، وخصوصًا لتشغيل عدة طلبات متزامنة في الخلفية والانتظار حتى تكتمل جميعها عبر await() أو awaitAll(). لاحظ أن الاستثناءات في async تُكتم ولا تظهر حتى يتم استدعاء await().', '// تنفيذ طلبين شبكيين متزامنين لتقليل زمن الانتظار:
+suspend fun fetchDashboardData(): Dashboard = coroutineScope {
+    val profileDeferred = async { api.getProfile() }
+    val statsDeferred = async { api.getStats() }
+
+    // ينتظر اكتمال الاثنين بالتوازي:
+    Dashboard(profileDeferred.await(), statsDeferred.await())
+}', '["استخدام async بدلاً من launch دون استدعاء await()، مما يؤدي لابتلاع الأخطاء وعدم إدراك حدوث أي مشكلة.","استدعاء await() فور استدعاء async في سطر متتابع مباشرة، مما يلغي ميزة التوازي ويجعل الكود متسلسلاً بطيئًا."]'::jsonb, '["ماذا يحدث إذا فشل أحد الطلبين داخل coroutineScope عند استخدام async؟"]'::jsonb, '[{"title":"Kotlin Docs — Composing suspending functions","url":"https://kotlinlang.org/docs/composing-suspending-functions.html"}]'::jsonb from public.question_revisions r where r.question_id = 'coro-004' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'coro-004' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما الفرق بين باني الكوروتين launch وباني async ومتى نستخدم كل منهما؟' or l.short_answer is distinct from 'launch يطلق كوروتين بنمط ''أطلق وانسَ'' (Fire-and-forget) ويعيد كائن Job؛ بينما async يطلق مهمة تعيد نتيجة متوقعة كـ Deferred<T> وتُسترجع عبر await().' or l.explanation is distinct from 'يُستخدم launch عندما لا نحتاج لقيمة معادة من الكوروتين (مثل تسجيل حدث أو حفظ سجل). أما async فيُستخدم عند الرغبة في حساب قيمة، وخصوصًا لتشغيل عدة طلبات متزامنة في الخلفية والانتظار حتى تكتمل جميعها عبر await() أو awaitAll(). لاحظ أن الاستثناءات في async تُكتم ولا تظهر حتى يتم استدعاء await().' or l.code_example is distinct from '// تنفيذ طلبين شبكيين متزامنين لتقليل زمن الانتظار:
+suspend fun fetchDashboardData(): Dashboard = coroutineScope {
+    val profileDeferred = async { api.getProfile() }
+    val statsDeferred = async { api.getStats() }
+
+    // ينتظر اكتمال الاثنين بالتوازي:
+    Dashboard(profileDeferred.await(), statsDeferred.await())
+}' or l.common_mistakes is distinct from '["استخدام async بدلاً من launch دون استدعاء await()، مما يؤدي لابتلاع الأخطاء وعدم إدراك حدوث أي مشكلة.","استدعاء await() فور استدعاء async في سطر متتابع مباشرة، مما يلغي ميزة التوازي ويجعل الكود متسلسلاً بطيئًا."]'::jsonb or l.follow_up_questions is distinct from '["ماذا يحدث إذا فشل أحد الطلبين داخل coroutineScope عند استخدام async؟"]'::jsonb or l.sources is distinct from '[{"title":"Kotlin Docs — Composing suspending functions","url":"https://kotlinlang.org/docs/composing-suspending-functions.html"}]'::jsonb)) then raise exception 'Question coro-004 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Launch Vs Async In Coroutines?', 'This question checks the core Launch Vs Async In Coroutines concept and how to use it safely in Kotlin and Android.', 'Explain Launch Vs Async In Coroutines with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', '// تنفيذ طلبين شبكيين متزامنين لتقليل زمن الانتظار:
+suspend fun fetchDashboardData(): Dashboard = coroutineScope {
+    val profileDeferred = async { api.getProfile() }
+    val statsDeferred = async { api.getStats() }
+
+    // ينتظر اكتمال الاثنين بالتوازي:
+    Dashboard(profileDeferred.await(), statsDeferred.await())
+}', '["Missing the key trade-off in Launch Vs Async In Coroutines (point 1).","Missing the key trade-off in Launch Vs Async In Coroutines (point 2)."]'::jsonb, '["How would you apply Launch Vs Async In Coroutines in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Kotlin Docs — Composing suspending functions","url":"https://kotlinlang.org/docs/composing-suspending-functions.html"}]'::jsonb from public.question_revisions r where r.question_id = 'coro-004' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'coro-004' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Launch Vs Async In Coroutines?' or l.short_answer is distinct from 'This question checks the core Launch Vs Async In Coroutines concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Launch Vs Async In Coroutines with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from '// تنفيذ طلبين شبكيين متزامنين لتقليل زمن الانتظار:
+suspend fun fetchDashboardData(): Dashboard = coroutineScope {
+    val profileDeferred = async { api.getProfile() }
+    val statsDeferred = async { api.getStats() }
+
+    // ينتظر اكتمال الاثنين بالتوازي:
+    Dashboard(profileDeferred.await(), statsDeferred.await())
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Launch Vs Async In Coroutines (point 1).","Missing the key trade-off in Launch Vs Async In Coroutines (point 2)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Launch Vs Async In Coroutines in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Kotlin Docs — Composing suspending functions","url":"https://kotlinlang.org/docs/composing-suspending-functions.html"}]'::jsonb)) then raise exception 'Question coro-004 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('coro-004', 'coroutines-concurrency') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'coro-004' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'coro-004' and revision_number = 1 and status = 'published') where id = 'coro-004' and exists (select 1 from public.question_revisions where question_id = 'coro-004' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('coro-005', 'structured-concurrency-and-jobs', 'android-native', 'Mid') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('coro-005', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما هو مبدأ التزامن الهيكلي (Structured Concurrency) في Kotlin Coroutines؟', 'هو مبدأ تنظيمي يضمن عدم تسريب أي كوروتين، بحيث تُرتب الكوروتينات في تسلسل هرمي كأبناء لأب لا ينتهي إلا بانتهاء جميع أبنائه، وإذا أُلغي الأب يُلغى كل أبنائه تلقائيًا.', 'يمنع التزامن الهيكلي مشكلة المهام المعلقة التي تعمل في الخلفية وتهدر الذاكرة والبطارية بعد مغادرة المستخدم للشاشة. عندما تنتهي دورة حياة ViewModel (onCleared) أو الـ Activity، يقوم الـ CoroutineScope بإلغاء الـ Parent Job، مما ينشر إشارة الإلغاء فورًا لجميع العمليات والأبناء المتفرعين منها.', '// coroutineScope يضمن عدم خروج الدالة حتى تكتمل كل المهام الفرعية:
+suspend fun processOrder() = coroutineScope {
+    launch { validateInventory() }
+    launch { reservePayment() }
+    // لا تنتهي processOrder إلا بنجاح الاثنين، وإذا فشل أحدهما يلغى الآخر فورًا
+}', '["استخدام GlobalScope.launch الذي يكسر Structured Concurrency ويعزل الكوروتين عن أي دورة حياة، مسببًا تسريب ذاكرة خطيرًا."]'::jsonb, '["لماذا يعتبر GlobalScope غير مستحسن في 99% من سيناريوهات تطبيقات أندرويد؟"]'::jsonb, '[{"title":"Kotlin Docs — Structured concurrency","url":"https://kotlinlang.org/docs/coroutines-basics.html#structured-concurrency"}]'::jsonb from public.question_revisions r where r.question_id = 'coro-005' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'coro-005' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما هو مبدأ التزامن الهيكلي (Structured Concurrency) في Kotlin Coroutines؟' or l.short_answer is distinct from 'هو مبدأ تنظيمي يضمن عدم تسريب أي كوروتين، بحيث تُرتب الكوروتينات في تسلسل هرمي كأبناء لأب لا ينتهي إلا بانتهاء جميع أبنائه، وإذا أُلغي الأب يُلغى كل أبنائه تلقائيًا.' or l.explanation is distinct from 'يمنع التزامن الهيكلي مشكلة المهام المعلقة التي تعمل في الخلفية وتهدر الذاكرة والبطارية بعد مغادرة المستخدم للشاشة. عندما تنتهي دورة حياة ViewModel (onCleared) أو الـ Activity، يقوم الـ CoroutineScope بإلغاء الـ Parent Job، مما ينشر إشارة الإلغاء فورًا لجميع العمليات والأبناء المتفرعين منها.' or l.code_example is distinct from '// coroutineScope يضمن عدم خروج الدالة حتى تكتمل كل المهام الفرعية:
+suspend fun processOrder() = coroutineScope {
+    launch { validateInventory() }
+    launch { reservePayment() }
+    // لا تنتهي processOrder إلا بنجاح الاثنين، وإذا فشل أحدهما يلغى الآخر فورًا
+}' or l.common_mistakes is distinct from '["استخدام GlobalScope.launch الذي يكسر Structured Concurrency ويعزل الكوروتين عن أي دورة حياة، مسببًا تسريب ذاكرة خطيرًا."]'::jsonb or l.follow_up_questions is distinct from '["لماذا يعتبر GlobalScope غير مستحسن في 99% من سيناريوهات تطبيقات أندرويد؟"]'::jsonb or l.sources is distinct from '[{"title":"Kotlin Docs — Structured concurrency","url":"https://kotlinlang.org/docs/coroutines-basics.html#structured-concurrency"}]'::jsonb)) then raise exception 'Question coro-005 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Structured Concurrency And Jobs?', 'This question checks the core Structured Concurrency And Jobs concept and how to use it safely in Kotlin and Android.', 'Explain Structured Concurrency And Jobs with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', '// coroutineScope يضمن عدم خروج الدالة حتى تكتمل كل المهام الفرعية:
+suspend fun processOrder() = coroutineScope {
+    launch { validateInventory() }
+    launch { reservePayment() }
+    // لا تنتهي processOrder إلا بنجاح الاثنين، وإذا فشل أحدهما يلغى الآخر فورًا
+}', '["Missing the key trade-off in Structured Concurrency And Jobs (point 1)."]'::jsonb, '["How would you apply Structured Concurrency And Jobs in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Kotlin Docs — Structured concurrency","url":"https://kotlinlang.org/docs/coroutines-basics.html#structured-concurrency"}]'::jsonb from public.question_revisions r where r.question_id = 'coro-005' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'coro-005' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Structured Concurrency And Jobs?' or l.short_answer is distinct from 'This question checks the core Structured Concurrency And Jobs concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Structured Concurrency And Jobs with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from '// coroutineScope يضمن عدم خروج الدالة حتى تكتمل كل المهام الفرعية:
+suspend fun processOrder() = coroutineScope {
+    launch { validateInventory() }
+    launch { reservePayment() }
+    // لا تنتهي processOrder إلا بنجاح الاثنين، وإذا فشل أحدهما يلغى الآخر فورًا
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Structured Concurrency And Jobs (point 1)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Structured Concurrency And Jobs in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Kotlin Docs — Structured concurrency","url":"https://kotlinlang.org/docs/coroutines-basics.html#structured-concurrency"}]'::jsonb)) then raise exception 'Question coro-005 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('coro-005', 'coroutines-concurrency') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'coro-005' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'coro-005' and revision_number = 1 and status = 'published') where id = 'coro-005' and exists (select 1 from public.question_revisions where question_id = 'coro-005' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('coro-006', 'coroutine-cancellation-cooperative', 'android-native', 'Mid') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('coro-006', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'لماذا يقال إن إلغاء الـ Coroutine عملية تعاونية (Cooperative Cancellation) وكيف تتأكد من استجابتها؟', 'لأن الكوروتين لا يمكن إيقافها قسرًا من الخارج؛ بل يجب أن يتحقق الكود دوريًا من حالة الإلغاء (isActive) أو يستدعي دوال تعليق قياسية تفحص الإلغاء.', 'عند استدعاء job.cancel()، تتحول حالة الكوروتين إلى إيقاف، وتطلق دوال التعليق القياسية في المكتبة (مثل delay و yield) استثناء CancellationException. إذا كان الكود يحتوي على حلقة تكرار حسابية مكثفة (CPU Loop) دون استدعاء دوال تعليق، فلن يتوقف الكوروتين ما لم تفحص يدوياً شرط isActive أو تستدعي ensureActive().', 'val job = scope.launch(Dispatchers.Default) {
+    var i = 0
+    while (isActive) { // فحص التعاون مع الإلغاء
+        doCpuHeavyWork(i++)
+    }
+}
+job.cancel() // سيستجيب الكوروتين في الدورة القادمة ويتوقف', '["التقاط Exception بشكل عام (catch (e: Exception)) دون إعادة رمي CancellationException، مما يبتلع إشارة الإلغاء ويمنع الكوروتين من التوقف."]'::jsonb, '["كيف تنفذ عملية تنظيف غير قابلة للإلغاء (مثل إغلاق ملف) بعد إلغاء الكوروتين باستخدام withContext(NonCancellable)؟"]'::jsonb, '[{"title":"Kotlin Docs — Cancellation and timeouts","url":"https://kotlinlang.org/docs/cancellation-and-timeouts.html"}]'::jsonb from public.question_revisions r where r.question_id = 'coro-006' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'coro-006' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'لماذا يقال إن إلغاء الـ Coroutine عملية تعاونية (Cooperative Cancellation) وكيف تتأكد من استجابتها؟' or l.short_answer is distinct from 'لأن الكوروتين لا يمكن إيقافها قسرًا من الخارج؛ بل يجب أن يتحقق الكود دوريًا من حالة الإلغاء (isActive) أو يستدعي دوال تعليق قياسية تفحص الإلغاء.' or l.explanation is distinct from 'عند استدعاء job.cancel()، تتحول حالة الكوروتين إلى إيقاف، وتطلق دوال التعليق القياسية في المكتبة (مثل delay و yield) استثناء CancellationException. إذا كان الكود يحتوي على حلقة تكرار حسابية مكثفة (CPU Loop) دون استدعاء دوال تعليق، فلن يتوقف الكوروتين ما لم تفحص يدوياً شرط isActive أو تستدعي ensureActive().' or l.code_example is distinct from 'val job = scope.launch(Dispatchers.Default) {
+    var i = 0
+    while (isActive) { // فحص التعاون مع الإلغاء
+        doCpuHeavyWork(i++)
+    }
+}
+job.cancel() // سيستجيب الكوروتين في الدورة القادمة ويتوقف' or l.common_mistakes is distinct from '["التقاط Exception بشكل عام (catch (e: Exception)) دون إعادة رمي CancellationException، مما يبتلع إشارة الإلغاء ويمنع الكوروتين من التوقف."]'::jsonb or l.follow_up_questions is distinct from '["كيف تنفذ عملية تنظيف غير قابلة للإلغاء (مثل إغلاق ملف) بعد إلغاء الكوروتين باستخدام withContext(NonCancellable)؟"]'::jsonb or l.sources is distinct from '[{"title":"Kotlin Docs — Cancellation and timeouts","url":"https://kotlinlang.org/docs/cancellation-and-timeouts.html"}]'::jsonb)) then raise exception 'Question coro-006 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Coroutine Cancellation Cooperative?', 'This question checks the core Coroutine Cancellation Cooperative concept and how to use it safely in Kotlin and Android.', 'Explain Coroutine Cancellation Cooperative with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', 'val job = scope.launch(Dispatchers.Default) {
+    var i = 0
+    while (isActive) { // فحص التعاون مع الإلغاء
+        doCpuHeavyWork(i++)
+    }
+}
+job.cancel() // سيستجيب الكوروتين في الدورة القادمة ويتوقف', '["Missing the key trade-off in Coroutine Cancellation Cooperative (point 1)."]'::jsonb, '["How would you apply Coroutine Cancellation Cooperative in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Kotlin Docs — Cancellation and timeouts","url":"https://kotlinlang.org/docs/cancellation-and-timeouts.html"}]'::jsonb from public.question_revisions r where r.question_id = 'coro-006' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'coro-006' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Coroutine Cancellation Cooperative?' or l.short_answer is distinct from 'This question checks the core Coroutine Cancellation Cooperative concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Coroutine Cancellation Cooperative with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from 'val job = scope.launch(Dispatchers.Default) {
+    var i = 0
+    while (isActive) { // فحص التعاون مع الإلغاء
+        doCpuHeavyWork(i++)
+    }
+}
+job.cancel() // سيستجيب الكوروتين في الدورة القادمة ويتوقف' or l.common_mistakes is distinct from '["Missing the key trade-off in Coroutine Cancellation Cooperative (point 1)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Coroutine Cancellation Cooperative in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Kotlin Docs — Cancellation and timeouts","url":"https://kotlinlang.org/docs/cancellation-and-timeouts.html"}]'::jsonb)) then raise exception 'Question coro-006 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('coro-006', 'coroutines-concurrency') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'coro-006' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'coro-006' and revision_number = 1 and status = 'published') where id = 'coro-006' and exists (select 1 from public.question_revisions where question_id = 'coro-006' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('coro-007', 'exception-handling-coroutineexceptionhandler', 'android-native', 'Mid') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('coro-007', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'كيف تتم معالجة الأخطاء غير الملتقطة في الكوروتين باستخدام CoroutineExceptionHandler؟', 'يعمل كصمام أمان أخير (Global Catch) لالتقاط الاستثناءات غير المعالجة في الـ Root Coroutine المطلقة بواسطة launch لمنع كراش التطبيق.', 'يُثبت CoroutineExceptionHandler على مستوى الـ CoroutineScope أو الـ Root Job. لا يمنع المعالج إلغاء الكوروتين نفسه أو انتشار الفشل للأب في الـ Job العادية، لكنه يوفر مكانًا مركزيًا لتسجيل الخطأ (Logging) وعرض رسالة للمستخدم بدلاً من انهيار التطبيق. لا يؤثر المعالج على async لأنه يحتفظ بالاستثناء داخل كائن Deferred ليرميه عند await().', 'val handler = CoroutineExceptionHandler { _, exception ->
+    Log.e("Coroutines", "Caught unhandled exception: $exception")
+}
+
+val scope = CoroutineScope(Dispatchers.Main + Job() + handler)
+scope.launch {
+    throw RuntimeException("Network crash!") // يلتقطه handler بأمان
+}', '["محاولة تثبيت CoroutineExceptionHandler داخل كوروتين ابن (Child Coroutine)، حيث يتجاهله النظام ولا يستجيب إلا إذا كان على الـ Root.","توقع أن يمنع المعالج الكوروتين الفاشل من إيقاف بقية العمليات المرتبطة به في الـ Standard Job."]'::jsonb, '["لماذا لا يؤثر CoroutineExceptionHandler على الاستثناءات الناتجة داخل كتل async؟"]'::jsonb, '[{"title":"Kotlin Docs — Coroutine exceptions handling","url":"https://kotlinlang.org/docs/exception-handling.html"}]'::jsonb from public.question_revisions r where r.question_id = 'coro-007' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'coro-007' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'كيف تتم معالجة الأخطاء غير الملتقطة في الكوروتين باستخدام CoroutineExceptionHandler؟' or l.short_answer is distinct from 'يعمل كصمام أمان أخير (Global Catch) لالتقاط الاستثناءات غير المعالجة في الـ Root Coroutine المطلقة بواسطة launch لمنع كراش التطبيق.' or l.explanation is distinct from 'يُثبت CoroutineExceptionHandler على مستوى الـ CoroutineScope أو الـ Root Job. لا يمنع المعالج إلغاء الكوروتين نفسه أو انتشار الفشل للأب في الـ Job العادية، لكنه يوفر مكانًا مركزيًا لتسجيل الخطأ (Logging) وعرض رسالة للمستخدم بدلاً من انهيار التطبيق. لا يؤثر المعالج على async لأنه يحتفظ بالاستثناء داخل كائن Deferred ليرميه عند await().' or l.code_example is distinct from 'val handler = CoroutineExceptionHandler { _, exception ->
+    Log.e("Coroutines", "Caught unhandled exception: $exception")
+}
+
+val scope = CoroutineScope(Dispatchers.Main + Job() + handler)
+scope.launch {
+    throw RuntimeException("Network crash!") // يلتقطه handler بأمان
+}' or l.common_mistakes is distinct from '["محاولة تثبيت CoroutineExceptionHandler داخل كوروتين ابن (Child Coroutine)، حيث يتجاهله النظام ولا يستجيب إلا إذا كان على الـ Root.","توقع أن يمنع المعالج الكوروتين الفاشل من إيقاف بقية العمليات المرتبطة به في الـ Standard Job."]'::jsonb or l.follow_up_questions is distinct from '["لماذا لا يؤثر CoroutineExceptionHandler على الاستثناءات الناتجة داخل كتل async؟"]'::jsonb or l.sources is distinct from '[{"title":"Kotlin Docs — Coroutine exceptions handling","url":"https://kotlinlang.org/docs/exception-handling.html"}]'::jsonb)) then raise exception 'Question coro-007 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Exception Handling Coroutineexceptionhandler?', 'This question checks the core Exception Handling Coroutineexceptionhandler concept and how to use it safely in Kotlin and Android.', 'Explain Exception Handling Coroutineexceptionhandler with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', 'val handler = CoroutineExceptionHandler { _, exception ->
+    Log.e("Coroutines", "Caught unhandled exception: $exception")
+}
+
+val scope = CoroutineScope(Dispatchers.Main + Job() + handler)
+scope.launch {
+    throw RuntimeException("Network crash!") // يلتقطه handler بأمان
+}', '["Missing the key trade-off in Exception Handling Coroutineexceptionhandler (point 1).","Missing the key trade-off in Exception Handling Coroutineexceptionhandler (point 2)."]'::jsonb, '["How would you apply Exception Handling Coroutineexceptionhandler in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Kotlin Docs — Coroutine exceptions handling","url":"https://kotlinlang.org/docs/exception-handling.html"}]'::jsonb from public.question_revisions r where r.question_id = 'coro-007' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'coro-007' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Exception Handling Coroutineexceptionhandler?' or l.short_answer is distinct from 'This question checks the core Exception Handling Coroutineexceptionhandler concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Exception Handling Coroutineexceptionhandler with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from 'val handler = CoroutineExceptionHandler { _, exception ->
+    Log.e("Coroutines", "Caught unhandled exception: $exception")
+}
+
+val scope = CoroutineScope(Dispatchers.Main + Job() + handler)
+scope.launch {
+    throw RuntimeException("Network crash!") // يلتقطه handler بأمان
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Exception Handling Coroutineexceptionhandler (point 1).","Missing the key trade-off in Exception Handling Coroutineexceptionhandler (point 2)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Exception Handling Coroutineexceptionhandler in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Kotlin Docs — Coroutine exceptions handling","url":"https://kotlinlang.org/docs/exception-handling.html"}]'::jsonb)) then raise exception 'Question coro-007 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('coro-007', 'coroutines-concurrency') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'coro-007' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'coro-007' and revision_number = 1 and status = 'published') where id = 'coro-007' and exists (select 1 from public.question_revisions where question_id = 'coro-007' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('coro-008', 'supervisorjob-vs-job-failure-propagation', 'android-native', 'Senior') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('coro-008', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما الفرق الجوهري بين Job عادية و SupervisorJob في انتشار الاستثناءات؟', 'في Job العادية، فشل أي ابن يؤدي لإلغاء الأب وجميع الأبناء الآخرين فورًا؛ بينما في SupervisorJob، يتم عزل الفشل ولا يؤثر تعطل ابن على باقي الأبناء.', 'يعتبر هذا الفرق حاسمًا في بناء واجهات المستخدم ومكتبات أندرويد (مثل viewModelScope المعتمد على SupervisorJob). لو فشل طلب جلب صورة في الشاشة فلن ترغب في إلغاء طلب جلب معلومات المستخدم الأساسية. باستخدام SupervisorJob، يعالج كل ابن خطأه باستقلالية تامة دون هدم شجرة العمليات بأكملها.', 'val supervisorScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+
+supervisorScope.launch {
+    throw RuntimeException("فشل هذا الابن فقط")
+}
+
+supervisorScope.launch {
+    // هذا الابن يستمر في العمل بنجاح ولا يتأثر بفشل جاره!
+    delay(1000L)
+    println("ما زلت أعمل بنجاح")
+}', '["تمرير SupervisorJob كوسيط في دالة launch(SupervisorJob()) وتوقع عزل أخطاء الأبناء داخلها، فالـ launch ينشئ دائمًا Standard Job لابنه ما لم يُستخدم supervisorScope {}."]'::jsonb, '["ما الفرق بين استخدام كائن SupervisorJob() واستدعاء الدالة المعلقة supervisorScope {}؟"]'::jsonb, '[{"title":"Kotlin Docs — Supervision in coroutines","url":"https://kotlinlang.org/docs/exception-handling.html#supervision"}]'::jsonb from public.question_revisions r where r.question_id = 'coro-008' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'coro-008' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما الفرق الجوهري بين Job عادية و SupervisorJob في انتشار الاستثناءات؟' or l.short_answer is distinct from 'في Job العادية، فشل أي ابن يؤدي لإلغاء الأب وجميع الأبناء الآخرين فورًا؛ بينما في SupervisorJob، يتم عزل الفشل ولا يؤثر تعطل ابن على باقي الأبناء.' or l.explanation is distinct from 'يعتبر هذا الفرق حاسمًا في بناء واجهات المستخدم ومكتبات أندرويد (مثل viewModelScope المعتمد على SupervisorJob). لو فشل طلب جلب صورة في الشاشة فلن ترغب في إلغاء طلب جلب معلومات المستخدم الأساسية. باستخدام SupervisorJob، يعالج كل ابن خطأه باستقلالية تامة دون هدم شجرة العمليات بأكملها.' or l.code_example is distinct from 'val supervisorScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+
+supervisorScope.launch {
+    throw RuntimeException("فشل هذا الابن فقط")
+}
+
+supervisorScope.launch {
+    // هذا الابن يستمر في العمل بنجاح ولا يتأثر بفشل جاره!
+    delay(1000L)
+    println("ما زلت أعمل بنجاح")
+}' or l.common_mistakes is distinct from '["تمرير SupervisorJob كوسيط في دالة launch(SupervisorJob()) وتوقع عزل أخطاء الأبناء داخلها، فالـ launch ينشئ دائمًا Standard Job لابنه ما لم يُستخدم supervisorScope {}."]'::jsonb or l.follow_up_questions is distinct from '["ما الفرق بين استخدام كائن SupervisorJob() واستدعاء الدالة المعلقة supervisorScope {}؟"]'::jsonb or l.sources is distinct from '[{"title":"Kotlin Docs — Supervision in coroutines","url":"https://kotlinlang.org/docs/exception-handling.html#supervision"}]'::jsonb)) then raise exception 'Question coro-008 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Supervisorjob Vs Job Failure Propagation?', 'This question checks the core Supervisorjob Vs Job Failure Propagation concept and how to use it safely in Kotlin and Android.', 'Explain Supervisorjob Vs Job Failure Propagation with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', 'val supervisorScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+
+supervisorScope.launch {
+    throw RuntimeException("فشل هذا الابن فقط")
+}
+
+supervisorScope.launch {
+    // هذا الابن يستمر في العمل بنجاح ولا يتأثر بفشل جاره!
+    delay(1000L)
+    println("ما زلت أعمل بنجاح")
+}', '["Missing the key trade-off in Supervisorjob Vs Job Failure Propagation (point 1)."]'::jsonb, '["How would you apply Supervisorjob Vs Job Failure Propagation in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Kotlin Docs — Supervision in coroutines","url":"https://kotlinlang.org/docs/exception-handling.html#supervision"}]'::jsonb from public.question_revisions r where r.question_id = 'coro-008' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'coro-008' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Supervisorjob Vs Job Failure Propagation?' or l.short_answer is distinct from 'This question checks the core Supervisorjob Vs Job Failure Propagation concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Supervisorjob Vs Job Failure Propagation with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from 'val supervisorScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+
+supervisorScope.launch {
+    throw RuntimeException("فشل هذا الابن فقط")
+}
+
+supervisorScope.launch {
+    // هذا الابن يستمر في العمل بنجاح ولا يتأثر بفشل جاره!
+    delay(1000L)
+    println("ما زلت أعمل بنجاح")
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Supervisorjob Vs Job Failure Propagation (point 1)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Supervisorjob Vs Job Failure Propagation in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Kotlin Docs — Supervision in coroutines","url":"https://kotlinlang.org/docs/exception-handling.html#supervision"}]'::jsonb)) then raise exception 'Question coro-008 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('coro-008', 'coroutines-concurrency') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'coro-008' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'coro-008' and revision_number = 1 and status = 'published') where id = 'coro-008' and exists (select 1 from public.question_revisions where question_id = 'coro-008' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('coro-009', 'cold-flow-vs-hot-flow', 'android-native', 'Senior') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('coro-009', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما الفرق المعماري بين التدفق البارد (Cold Flow) والتدفق الساخن (Hot Flow) في Kotlin؟', 'التدفق البارد (Flow) لا ينفذ كوده إلا عند وجود مستهلك (Collector)، بينما التدفق الساخن (StateFlow/SharedFlow) يبث البيانات دائمًا في الذاكرة حتى لو لم يوجد أي مستمع.', 'يشبه التدفق البارد أسطوانة CD لا تصدر صوتًا إلا عند تشغيلها من قبل مستمع محدد، وكل مستهلك جديد يبدأ السلسلة من الصفر (مثل استعلام قاعدة بيانات). التدفق الساخن يشبه البث الإذاعي المباشر؛ يعيش مستقلاً في الذاكرة ويشارك نفس البيانات مع عدة مستمعين في وقت واحد (Multicasting) ويحتفظ بآخر قيمة (StateFlow) أو تخزين مؤقت Replay Cache (SharedFlow).', '// Cold Flow: يبدأ من الصفر مع كل collect()
+fun getNumbers(): Flow<Int> = flow {
+    emit(1); emit(2)
+}
+
+// Hot Flow: يحتفظ بالحالة في الذاكرة ويبثها للمراقبين الحاليين
+val stateFlow = MutableStateFlow("Initial Value")', '["تحويل Cold Flow إلى Hot Flow باستخدام shareIn أو stateIn دون تحديد CoroutineScope وسياسة SharingStarted المناسبة، مما يسبب تسريب استهلاك البيانات."]'::jsonb, '["ما الفرق بين SharingStarted.Eagerly و SharingStarted.Lazily و SharingStarted.WhileSubscribed(5000)؟"]'::jsonb, '[{"title":"Kotlin Docs — Asynchronous Flow","url":"https://kotlinlang.org/docs/flow.html"}]'::jsonb from public.question_revisions r where r.question_id = 'coro-009' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'coro-009' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما الفرق المعماري بين التدفق البارد (Cold Flow) والتدفق الساخن (Hot Flow) في Kotlin؟' or l.short_answer is distinct from 'التدفق البارد (Flow) لا ينفذ كوده إلا عند وجود مستهلك (Collector)، بينما التدفق الساخن (StateFlow/SharedFlow) يبث البيانات دائمًا في الذاكرة حتى لو لم يوجد أي مستمع.' or l.explanation is distinct from 'يشبه التدفق البارد أسطوانة CD لا تصدر صوتًا إلا عند تشغيلها من قبل مستمع محدد، وكل مستهلك جديد يبدأ السلسلة من الصفر (مثل استعلام قاعدة بيانات). التدفق الساخن يشبه البث الإذاعي المباشر؛ يعيش مستقلاً في الذاكرة ويشارك نفس البيانات مع عدة مستمعين في وقت واحد (Multicasting) ويحتفظ بآخر قيمة (StateFlow) أو تخزين مؤقت Replay Cache (SharedFlow).' or l.code_example is distinct from '// Cold Flow: يبدأ من الصفر مع كل collect()
+fun getNumbers(): Flow<Int> = flow {
+    emit(1); emit(2)
+}
+
+// Hot Flow: يحتفظ بالحالة في الذاكرة ويبثها للمراقبين الحاليين
+val stateFlow = MutableStateFlow("Initial Value")' or l.common_mistakes is distinct from '["تحويل Cold Flow إلى Hot Flow باستخدام shareIn أو stateIn دون تحديد CoroutineScope وسياسة SharingStarted المناسبة، مما يسبب تسريب استهلاك البيانات."]'::jsonb or l.follow_up_questions is distinct from '["ما الفرق بين SharingStarted.Eagerly و SharingStarted.Lazily و SharingStarted.WhileSubscribed(5000)؟"]'::jsonb or l.sources is distinct from '[{"title":"Kotlin Docs — Asynchronous Flow","url":"https://kotlinlang.org/docs/flow.html"}]'::jsonb)) then raise exception 'Question coro-009 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Cold Flow Vs Hot Flow?', 'This question checks the core Cold Flow Vs Hot Flow concept and how to use it safely in Kotlin and Android.', 'Explain Cold Flow Vs Hot Flow with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', '// Cold Flow: يبدأ من الصفر مع كل collect()
+fun getNumbers(): Flow<Int> = flow {
+    emit(1); emit(2)
+}
+
+// Hot Flow: يحتفظ بالحالة في الذاكرة ويبثها للمراقبين الحاليين
+val stateFlow = MutableStateFlow("Initial Value")', '["Missing the key trade-off in Cold Flow Vs Hot Flow (point 1)."]'::jsonb, '["How would you apply Cold Flow Vs Hot Flow in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Kotlin Docs — Asynchronous Flow","url":"https://kotlinlang.org/docs/flow.html"}]'::jsonb from public.question_revisions r where r.question_id = 'coro-009' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'coro-009' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Cold Flow Vs Hot Flow?' or l.short_answer is distinct from 'This question checks the core Cold Flow Vs Hot Flow concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Cold Flow Vs Hot Flow with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from '// Cold Flow: يبدأ من الصفر مع كل collect()
+fun getNumbers(): Flow<Int> = flow {
+    emit(1); emit(2)
+}
+
+// Hot Flow: يحتفظ بالحالة في الذاكرة ويبثها للمراقبين الحاليين
+val stateFlow = MutableStateFlow("Initial Value")' or l.common_mistakes is distinct from '["Missing the key trade-off in Cold Flow Vs Hot Flow (point 1)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Cold Flow Vs Hot Flow in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Kotlin Docs — Asynchronous Flow","url":"https://kotlinlang.org/docs/flow.html"}]'::jsonb)) then raise exception 'Question coro-009 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('coro-009', 'coroutines-concurrency') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'coro-009' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'coro-009' and revision_number = 1 and status = 'published') where id = 'coro-009' and exists (select 1 from public.question_revisions where question_id = 'coro-009' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('coro-010', 'channels-vs-flows-in-kotlin', 'android-native', 'Senior') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('coro-010', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'متى تستخدم Channel ومتى تفضل استخدام Flow في معمارية تطبيقات أندرويد؟', 'تُستخدم Channel للاتصال من نقطة لنقطة وتوزيع المهام (Queue) حيث يستهلك القيمة مستقبل واحد فقط؛ بينما يُستخدم Flow لبث البيانات المتجددة (Streams) لمستمعين متعددين.', 'تمثل الـ Channel قناة اتصال ساخنة (Hot Communication Pipeline) مناسبة لتمرير الأحداث الفردية التي يجب معالجتها مرة واحدة بدقة (مثل رغبات التنقل بين الشاشات أو إضافة عناصر لطابور إرسال). أما Flow فهو الخيار القياسي لتمثيل حالات الواجهة وتدفقات قواعد البيانات ومراقبة حالة الشبكة المستمرة.', 'val eventChannel = Channel<UiEffect>(Channel.BUFFERED)
+
+// إرسال حدث فردي:
+eventChannel.send(UiEffect.ShowToast("تم الحفظ بنجاح"))
+
+// استهلاك الحدث مرة واحدة فقط:
+val effect = eventChannel.receive()', '["استخدام Channel لإدارة حالة واجهة مستخدم (UI State)، لأنها تفقد قيمتها بمجرد استهلاكها من أول مراقب ولا تحتفظ بقيمة حالية ليعاد رسمها عند تدوير الشاشة."]'::jsonb, '["ما هي استراتيجيات امتلاء الـ Buffer المختلفة في Channel (مثل DROP_OLDEST و SUSPEND)؟"]'::jsonb, '[{"title":"Kotlin Docs — Channels","url":"https://kotlinlang.org/docs/channels.html"}]'::jsonb from public.question_revisions r where r.question_id = 'coro-010' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'coro-010' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'متى تستخدم Channel ومتى تفضل استخدام Flow في معمارية تطبيقات أندرويد؟' or l.short_answer is distinct from 'تُستخدم Channel للاتصال من نقطة لنقطة وتوزيع المهام (Queue) حيث يستهلك القيمة مستقبل واحد فقط؛ بينما يُستخدم Flow لبث البيانات المتجددة (Streams) لمستمعين متعددين.' or l.explanation is distinct from 'تمثل الـ Channel قناة اتصال ساخنة (Hot Communication Pipeline) مناسبة لتمرير الأحداث الفردية التي يجب معالجتها مرة واحدة بدقة (مثل رغبات التنقل بين الشاشات أو إضافة عناصر لطابور إرسال). أما Flow فهو الخيار القياسي لتمثيل حالات الواجهة وتدفقات قواعد البيانات ومراقبة حالة الشبكة المستمرة.' or l.code_example is distinct from 'val eventChannel = Channel<UiEffect>(Channel.BUFFERED)
+
+// إرسال حدث فردي:
+eventChannel.send(UiEffect.ShowToast("تم الحفظ بنجاح"))
+
+// استهلاك الحدث مرة واحدة فقط:
+val effect = eventChannel.receive()' or l.common_mistakes is distinct from '["استخدام Channel لإدارة حالة واجهة مستخدم (UI State)، لأنها تفقد قيمتها بمجرد استهلاكها من أول مراقب ولا تحتفظ بقيمة حالية ليعاد رسمها عند تدوير الشاشة."]'::jsonb or l.follow_up_questions is distinct from '["ما هي استراتيجيات امتلاء الـ Buffer المختلفة في Channel (مثل DROP_OLDEST و SUSPEND)؟"]'::jsonb or l.sources is distinct from '[{"title":"Kotlin Docs — Channels","url":"https://kotlinlang.org/docs/channels.html"}]'::jsonb)) then raise exception 'Question coro-010 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Channels Vs Flows In Kotlin?', 'This question checks the core Channels Vs Flows In Kotlin concept and how to use it safely in Kotlin and Android.', 'Explain Channels Vs Flows In Kotlin with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', 'val eventChannel = Channel<UiEffect>(Channel.BUFFERED)
+
+// إرسال حدث فردي:
+eventChannel.send(UiEffect.ShowToast("تم الحفظ بنجاح"))
+
+// استهلاك الحدث مرة واحدة فقط:
+val effect = eventChannel.receive()', '["Missing the key trade-off in Channels Vs Flows In Kotlin (point 1)."]'::jsonb, '["How would you apply Channels Vs Flows In Kotlin in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Kotlin Docs — Channels","url":"https://kotlinlang.org/docs/channels.html"}]'::jsonb from public.question_revisions r where r.question_id = 'coro-010' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'coro-010' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Channels Vs Flows In Kotlin?' or l.short_answer is distinct from 'This question checks the core Channels Vs Flows In Kotlin concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Channels Vs Flows In Kotlin with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from 'val eventChannel = Channel<UiEffect>(Channel.BUFFERED)
+
+// إرسال حدث فردي:
+eventChannel.send(UiEffect.ShowToast("تم الحفظ بنجاح"))
+
+// استهلاك الحدث مرة واحدة فقط:
+val effect = eventChannel.receive()' or l.common_mistakes is distinct from '["Missing the key trade-off in Channels Vs Flows In Kotlin (point 1)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Channels Vs Flows In Kotlin in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Kotlin Docs — Channels","url":"https://kotlinlang.org/docs/channels.html"}]'::jsonb)) then raise exception 'Question coro-010 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('coro-010', 'coroutines-concurrency') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'coro-010' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'coro-010' and revision_number = 1 and status = 'published') where id = 'coro-010' and exists (select 1 from public.question_revisions where question_id = 'coro-010' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('anet-001', 'retrofit-architecture-and-converters', 'android-native', 'Junior') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('anet-001', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'كيف تعمل مكتبة Retrofit وما دور Converter.Factory و CallAdapter.Factory؟', 'تحول واجهات الـ Java/Kotlin Interface إلى طلبات HTTP عبر الـ Dynamic Proxies؛ يتولى Converter تحويل JSON لكائنات، بينما يحول CallAdapter الـ Call إلى Coroutines Suspend أو RxJava.', 'تستخدم Retrofit مكتبة OkHttp كعميل شبكة داخلي. عند استدعاء دالة الـ API، تقوم الـ Converter.Factory (مثل Moshi أو Kotlinx.Serialization) بتحويل جسم الطلب والاستجابة من وإلى نصوص JSON. أما CallAdapter.Factory فيسمح للدالة بإرجاع أنواع مخصصة مثل Response<T> أو العمل مباشرة مع Coroutines عبر الكلمة المفتاحية suspend.', 'interface UserApiService {
+    @GET("users/{id}")
+    suspend fun getUser(@Path("id") userId: String): UserDto
+}
+
+val retrofit = Retrofit.Builder()
+    .baseUrl("https://api.example.com/")
+    .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
+    .build()', '["نسيان إضافة شرطة مائلة (/) في نهاية baseUrl مما يؤدي لخطأ IllegalArgumentException عند إنشاء Retrofit.","تنفيذ استدعاءات الـ API القديمة المتزامنة (call.execute()) على الـ Main Thread مما يسبب NetworkOnMainThreadException."]'::jsonb, '["كيف تترجم Retrofit دوال الـ suspend داخليًا دون الحاجة لـ CallAdapter خارجي؟"]'::jsonb, '[{"title":"Android Developers — Connect to the network","url":"https://developer.android.com/training/basics/network-ops/connecting"}]'::jsonb from public.question_revisions r where r.question_id = 'anet-001' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'anet-001' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'كيف تعمل مكتبة Retrofit وما دور Converter.Factory و CallAdapter.Factory؟' or l.short_answer is distinct from 'تحول واجهات الـ Java/Kotlin Interface إلى طلبات HTTP عبر الـ Dynamic Proxies؛ يتولى Converter تحويل JSON لكائنات، بينما يحول CallAdapter الـ Call إلى Coroutines Suspend أو RxJava.' or l.explanation is distinct from 'تستخدم Retrofit مكتبة OkHttp كعميل شبكة داخلي. عند استدعاء دالة الـ API، تقوم الـ Converter.Factory (مثل Moshi أو Kotlinx.Serialization) بتحويل جسم الطلب والاستجابة من وإلى نصوص JSON. أما CallAdapter.Factory فيسمح للدالة بإرجاع أنواع مخصصة مثل Response<T> أو العمل مباشرة مع Coroutines عبر الكلمة المفتاحية suspend.' or l.code_example is distinct from 'interface UserApiService {
+    @GET("users/{id}")
+    suspend fun getUser(@Path("id") userId: String): UserDto
+}
+
+val retrofit = Retrofit.Builder()
+    .baseUrl("https://api.example.com/")
+    .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
+    .build()' or l.common_mistakes is distinct from '["نسيان إضافة شرطة مائلة (/) في نهاية baseUrl مما يؤدي لخطأ IllegalArgumentException عند إنشاء Retrofit.","تنفيذ استدعاءات الـ API القديمة المتزامنة (call.execute()) على الـ Main Thread مما يسبب NetworkOnMainThreadException."]'::jsonb or l.follow_up_questions is distinct from '["كيف تترجم Retrofit دوال الـ suspend داخليًا دون الحاجة لـ CallAdapter خارجي؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Connect to the network","url":"https://developer.android.com/training/basics/network-ops/connecting"}]'::jsonb)) then raise exception 'Question anet-001 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Retrofit Architecture And Converters?', 'This question checks the core Retrofit Architecture And Converters concept and how to use it safely in Kotlin and Android.', 'Explain Retrofit Architecture And Converters with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', 'interface UserApiService {
+    @GET("users/{id}")
+    suspend fun getUser(@Path("id") userId: String): UserDto
+}
+
+val retrofit = Retrofit.Builder()
+    .baseUrl("https://api.example.com/")
+    .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
+    .build()', '["Missing the key trade-off in Retrofit Architecture And Converters (point 1).","Missing the key trade-off in Retrofit Architecture And Converters (point 2)."]'::jsonb, '["How would you apply Retrofit Architecture And Converters in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Connect to the network","url":"https://developer.android.com/training/basics/network-ops/connecting"}]'::jsonb from public.question_revisions r where r.question_id = 'anet-001' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'anet-001' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Retrofit Architecture And Converters?' or l.short_answer is distinct from 'This question checks the core Retrofit Architecture And Converters concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Retrofit Architecture And Converters with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from 'interface UserApiService {
+    @GET("users/{id}")
+    suspend fun getUser(@Path("id") userId: String): UserDto
+}
+
+val retrofit = Retrofit.Builder()
+    .baseUrl("https://api.example.com/")
+    .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
+    .build()' or l.common_mistakes is distinct from '["Missing the key trade-off in Retrofit Architecture And Converters (point 1).","Missing the key trade-off in Retrofit Architecture And Converters (point 2)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Retrofit Architecture And Converters in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Connect to the network","url":"https://developer.android.com/training/basics/network-ops/connecting"}]'::jsonb)) then raise exception 'Question anet-001 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('anet-001', 'networking-android') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'anet-001' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'anet-001' and revision_number = 1 and status = 'published') where id = 'anet-001' and exists (select 1 from public.question_revisions where question_id = 'anet-001' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('anet-002', 'okhttp-interceptors-application-vs-network', 'android-native', 'Junior') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('anet-002', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما الفرق بين Application Interceptor و Network Interceptor في مكتبة OkHttp؟', 'Application Interceptor يُستدعى مرة واحدة فقط لكل طلب من التطبيق دون النظر لإعادة المحاولة أو الكاش؛ بينما Network Interceptor يراقب حركة الشبكة الحقيقية عبر السلك (Over-the-wire).', 'يُوضع Application Interceptor في أعلى السلسلة، وهو مثالي لإضافة Headers ثابتة مثل Authorization Bearer Token أو قياس زمن المعالجة الإجمالي. أما Network Interceptor فيوضع بالقرب من السلك الفعلي، ويستدعى مع كل إعادة توجيه (Redirect) أو محاولة اتصال جديدة، ولا يُستدعى إطلاقًا إذا تم تلبية الطلب من الـ Cache المحلي دون اتصال بالشبكة.', 'val okHttpClient = OkHttpClient.Builder()
+    // 1. Application Interceptor: إضافة مفتاح الدخول
+    .addInterceptor { chain ->
+        val request = chain.request().newBuilder()
+            .addHeader("Authorization", "Bearer $token")
+            .build()
+        chain.proceed(request)
+    }
+    // 2. Network Interceptor: مراقبة الـ Headers الحقيقية وسرعة النقل
+    .addNetworkInterceptor(HttpLoggingInterceptor().apply {
+        level = HttpLoggingInterceptor.Level.HEADERS
+    })
+    .build()', '["محاولة إضافة Headers لتخطي الكاش في Network Interceptor وتوقع عملها محليًا قبل استشارة السلك."]'::jsonb, '["ما هو دور Authenticator في OkHttp لإعادة تجديد التوكن (Token Refresh) تلقائيًا عند استقبال 401 Unauthorized؟"]'::jsonb, '[{"title":"Android Developers — Perform network operations","url":"https://developer.android.com/training/basics/network-ops"}]'::jsonb from public.question_revisions r where r.question_id = 'anet-002' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'anet-002' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما الفرق بين Application Interceptor و Network Interceptor في مكتبة OkHttp؟' or l.short_answer is distinct from 'Application Interceptor يُستدعى مرة واحدة فقط لكل طلب من التطبيق دون النظر لإعادة المحاولة أو الكاش؛ بينما Network Interceptor يراقب حركة الشبكة الحقيقية عبر السلك (Over-the-wire).' or l.explanation is distinct from 'يُوضع Application Interceptor في أعلى السلسلة، وهو مثالي لإضافة Headers ثابتة مثل Authorization Bearer Token أو قياس زمن المعالجة الإجمالي. أما Network Interceptor فيوضع بالقرب من السلك الفعلي، ويستدعى مع كل إعادة توجيه (Redirect) أو محاولة اتصال جديدة، ولا يُستدعى إطلاقًا إذا تم تلبية الطلب من الـ Cache المحلي دون اتصال بالشبكة.' or l.code_example is distinct from 'val okHttpClient = OkHttpClient.Builder()
+    // 1. Application Interceptor: إضافة مفتاح الدخول
+    .addInterceptor { chain ->
+        val request = chain.request().newBuilder()
+            .addHeader("Authorization", "Bearer $token")
+            .build()
+        chain.proceed(request)
+    }
+    // 2. Network Interceptor: مراقبة الـ Headers الحقيقية وسرعة النقل
+    .addNetworkInterceptor(HttpLoggingInterceptor().apply {
+        level = HttpLoggingInterceptor.Level.HEADERS
+    })
+    .build()' or l.common_mistakes is distinct from '["محاولة إضافة Headers لتخطي الكاش في Network Interceptor وتوقع عملها محليًا قبل استشارة السلك."]'::jsonb or l.follow_up_questions is distinct from '["ما هو دور Authenticator في OkHttp لإعادة تجديد التوكن (Token Refresh) تلقائيًا عند استقبال 401 Unauthorized؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Perform network operations","url":"https://developer.android.com/training/basics/network-ops"}]'::jsonb)) then raise exception 'Question anet-002 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Okhttp Interceptors Application Vs Network?', 'This question checks the core Okhttp Interceptors Application Vs Network concept and how to use it safely in Kotlin and Android.', 'Explain Okhttp Interceptors Application Vs Network with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', 'val okHttpClient = OkHttpClient.Builder()
+    // 1. Application Interceptor: إضافة مفتاح الدخول
+    .addInterceptor { chain ->
+        val request = chain.request().newBuilder()
+            .addHeader("Authorization", "Bearer $token")
+            .build()
+        chain.proceed(request)
+    }
+    // 2. Network Interceptor: مراقبة الـ Headers الحقيقية وسرعة النقل
+    .addNetworkInterceptor(HttpLoggingInterceptor().apply {
+        level = HttpLoggingInterceptor.Level.HEADERS
+    })
+    .build()', '["Missing the key trade-off in Okhttp Interceptors Application Vs Network (point 1)."]'::jsonb, '["How would you apply Okhttp Interceptors Application Vs Network in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Perform network operations","url":"https://developer.android.com/training/basics/network-ops"}]'::jsonb from public.question_revisions r where r.question_id = 'anet-002' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'anet-002' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Okhttp Interceptors Application Vs Network?' or l.short_answer is distinct from 'This question checks the core Okhttp Interceptors Application Vs Network concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Okhttp Interceptors Application Vs Network with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from 'val okHttpClient = OkHttpClient.Builder()
+    // 1. Application Interceptor: إضافة مفتاح الدخول
+    .addInterceptor { chain ->
+        val request = chain.request().newBuilder()
+            .addHeader("Authorization", "Bearer $token")
+            .build()
+        chain.proceed(request)
+    }
+    // 2. Network Interceptor: مراقبة الـ Headers الحقيقية وسرعة النقل
+    .addNetworkInterceptor(HttpLoggingInterceptor().apply {
+        level = HttpLoggingInterceptor.Level.HEADERS
+    })
+    .build()' or l.common_mistakes is distinct from '["Missing the key trade-off in Okhttp Interceptors Application Vs Network (point 1)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Okhttp Interceptors Application Vs Network in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Perform network operations","url":"https://developer.android.com/training/basics/network-ops"}]'::jsonb)) then raise exception 'Question anet-002 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('anet-002', 'networking-android') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'anet-002' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'anet-002' and revision_number = 1 and status = 'published') where id = 'anet-002' and exists (select 1 from public.question_revisions where question_id = 'anet-002' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('anet-003', 'json-parsing-moshi-vs-kotlinx-serialization', 'android-native', 'Mid') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('anet-003', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'لماذا يفضل استخدام Moshi أو Kotlinx Serialization بدلاً من Gson في كود Kotlin الحديث؟', 'لأنهما يدعمان نظام Null Safety في Kotlin بشكل أصيل ولا يتجاوزان القيم الافتراضية للخصائص كما يفعل Gson باستخدام الـ Reflection غير الآمن.', 'يقوم Gson بإنشاء الكائنات باستخدام Unsafe Allocator دون استدعاء الـ Constructors، مما قد يؤدي لإسناد قيمة null لخاصية معلنة كـ Non-Nullable String في Kotlin، مسببًا NullPointerException مفاجئًا لاحقًا. يوفر Moshi و Kotlinx.Serialization توليد كود سريع وقت الترجمة (Code Generation) وفحصًا صارمًا للأنواع والقيم الافتراضية.', '@Serializable // Kotlinx Serialization وقت الترجمة بدون انعكاس بطيء
+data class UserDto(
+    val id: Long,
+    val username: String,
+    val bio: String = "لا توجد نبذة" // تحافظ على القيمة الافتراضية بأمان
+)', '["الاعتماد على Gson مع كائنات Kotlin Data Class وتوقع رمي استثناء عند استقبال حقول فارغة مخالفة للـ Non-Null contract."]'::jsonb, '["كيف تختلف Kotlinx Serialization في دعم مشاركة الكود مع Kotlin Multiplatform (KMP)؟"]'::jsonb, '[{"title":"Kotlin Docs — Kotlinx serialization guide","url":"https://kotlinlang.org/docs/serialization.html"}]'::jsonb from public.question_revisions r where r.question_id = 'anet-003' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'anet-003' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'لماذا يفضل استخدام Moshi أو Kotlinx Serialization بدلاً من Gson في كود Kotlin الحديث؟' or l.short_answer is distinct from 'لأنهما يدعمان نظام Null Safety في Kotlin بشكل أصيل ولا يتجاوزان القيم الافتراضية للخصائص كما يفعل Gson باستخدام الـ Reflection غير الآمن.' or l.explanation is distinct from 'يقوم Gson بإنشاء الكائنات باستخدام Unsafe Allocator دون استدعاء الـ Constructors، مما قد يؤدي لإسناد قيمة null لخاصية معلنة كـ Non-Nullable String في Kotlin، مسببًا NullPointerException مفاجئًا لاحقًا. يوفر Moshi و Kotlinx.Serialization توليد كود سريع وقت الترجمة (Code Generation) وفحصًا صارمًا للأنواع والقيم الافتراضية.' or l.code_example is distinct from '@Serializable // Kotlinx Serialization وقت الترجمة بدون انعكاس بطيء
+data class UserDto(
+    val id: Long,
+    val username: String,
+    val bio: String = "لا توجد نبذة" // تحافظ على القيمة الافتراضية بأمان
+)' or l.common_mistakes is distinct from '["الاعتماد على Gson مع كائنات Kotlin Data Class وتوقع رمي استثناء عند استقبال حقول فارغة مخالفة للـ Non-Null contract."]'::jsonb or l.follow_up_questions is distinct from '["كيف تختلف Kotlinx Serialization في دعم مشاركة الكود مع Kotlin Multiplatform (KMP)؟"]'::jsonb or l.sources is distinct from '[{"title":"Kotlin Docs — Kotlinx serialization guide","url":"https://kotlinlang.org/docs/serialization.html"}]'::jsonb)) then raise exception 'Question anet-003 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Json Parsing Moshi Vs Kotlinx Serialization?', 'This question checks the core Json Parsing Moshi Vs Kotlinx Serialization concept and how to use it safely in Kotlin and Android.', 'Explain Json Parsing Moshi Vs Kotlinx Serialization with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', '@Serializable // Kotlinx Serialization وقت الترجمة بدون انعكاس بطيء
+data class UserDto(
+    val id: Long,
+    val username: String,
+    val bio: String = "لا توجد نبذة" // تحافظ على القيمة الافتراضية بأمان
+)', '["Missing the key trade-off in Json Parsing Moshi Vs Kotlinx Serialization (point 1)."]'::jsonb, '["How would you apply Json Parsing Moshi Vs Kotlinx Serialization in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Kotlin Docs — Kotlinx serialization guide","url":"https://kotlinlang.org/docs/serialization.html"}]'::jsonb from public.question_revisions r where r.question_id = 'anet-003' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'anet-003' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Json Parsing Moshi Vs Kotlinx Serialization?' or l.short_answer is distinct from 'This question checks the core Json Parsing Moshi Vs Kotlinx Serialization concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Json Parsing Moshi Vs Kotlinx Serialization with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from '@Serializable // Kotlinx Serialization وقت الترجمة بدون انعكاس بطيء
+data class UserDto(
+    val id: Long,
+    val username: String,
+    val bio: String = "لا توجد نبذة" // تحافظ على القيمة الافتراضية بأمان
+)' or l.common_mistakes is distinct from '["Missing the key trade-off in Json Parsing Moshi Vs Kotlinx Serialization (point 1)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Json Parsing Moshi Vs Kotlinx Serialization in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Kotlin Docs — Kotlinx serialization guide","url":"https://kotlinlang.org/docs/serialization.html"}]'::jsonb)) then raise exception 'Question anet-003 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('anet-003', 'networking-android') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'anet-003' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'anet-003' and revision_number = 1 and status = 'published') where id = 'anet-003' and exists (select 1 from public.question_revisions where question_id = 'anet-003' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('anet-004', 'network-error-handling-and-result-pattern', 'android-native', 'Mid') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('anet-004', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'كيف تطبق نمط Result لتغليف استجابات الشبكة وأخطائها بأمان؟', 'باستخدام Sealed Interface أو Result<T> يمثل النجاح مع البيانات أو الفشل مع نوع الخطأ، مما يجبر المستهلك على معالجة كل السيناريوهات.', 'بدلاً من ترك استثناءات IOException و HttpException ترمى عشوائيًا وتصل للواجهة، يغلف الـ Repository استدعاءات الشبكة داخل كتلة آمنة. هذا يحول أخطاء الشبكة الشائعة (مثل عدم توفر إنترنت، انتهاء المهلة، أو خطأ 404/500) إلى حالات واضحة تترجمها الواجهة إلى رسائل مفهومة للمستخدم دون انهيار التطبيق.', 'sealed interface NetworkResult<out T> {
+    data class Success<T>(val data: T) : NetworkResult<T>
+    data class Error(val code: Int, val message: String?) : NetworkResult<Nothing>
+    data class Exception(val throwable: Throwable) : NetworkResult<Nothing>
+}
+
+suspend fun safeApiCall(apiCall: suspend () -> T): NetworkResult<T> {
+    return try {
+        NetworkResult.Success(apiCall())
+    } catch (e: HttpException) {
+        NetworkResult.Error(e.code(), e.message())
+    } catch (e: IOException) {
+        NetworkResult.Exception(e)
+    }
+}', '["التقاط Throwable بشكل أعمى بدون تمييز CancellationException، مما يمنع إلغاء الكوروتين عند مغادرة الشاشة."]'::jsonb, '["لماذا يجب عدم ابتلاع CancellationException داخل دوال الـ safeApiCall؟"]'::jsonb, '[{"title":"Android Developers — Loading data and error handling","url":"https://developer.android.com/topic/architecture/data-layer#handling-errors"}]'::jsonb from public.question_revisions r where r.question_id = 'anet-004' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'anet-004' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'كيف تطبق نمط Result لتغليف استجابات الشبكة وأخطائها بأمان؟' or l.short_answer is distinct from 'باستخدام Sealed Interface أو Result<T> يمثل النجاح مع البيانات أو الفشل مع نوع الخطأ، مما يجبر المستهلك على معالجة كل السيناريوهات.' or l.explanation is distinct from 'بدلاً من ترك استثناءات IOException و HttpException ترمى عشوائيًا وتصل للواجهة، يغلف الـ Repository استدعاءات الشبكة داخل كتلة آمنة. هذا يحول أخطاء الشبكة الشائعة (مثل عدم توفر إنترنت، انتهاء المهلة، أو خطأ 404/500) إلى حالات واضحة تترجمها الواجهة إلى رسائل مفهومة للمستخدم دون انهيار التطبيق.' or l.code_example is distinct from 'sealed interface NetworkResult<out T> {
+    data class Success<T>(val data: T) : NetworkResult<T>
+    data class Error(val code: Int, val message: String?) : NetworkResult<Nothing>
+    data class Exception(val throwable: Throwable) : NetworkResult<Nothing>
+}
+
+suspend fun safeApiCall(apiCall: suspend () -> T): NetworkResult<T> {
+    return try {
+        NetworkResult.Success(apiCall())
+    } catch (e: HttpException) {
+        NetworkResult.Error(e.code(), e.message())
+    } catch (e: IOException) {
+        NetworkResult.Exception(e)
+    }
+}' or l.common_mistakes is distinct from '["التقاط Throwable بشكل أعمى بدون تمييز CancellationException، مما يمنع إلغاء الكوروتين عند مغادرة الشاشة."]'::jsonb or l.follow_up_questions is distinct from '["لماذا يجب عدم ابتلاع CancellationException داخل دوال الـ safeApiCall؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Loading data and error handling","url":"https://developer.android.com/topic/architecture/data-layer#handling-errors"}]'::jsonb)) then raise exception 'Question anet-004 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Network Error Handling And Result Pattern?', 'This question checks the core Network Error Handling And Result Pattern concept and how to use it safely in Kotlin and Android.', 'Explain Network Error Handling And Result Pattern with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', 'sealed interface NetworkResult<out T> {
+    data class Success<T>(val data: T) : NetworkResult<T>
+    data class Error(val code: Int, val message: String?) : NetworkResult<Nothing>
+    data class Exception(val throwable: Throwable) : NetworkResult<Nothing>
+}
+
+suspend fun safeApiCall(apiCall: suspend () -> T): NetworkResult<T> {
+    return try {
+        NetworkResult.Success(apiCall())
+    } catch (e: HttpException) {
+        NetworkResult.Error(e.code(), e.message())
+    } catch (e: IOException) {
+        NetworkResult.Exception(e)
+    }
+}', '["Missing the key trade-off in Network Error Handling And Result Pattern (point 1)."]'::jsonb, '["How would you apply Network Error Handling And Result Pattern in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Loading data and error handling","url":"https://developer.android.com/topic/architecture/data-layer#handling-errors"}]'::jsonb from public.question_revisions r where r.question_id = 'anet-004' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'anet-004' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Network Error Handling And Result Pattern?' or l.short_answer is distinct from 'This question checks the core Network Error Handling And Result Pattern concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Network Error Handling And Result Pattern with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from 'sealed interface NetworkResult<out T> {
+    data class Success<T>(val data: T) : NetworkResult<T>
+    data class Error(val code: Int, val message: String?) : NetworkResult<Nothing>
+    data class Exception(val throwable: Throwable) : NetworkResult<Nothing>
+}
+
+suspend fun safeApiCall(apiCall: suspend () -> T): NetworkResult<T> {
+    return try {
+        NetworkResult.Success(apiCall())
+    } catch (e: HttpException) {
+        NetworkResult.Error(e.code(), e.message())
+    } catch (e: IOException) {
+        NetworkResult.Exception(e)
+    }
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Network Error Handling And Result Pattern (point 1)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Network Error Handling And Result Pattern in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Loading data and error handling","url":"https://developer.android.com/topic/architecture/data-layer#handling-errors"}]'::jsonb)) then raise exception 'Question anet-004 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('anet-004', 'networking-android') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'anet-004' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'anet-004' and revision_number = 1 and status = 'published') where id = 'anet-004' and exists (select 1 from public.question_revisions where question_id = 'anet-004' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('anet-005', 'ssl-pinning-in-android', 'android-native', 'Senior') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('anet-005', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما هو الـ SSL/Certificate Pinning وكيف يتم تنفيذه لحماية التطبيق من هجمات MITM؟', 'هو تقييد الاتصال بالخادم بشهادة أمان أو بصمة مفتاح عام (Public Key Hash) محددة مسبقًا داخل التطبيق بدلاً من الثقة في كل الشهادات الموثقة بالنظام.', 'يحمي تثبيت الشهادات التطبيق من هجمات Man-in-the-Middle (MITM) حتى لو قام المهاجم بتثبيت شهادة جذرية خبيثة (Root CA) على جهاز المستخدم. يتم ضبطه في OkHttp باستخدام CertificatePinner أو في ملف Network Security Config. يجب دائمًا تضمين بصمة لمفتاح بديل (Backup Pin) لتفادي توقف التطبيق عند تجديد شهادات السيرفر.', 'val certificatePinner = CertificatePinner.Builder()
+    .add("api.example.com", "sha256/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=")
+    .add("api.example.com", "sha256/BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB=") // Backup pin
+    .build()
+
+val client = OkHttpClient.Builder()
+    .certificatePinner(certificatePinner)
+    .build()', '["تثبيت بصمة شهادة واحدة فقط بدون مفتاح احتياطي (Backup Pin)، مما يعطل التطبيق تمامًا فور انتهاء صلاحية شهادة الخادم.","تثبيت الشهادة بالكامل بدلاً من تثبيت المفتاح العام (SPKI Pinning) الذي يبقى ثابتًا حتى عند تجديد الشهادة بنفس المفاتيح."]'::jsonb, '["كيف تنفذ تثبيت الشهادات عبر ملف res/xml/network_security_config.xml بدلاً من كود OkHttp؟"]'::jsonb, '[{"title":"Android Developers — Network security configuration","url":"https://developer.android.com/privacy-and-security/security-config"}]'::jsonb from public.question_revisions r where r.question_id = 'anet-005' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'anet-005' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما هو الـ SSL/Certificate Pinning وكيف يتم تنفيذه لحماية التطبيق من هجمات MITM؟' or l.short_answer is distinct from 'هو تقييد الاتصال بالخادم بشهادة أمان أو بصمة مفتاح عام (Public Key Hash) محددة مسبقًا داخل التطبيق بدلاً من الثقة في كل الشهادات الموثقة بالنظام.' or l.explanation is distinct from 'يحمي تثبيت الشهادات التطبيق من هجمات Man-in-the-Middle (MITM) حتى لو قام المهاجم بتثبيت شهادة جذرية خبيثة (Root CA) على جهاز المستخدم. يتم ضبطه في OkHttp باستخدام CertificatePinner أو في ملف Network Security Config. يجب دائمًا تضمين بصمة لمفتاح بديل (Backup Pin) لتفادي توقف التطبيق عند تجديد شهادات السيرفر.' or l.code_example is distinct from 'val certificatePinner = CertificatePinner.Builder()
+    .add("api.example.com", "sha256/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=")
+    .add("api.example.com", "sha256/BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB=") // Backup pin
+    .build()
+
+val client = OkHttpClient.Builder()
+    .certificatePinner(certificatePinner)
+    .build()' or l.common_mistakes is distinct from '["تثبيت بصمة شهادة واحدة فقط بدون مفتاح احتياطي (Backup Pin)، مما يعطل التطبيق تمامًا فور انتهاء صلاحية شهادة الخادم.","تثبيت الشهادة بالكامل بدلاً من تثبيت المفتاح العام (SPKI Pinning) الذي يبقى ثابتًا حتى عند تجديد الشهادة بنفس المفاتيح."]'::jsonb or l.follow_up_questions is distinct from '["كيف تنفذ تثبيت الشهادات عبر ملف res/xml/network_security_config.xml بدلاً من كود OkHttp؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Network security configuration","url":"https://developer.android.com/privacy-and-security/security-config"}]'::jsonb)) then raise exception 'Question anet-005 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Ssl Pinning In Android?', 'This question checks the core Ssl Pinning In Android concept and how to use it safely in Kotlin and Android.', 'Explain Ssl Pinning In Android with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', 'val certificatePinner = CertificatePinner.Builder()
+    .add("api.example.com", "sha256/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=")
+    .add("api.example.com", "sha256/BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB=") // Backup pin
+    .build()
+
+val client = OkHttpClient.Builder()
+    .certificatePinner(certificatePinner)
+    .build()', '["Missing the key trade-off in Ssl Pinning In Android (point 1).","Missing the key trade-off in Ssl Pinning In Android (point 2)."]'::jsonb, '["How would you apply Ssl Pinning In Android in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Network security configuration","url":"https://developer.android.com/privacy-and-security/security-config"}]'::jsonb from public.question_revisions r where r.question_id = 'anet-005' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'anet-005' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Ssl Pinning In Android?' or l.short_answer is distinct from 'This question checks the core Ssl Pinning In Android concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Ssl Pinning In Android with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from 'val certificatePinner = CertificatePinner.Builder()
+    .add("api.example.com", "sha256/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=")
+    .add("api.example.com", "sha256/BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB=") // Backup pin
+    .build()
+
+val client = OkHttpClient.Builder()
+    .certificatePinner(certificatePinner)
+    .build()' or l.common_mistakes is distinct from '["Missing the key trade-off in Ssl Pinning In Android (point 1).","Missing the key trade-off in Ssl Pinning In Android (point 2)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Ssl Pinning In Android in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Network security configuration","url":"https://developer.android.com/privacy-and-security/security-config"}]'::jsonb)) then raise exception 'Question anet-005 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('anet-005', 'networking-android') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'anet-005' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'anet-005' and revision_number = 1 and status = 'published') where id = 'anet-005' and exists (select 1 from public.question_revisions where question_id = 'anet-005' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('anet-006', 'http-caching-and-etag-support', 'android-native', 'Senior') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('anet-006', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'كيف تدير التخزين المؤقت للشبكة (HTTP Caching) ودعم ETag في أندرويد؟', 'بتهيئة كائن okhttp3.Cache مع مسار وحجم محدد، لتقوم OkHttp تلقائيًا بإرسال If-None-Match واستقبال 304 Not Modified دون إعادة تنزيل البيانات.', 'يحترم OkHttp ترويسات Cache-Control القادمة من السيرفر. عند استقبال ETag، يرسل العميل هذا المعرف في الطلبات اللاحقة؛ إذا لم تتغير البيانات، يعيد السيرفر كود 304 مع حمولة فارغة، فتقرأ OkHttp البيانات فورًا من القرص المحلي، مما يوفر استهلاك باقة البيانات وطاقة البطارية وزمن الاستجابة.', 'val cacheSize = 10L * 1024 * 1024 // 10 MB
+val httpCache = Cache(File(context.cacheDir, "http_cache"), cacheSize)
+
+val client = OkHttpClient.Builder()
+    .cache(httpCache)
+    .build()', '["وضع ملفات الـ HTTP Cache في مسار التخزين الداخلي الدائم بدلاً من context.cacheDir الذي يحرره النظام عند امتلاء الذاكرة."]'::jsonb, '["كيف تجبر OkHttp على جلب البيانات من الكاش فقط عند انقطاع الإنترنت عبر Force-Cache؟"]'::jsonb, '[{"title":"Android Developers — Optimize network data usage","url":"https://developer.android.com/topic/performance/network-overview"}]'::jsonb from public.question_revisions r where r.question_id = 'anet-006' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'anet-006' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'كيف تدير التخزين المؤقت للشبكة (HTTP Caching) ودعم ETag في أندرويد؟' or l.short_answer is distinct from 'بتهيئة كائن okhttp3.Cache مع مسار وحجم محدد، لتقوم OkHttp تلقائيًا بإرسال If-None-Match واستقبال 304 Not Modified دون إعادة تنزيل البيانات.' or l.explanation is distinct from 'يحترم OkHttp ترويسات Cache-Control القادمة من السيرفر. عند استقبال ETag، يرسل العميل هذا المعرف في الطلبات اللاحقة؛ إذا لم تتغير البيانات، يعيد السيرفر كود 304 مع حمولة فارغة، فتقرأ OkHttp البيانات فورًا من القرص المحلي، مما يوفر استهلاك باقة البيانات وطاقة البطارية وزمن الاستجابة.' or l.code_example is distinct from 'val cacheSize = 10L * 1024 * 1024 // 10 MB
+val httpCache = Cache(File(context.cacheDir, "http_cache"), cacheSize)
+
+val client = OkHttpClient.Builder()
+    .cache(httpCache)
+    .build()' or l.common_mistakes is distinct from '["وضع ملفات الـ HTTP Cache في مسار التخزين الداخلي الدائم بدلاً من context.cacheDir الذي يحرره النظام عند امتلاء الذاكرة."]'::jsonb or l.follow_up_questions is distinct from '["كيف تجبر OkHttp على جلب البيانات من الكاش فقط عند انقطاع الإنترنت عبر Force-Cache؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Optimize network data usage","url":"https://developer.android.com/topic/performance/network-overview"}]'::jsonb)) then raise exception 'Question anet-006 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Http Caching And Etag Support?', 'This question checks the core Http Caching And Etag Support concept and how to use it safely in Kotlin and Android.', 'Explain Http Caching And Etag Support with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', 'val cacheSize = 10L * 1024 * 1024 // 10 MB
+val httpCache = Cache(File(context.cacheDir, "http_cache"), cacheSize)
+
+val client = OkHttpClient.Builder()
+    .cache(httpCache)
+    .build()', '["Missing the key trade-off in Http Caching And Etag Support (point 1)."]'::jsonb, '["How would you apply Http Caching And Etag Support in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Optimize network data usage","url":"https://developer.android.com/topic/performance/network-overview"}]'::jsonb from public.question_revisions r where r.question_id = 'anet-006' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'anet-006' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Http Caching And Etag Support?' or l.short_answer is distinct from 'This question checks the core Http Caching And Etag Support concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Http Caching And Etag Support with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from 'val cacheSize = 10L * 1024 * 1024 // 10 MB
+val httpCache = Cache(File(context.cacheDir, "http_cache"), cacheSize)
+
+val client = OkHttpClient.Builder()
+    .cache(httpCache)
+    .build()' or l.common_mistakes is distinct from '["Missing the key trade-off in Http Caching And Etag Support (point 1)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Http Caching And Etag Support in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Optimize network data usage","url":"https://developer.android.com/topic/performance/network-overview"}]'::jsonb)) then raise exception 'Question anet-006 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('anet-006', 'networking-android') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'anet-006' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'anet-006' and revision_number = 1 and status = 'published') where id = 'anet-006' and exists (select 1 from public.question_revisions where question_id = 'anet-006' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('astor-001', 'room-architecture-entity-dao-database', 'android-native', 'Junior') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('astor-001', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما هي المكونات الثلاثة الأساسية لمكتبة Room وما دور كل منها؟', 'Entity لتمثيل جداول قاعدة البيانات وأعمدتها، و DAO لتعريف عمليات الاستعلام والإدخال، و RoomDatabase كنقطة الوصول المركزية للاتصال.', 'توفر Room طبقة تجريد قوية فوق SQLite مع فحص استعلامات SQL وقت الترجمة (Compile-time Verification). الـ Entity عبارة عن data class موسومة بـ @Entity. الـ DAO عبارة عن interface يحتوي دوال الإدخال والتعديل والاستعلام مع دعم أصيل لـ Coroutines Flow. أما الـ RoomDatabase فيجمع الجداول ويدير فتح الاتصال وتحديث النسخ.', '@Entity(tableName = "notes")
+data class NoteEntity(
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    val title: String,
+    val content: String
+)
+
+@Dao
+interface NoteDao {
+    @Query("SELECT * FROM notes ORDER BY id DESC")
+    fun getAllNotes(): Flow<List<NoteEntity>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(note: NoteEntity)
+}', '["تنفيذ استعلامات Room المتزامنة على الـ Main Thread مما يسبب كراش فوري (IllegalStateException).","إنشاء أكثر من نسخة من RoomDatabase بدلاً من استخدام نمط الـ Singleton لحقن نسخة وحيدة."]'::jsonb, '["ما الفائدة من إرجاع Flow<List<T>> من دالة الـ DAO بدلاً من List<T> عادية؟"]'::jsonb, '[{"title":"Android Developers — Save data in a local database using Room","url":"https://developer.android.com/training/data-storage/room"}]'::jsonb from public.question_revisions r where r.question_id = 'astor-001' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'astor-001' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما هي المكونات الثلاثة الأساسية لمكتبة Room وما دور كل منها؟' or l.short_answer is distinct from 'Entity لتمثيل جداول قاعدة البيانات وأعمدتها، و DAO لتعريف عمليات الاستعلام والإدخال، و RoomDatabase كنقطة الوصول المركزية للاتصال.' or l.explanation is distinct from 'توفر Room طبقة تجريد قوية فوق SQLite مع فحص استعلامات SQL وقت الترجمة (Compile-time Verification). الـ Entity عبارة عن data class موسومة بـ @Entity. الـ DAO عبارة عن interface يحتوي دوال الإدخال والتعديل والاستعلام مع دعم أصيل لـ Coroutines Flow. أما الـ RoomDatabase فيجمع الجداول ويدير فتح الاتصال وتحديث النسخ.' or l.code_example is distinct from '@Entity(tableName = "notes")
+data class NoteEntity(
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    val title: String,
+    val content: String
+)
+
+@Dao
+interface NoteDao {
+    @Query("SELECT * FROM notes ORDER BY id DESC")
+    fun getAllNotes(): Flow<List<NoteEntity>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(note: NoteEntity)
+}' or l.common_mistakes is distinct from '["تنفيذ استعلامات Room المتزامنة على الـ Main Thread مما يسبب كراش فوري (IllegalStateException).","إنشاء أكثر من نسخة من RoomDatabase بدلاً من استخدام نمط الـ Singleton لحقن نسخة وحيدة."]'::jsonb or l.follow_up_questions is distinct from '["ما الفائدة من إرجاع Flow<List<T>> من دالة الـ DAO بدلاً من List<T> عادية؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Save data in a local database using Room","url":"https://developer.android.com/training/data-storage/room"}]'::jsonb)) then raise exception 'Question astor-001 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Room Architecture Entity Dao Database?', 'This question checks the core Room Architecture Entity Dao Database concept and how to use it safely in Kotlin and Android.', 'Explain Room Architecture Entity Dao Database with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', '@Entity(tableName = "notes")
+data class NoteEntity(
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    val title: String,
+    val content: String
+)
+
+@Dao
+interface NoteDao {
+    @Query("SELECT * FROM notes ORDER BY id DESC")
+    fun getAllNotes(): Flow<List<NoteEntity>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(note: NoteEntity)
+}', '["Missing the key trade-off in Room Architecture Entity Dao Database (point 1).","Missing the key trade-off in Room Architecture Entity Dao Database (point 2)."]'::jsonb, '["How would you apply Room Architecture Entity Dao Database in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Save data in a local database using Room","url":"https://developer.android.com/training/data-storage/room"}]'::jsonb from public.question_revisions r where r.question_id = 'astor-001' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'astor-001' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Room Architecture Entity Dao Database?' or l.short_answer is distinct from 'This question checks the core Room Architecture Entity Dao Database concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Room Architecture Entity Dao Database with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from '@Entity(tableName = "notes")
+data class NoteEntity(
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    val title: String,
+    val content: String
+)
+
+@Dao
+interface NoteDao {
+    @Query("SELECT * FROM notes ORDER BY id DESC")
+    fun getAllNotes(): Flow<List<NoteEntity>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(note: NoteEntity)
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Room Architecture Entity Dao Database (point 1).","Missing the key trade-off in Room Architecture Entity Dao Database (point 2)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Room Architecture Entity Dao Database in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Save data in a local database using Room","url":"https://developer.android.com/training/data-storage/room"}]'::jsonb)) then raise exception 'Question astor-001 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('astor-001', 'local-storage-android') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'astor-001' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'astor-001' and revision_number = 1 and status = 'published') where id = 'astor-001' and exists (select 1 from public.question_revisions where question_id = 'astor-001' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('astor-002', 'datastore-vs-sharedpreferences', 'android-native', 'Junior') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('astor-002', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'لماذا ينصح بالانتقال من SharedPreferences إلى Jetpack DataStore؟', 'لأن DataStore آمن تمامًا للـ Threads، ويعتمد على Kotlin Coroutines و Flow، ويتعامل مع الأخطاء بأمان دون حجب الـ UI أو التسبب في أخطاء ANR.', 'كانت SharedPreferences تعتمد على عمليات قراءة وكتابة قد تحجب الـ UI Thread (عبر apply أو commit المتزامن) مما يسبب ANR، بالإضافة لعدم وجود آلية موحدة للإبلاغ عن أخطاء الكتابة على القرص. يوفر DataStore معالجة غير متزامنة بالكامل تضمن التماسك الذري للبيانات ويدعم نمطين: Preferences DataStore و Proto DataStore.', '// قراءة تدفق الإعدادات بأمان:
+val IS_DARK_MODE = booleanPreferencesKey("is_dark_mode")
+
+val isDarkModeFlow: Flow<Boolean> = context.dataStore.data
+    .map { preferences -> preferences[IS_DARK_MODE] ?: false }
+
+// حفظ الإعداد بشكل غير متزامن:
+suspend fun setDarkMode(enabled: Boolean) {
+    context.dataStore.edit { preferences ->
+        preferences[IS_DARK_MODE] = enabled
+    }
+}', '["محاولة قراءة قيمة DataStore بطريقة متزامنة بحجب الخيط (runBlocking) مما يعيد إنتاج نفس مشاكل SharedPreferences."]'::jsonb, '["كيف تهاجر البيانات الحالية المخزنة في SharedPreferences إلى DataStore تلقائيًا؟"]'::jsonb, '[{"title":"Android Developers — DataStore overview","url":"https://developer.android.com/topic/libraries/architecture/datastore"}]'::jsonb from public.question_revisions r where r.question_id = 'astor-002' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'astor-002' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'لماذا ينصح بالانتقال من SharedPreferences إلى Jetpack DataStore؟' or l.short_answer is distinct from 'لأن DataStore آمن تمامًا للـ Threads، ويعتمد على Kotlin Coroutines و Flow، ويتعامل مع الأخطاء بأمان دون حجب الـ UI أو التسبب في أخطاء ANR.' or l.explanation is distinct from 'كانت SharedPreferences تعتمد على عمليات قراءة وكتابة قد تحجب الـ UI Thread (عبر apply أو commit المتزامن) مما يسبب ANR، بالإضافة لعدم وجود آلية موحدة للإبلاغ عن أخطاء الكتابة على القرص. يوفر DataStore معالجة غير متزامنة بالكامل تضمن التماسك الذري للبيانات ويدعم نمطين: Preferences DataStore و Proto DataStore.' or l.code_example is distinct from '// قراءة تدفق الإعدادات بأمان:
+val IS_DARK_MODE = booleanPreferencesKey("is_dark_mode")
+
+val isDarkModeFlow: Flow<Boolean> = context.dataStore.data
+    .map { preferences -> preferences[IS_DARK_MODE] ?: false }
+
+// حفظ الإعداد بشكل غير متزامن:
+suspend fun setDarkMode(enabled: Boolean) {
+    context.dataStore.edit { preferences ->
+        preferences[IS_DARK_MODE] = enabled
+    }
+}' or l.common_mistakes is distinct from '["محاولة قراءة قيمة DataStore بطريقة متزامنة بحجب الخيط (runBlocking) مما يعيد إنتاج نفس مشاكل SharedPreferences."]'::jsonb or l.follow_up_questions is distinct from '["كيف تهاجر البيانات الحالية المخزنة في SharedPreferences إلى DataStore تلقائيًا؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — DataStore overview","url":"https://developer.android.com/topic/libraries/architecture/datastore"}]'::jsonb)) then raise exception 'Question astor-002 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Datastore Vs Sharedpreferences?', 'This question checks the core Datastore Vs Sharedpreferences concept and how to use it safely in Kotlin and Android.', 'Explain Datastore Vs Sharedpreferences with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', '// قراءة تدفق الإعدادات بأمان:
+val IS_DARK_MODE = booleanPreferencesKey("is_dark_mode")
+
+val isDarkModeFlow: Flow<Boolean> = context.dataStore.data
+    .map { preferences -> preferences[IS_DARK_MODE] ?: false }
+
+// حفظ الإعداد بشكل غير متزامن:
+suspend fun setDarkMode(enabled: Boolean) {
+    context.dataStore.edit { preferences ->
+        preferences[IS_DARK_MODE] = enabled
+    }
+}', '["Missing the key trade-off in Datastore Vs Sharedpreferences (point 1)."]'::jsonb, '["How would you apply Datastore Vs Sharedpreferences in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — DataStore overview","url":"https://developer.android.com/topic/libraries/architecture/datastore"}]'::jsonb from public.question_revisions r where r.question_id = 'astor-002' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'astor-002' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Datastore Vs Sharedpreferences?' or l.short_answer is distinct from 'This question checks the core Datastore Vs Sharedpreferences concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Datastore Vs Sharedpreferences with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from '// قراءة تدفق الإعدادات بأمان:
+val IS_DARK_MODE = booleanPreferencesKey("is_dark_mode")
+
+val isDarkModeFlow: Flow<Boolean> = context.dataStore.data
+    .map { preferences -> preferences[IS_DARK_MODE] ?: false }
+
+// حفظ الإعداد بشكل غير متزامن:
+suspend fun setDarkMode(enabled: Boolean) {
+    context.dataStore.edit { preferences ->
+        preferences[IS_DARK_MODE] = enabled
+    }
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Datastore Vs Sharedpreferences (point 1)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Datastore Vs Sharedpreferences in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — DataStore overview","url":"https://developer.android.com/topic/libraries/architecture/datastore"}]'::jsonb)) then raise exception 'Question astor-002 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('astor-002', 'local-storage-android') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'astor-002' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'astor-002' and revision_number = 1 and status = 'published') where id = 'astor-002' and exists (select 1 from public.question_revisions where question_id = 'astor-002' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('astor-003', 'room-type-converters', 'android-native', 'Mid') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('astor-003', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'كيف تخزن أنواع بيانات مخصصة (كالتاريخ أو القوائم) في Room باستخدام TypeConverters؟', 'بتعريف دوال تحمل وسم @TypeConverter لتحويل النوع المخصص إلى نوع بدائي تفهمه SQLite (كالنص أو الرقم) وعكسه عند القراءة.', 'تدعم SQLite أنواعًا محدودة (NULL, INTEGER, REAL, TEXT, BLOB). إذا كان لديك حقل من نوع Date أو List<String> في الـ Entity، تقوم بإنشاء كلاس وسيط يحول التاريخ إلى Long (Timestamp) وبالعكس، أو يحول القائمة إلى نص JSON، ثم تسجل الكلاس في الـ Database عبر @TypeConverters.', 'class Converters {
+    @TypeConverter
+    fun fromTimestamp(value: Long?): Date? = value?.let { Date(it) }
+
+    @TypeConverter
+    fun dateToTimestamp(date: Date?): Long? = date?.time
+}
+
+@Database(entities = [Note::class], version = 1)
+@TypeConverters(Converters::class)
+abstract class AppDatabase : RoomDatabase()', '["استخدام TypeConverter لتحويل كائنات كاملة مرتبطة بعلاقات One-to-Many بدلاً من إنشاء جداول وعلاقات أصلية في قاعدة البيانات."]'::jsonb, '["أين يمكن وضع وسم @TypeConverters: هل في قاعدة البيانات فقط أم في كلاس الـ Entity أو الـ DAO؟"]'::jsonb, '[{"title":"Android Developers — Use type converters in Room","url":"https://developer.android.com/training/data-storage/room/referencing-data"}]'::jsonb from public.question_revisions r where r.question_id = 'astor-003' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'astor-003' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'كيف تخزن أنواع بيانات مخصصة (كالتاريخ أو القوائم) في Room باستخدام TypeConverters؟' or l.short_answer is distinct from 'بتعريف دوال تحمل وسم @TypeConverter لتحويل النوع المخصص إلى نوع بدائي تفهمه SQLite (كالنص أو الرقم) وعكسه عند القراءة.' or l.explanation is distinct from 'تدعم SQLite أنواعًا محدودة (NULL, INTEGER, REAL, TEXT, BLOB). إذا كان لديك حقل من نوع Date أو List<String> في الـ Entity، تقوم بإنشاء كلاس وسيط يحول التاريخ إلى Long (Timestamp) وبالعكس، أو يحول القائمة إلى نص JSON، ثم تسجل الكلاس في الـ Database عبر @TypeConverters.' or l.code_example is distinct from 'class Converters {
+    @TypeConverter
+    fun fromTimestamp(value: Long?): Date? = value?.let { Date(it) }
+
+    @TypeConverter
+    fun dateToTimestamp(date: Date?): Long? = date?.time
+}
+
+@Database(entities = [Note::class], version = 1)
+@TypeConverters(Converters::class)
+abstract class AppDatabase : RoomDatabase()' or l.common_mistakes is distinct from '["استخدام TypeConverter لتحويل كائنات كاملة مرتبطة بعلاقات One-to-Many بدلاً من إنشاء جداول وعلاقات أصلية في قاعدة البيانات."]'::jsonb or l.follow_up_questions is distinct from '["أين يمكن وضع وسم @TypeConverters: هل في قاعدة البيانات فقط أم في كلاس الـ Entity أو الـ DAO؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Use type converters in Room","url":"https://developer.android.com/training/data-storage/room/referencing-data"}]'::jsonb)) then raise exception 'Question astor-003 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Room Type Converters?', 'This question checks the core Room Type Converters concept and how to use it safely in Kotlin and Android.', 'Explain Room Type Converters with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', 'class Converters {
+    @TypeConverter
+    fun fromTimestamp(value: Long?): Date? = value?.let { Date(it) }
+
+    @TypeConverter
+    fun dateToTimestamp(date: Date?): Long? = date?.time
+}
+
+@Database(entities = [Note::class], version = 1)
+@TypeConverters(Converters::class)
+abstract class AppDatabase : RoomDatabase()', '["Missing the key trade-off in Room Type Converters (point 1)."]'::jsonb, '["How would you apply Room Type Converters in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Use type converters in Room","url":"https://developer.android.com/training/data-storage/room/referencing-data"}]'::jsonb from public.question_revisions r where r.question_id = 'astor-003' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'astor-003' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Room Type Converters?' or l.short_answer is distinct from 'This question checks the core Room Type Converters concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Room Type Converters with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from 'class Converters {
+    @TypeConverter
+    fun fromTimestamp(value: Long?): Date? = value?.let { Date(it) }
+
+    @TypeConverter
+    fun dateToTimestamp(date: Date?): Long? = date?.time
+}
+
+@Database(entities = [Note::class], version = 1)
+@TypeConverters(Converters::class)
+abstract class AppDatabase : RoomDatabase()' or l.common_mistakes is distinct from '["Missing the key trade-off in Room Type Converters (point 1)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Room Type Converters in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Use type converters in Room","url":"https://developer.android.com/training/data-storage/room/referencing-data"}]'::jsonb)) then raise exception 'Question astor-003 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('astor-003', 'local-storage-android') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'astor-003' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'astor-003' and revision_number = 1 and status = 'published') where id = 'astor-003' and exists (select 1 from public.question_revisions where question_id = 'astor-003' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('astor-004', 'room-database-migrations-automated-vs-manual', 'android-native', 'Mid') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('astor-004', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'كيف تتعامل مع ترقية مخطط قاعدة البيانات (Room Database Migrations) دون فقد بيانات المستخدم؟', 'بزيادة رقم الـ version وكتابة كائن Migration ينفذ أوامر ALTER TABLE المناسبة، أو الاعتماد على AutoMigration إذا كان التعديل بسيطًا.', 'إذا عدلت Entity دون كتابة Migration وزادت النسخة، سينهار التطبيق مع IllegalStateException. يتيح Room كتابة Manual Migration بتنفيذ استعلامات SQL دقيقة، كما يوفر AutoMigration تلقائيًا بدءًا من Room 2.4 للعمليات الشائعة كإضافة أعمدة جديدة أو جداول مع التحقق التام وقت الترجمة عبر ملفات الـ schema export.', 'val MIGRATION_1_2 = object : Migration(1, 2) {
+    override fun migrate(database: SupportSQLiteDatabase) {
+        database.execSQL("ALTER TABLE notes ADD COLUMN is_pinned INTEGER NOT NULL DEFAULT 0")
+    }
+}
+
+Room.databaseBuilder(context, AppDatabase::class.java, "notes.db")
+    .addMigrations(MIGRATION_1_2)
+    .build()', '["استخدام fallbackToDestructiveMigration() في كود الإنتاج (Production)، مما يمسح قاعدة بيانات المستخدم بالكامل عند كل تعديل.","نسيان إضافة exportSchema = true في كلاس قاعدة البيانات لاختبار ومراقبة الـ Migrations."]'::jsonb, '["كيف تختبر صحة الـ Migrations آليًا باستخدام MigrationTestHelper؟"]'::jsonb, '[{"title":"Android Developers — Migrate Room databases","url":"https://developer.android.com/training/data-storage/room/migrating-db-versions"}]'::jsonb from public.question_revisions r where r.question_id = 'astor-004' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'astor-004' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'كيف تتعامل مع ترقية مخطط قاعدة البيانات (Room Database Migrations) دون فقد بيانات المستخدم؟' or l.short_answer is distinct from 'بزيادة رقم الـ version وكتابة كائن Migration ينفذ أوامر ALTER TABLE المناسبة، أو الاعتماد على AutoMigration إذا كان التعديل بسيطًا.' or l.explanation is distinct from 'إذا عدلت Entity دون كتابة Migration وزادت النسخة، سينهار التطبيق مع IllegalStateException. يتيح Room كتابة Manual Migration بتنفيذ استعلامات SQL دقيقة، كما يوفر AutoMigration تلقائيًا بدءًا من Room 2.4 للعمليات الشائعة كإضافة أعمدة جديدة أو جداول مع التحقق التام وقت الترجمة عبر ملفات الـ schema export.' or l.code_example is distinct from 'val MIGRATION_1_2 = object : Migration(1, 2) {
+    override fun migrate(database: SupportSQLiteDatabase) {
+        database.execSQL("ALTER TABLE notes ADD COLUMN is_pinned INTEGER NOT NULL DEFAULT 0")
+    }
+}
+
+Room.databaseBuilder(context, AppDatabase::class.java, "notes.db")
+    .addMigrations(MIGRATION_1_2)
+    .build()' or l.common_mistakes is distinct from '["استخدام fallbackToDestructiveMigration() في كود الإنتاج (Production)، مما يمسح قاعدة بيانات المستخدم بالكامل عند كل تعديل.","نسيان إضافة exportSchema = true في كلاس قاعدة البيانات لاختبار ومراقبة الـ Migrations."]'::jsonb or l.follow_up_questions is distinct from '["كيف تختبر صحة الـ Migrations آليًا باستخدام MigrationTestHelper؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Migrate Room databases","url":"https://developer.android.com/training/data-storage/room/migrating-db-versions"}]'::jsonb)) then raise exception 'Question astor-004 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Room Database Migrations Automated Vs Manual?', 'This question checks the core Room Database Migrations Automated Vs Manual concept and how to use it safely in Kotlin and Android.', 'Explain Room Database Migrations Automated Vs Manual with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', 'val MIGRATION_1_2 = object : Migration(1, 2) {
+    override fun migrate(database: SupportSQLiteDatabase) {
+        database.execSQL("ALTER TABLE notes ADD COLUMN is_pinned INTEGER NOT NULL DEFAULT 0")
+    }
+}
+
+Room.databaseBuilder(context, AppDatabase::class.java, "notes.db")
+    .addMigrations(MIGRATION_1_2)
+    .build()', '["Missing the key trade-off in Room Database Migrations Automated Vs Manual (point 1).","Missing the key trade-off in Room Database Migrations Automated Vs Manual (point 2)."]'::jsonb, '["How would you apply Room Database Migrations Automated Vs Manual in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Migrate Room databases","url":"https://developer.android.com/training/data-storage/room/migrating-db-versions"}]'::jsonb from public.question_revisions r where r.question_id = 'astor-004' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'astor-004' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Room Database Migrations Automated Vs Manual?' or l.short_answer is distinct from 'This question checks the core Room Database Migrations Automated Vs Manual concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Room Database Migrations Automated Vs Manual with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from 'val MIGRATION_1_2 = object : Migration(1, 2) {
+    override fun migrate(database: SupportSQLiteDatabase) {
+        database.execSQL("ALTER TABLE notes ADD COLUMN is_pinned INTEGER NOT NULL DEFAULT 0")
+    }
+}
+
+Room.databaseBuilder(context, AppDatabase::class.java, "notes.db")
+    .addMigrations(MIGRATION_1_2)
+    .build()' or l.common_mistakes is distinct from '["Missing the key trade-off in Room Database Migrations Automated Vs Manual (point 1).","Missing the key trade-off in Room Database Migrations Automated Vs Manual (point 2)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Room Database Migrations Automated Vs Manual in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Migrate Room databases","url":"https://developer.android.com/training/data-storage/room/migrating-db-versions"}]'::jsonb)) then raise exception 'Question astor-004 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('astor-004', 'local-storage-android') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'astor-004' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'astor-004' and revision_number = 1 and status = 'published') where id = 'astor-004' and exists (select 1 from public.question_revisions where question_id = 'astor-004' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('astor-005', 'room-relationships-embedded-and-relation', 'android-native', 'Mid') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('astor-005', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'كيف تصمم العلاقات بين الجداول (One-to-Many و Many-to-Many) في Room؟', 'باستخدام كائنات البيانات الوسيطة مع وسمي @Embedded و @Relation لتحديد المفتاح الأجنبي والمفتاح الرئيسي دون تعقيد الاستعلامات يدويًا.', 'لا تدعم Room العلاقات المباشرة عبر المراجع كما في الـ ORM التقليدي لتفادي التحميل الكسول البطيء (Lazy Loading) على الـ UI Thread. بدلاً من ذلك، تصمم data class خاصة تضم الكائن الرئيسي مع وسم @Embedded، وقائمة الكائنات التابعة مع وسم @Relation يحدد parentColumn و entityColumn، وتتولى Room تنفيذ الاستعلامات وربطها تلقائيًا داخل @Transaction.', 'data class UserWithPlaylists(
+    @Embedded val user: UserEntity,
+    @Relation(
+        parentColumn = "userId",
+        entityColumn = "creatorId"
+    )
+    val playlists: List<PlaylistEntity>
+)
+
+@Transaction
+@Query("SELECT * FROM users WHERE userId = :id")
+suspend fun getUserWithPlaylists(id: Long): UserWithPlaylists', '["نسيان إضافة وسم @Transaction في دالة الـ DAO التي تسترجع كائنًا يحتوي على @Relation، مما قد يسبب قراءة غير متناسقة للبيانات."]'::jsonb, '["كيف يتم تصميم علاقة Many-to-Many باستخدام وسم @Junction في Room؟"]'::jsonb, '[{"title":"Android Developers — Define relationships between objects in Room","url":"https://developer.android.com/training/data-storage/room/relationships"}]'::jsonb from public.question_revisions r where r.question_id = 'astor-005' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'astor-005' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'كيف تصمم العلاقات بين الجداول (One-to-Many و Many-to-Many) في Room؟' or l.short_answer is distinct from 'باستخدام كائنات البيانات الوسيطة مع وسمي @Embedded و @Relation لتحديد المفتاح الأجنبي والمفتاح الرئيسي دون تعقيد الاستعلامات يدويًا.' or l.explanation is distinct from 'لا تدعم Room العلاقات المباشرة عبر المراجع كما في الـ ORM التقليدي لتفادي التحميل الكسول البطيء (Lazy Loading) على الـ UI Thread. بدلاً من ذلك، تصمم data class خاصة تضم الكائن الرئيسي مع وسم @Embedded، وقائمة الكائنات التابعة مع وسم @Relation يحدد parentColumn و entityColumn، وتتولى Room تنفيذ الاستعلامات وربطها تلقائيًا داخل @Transaction.' or l.code_example is distinct from 'data class UserWithPlaylists(
+    @Embedded val user: UserEntity,
+    @Relation(
+        parentColumn = "userId",
+        entityColumn = "creatorId"
+    )
+    val playlists: List<PlaylistEntity>
+)
+
+@Transaction
+@Query("SELECT * FROM users WHERE userId = :id")
+suspend fun getUserWithPlaylists(id: Long): UserWithPlaylists' or l.common_mistakes is distinct from '["نسيان إضافة وسم @Transaction في دالة الـ DAO التي تسترجع كائنًا يحتوي على @Relation، مما قد يسبب قراءة غير متناسقة للبيانات."]'::jsonb or l.follow_up_questions is distinct from '["كيف يتم تصميم علاقة Many-to-Many باستخدام وسم @Junction في Room؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Define relationships between objects in Room","url":"https://developer.android.com/training/data-storage/room/relationships"}]'::jsonb)) then raise exception 'Question astor-005 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Room Relationships Embedded And Relation?', 'This question checks the core Room Relationships Embedded And Relation concept and how to use it safely in Kotlin and Android.', 'Explain Room Relationships Embedded And Relation with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', 'data class UserWithPlaylists(
+    @Embedded val user: UserEntity,
+    @Relation(
+        parentColumn = "userId",
+        entityColumn = "creatorId"
+    )
+    val playlists: List<PlaylistEntity>
+)
+
+@Transaction
+@Query("SELECT * FROM users WHERE userId = :id")
+suspend fun getUserWithPlaylists(id: Long): UserWithPlaylists', '["Missing the key trade-off in Room Relationships Embedded And Relation (point 1)."]'::jsonb, '["How would you apply Room Relationships Embedded And Relation in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Define relationships between objects in Room","url":"https://developer.android.com/training/data-storage/room/relationships"}]'::jsonb from public.question_revisions r where r.question_id = 'astor-005' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'astor-005' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Room Relationships Embedded And Relation?' or l.short_answer is distinct from 'This question checks the core Room Relationships Embedded And Relation concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Room Relationships Embedded And Relation with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from 'data class UserWithPlaylists(
+    @Embedded val user: UserEntity,
+    @Relation(
+        parentColumn = "userId",
+        entityColumn = "creatorId"
+    )
+    val playlists: List<PlaylistEntity>
+)
+
+@Transaction
+@Query("SELECT * FROM users WHERE userId = :id")
+suspend fun getUserWithPlaylists(id: Long): UserWithPlaylists' or l.common_mistakes is distinct from '["Missing the key trade-off in Room Relationships Embedded And Relation (point 1)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Room Relationships Embedded And Relation in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Define relationships between objects in Room","url":"https://developer.android.com/training/data-storage/room/relationships"}]'::jsonb)) then raise exception 'Question astor-005 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('astor-005', 'local-storage-android') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'astor-005' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'astor-005' and revision_number = 1 and status = 'published') where id = 'astor-005' and exists (select 1 from public.question_revisions where question_id = 'astor-005' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('astor-006', 'proto-datastore-vs-preferences-datastore', 'android-native', 'Senior') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('astor-006', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما الفرق بين Preferences DataStore و Proto DataStore ومتى تختار Proto DataStore؟', 'Preferences DataStore يخزن أزواج مفتاح-قيمة بدون Schema محددة مسبقًا؛ بينما Proto DataStore يخزن كائنات مخصصة بأنواع بيانات صارمة وآمنة باستخدام Protocol Buffers.', 'في Preferences DataStore لا يوجد ضمان لسلامة نوع البيانات المرجوعة لكل مفتاح، وقد تقع أخطاء وقت التشغيل عند تغيير النوع. في المقابل، يحدد Proto DataStore هيكل البيانات بدقة في ملف .proto، ويقوم المترجم بتوليد كلاسات مهيكلة وصغيرة الحجم وسريعة جدًا في فك التشفير، مما يجعله الخيار الأمثل للإعدادات المعقدة والحساسة للأنواع.', '// 1. ملف user_prefs.proto:
+// message UserPreferences {
+//     bool show_completed = 1;
+// }
+
+// 2. القراءة في Kotlin بنوع صارم تمامًا:
+val showCompletedFlow: Flow<Boolean> = context.userPreferencesStore.data
+    .map { preferences -> preferences.showCompleted }', '["استخدام Proto DataStore للإعدادات البسيطة جدًا المكونة من مفتاحين أو ثلاثة، حيث يضيف Protocol Buffers عبء إعداد وبناء غير ضروري."]'::jsonb, '["ما هي آلية الـ Serializer المطلوبة لتهيئة وتشفير كائنات Proto DataStore؟"]'::jsonb, '[{"title":"Android Developers — Working with Proto DataStore","url":"https://developer.android.com/topic/libraries/architecture/datastore#proto-datastore"}]'::jsonb from public.question_revisions r where r.question_id = 'astor-006' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'astor-006' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما الفرق بين Preferences DataStore و Proto DataStore ومتى تختار Proto DataStore؟' or l.short_answer is distinct from 'Preferences DataStore يخزن أزواج مفتاح-قيمة بدون Schema محددة مسبقًا؛ بينما Proto DataStore يخزن كائنات مخصصة بأنواع بيانات صارمة وآمنة باستخدام Protocol Buffers.' or l.explanation is distinct from 'في Preferences DataStore لا يوجد ضمان لسلامة نوع البيانات المرجوعة لكل مفتاح، وقد تقع أخطاء وقت التشغيل عند تغيير النوع. في المقابل، يحدد Proto DataStore هيكل البيانات بدقة في ملف .proto، ويقوم المترجم بتوليد كلاسات مهيكلة وصغيرة الحجم وسريعة جدًا في فك التشفير، مما يجعله الخيار الأمثل للإعدادات المعقدة والحساسة للأنواع.' or l.code_example is distinct from '// 1. ملف user_prefs.proto:
+// message UserPreferences {
+//     bool show_completed = 1;
+// }
+
+// 2. القراءة في Kotlin بنوع صارم تمامًا:
+val showCompletedFlow: Flow<Boolean> = context.userPreferencesStore.data
+    .map { preferences -> preferences.showCompleted }' or l.common_mistakes is distinct from '["استخدام Proto DataStore للإعدادات البسيطة جدًا المكونة من مفتاحين أو ثلاثة، حيث يضيف Protocol Buffers عبء إعداد وبناء غير ضروري."]'::jsonb or l.follow_up_questions is distinct from '["ما هي آلية الـ Serializer المطلوبة لتهيئة وتشفير كائنات Proto DataStore؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Working with Proto DataStore","url":"https://developer.android.com/topic/libraries/architecture/datastore#proto-datastore"}]'::jsonb)) then raise exception 'Question astor-006 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Proto Datastore Vs Preferences Datastore?', 'This question checks the core Proto Datastore Vs Preferences Datastore concept and how to use it safely in Kotlin and Android.', 'Explain Proto Datastore Vs Preferences Datastore with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', '// 1. ملف user_prefs.proto:
+// message UserPreferences {
+//     bool show_completed = 1;
+// }
+
+// 2. القراءة في Kotlin بنوع صارم تمامًا:
+val showCompletedFlow: Flow<Boolean> = context.userPreferencesStore.data
+    .map { preferences -> preferences.showCompleted }', '["Missing the key trade-off in Proto Datastore Vs Preferences Datastore (point 1)."]'::jsonb, '["How would you apply Proto Datastore Vs Preferences Datastore in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Working with Proto DataStore","url":"https://developer.android.com/topic/libraries/architecture/datastore#proto-datastore"}]'::jsonb from public.question_revisions r where r.question_id = 'astor-006' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'astor-006' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Proto Datastore Vs Preferences Datastore?' or l.short_answer is distinct from 'This question checks the core Proto Datastore Vs Preferences Datastore concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Proto Datastore Vs Preferences Datastore with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from '// 1. ملف user_prefs.proto:
+// message UserPreferences {
+//     bool show_completed = 1;
+// }
+
+// 2. القراءة في Kotlin بنوع صارم تمامًا:
+val showCompletedFlow: Flow<Boolean> = context.userPreferencesStore.data
+    .map { preferences -> preferences.showCompleted }' or l.common_mistakes is distinct from '["Missing the key trade-off in Proto Datastore Vs Preferences Datastore (point 1)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Proto Datastore Vs Preferences Datastore in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Working with Proto DataStore","url":"https://developer.android.com/topic/libraries/architecture/datastore#proto-datastore"}]'::jsonb)) then raise exception 'Question astor-006 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('astor-006', 'local-storage-android') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'astor-006' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'astor-006' and revision_number = 1 and status = 'published') where id = 'astor-006' and exists (select 1 from public.question_revisions where question_id = 'astor-006' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('adi-001', 'dependency-injection-fundamentals', 'android-native', 'Junior') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('adi-001', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما هو حقن التبعيات (Dependency Injection) وما الفوائد الأساسية لتطبيقه في أندرويد؟', 'هو نمط تصميمي يقضي بتمرير التبعيات التي يحتاجها الكائن من الخارج بدلاً من قيام الكائن بإنشائها بنفسه داخل الـ Constructor.', 'يحقق حقن التبعيات مبدأ Inversion of Control ويفصل بين مسؤولية استخدام الكائن ومسؤولية تكوينه. يسهل DI كتابة اختبارات الوحدة (Unit Testing) عن طريق استبدال التبعيات الحقيقية بمجسمات وهمية (Fakes/Mocks)، كما يقلل الاقتران الوثيق (Coupling) ويسهل صيانة وتعديل أجزاء التطبيق مستقبلاً.', '// بدون DI (اقتران وثيق يصعب اختباره):
+class Car {
+    private val engine = Engine() // ينشئ تبعيته بنفسه
+}
+
+// مع DI (مرن وسهل الاستبدال في الاختبار):
+class Car(private val engine: Engine) { // يستقبل تبعيته من الخارج
+}', '["الخلط بين مكتبات حقن التبعيات الحقيقية ومحددات الخدمة (Service Locator) التي تخفي التبعيات وتصعب اكتشاف الأخطاء وقت الترجمة."]'::jsonb, '["ما الفرق بين Constructor Injection و Field Injection وأيهما أفضل دائمًا؟"]'::jsonb, '[{"title":"Android Developers — Dependency injection in Android","url":"https://developer.android.com/training/dependency-injection"}]'::jsonb from public.question_revisions r where r.question_id = 'adi-001' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'adi-001' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما هو حقن التبعيات (Dependency Injection) وما الفوائد الأساسية لتطبيقه في أندرويد؟' or l.short_answer is distinct from 'هو نمط تصميمي يقضي بتمرير التبعيات التي يحتاجها الكائن من الخارج بدلاً من قيام الكائن بإنشائها بنفسه داخل الـ Constructor.' or l.explanation is distinct from 'يحقق حقن التبعيات مبدأ Inversion of Control ويفصل بين مسؤولية استخدام الكائن ومسؤولية تكوينه. يسهل DI كتابة اختبارات الوحدة (Unit Testing) عن طريق استبدال التبعيات الحقيقية بمجسمات وهمية (Fakes/Mocks)، كما يقلل الاقتران الوثيق (Coupling) ويسهل صيانة وتعديل أجزاء التطبيق مستقبلاً.' or l.code_example is distinct from '// بدون DI (اقتران وثيق يصعب اختباره):
+class Car {
+    private val engine = Engine() // ينشئ تبعيته بنفسه
+}
+
+// مع DI (مرن وسهل الاستبدال في الاختبار):
+class Car(private val engine: Engine) { // يستقبل تبعيته من الخارج
+}' or l.common_mistakes is distinct from '["الخلط بين مكتبات حقن التبعيات الحقيقية ومحددات الخدمة (Service Locator) التي تخفي التبعيات وتصعب اكتشاف الأخطاء وقت الترجمة."]'::jsonb or l.follow_up_questions is distinct from '["ما الفرق بين Constructor Injection و Field Injection وأيهما أفضل دائمًا؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Dependency injection in Android","url":"https://developer.android.com/training/dependency-injection"}]'::jsonb)) then raise exception 'Question adi-001 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Dependency Injection Fundamentals?', 'This question checks the core Dependency Injection Fundamentals concept and how to use it safely in Kotlin and Android.', 'Explain Dependency Injection Fundamentals with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', '// بدون DI (اقتران وثيق يصعب اختباره):
+class Car {
+    private val engine = Engine() // ينشئ تبعيته بنفسه
+}
+
+// مع DI (مرن وسهل الاستبدال في الاختبار):
+class Car(private val engine: Engine) { // يستقبل تبعيته من الخارج
+}', '["Missing the key trade-off in Dependency Injection Fundamentals (point 1)."]'::jsonb, '["How would you apply Dependency Injection Fundamentals in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Dependency injection in Android","url":"https://developer.android.com/training/dependency-injection"}]'::jsonb from public.question_revisions r where r.question_id = 'adi-001' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'adi-001' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Dependency Injection Fundamentals?' or l.short_answer is distinct from 'This question checks the core Dependency Injection Fundamentals concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Dependency Injection Fundamentals with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from '// بدون DI (اقتران وثيق يصعب اختباره):
+class Car {
+    private val engine = Engine() // ينشئ تبعيته بنفسه
+}
+
+// مع DI (مرن وسهل الاستبدال في الاختبار):
+class Car(private val engine: Engine) { // يستقبل تبعيته من الخارج
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Dependency Injection Fundamentals (point 1)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Dependency Injection Fundamentals in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Dependency injection in Android","url":"https://developer.android.com/training/dependency-injection"}]'::jsonb)) then raise exception 'Question adi-001 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('adi-001', 'dependency-injection') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'adi-001' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'adi-001' and revision_number = 1 and status = 'published') where id = 'adi-001' and exists (select 1 from public.question_revisions where question_id = 'adi-001' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('adi-002', 'dagger-vs-hilt', 'android-native', 'Junior') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('adi-002', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما هو Hilt وما المزايا التي يقدمها فوق مكتبة Dagger 2 لتطبيقات أندرويد؟', 'Hilt هي مكتبة رسمية مبنية فوق Dagger لتبسيط استخدامها في أندرويد عبر توفير مكونات مسبقة التعريف (Standard Components) لدورة حياة الشاشات وإلغاء الحاجة لكتابة كود الـ Boilerplate المعقد يدويًا.', 'في Dagger 2 التقليدي، كان المطور يضطر لكتابة Components و Subcomponents وإدارتها يدويًا ومتابعة دورة حياة كل Activity و Fragment. يوفر Hilt تكاملاً أصيلاً مع مكونات أندرويد (Activity, Fragment, ViewModel, WorkManager)، ويدير إنشاء شجرة التبعيات في وقت الترجمة (Compile-time Validation) بدون أي تضحية في الأداء.', '@HiltAndroidApp
+class MyApplication : Application()
+
+@AndroidEntryPoint
+class MainActivity : AppCompatActivity() {
+    @Inject lateinit var analytics: AnalyticsTracker
+}', '["نسيان إضافة @HiltAndroidApp في كلاس الـ Application، مما يمنع Hilt من بدء إنشاء رسم التبعيات بالكامل ويفشل البناء."]'::jsonb, '["لماذا تعتبر Hilt أسرع وأكثر أمانًا من مكتبات الانعكاس الديناميكي (Reflection-based DI) وقت التشغيل؟"]'::jsonb, '[{"title":"Android Developers — Dependency injection with Hilt","url":"https://developer.android.com/training/dependency-injection/hilt-android"}]'::jsonb from public.question_revisions r where r.question_id = 'adi-002' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'adi-002' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما هو Hilt وما المزايا التي يقدمها فوق مكتبة Dagger 2 لتطبيقات أندرويد؟' or l.short_answer is distinct from 'Hilt هي مكتبة رسمية مبنية فوق Dagger لتبسيط استخدامها في أندرويد عبر توفير مكونات مسبقة التعريف (Standard Components) لدورة حياة الشاشات وإلغاء الحاجة لكتابة كود الـ Boilerplate المعقد يدويًا.' or l.explanation is distinct from 'في Dagger 2 التقليدي، كان المطور يضطر لكتابة Components و Subcomponents وإدارتها يدويًا ومتابعة دورة حياة كل Activity و Fragment. يوفر Hilt تكاملاً أصيلاً مع مكونات أندرويد (Activity, Fragment, ViewModel, WorkManager)، ويدير إنشاء شجرة التبعيات في وقت الترجمة (Compile-time Validation) بدون أي تضحية في الأداء.' or l.code_example is distinct from '@HiltAndroidApp
+class MyApplication : Application()
+
+@AndroidEntryPoint
+class MainActivity : AppCompatActivity() {
+    @Inject lateinit var analytics: AnalyticsTracker
+}' or l.common_mistakes is distinct from '["نسيان إضافة @HiltAndroidApp في كلاس الـ Application، مما يمنع Hilt من بدء إنشاء رسم التبعيات بالكامل ويفشل البناء."]'::jsonb or l.follow_up_questions is distinct from '["لماذا تعتبر Hilt أسرع وأكثر أمانًا من مكتبات الانعكاس الديناميكي (Reflection-based DI) وقت التشغيل؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Dependency injection with Hilt","url":"https://developer.android.com/training/dependency-injection/hilt-android"}]'::jsonb)) then raise exception 'Question adi-002 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Dagger Vs Hilt?', 'This question checks the core Dagger Vs Hilt concept and how to use it safely in Kotlin and Android.', 'Explain Dagger Vs Hilt with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', '@HiltAndroidApp
+class MyApplication : Application()
+
+@AndroidEntryPoint
+class MainActivity : AppCompatActivity() {
+    @Inject lateinit var analytics: AnalyticsTracker
+}', '["Missing the key trade-off in Dagger Vs Hilt (point 1)."]'::jsonb, '["How would you apply Dagger Vs Hilt in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Dependency injection with Hilt","url":"https://developer.android.com/training/dependency-injection/hilt-android"}]'::jsonb from public.question_revisions r where r.question_id = 'adi-002' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'adi-002' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Dagger Vs Hilt?' or l.short_answer is distinct from 'This question checks the core Dagger Vs Hilt concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Dagger Vs Hilt with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from '@HiltAndroidApp
+class MyApplication : Application()
+
+@AndroidEntryPoint
+class MainActivity : AppCompatActivity() {
+    @Inject lateinit var analytics: AnalyticsTracker
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Dagger Vs Hilt (point 1)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Dagger Vs Hilt in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Dependency injection with Hilt","url":"https://developer.android.com/training/dependency-injection/hilt-android"}]'::jsonb)) then raise exception 'Question adi-002 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('adi-002', 'dependency-injection') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'adi-002' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'adi-002' and revision_number = 1 and status = 'published') where id = 'adi-002' and exists (select 1 from public.question_revisions where question_id = 'adi-002' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('adi-003', 'hilt-annotations-androidentrypoint-inject', 'android-native', 'Mid') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('adi-003', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما دور الوسوم الأساسية في Hilt: @HiltAndroidApp و @AndroidEntryPoint و @Inject؟', '@HiltAndroidApp ينشئ الحاوية الجذرية، و @AndroidEntryPoint يهيئ مكونات أندرويد لحقن التبعيات، و @Inject يطلب التبعية أو يعرف كيفية إنشائها.', '@HiltAndroidApp يولد الكود الأساسي لمستوى التطبيق. @AndroidEntryPoint يُوضع على الـ Activities و Fragments و Services لتمكين Field Injection فيها؛ لأن نظام التشغيل هو من ينشئ هذه الكائنات ولا يمكن استخدام Constructor Injection معها. أما @Inject constructor فيُستخدم مع الكلاسات العادية لتعليم Hilt كيفية إنشائها وحقن معاملاتها تلقائيًا.', '// 1. تعريف كيفية إنشاء الكائن عبر Constructor Injection:
+class UserRepository @Inject constructor(
+    private val apiService: ApiService
+)
+
+// 2. طلب الحقن في Activity عبر Field Injection:
+@AndroidEntryPoint
+class HomeActivity : AppCompatActivity() {
+    @Inject lateinit var repository: UserRepository
+}', '["استخدام @AndroidEntryPoint على Fragment بينما الـ Activity الحاضنة له غير موسومة بـ @AndroidEntryPoint، مما يسبب كراش فوري.","محاولة جعل الحقول الموسومة بـ @Inject خاصة (private)، حيث يتطلب Hilt أن تكون الحقول عامة أو package-private لتمكينه من تعيين قيمها."]'::jsonb, '["كيف يتم حقن ViewModel باستخدام وسم @HiltViewModel؟"]'::jsonb, '[{"title":"Android Developers — Hilt architecture and annotations","url":"https://developer.android.com/training/dependency-injection/hilt-android#android-classes"}]'::jsonb from public.question_revisions r where r.question_id = 'adi-003' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'adi-003' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما دور الوسوم الأساسية في Hilt: @HiltAndroidApp و @AndroidEntryPoint و @Inject؟' or l.short_answer is distinct from '@HiltAndroidApp ينشئ الحاوية الجذرية، و @AndroidEntryPoint يهيئ مكونات أندرويد لحقن التبعيات، و @Inject يطلب التبعية أو يعرف كيفية إنشائها.' or l.explanation is distinct from '@HiltAndroidApp يولد الكود الأساسي لمستوى التطبيق. @AndroidEntryPoint يُوضع على الـ Activities و Fragments و Services لتمكين Field Injection فيها؛ لأن نظام التشغيل هو من ينشئ هذه الكائنات ولا يمكن استخدام Constructor Injection معها. أما @Inject constructor فيُستخدم مع الكلاسات العادية لتعليم Hilt كيفية إنشائها وحقن معاملاتها تلقائيًا.' or l.code_example is distinct from '// 1. تعريف كيفية إنشاء الكائن عبر Constructor Injection:
+class UserRepository @Inject constructor(
+    private val apiService: ApiService
+)
+
+// 2. طلب الحقن في Activity عبر Field Injection:
+@AndroidEntryPoint
+class HomeActivity : AppCompatActivity() {
+    @Inject lateinit var repository: UserRepository
+}' or l.common_mistakes is distinct from '["استخدام @AndroidEntryPoint على Fragment بينما الـ Activity الحاضنة له غير موسومة بـ @AndroidEntryPoint، مما يسبب كراش فوري.","محاولة جعل الحقول الموسومة بـ @Inject خاصة (private)، حيث يتطلب Hilt أن تكون الحقول عامة أو package-private لتمكينه من تعيين قيمها."]'::jsonb or l.follow_up_questions is distinct from '["كيف يتم حقن ViewModel باستخدام وسم @HiltViewModel؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Hilt architecture and annotations","url":"https://developer.android.com/training/dependency-injection/hilt-android#android-classes"}]'::jsonb)) then raise exception 'Question adi-003 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Hilt Annotations Androidentrypoint Inject?', 'This question checks the core Hilt Annotations Androidentrypoint Inject concept and how to use it safely in Kotlin and Android.', 'Explain Hilt Annotations Androidentrypoint Inject with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', '// 1. تعريف كيفية إنشاء الكائن عبر Constructor Injection:
+class UserRepository @Inject constructor(
+    private val apiService: ApiService
+)
+
+// 2. طلب الحقن في Activity عبر Field Injection:
+@AndroidEntryPoint
+class HomeActivity : AppCompatActivity() {
+    @Inject lateinit var repository: UserRepository
+}', '["Missing the key trade-off in Hilt Annotations Androidentrypoint Inject (point 1).","Missing the key trade-off in Hilt Annotations Androidentrypoint Inject (point 2)."]'::jsonb, '["How would you apply Hilt Annotations Androidentrypoint Inject in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Hilt architecture and annotations","url":"https://developer.android.com/training/dependency-injection/hilt-android#android-classes"}]'::jsonb from public.question_revisions r where r.question_id = 'adi-003' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'adi-003' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Hilt Annotations Androidentrypoint Inject?' or l.short_answer is distinct from 'This question checks the core Hilt Annotations Androidentrypoint Inject concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Hilt Annotations Androidentrypoint Inject with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from '// 1. تعريف كيفية إنشاء الكائن عبر Constructor Injection:
+class UserRepository @Inject constructor(
+    private val apiService: ApiService
+)
+
+// 2. طلب الحقن في Activity عبر Field Injection:
+@AndroidEntryPoint
+class HomeActivity : AppCompatActivity() {
+    @Inject lateinit var repository: UserRepository
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Hilt Annotations Androidentrypoint Inject (point 1).","Missing the key trade-off in Hilt Annotations Androidentrypoint Inject (point 2)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Hilt Annotations Androidentrypoint Inject in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Hilt architecture and annotations","url":"https://developer.android.com/training/dependency-injection/hilt-android#android-classes"}]'::jsonb)) then raise exception 'Question adi-003 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('adi-003', 'dependency-injection') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'adi-003' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'adi-003' and revision_number = 1 and status = 'published') where id = 'adi-003' and exists (select 1 from public.question_revisions where question_id = 'adi-003' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('adi-004', 'hilt-modules-provides-vs-binds', 'android-native', 'Mid') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('adi-004', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما الفرق بين @Provides و @Binds داخل كلاسات الـ Module في Hilt؟', '@Binds دالة مجردة (abstract) سريعة لربط الواجهة (Interface) بتطبيقها المباشر؛ بينما @Provides دالة عادية تستخدم عندما يتطلب بناء الكائن منطقًا أو عندما يكون الكائن من مكتبة خارجية.', 'تعتبر @Binds أكثر كفاءة لأن Dagger لا يولد أي كود تنفيذي لها في الـ bytecode؛ فقط يربط النوعين. أما @Provides فتُستخدم عندما لا تملك حق الوصول للـ Constructor الخاص بالكائن (مثل Retrofit, RoomDatabase, OkHttpClient) أو عند الحاجة لإجراء خطوات تهيئة شرطية قبل إرجاع الكائن.', '@Module
+@InstallIn(SingletonComponent::class)
+abstract class RepositoryModule {
+    // @Binds لربط الواجهة بتطبيقها الفعلي بكفاءة:
+    @Binds
+    abstract fun bindAuthRepo(impl: AuthRepositoryImpl): AuthRepository
+}
+
+@Module
+@InstallIn(SingletonComponent::class)
+object NetworkModule {
+    // @Provides لبناء كائن من مكتبة خارجية:
+    @Provides
+    fun provideRetrofit(): Retrofit = Retrofit.Builder().baseUrl("https://api.com/").build()
+}', '["استخدام @Provides بدلاً من @Binds لربط كلاسات التطبيق الداخلية البسيطة، مما يولد كود وسيط غير ضروري ويبطئ وقت الترجمة."]'::jsonb, '["لماذا يجب أن يكون الكلاس أو الـ Module المعرّف لـ @Binds كلاسًا مجردًا (abstract class أو interface)؟"]'::jsonb, '[{"title":"Android Developers — Hilt modules","url":"https://developer.android.com/training/dependency-injection/hilt-android#hilt-modules"}]'::jsonb from public.question_revisions r where r.question_id = 'adi-004' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'adi-004' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما الفرق بين @Provides و @Binds داخل كلاسات الـ Module في Hilt؟' or l.short_answer is distinct from '@Binds دالة مجردة (abstract) سريعة لربط الواجهة (Interface) بتطبيقها المباشر؛ بينما @Provides دالة عادية تستخدم عندما يتطلب بناء الكائن منطقًا أو عندما يكون الكائن من مكتبة خارجية.' or l.explanation is distinct from 'تعتبر @Binds أكثر كفاءة لأن Dagger لا يولد أي كود تنفيذي لها في الـ bytecode؛ فقط يربط النوعين. أما @Provides فتُستخدم عندما لا تملك حق الوصول للـ Constructor الخاص بالكائن (مثل Retrofit, RoomDatabase, OkHttpClient) أو عند الحاجة لإجراء خطوات تهيئة شرطية قبل إرجاع الكائن.' or l.code_example is distinct from '@Module
+@InstallIn(SingletonComponent::class)
+abstract class RepositoryModule {
+    // @Binds لربط الواجهة بتطبيقها الفعلي بكفاءة:
+    @Binds
+    abstract fun bindAuthRepo(impl: AuthRepositoryImpl): AuthRepository
+}
+
+@Module
+@InstallIn(SingletonComponent::class)
+object NetworkModule {
+    // @Provides لبناء كائن من مكتبة خارجية:
+    @Provides
+    fun provideRetrofit(): Retrofit = Retrofit.Builder().baseUrl("https://api.com/").build()
+}' or l.common_mistakes is distinct from '["استخدام @Provides بدلاً من @Binds لربط كلاسات التطبيق الداخلية البسيطة، مما يولد كود وسيط غير ضروري ويبطئ وقت الترجمة."]'::jsonb or l.follow_up_questions is distinct from '["لماذا يجب أن يكون الكلاس أو الـ Module المعرّف لـ @Binds كلاسًا مجردًا (abstract class أو interface)؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Hilt modules","url":"https://developer.android.com/training/dependency-injection/hilt-android#hilt-modules"}]'::jsonb)) then raise exception 'Question adi-004 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Hilt Modules Provides Vs Binds?', 'This question checks the core Hilt Modules Provides Vs Binds concept and how to use it safely in Kotlin and Android.', 'Explain Hilt Modules Provides Vs Binds with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', '@Module
+@InstallIn(SingletonComponent::class)
+abstract class RepositoryModule {
+    // @Binds لربط الواجهة بتطبيقها الفعلي بكفاءة:
+    @Binds
+    abstract fun bindAuthRepo(impl: AuthRepositoryImpl): AuthRepository
+}
+
+@Module
+@InstallIn(SingletonComponent::class)
+object NetworkModule {
+    // @Provides لبناء كائن من مكتبة خارجية:
+    @Provides
+    fun provideRetrofit(): Retrofit = Retrofit.Builder().baseUrl("https://api.com/").build()
+}', '["Missing the key trade-off in Hilt Modules Provides Vs Binds (point 1)."]'::jsonb, '["How would you apply Hilt Modules Provides Vs Binds in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Hilt modules","url":"https://developer.android.com/training/dependency-injection/hilt-android#hilt-modules"}]'::jsonb from public.question_revisions r where r.question_id = 'adi-004' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'adi-004' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Hilt Modules Provides Vs Binds?' or l.short_answer is distinct from 'This question checks the core Hilt Modules Provides Vs Binds concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Hilt Modules Provides Vs Binds with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from '@Module
+@InstallIn(SingletonComponent::class)
+abstract class RepositoryModule {
+    // @Binds لربط الواجهة بتطبيقها الفعلي بكفاءة:
+    @Binds
+    abstract fun bindAuthRepo(impl: AuthRepositoryImpl): AuthRepository
+}
+
+@Module
+@InstallIn(SingletonComponent::class)
+object NetworkModule {
+    // @Provides لبناء كائن من مكتبة خارجية:
+    @Provides
+    fun provideRetrofit(): Retrofit = Retrofit.Builder().baseUrl("https://api.com/").build()
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Hilt Modules Provides Vs Binds (point 1)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Hilt Modules Provides Vs Binds in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Hilt modules","url":"https://developer.android.com/training/dependency-injection/hilt-android#hilt-modules"}]'::jsonb)) then raise exception 'Question adi-004 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('adi-004', 'dependency-injection') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'adi-004' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'adi-004' and revision_number = 1 and status = 'published') where id = 'adi-004' and exists (select 1 from public.question_revisions where question_id = 'adi-004' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('adi-005', 'hilt-scopes-and-component-hierarchy', 'android-native', 'Mid') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('adi-005', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'كيف تعمل هرمية المكونات ونطاقات دورة الحياة (Scopes) في Hilt؟', 'تربط النطاقات كائنات التبعيات بدورة حياة مكونات أندرويد المحددة: @Singleton للتطبيق بالكامل، @ActivityScoped للنشاط، و @ViewModelScoped لدورة حياة الـ ViewModel.', 'إذا لم تحدد نطاقًا (Unscoped)، ينشئ Hilt نسخة جديدة من الكائن في كل مرة يُطلب فيها. تحديد @Singleton يضمن وجود نسخة واحدة فقط في التطبيق بالكامل داخل SingletonComponent. تحديد @ActivityScoped يضمن مشاركة نفس النسخة طوال بقاء الـ Activity، بينما يضمن @ViewModelScoped بقاء النسخة حية عبر Configuration Changes مع الـ ViewModel.', '@Module
+@InstallIn(ViewModelComponent::class)
+object FeatureModule {
+    @Provides
+    @ViewModelScoped
+    fun provideFeatureState(): FeatureState = FeatureState()
+}', '["استخدام @Singleton على كل شيء مما يستهلك الذاكرة دون مبرر ويبقي كائنات غير ضرورية حية طوال الوقت.","محاولة حقن كائن معرف بنطاق ضيق (مثل @ActivityScoped) داخل كائن ذي نطاق أوسع (مثل @Singleton)، مما يسبب خطأ وقت الترجمة."]'::jsonb, '["ما هو المكون المقابل لـ Fragment في هرمية Hilt وما هو الـ Scope المرتبط به؟"]'::jsonb, '[{"title":"Android Developers — Component scopes in Hilt","url":"https://developer.android.com/training/dependency-injection/hilt-android#component-scopes"}]'::jsonb from public.question_revisions r where r.question_id = 'adi-005' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'adi-005' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'كيف تعمل هرمية المكونات ونطاقات دورة الحياة (Scopes) في Hilt؟' or l.short_answer is distinct from 'تربط النطاقات كائنات التبعيات بدورة حياة مكونات أندرويد المحددة: @Singleton للتطبيق بالكامل، @ActivityScoped للنشاط، و @ViewModelScoped لدورة حياة الـ ViewModel.' or l.explanation is distinct from 'إذا لم تحدد نطاقًا (Unscoped)، ينشئ Hilt نسخة جديدة من الكائن في كل مرة يُطلب فيها. تحديد @Singleton يضمن وجود نسخة واحدة فقط في التطبيق بالكامل داخل SingletonComponent. تحديد @ActivityScoped يضمن مشاركة نفس النسخة طوال بقاء الـ Activity، بينما يضمن @ViewModelScoped بقاء النسخة حية عبر Configuration Changes مع الـ ViewModel.' or l.code_example is distinct from '@Module
+@InstallIn(ViewModelComponent::class)
+object FeatureModule {
+    @Provides
+    @ViewModelScoped
+    fun provideFeatureState(): FeatureState = FeatureState()
+}' or l.common_mistakes is distinct from '["استخدام @Singleton على كل شيء مما يستهلك الذاكرة دون مبرر ويبقي كائنات غير ضرورية حية طوال الوقت.","محاولة حقن كائن معرف بنطاق ضيق (مثل @ActivityScoped) داخل كائن ذي نطاق أوسع (مثل @Singleton)، مما يسبب خطأ وقت الترجمة."]'::jsonb or l.follow_up_questions is distinct from '["ما هو المكون المقابل لـ Fragment في هرمية Hilt وما هو الـ Scope المرتبط به؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Component scopes in Hilt","url":"https://developer.android.com/training/dependency-injection/hilt-android#component-scopes"}]'::jsonb)) then raise exception 'Question adi-005 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Hilt Scopes And Component Hierarchy?', 'This question checks the core Hilt Scopes And Component Hierarchy concept and how to use it safely in Kotlin and Android.', 'Explain Hilt Scopes And Component Hierarchy with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', '@Module
+@InstallIn(ViewModelComponent::class)
+object FeatureModule {
+    @Provides
+    @ViewModelScoped
+    fun provideFeatureState(): FeatureState = FeatureState()
+}', '["Missing the key trade-off in Hilt Scopes And Component Hierarchy (point 1).","Missing the key trade-off in Hilt Scopes And Component Hierarchy (point 2)."]'::jsonb, '["How would you apply Hilt Scopes And Component Hierarchy in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Component scopes in Hilt","url":"https://developer.android.com/training/dependency-injection/hilt-android#component-scopes"}]'::jsonb from public.question_revisions r where r.question_id = 'adi-005' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'adi-005' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Hilt Scopes And Component Hierarchy?' or l.short_answer is distinct from 'This question checks the core Hilt Scopes And Component Hierarchy concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Hilt Scopes And Component Hierarchy with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from '@Module
+@InstallIn(ViewModelComponent::class)
+object FeatureModule {
+    @Provides
+    @ViewModelScoped
+    fun provideFeatureState(): FeatureState = FeatureState()
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Hilt Scopes And Component Hierarchy (point 1).","Missing the key trade-off in Hilt Scopes And Component Hierarchy (point 2)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Hilt Scopes And Component Hierarchy in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Component scopes in Hilt","url":"https://developer.android.com/training/dependency-injection/hilt-android#component-scopes"}]'::jsonb)) then raise exception 'Question adi-005 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('adi-005', 'dependency-injection') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'adi-005' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'adi-005' and revision_number = 1 and status = 'published') where id = 'adi-005' and exists (select 1 from public.question_revisions where question_id = 'adi-005' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('adi-006', 'qualifiers-and-custom-annotations-hilt', 'android-native', 'Senior') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('adi-006', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'كيف تحل تعارض توفير نسختين مختلفتين من نفس النوع باستخدام الـ Qualifiers في Hilt؟', 'بتعريف وسوم مخصصة (Custom Annotations) موسومة بـ @Qualifier لتمييز كل نسخة (مثل عميل شبكة موثق وعميل شبكة عام).', 'عندما يحتاج التطبيق إلى نسختين من OkHttpClient أو Retrofit بإعدادات مختلفة، يفشل Dagger وقت الترجمة لعدم قدرته على التمييز بينهما. بحل هذا التعارض عبر @Qualifier، نربط كل نسخة بوسم فريد، ثم نستخدم نفس الوسم عند نقطة الحقن ليعرف Hilt أي نسخة محددة يجب تقديمها.', '@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class AuthInterceptorOkHttpClient
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class PublicOkHttpClient
+
+// في نقطة التوفير:
+@Provides
+@AuthInterceptorOkHttpClient
+fun provideAuthClient(): OkHttpClient = ...
+
+// في نقطة الاستخدام:
+class UserRemoteDataSource @Inject constructor(
+    @AuthInterceptorOkHttpClient private val client: OkHttpClient
+)', '["استخدام @Named مع نصوص يدوية بدلاً من كتابة Custom Qualifiers قوية، مما يسبب أخطاء هجائية صعبة الاكتشاف وقت التشغيل."]'::jsonb, '["لماذا تعتبر الـ Custom Qualifiers أفضل وأكثر أمانًا من استخدام @Named(\"...\")؟"]'::jsonb, '[{"title":"Android Developers — Qualifiers in Hilt","url":"https://developer.android.com/training/dependency-injection/hilt-android#qualifiers"}]'::jsonb from public.question_revisions r where r.question_id = 'adi-006' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'adi-006' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'كيف تحل تعارض توفير نسختين مختلفتين من نفس النوع باستخدام الـ Qualifiers في Hilt؟' or l.short_answer is distinct from 'بتعريف وسوم مخصصة (Custom Annotations) موسومة بـ @Qualifier لتمييز كل نسخة (مثل عميل شبكة موثق وعميل شبكة عام).' or l.explanation is distinct from 'عندما يحتاج التطبيق إلى نسختين من OkHttpClient أو Retrofit بإعدادات مختلفة، يفشل Dagger وقت الترجمة لعدم قدرته على التمييز بينهما. بحل هذا التعارض عبر @Qualifier، نربط كل نسخة بوسم فريد، ثم نستخدم نفس الوسم عند نقطة الحقن ليعرف Hilt أي نسخة محددة يجب تقديمها.' or l.code_example is distinct from '@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class AuthInterceptorOkHttpClient
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class PublicOkHttpClient
+
+// في نقطة التوفير:
+@Provides
+@AuthInterceptorOkHttpClient
+fun provideAuthClient(): OkHttpClient = ...
+
+// في نقطة الاستخدام:
+class UserRemoteDataSource @Inject constructor(
+    @AuthInterceptorOkHttpClient private val client: OkHttpClient
+)' or l.common_mistakes is distinct from '["استخدام @Named مع نصوص يدوية بدلاً من كتابة Custom Qualifiers قوية، مما يسبب أخطاء هجائية صعبة الاكتشاف وقت التشغيل."]'::jsonb or l.follow_up_questions is distinct from '["لماذا تعتبر الـ Custom Qualifiers أفضل وأكثر أمانًا من استخدام @Named(\"...\")؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Qualifiers in Hilt","url":"https://developer.android.com/training/dependency-injection/hilt-android#qualifiers"}]'::jsonb)) then raise exception 'Question adi-006 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Qualifiers And Custom Annotations Hilt?', 'This question checks the core Qualifiers And Custom Annotations Hilt concept and how to use it safely in Kotlin and Android.', 'Explain Qualifiers And Custom Annotations Hilt with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', '@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class AuthInterceptorOkHttpClient
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class PublicOkHttpClient
+
+// في نقطة التوفير:
+@Provides
+@AuthInterceptorOkHttpClient
+fun provideAuthClient(): OkHttpClient = ...
+
+// في نقطة الاستخدام:
+class UserRemoteDataSource @Inject constructor(
+    @AuthInterceptorOkHttpClient private val client: OkHttpClient
+)', '["Missing the key trade-off in Qualifiers And Custom Annotations Hilt (point 1)."]'::jsonb, '["How would you apply Qualifiers And Custom Annotations Hilt in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Qualifiers in Hilt","url":"https://developer.android.com/training/dependency-injection/hilt-android#qualifiers"}]'::jsonb from public.question_revisions r where r.question_id = 'adi-006' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'adi-006' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Qualifiers And Custom Annotations Hilt?' or l.short_answer is distinct from 'This question checks the core Qualifiers And Custom Annotations Hilt concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Qualifiers And Custom Annotations Hilt with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from '@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class AuthInterceptorOkHttpClient
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class PublicOkHttpClient
+
+// في نقطة التوفير:
+@Provides
+@AuthInterceptorOkHttpClient
+fun provideAuthClient(): OkHttpClient = ...
+
+// في نقطة الاستخدام:
+class UserRemoteDataSource @Inject constructor(
+    @AuthInterceptorOkHttpClient private val client: OkHttpClient
+)' or l.common_mistakes is distinct from '["Missing the key trade-off in Qualifiers And Custom Annotations Hilt (point 1)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Qualifiers And Custom Annotations Hilt in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Qualifiers in Hilt","url":"https://developer.android.com/training/dependency-injection/hilt-android#qualifiers"}]'::jsonb)) then raise exception 'Question adi-006 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('adi-006', 'dependency-injection') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'adi-006' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'adi-006' and revision_number = 1 and status = 'published') where id = 'adi-006' and exists (select 1 from public.question_revisions where question_id = 'adi-006' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('abg-001', 'android-services-types-and-lifecycle', 'android-native', 'Junior') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('abg-001', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما هي أنواع الـ Services في أندرويد وما الفرق الجوهري بينها؟', 'ثلاثة أنواع: Foreground Service التي تعرض إشعارًا مستمرًا للمستخدم لمهام ملحوظة، و Background Service للمهام غير المرئية، و Bound Service التي ترتبط بمكون عبر واجهة اتصال.', 'لا تعمل الـ Service على خيط مستقل تلقائيًا بل تنفذ كودها على الـ Main Thread افتراضيًا ما لم تنشئ كوروتين أو خيط عمل. فرض نظام أندرويد قيودًا صارمة على Background Services لمنعها من العمل عندما يكون التطبيق مغلقًا، وألزم استخدام Foreground Services مع إشعار مرئي دائم (مثل تشغيل الموسيقى أو تتبع الرحلات).', 'class LocationService : Service() {
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        // تحويلها لـ Foreground Service مع إشعار دائم
+        val notification = buildTrackingNotification()
+        startForeground(NOTIFICATION_ID, notification)
+        return START_STICKY
+    }
+    override fun onBind(intent: Intent?): IBinder? = null
+}', '["الاعتقاد بأن الـ Service تنشئ خيطًا منفصلاً تلقائيًا وتنفيذ عمليات حسابية ثقيلة فيها على الـ Main Thread مما يسبب ANR.","إطلاق Background Service عندما يكون التطبيق في الخلفية في إصدارات أندرويد الحديثة، مما يسبب IllegalStateException فوري."]'::jsonb, '["ما الفرق بين START_STICKY و START_NOT_STICKY و START_REDELIVER_INTENT في دالة onStartCommand؟"]'::jsonb, '[{"title":"Android Developers — Services overview","url":"https://developer.android.com/guide/components/services"}]'::jsonb from public.question_revisions r where r.question_id = 'abg-001' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'abg-001' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما هي أنواع الـ Services في أندرويد وما الفرق الجوهري بينها؟' or l.short_answer is distinct from 'ثلاثة أنواع: Foreground Service التي تعرض إشعارًا مستمرًا للمستخدم لمهام ملحوظة، و Background Service للمهام غير المرئية، و Bound Service التي ترتبط بمكون عبر واجهة اتصال.' or l.explanation is distinct from 'لا تعمل الـ Service على خيط مستقل تلقائيًا بل تنفذ كودها على الـ Main Thread افتراضيًا ما لم تنشئ كوروتين أو خيط عمل. فرض نظام أندرويد قيودًا صارمة على Background Services لمنعها من العمل عندما يكون التطبيق مغلقًا، وألزم استخدام Foreground Services مع إشعار مرئي دائم (مثل تشغيل الموسيقى أو تتبع الرحلات).' or l.code_example is distinct from 'class LocationService : Service() {
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        // تحويلها لـ Foreground Service مع إشعار دائم
+        val notification = buildTrackingNotification()
+        startForeground(NOTIFICATION_ID, notification)
+        return START_STICKY
+    }
+    override fun onBind(intent: Intent?): IBinder? = null
+}' or l.common_mistakes is distinct from '["الاعتقاد بأن الـ Service تنشئ خيطًا منفصلاً تلقائيًا وتنفيذ عمليات حسابية ثقيلة فيها على الـ Main Thread مما يسبب ANR.","إطلاق Background Service عندما يكون التطبيق في الخلفية في إصدارات أندرويد الحديثة، مما يسبب IllegalStateException فوري."]'::jsonb or l.follow_up_questions is distinct from '["ما الفرق بين START_STICKY و START_NOT_STICKY و START_REDELIVER_INTENT في دالة onStartCommand؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Services overview","url":"https://developer.android.com/guide/components/services"}]'::jsonb)) then raise exception 'Question abg-001 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Android Services Types And Lifecycle?', 'This question checks the core Android Services Types And Lifecycle concept and how to use it safely in Kotlin and Android.', 'Explain Android Services Types And Lifecycle with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', 'class LocationService : Service() {
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        // تحويلها لـ Foreground Service مع إشعار دائم
+        val notification = buildTrackingNotification()
+        startForeground(NOTIFICATION_ID, notification)
+        return START_STICKY
+    }
+    override fun onBind(intent: Intent?): IBinder? = null
+}', '["Missing the key trade-off in Android Services Types And Lifecycle (point 1).","Missing the key trade-off in Android Services Types And Lifecycle (point 2)."]'::jsonb, '["How would you apply Android Services Types And Lifecycle in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Services overview","url":"https://developer.android.com/guide/components/services"}]'::jsonb from public.question_revisions r where r.question_id = 'abg-001' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'abg-001' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Android Services Types And Lifecycle?' or l.short_answer is distinct from 'This question checks the core Android Services Types And Lifecycle concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Android Services Types And Lifecycle with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from 'class LocationService : Service() {
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        // تحويلها لـ Foreground Service مع إشعار دائم
+        val notification = buildTrackingNotification()
+        startForeground(NOTIFICATION_ID, notification)
+        return START_STICKY
+    }
+    override fun onBind(intent: Intent?): IBinder? = null
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Android Services Types And Lifecycle (point 1).","Missing the key trade-off in Android Services Types And Lifecycle (point 2)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Android Services Types And Lifecycle in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Services overview","url":"https://developer.android.com/guide/components/services"}]'::jsonb)) then raise exception 'Question abg-001 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('abg-001', 'background-processing') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'abg-001' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'abg-001' and revision_number = 1 and status = 'published') where id = 'abg-001' and exists (select 1 from public.question_revisions where question_id = 'abg-001' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('abg-002', 'workmanager-architecture-and-constraints', 'android-native', 'Mid') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('abg-002', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما هي معمارية WorkManager ولماذا تعتبر الحل الموصى به للمهام المضمونة والمؤجلة؟', 'هي مكتبة لإدارة المهام المضمونة التنفيذ حتى لو أُغلق التطبيق أو أُعيد تشغيل الجهاز، مع إمكانية ربطها بشروط (Constraints) مثل الاتصال بالإنترنت أو الشحن.', 'تعتمد WorkManager داخليًا على JobScheduler في الإصدارات الحديثة وتخزن المهام في قاعدة بيانات SQLite محلية لضمان استمراريتها. تتيح تحديد شروط لتنفيذ المهمة، وإذا انقطعت الشروط أثناء العمل، يتم إيقاف العامل بأمان وإعادة جدولته تلقائيًا باستخدام سياسات التراجع التدريجي (Exponential Backoff).', 'val constraints = Constraints.Builder()
+    .setRequiredNetworkType(NetworkType.UNMETERED) // يتطلب شبكة Wi-Fi
+    .setRequiresCharging(true) // يتطلب الاتصال بالشاحن
+    .build()
+
+val uploadWork = OneTimeWorkRequestBuilder<UploadWorker>()
+    .setConstraints(constraints)
+    .setBackoffCriteria(BackoffPolicy.EXPONENTIAL, 15, TimeUnit.MINUTES)
+    .build()
+
+WorkManager.getInstance(context).enqueue(uploadWork)', '["استخدام WorkManager للمهام الفورية السريعة التي يجب أن تكتمل في اللحظة الحالية فقط أثناء تفاعل المستخدم، حيث يكون CoroutineScope العادي أفضل بكثير."]'::jsonb, '["كيف تختلف فئة CoroutineWorker عن فئة Worker العادية في كتابة مهام WorkManager؟"]'::jsonb, '[{"title":"Android Developers — Getting started with WorkManager","url":"https://developer.android.com/topic/libraries/architecture/workmanager/basics"}]'::jsonb from public.question_revisions r where r.question_id = 'abg-002' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'abg-002' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما هي معمارية WorkManager ولماذا تعتبر الحل الموصى به للمهام المضمونة والمؤجلة؟' or l.short_answer is distinct from 'هي مكتبة لإدارة المهام المضمونة التنفيذ حتى لو أُغلق التطبيق أو أُعيد تشغيل الجهاز، مع إمكانية ربطها بشروط (Constraints) مثل الاتصال بالإنترنت أو الشحن.' or l.explanation is distinct from 'تعتمد WorkManager داخليًا على JobScheduler في الإصدارات الحديثة وتخزن المهام في قاعدة بيانات SQLite محلية لضمان استمراريتها. تتيح تحديد شروط لتنفيذ المهمة، وإذا انقطعت الشروط أثناء العمل، يتم إيقاف العامل بأمان وإعادة جدولته تلقائيًا باستخدام سياسات التراجع التدريجي (Exponential Backoff).' or l.code_example is distinct from 'val constraints = Constraints.Builder()
+    .setRequiredNetworkType(NetworkType.UNMETERED) // يتطلب شبكة Wi-Fi
+    .setRequiresCharging(true) // يتطلب الاتصال بالشاحن
+    .build()
+
+val uploadWork = OneTimeWorkRequestBuilder<UploadWorker>()
+    .setConstraints(constraints)
+    .setBackoffCriteria(BackoffPolicy.EXPONENTIAL, 15, TimeUnit.MINUTES)
+    .build()
+
+WorkManager.getInstance(context).enqueue(uploadWork)' or l.common_mistakes is distinct from '["استخدام WorkManager للمهام الفورية السريعة التي يجب أن تكتمل في اللحظة الحالية فقط أثناء تفاعل المستخدم، حيث يكون CoroutineScope العادي أفضل بكثير."]'::jsonb or l.follow_up_questions is distinct from '["كيف تختلف فئة CoroutineWorker عن فئة Worker العادية في كتابة مهام WorkManager؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Getting started with WorkManager","url":"https://developer.android.com/topic/libraries/architecture/workmanager/basics"}]'::jsonb)) then raise exception 'Question abg-002 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Workmanager Architecture And Constraints?', 'This question checks the core Workmanager Architecture And Constraints concept and how to use it safely in Kotlin and Android.', 'Explain Workmanager Architecture And Constraints with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', 'val constraints = Constraints.Builder()
+    .setRequiredNetworkType(NetworkType.UNMETERED) // يتطلب شبكة Wi-Fi
+    .setRequiresCharging(true) // يتطلب الاتصال بالشاحن
+    .build()
+
+val uploadWork = OneTimeWorkRequestBuilder<UploadWorker>()
+    .setConstraints(constraints)
+    .setBackoffCriteria(BackoffPolicy.EXPONENTIAL, 15, TimeUnit.MINUTES)
+    .build()
+
+WorkManager.getInstance(context).enqueue(uploadWork)', '["Missing the key trade-off in Workmanager Architecture And Constraints (point 1)."]'::jsonb, '["How would you apply Workmanager Architecture And Constraints in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Getting started with WorkManager","url":"https://developer.android.com/topic/libraries/architecture/workmanager/basics"}]'::jsonb from public.question_revisions r where r.question_id = 'abg-002' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'abg-002' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Workmanager Architecture And Constraints?' or l.short_answer is distinct from 'This question checks the core Workmanager Architecture And Constraints concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Workmanager Architecture And Constraints with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from 'val constraints = Constraints.Builder()
+    .setRequiredNetworkType(NetworkType.UNMETERED) // يتطلب شبكة Wi-Fi
+    .setRequiresCharging(true) // يتطلب الاتصال بالشاحن
+    .build()
+
+val uploadWork = OneTimeWorkRequestBuilder<UploadWorker>()
+    .setConstraints(constraints)
+    .setBackoffCriteria(BackoffPolicy.EXPONENTIAL, 15, TimeUnit.MINUTES)
+    .build()
+
+WorkManager.getInstance(context).enqueue(uploadWork)' or l.common_mistakes is distinct from '["Missing the key trade-off in Workmanager Architecture And Constraints (point 1)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Workmanager Architecture And Constraints in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Getting started with WorkManager","url":"https://developer.android.com/topic/libraries/architecture/workmanager/basics"}]'::jsonb)) then raise exception 'Question abg-002 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('abg-002', 'background-processing') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'abg-002' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'abg-002' and revision_number = 1 and status = 'published') where id = 'abg-002' and exists (select 1 from public.question_revisions where question_id = 'abg-002' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('abg-003', 'periodic-work-vs-one-time-work', 'android-native', 'Mid') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('abg-003', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما الفرق بين OneTimeWorkRequest و PeriodicWorkRequest وما هو الحد الأدنى للفاصل الزمني؟', 'OneTimeWorkRequest ينفذ المهمة مرة واحدة فقط، بينما PeriodicWorkRequest ينفذها بصفة دورية متكررة والحد الأدنى للفاصل الزمني هو 15 دقيقة لتوفير الطاقة.', 'يمنع نظام أندرويد جدولة مهام PeriodicWorkRequest بفواصل أقل من 15 دقيقة (ExistingPeriodicWorkPolicy) لتفادي استنزاف موارد الجهاز والبطارية. كما تدعم المهام الدورية نافذة مرونة (Flex Period) تحدد متى يمكن للنظام تشغيل المهمة داخل كل دورة تكرار وفق الشروط المحددة وتجميع مهام النظام في وقت واحد (Batching).', '// مهمة دورية تنفذ كل 6 ساعات بحد أقصى:
+val syncRequest = PeriodicWorkRequestBuilder<SyncWorker>(
+    repeatInterval = 6,
+    repeatIntervalTimeUnit = TimeUnit.HOURS,
+    flexTimeInterval = 30, // نافذة مرونة 30 دقيقة
+    flexTimeIntervalUnit = TimeUnit.MINUTES
+).build()
+
+WorkManager.getInstance(context).enqueueUniquePeriodicWork(
+    "SyncWork",
+    ExistingPeriodicWorkPolicy.KEEP,
+    syncRequest
+)', '["محاولة ضبط repeatInterval أقل من 15 دقيقة، حيث يتجاهل WorkManager القيمة ويعيد ضبطها قسرًا على 15 دقيقة كحد أدنى تلقائيًا."]'::jsonb, '["ما الفرق بين سياسات ExistingPeriodicWorkPolicy: KEEP و UPDATE و CANCEL_AND_REENQUEUE؟"]'::jsonb, '[{"title":"Android Developers — Schedule periodic work","url":"https://developer.android.com/topic/libraries/architecture/workmanager/how-to/define-work#periodic_work"}]'::jsonb from public.question_revisions r where r.question_id = 'abg-003' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'abg-003' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما الفرق بين OneTimeWorkRequest و PeriodicWorkRequest وما هو الحد الأدنى للفاصل الزمني؟' or l.short_answer is distinct from 'OneTimeWorkRequest ينفذ المهمة مرة واحدة فقط، بينما PeriodicWorkRequest ينفذها بصفة دورية متكررة والحد الأدنى للفاصل الزمني هو 15 دقيقة لتوفير الطاقة.' or l.explanation is distinct from 'يمنع نظام أندرويد جدولة مهام PeriodicWorkRequest بفواصل أقل من 15 دقيقة (ExistingPeriodicWorkPolicy) لتفادي استنزاف موارد الجهاز والبطارية. كما تدعم المهام الدورية نافذة مرونة (Flex Period) تحدد متى يمكن للنظام تشغيل المهمة داخل كل دورة تكرار وفق الشروط المحددة وتجميع مهام النظام في وقت واحد (Batching).' or l.code_example is distinct from '// مهمة دورية تنفذ كل 6 ساعات بحد أقصى:
+val syncRequest = PeriodicWorkRequestBuilder<SyncWorker>(
+    repeatInterval = 6,
+    repeatIntervalTimeUnit = TimeUnit.HOURS,
+    flexTimeInterval = 30, // نافذة مرونة 30 دقيقة
+    flexTimeIntervalUnit = TimeUnit.MINUTES
+).build()
+
+WorkManager.getInstance(context).enqueueUniquePeriodicWork(
+    "SyncWork",
+    ExistingPeriodicWorkPolicy.KEEP,
+    syncRequest
+)' or l.common_mistakes is distinct from '["محاولة ضبط repeatInterval أقل من 15 دقيقة، حيث يتجاهل WorkManager القيمة ويعيد ضبطها قسرًا على 15 دقيقة كحد أدنى تلقائيًا."]'::jsonb or l.follow_up_questions is distinct from '["ما الفرق بين سياسات ExistingPeriodicWorkPolicy: KEEP و UPDATE و CANCEL_AND_REENQUEUE؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Schedule periodic work","url":"https://developer.android.com/topic/libraries/architecture/workmanager/how-to/define-work#periodic_work"}]'::jsonb)) then raise exception 'Question abg-003 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Periodic Work Vs One Time Work?', 'This question checks the core Periodic Work Vs One Time Work concept and how to use it safely in Kotlin and Android.', 'Explain Periodic Work Vs One Time Work with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', '// مهمة دورية تنفذ كل 6 ساعات بحد أقصى:
+val syncRequest = PeriodicWorkRequestBuilder<SyncWorker>(
+    repeatInterval = 6,
+    repeatIntervalTimeUnit = TimeUnit.HOURS,
+    flexTimeInterval = 30, // نافذة مرونة 30 دقيقة
+    flexTimeIntervalUnit = TimeUnit.MINUTES
+).build()
+
+WorkManager.getInstance(context).enqueueUniquePeriodicWork(
+    "SyncWork",
+    ExistingPeriodicWorkPolicy.KEEP,
+    syncRequest
+)', '["Missing the key trade-off in Periodic Work Vs One Time Work (point 1)."]'::jsonb, '["How would you apply Periodic Work Vs One Time Work in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Schedule periodic work","url":"https://developer.android.com/topic/libraries/architecture/workmanager/how-to/define-work#periodic_work"}]'::jsonb from public.question_revisions r where r.question_id = 'abg-003' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'abg-003' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Periodic Work Vs One Time Work?' or l.short_answer is distinct from 'This question checks the core Periodic Work Vs One Time Work concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Periodic Work Vs One Time Work with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from '// مهمة دورية تنفذ كل 6 ساعات بحد أقصى:
+val syncRequest = PeriodicWorkRequestBuilder<SyncWorker>(
+    repeatInterval = 6,
+    repeatIntervalTimeUnit = TimeUnit.HOURS,
+    flexTimeInterval = 30, // نافذة مرونة 30 دقيقة
+    flexTimeIntervalUnit = TimeUnit.MINUTES
+).build()
+
+WorkManager.getInstance(context).enqueueUniquePeriodicWork(
+    "SyncWork",
+    ExistingPeriodicWorkPolicy.KEEP,
+    syncRequest
+)' or l.common_mistakes is distinct from '["Missing the key trade-off in Periodic Work Vs One Time Work (point 1)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Periodic Work Vs One Time Work in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Schedule periodic work","url":"https://developer.android.com/topic/libraries/architecture/workmanager/how-to/define-work#periodic_work"}]'::jsonb)) then raise exception 'Question abg-003 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('abg-003', 'background-processing') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'abg-003' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'abg-003' and revision_number = 1 and status = 'published') where id = 'abg-003' and exists (select 1 from public.question_revisions where question_id = 'abg-003' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('abg-004', 'foreground-services-and-notifications', 'android-native', 'Mid') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('abg-004', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما هي المتطلبات الصارمة لتشغيل Foreground Service في إصدارات أندرويد الحديثة (Android 14+)؟', 'يجب إعلان نوع محدد للخدمة (foregroundServiceType) في الـ Manifest وطلب صلاحيته الخاصة وإطلاق إشعار دائم مرئي للمستخدم عبر startForeground خلال ثوانٍ معدودة.', 'منذ أندرويد 14، أصبح من الإلزامي تحديد نوع الخدمة بدقة (مثل location, mediaPlayback, dataSync)؛ ولا يسمح النظام بإطلاق الخدمة إذا لم تكن تتطابق مع الصلاحيات المصرح بها. بالإضافة إلى ذلك، إذا لم تستدعِ startForeground(id, notification) خلال 10 ثوانٍ من استدعاء startForegroundService()، سينهار التطبيق فورًا بخطأ ForegroundServiceDidNotStartInTimeException.', '<!-- في ملف AndroidManifest.xml -->
+<service
+    android:name=".PlaybackService"
+    android:foregroundServiceType="mediaPlayback" />
+
+// في كود الكلاس:
+override fun onCreate() {
+    super.onCreate()
+    val notification = createNotification()
+    startForeground(1001, notification)
+}', '["التأخر في استدعاء startForeground() بعد إطلاق الخدمة مما يسبب كراش فوري للتطبيق.","استخدام نوع generic للخدمة دون تبرير واضح في سياسات متجر Google Play."]'::jsonb, '["ما هي القيود المفروضة على بدء Foreground Services من الخلفية (Background Start Restrictions) في أندرويد 12+؟"]'::jsonb, '[{"title":"Android Developers — Foreground services","url":"https://developer.android.com/develop/background-work/services/foreground-services"}]'::jsonb from public.question_revisions r where r.question_id = 'abg-004' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'abg-004' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما هي المتطلبات الصارمة لتشغيل Foreground Service في إصدارات أندرويد الحديثة (Android 14+)؟' or l.short_answer is distinct from 'يجب إعلان نوع محدد للخدمة (foregroundServiceType) في الـ Manifest وطلب صلاحيته الخاصة وإطلاق إشعار دائم مرئي للمستخدم عبر startForeground خلال ثوانٍ معدودة.' or l.explanation is distinct from 'منذ أندرويد 14، أصبح من الإلزامي تحديد نوع الخدمة بدقة (مثل location, mediaPlayback, dataSync)؛ ولا يسمح النظام بإطلاق الخدمة إذا لم تكن تتطابق مع الصلاحيات المصرح بها. بالإضافة إلى ذلك، إذا لم تستدعِ startForeground(id, notification) خلال 10 ثوانٍ من استدعاء startForegroundService()، سينهار التطبيق فورًا بخطأ ForegroundServiceDidNotStartInTimeException.' or l.code_example is distinct from '<!-- في ملف AndroidManifest.xml -->
+<service
+    android:name=".PlaybackService"
+    android:foregroundServiceType="mediaPlayback" />
+
+// في كود الكلاس:
+override fun onCreate() {
+    super.onCreate()
+    val notification = createNotification()
+    startForeground(1001, notification)
+}' or l.common_mistakes is distinct from '["التأخر في استدعاء startForeground() بعد إطلاق الخدمة مما يسبب كراش فوري للتطبيق.","استخدام نوع generic للخدمة دون تبرير واضح في سياسات متجر Google Play."]'::jsonb or l.follow_up_questions is distinct from '["ما هي القيود المفروضة على بدء Foreground Services من الخلفية (Background Start Restrictions) في أندرويد 12+؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Foreground services","url":"https://developer.android.com/develop/background-work/services/foreground-services"}]'::jsonb)) then raise exception 'Question abg-004 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Foreground Services And Notifications?', 'This question checks the core Foreground Services And Notifications concept and how to use it safely in Kotlin and Android.', 'Explain Foreground Services And Notifications with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', '<!-- في ملف AndroidManifest.xml -->
+<service
+    android:name=".PlaybackService"
+    android:foregroundServiceType="mediaPlayback" />
+
+// في كود الكلاس:
+override fun onCreate() {
+    super.onCreate()
+    val notification = createNotification()
+    startForeground(1001, notification)
+}', '["Missing the key trade-off in Foreground Services And Notifications (point 1).","Missing the key trade-off in Foreground Services And Notifications (point 2)."]'::jsonb, '["How would you apply Foreground Services And Notifications in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Foreground services","url":"https://developer.android.com/develop/background-work/services/foreground-services"}]'::jsonb from public.question_revisions r where r.question_id = 'abg-004' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'abg-004' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Foreground Services And Notifications?' or l.short_answer is distinct from 'This question checks the core Foreground Services And Notifications concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Foreground Services And Notifications with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from '<!-- في ملف AndroidManifest.xml -->
+<service
+    android:name=".PlaybackService"
+    android:foregroundServiceType="mediaPlayback" />
+
+// في كود الكلاس:
+override fun onCreate() {
+    super.onCreate()
+    val notification = createNotification()
+    startForeground(1001, notification)
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Foreground Services And Notifications (point 1).","Missing the key trade-off in Foreground Services And Notifications (point 2)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Foreground Services And Notifications in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Foreground services","url":"https://developer.android.com/develop/background-work/services/foreground-services"}]'::jsonb)) then raise exception 'Question abg-004 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('abg-004', 'background-processing') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'abg-004' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'abg-004' and revision_number = 1 and status = 'published') where id = 'abg-004' and exists (select 1 from public.question_revisions where question_id = 'abg-004' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('abg-005', 'doze-mode-and-app-standby', 'android-native', 'Senior') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('abg-005', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'كيف يدير نظام أندرويد استهلاك الطاقة عبر Doze Mode و App Standby وما تأثيرهما على المهام الخلفية؟', 'Doze Mode يعلق وصول التطبيقات للشبكة والـ WakeLocks والمزامنة الدورية عند سكون الجهاز وشاشته مغلقة؛ بينما App Standby يقيد التطبيقات التي لم يفتحها المستخدم لفترة طويلة.', 'يدخل الجهاز في Doze Mode عندما يترك المستخدم الهاتف ثابتًا على سطح دون شحن مع إطفاء الشاشة. يوفر النظام فترات صيانة قصيرة (Maintenance Windows) دورية لتفريغ الأعمال المتراكمة، ثم يعود للنوم العميق. لتجاوز هذه القيود للمهام الحرجة، يُعتمد على إشعارات FCM عالية الأولوية (High Priority) أو منبهات AlarmManager الحتمية (setExactAndAllowWhileIdle).', '// جدولة منبه حتمي يعمل حتى أثناء وضع Doze:
+val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+alarmManager.setExactAndAllowWhileIdle(
+    AlarmManager.RTC_WAKEUP,
+    triggerTimeMillis,
+    pendingIntent
+)', '["الإفراط في استخدام WakeLocks وإبقاء المعالج نشطًا مما يستنزف البطارية ويصنف التطبيق كـ Bad Behavior في Google Play Vitals."]'::jsonb, '["ما هو وضع Standby Buckets وكيف يقسم أندرويد التطبيقات إلى فئات (Active, Working set, Frequent, Rare)؟"]'::jsonb, '[{"title":"Android Developers — Optimize for Doze and App Standby","url":"https://developer.android.com/training/monitoring-device-state/doze-standby"}]'::jsonb from public.question_revisions r where r.question_id = 'abg-005' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'abg-005' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'كيف يدير نظام أندرويد استهلاك الطاقة عبر Doze Mode و App Standby وما تأثيرهما على المهام الخلفية؟' or l.short_answer is distinct from 'Doze Mode يعلق وصول التطبيقات للشبكة والـ WakeLocks والمزامنة الدورية عند سكون الجهاز وشاشته مغلقة؛ بينما App Standby يقيد التطبيقات التي لم يفتحها المستخدم لفترة طويلة.' or l.explanation is distinct from 'يدخل الجهاز في Doze Mode عندما يترك المستخدم الهاتف ثابتًا على سطح دون شحن مع إطفاء الشاشة. يوفر النظام فترات صيانة قصيرة (Maintenance Windows) دورية لتفريغ الأعمال المتراكمة، ثم يعود للنوم العميق. لتجاوز هذه القيود للمهام الحرجة، يُعتمد على إشعارات FCM عالية الأولوية (High Priority) أو منبهات AlarmManager الحتمية (setExactAndAllowWhileIdle).' or l.code_example is distinct from '// جدولة منبه حتمي يعمل حتى أثناء وضع Doze:
+val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+alarmManager.setExactAndAllowWhileIdle(
+    AlarmManager.RTC_WAKEUP,
+    triggerTimeMillis,
+    pendingIntent
+)' or l.common_mistakes is distinct from '["الإفراط في استخدام WakeLocks وإبقاء المعالج نشطًا مما يستنزف البطارية ويصنف التطبيق كـ Bad Behavior في Google Play Vitals."]'::jsonb or l.follow_up_questions is distinct from '["ما هو وضع Standby Buckets وكيف يقسم أندرويد التطبيقات إلى فئات (Active, Working set, Frequent, Rare)؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Optimize for Doze and App Standby","url":"https://developer.android.com/training/monitoring-device-state/doze-standby"}]'::jsonb)) then raise exception 'Question abg-005 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Doze Mode And App Standby?', 'This question checks the core Doze Mode And App Standby concept and how to use it safely in Kotlin and Android.', 'Explain Doze Mode And App Standby with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', '// جدولة منبه حتمي يعمل حتى أثناء وضع Doze:
+val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+alarmManager.setExactAndAllowWhileIdle(
+    AlarmManager.RTC_WAKEUP,
+    triggerTimeMillis,
+    pendingIntent
+)', '["Missing the key trade-off in Doze Mode And App Standby (point 1)."]'::jsonb, '["How would you apply Doze Mode And App Standby in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Optimize for Doze and App Standby","url":"https://developer.android.com/training/monitoring-device-state/doze-standby"}]'::jsonb from public.question_revisions r where r.question_id = 'abg-005' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'abg-005' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Doze Mode And App Standby?' or l.short_answer is distinct from 'This question checks the core Doze Mode And App Standby concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Doze Mode And App Standby with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from '// جدولة منبه حتمي يعمل حتى أثناء وضع Doze:
+val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+alarmManager.setExactAndAllowWhileIdle(
+    AlarmManager.RTC_WAKEUP,
+    triggerTimeMillis,
+    pendingIntent
+)' or l.common_mistakes is distinct from '["Missing the key trade-off in Doze Mode And App Standby (point 1)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Doze Mode And App Standby in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Optimize for Doze and App Standby","url":"https://developer.android.com/training/monitoring-device-state/doze-standby"}]'::jsonb)) then raise exception 'Question abg-005 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('abg-005', 'background-processing') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'abg-005' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'abg-005' and revision_number = 1 and status = 'published') where id = 'abg-005' and exists (select 1 from public.question_revisions where question_id = 'abg-005' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('aperf-001', 'anr-causes-and-detection', 'android-native', 'Junior') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('aperf-001', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما هو خطأ ANR (Application Not Responding) وما أسبابه الرئيسية وكيفية تتبعه؟', 'يحدث عندما يحجب التطبيق الـ Main Thread لأكثر من 5 ثوانٍ أثناء التفاعل مع المستخدم أو أكثر من 10 ثوانٍ في BroadcastReceiver؛ وسببه عمليات الشبكة أو الحسابات الثقيلة على خيط الواجهة.', 'يراقب نظام أندرويد استجابة الـ Main Thread. عند حجب الخيط (UI Thread Blocking)، يظهر مربع الحوار الشهير لإجبار التطبيق على الإغلاق. يتم فحص مسبباته عن طريق فحص ملف /data/anr/traces.txt أو عبر أداة StrictMode و Google Play Console Android Vitals التي تسجل الـ Call Stack للـ Main Thread لحظة التجمد.', '// تفعيل StrictMode في مرحلة التطوير لاكتشاف حجب الـ UI فورًا:
+if (BuildConfig.DEBUG) {
+    StrictMode.setThreadPolicy(
+        StrictMode.ThreadPolicy.Builder()
+            .detectDiskReads()
+            .detectDiskWrites()
+            .detectNetwork()
+            .penaltyLog()
+            .build()
+    )
+}', '["القيام بعمليات قراءة ملفات ضخمة أو تشفير أو استعلامات قواعد بيانات على الـ Main Thread.","حدوث حالة Deadlock بين خيط الواجهة وخيوط عمل في الخلفية."]'::jsonb, '["ما هي المدة المحددة لظهور ANR في Foreground Services مقارنة بأحداث اللمس؟"]'::jsonb, '[{"title":"Android Developers — ANRs overview","url":"https://developer.android.com/topic/performance/vitals/anr"}]'::jsonb from public.question_revisions r where r.question_id = 'aperf-001' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'aperf-001' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما هو خطأ ANR (Application Not Responding) وما أسبابه الرئيسية وكيفية تتبعه؟' or l.short_answer is distinct from 'يحدث عندما يحجب التطبيق الـ Main Thread لأكثر من 5 ثوانٍ أثناء التفاعل مع المستخدم أو أكثر من 10 ثوانٍ في BroadcastReceiver؛ وسببه عمليات الشبكة أو الحسابات الثقيلة على خيط الواجهة.' or l.explanation is distinct from 'يراقب نظام أندرويد استجابة الـ Main Thread. عند حجب الخيط (UI Thread Blocking)، يظهر مربع الحوار الشهير لإجبار التطبيق على الإغلاق. يتم فحص مسبباته عن طريق فحص ملف /data/anr/traces.txt أو عبر أداة StrictMode و Google Play Console Android Vitals التي تسجل الـ Call Stack للـ Main Thread لحظة التجمد.' or l.code_example is distinct from '// تفعيل StrictMode في مرحلة التطوير لاكتشاف حجب الـ UI فورًا:
+if (BuildConfig.DEBUG) {
+    StrictMode.setThreadPolicy(
+        StrictMode.ThreadPolicy.Builder()
+            .detectDiskReads()
+            .detectDiskWrites()
+            .detectNetwork()
+            .penaltyLog()
+            .build()
+    )
+}' or l.common_mistakes is distinct from '["القيام بعمليات قراءة ملفات ضخمة أو تشفير أو استعلامات قواعد بيانات على الـ Main Thread.","حدوث حالة Deadlock بين خيط الواجهة وخيوط عمل في الخلفية."]'::jsonb or l.follow_up_questions is distinct from '["ما هي المدة المحددة لظهور ANR في Foreground Services مقارنة بأحداث اللمس؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — ANRs overview","url":"https://developer.android.com/topic/performance/vitals/anr"}]'::jsonb)) then raise exception 'Question aperf-001 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Anr Causes And Detection?', 'This question checks the core Anr Causes And Detection concept and how to use it safely in Kotlin and Android.', 'Explain Anr Causes And Detection with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', '// تفعيل StrictMode في مرحلة التطوير لاكتشاف حجب الـ UI فورًا:
+if (BuildConfig.DEBUG) {
+    StrictMode.setThreadPolicy(
+        StrictMode.ThreadPolicy.Builder()
+            .detectDiskReads()
+            .detectDiskWrites()
+            .detectNetwork()
+            .penaltyLog()
+            .build()
+    )
+}', '["Missing the key trade-off in Anr Causes And Detection (point 1).","Missing the key trade-off in Anr Causes And Detection (point 2)."]'::jsonb, '["How would you apply Anr Causes And Detection in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — ANRs overview","url":"https://developer.android.com/topic/performance/vitals/anr"}]'::jsonb from public.question_revisions r where r.question_id = 'aperf-001' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'aperf-001' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Anr Causes And Detection?' or l.short_answer is distinct from 'This question checks the core Anr Causes And Detection concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Anr Causes And Detection with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from '// تفعيل StrictMode في مرحلة التطوير لاكتشاف حجب الـ UI فورًا:
+if (BuildConfig.DEBUG) {
+    StrictMode.setThreadPolicy(
+        StrictMode.ThreadPolicy.Builder()
+            .detectDiskReads()
+            .detectDiskWrites()
+            .detectNetwork()
+            .penaltyLog()
+            .build()
+    )
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Anr Causes And Detection (point 1).","Missing the key trade-off in Anr Causes And Detection (point 2)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Anr Causes And Detection in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — ANRs overview","url":"https://developer.android.com/topic/performance/vitals/anr"}]'::jsonb)) then raise exception 'Question aperf-001 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('aperf-001', 'performance-memory') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'aperf-001' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'aperf-001' and revision_number = 1 and status = 'published') where id = 'aperf-001' and exists (select 1 from public.question_revisions where question_id = 'aperf-001' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('aperf-002', 'memory-leaks-and-leakcanary', 'android-native', 'Mid') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('aperf-002', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما هو تسريب الذاكرة (Memory Leak) في أندرويد وكيف تساعد أداة LeakCanary في اكتشافه؟', 'يحدث عندما يحتفظ كائن طويل العمر بمرجع قوي (Strong Reference) لكائن انتهت دورة حياته (كالـ Activity)، مما يمنع مجمع النفايات (GC) من تحريره؛ وتكتشفه LeakCanary بتتبع كائنات مفرغة عبر مراجع ضعيفة.', 'تراقب LeakCanary كائنات الـ Activity و Fragment بعد استدعاء onDestroy. تنتظر 5 ثوانٍ ثم تشغل الـ Garbage Collection؛ إذا بقي الكائن في الذاكرة، تقوم بأخذ تفريغ للذاكرة (Heap Dump) عبر Hprof، وتحلل شجرة المراجع (Retention Path) لتظهر للمطور السطر الدقيق الذي تسبب في منع تفريغ الكائن.', '// إضافة LeakCanary كـ debug dependency فقط في build.gradle:
+// debugImplementation ''com.squareup.leakcanary:leakcanary-android:2.14''
+
+// مثال لتسريب كلاسيكي:
+object SingletonManager {
+    // خطأ فادح: الاحتفاظ بـ Activity Context داخل كائن ثابت!
+    var leakedActivity: Activity? = null
+}', '["تسجيل مستمعين ومراقبين (Listeners/Callbacks) في كائنات Singleton دون إلغاء الاشتراك عند إغلاق الشاشة.","تخزين مراجع الـ Views في كائنات CoroutineScope أو خيوط عمل طويلة."]'::jsonb, '["ما الفرق بين Strong Reference و Weak Reference و Soft Reference في إدارة الذاكرة؟"]'::jsonb, '[{"title":"Android Developers — Manage your app''s memory","url":"https://developer.android.com/topic/performance/memory"}]'::jsonb from public.question_revisions r where r.question_id = 'aperf-002' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'aperf-002' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما هو تسريب الذاكرة (Memory Leak) في أندرويد وكيف تساعد أداة LeakCanary في اكتشافه؟' or l.short_answer is distinct from 'يحدث عندما يحتفظ كائن طويل العمر بمرجع قوي (Strong Reference) لكائن انتهت دورة حياته (كالـ Activity)، مما يمنع مجمع النفايات (GC) من تحريره؛ وتكتشفه LeakCanary بتتبع كائنات مفرغة عبر مراجع ضعيفة.' or l.explanation is distinct from 'تراقب LeakCanary كائنات الـ Activity و Fragment بعد استدعاء onDestroy. تنتظر 5 ثوانٍ ثم تشغل الـ Garbage Collection؛ إذا بقي الكائن في الذاكرة، تقوم بأخذ تفريغ للذاكرة (Heap Dump) عبر Hprof، وتحلل شجرة المراجع (Retention Path) لتظهر للمطور السطر الدقيق الذي تسبب في منع تفريغ الكائن.' or l.code_example is distinct from '// إضافة LeakCanary كـ debug dependency فقط في build.gradle:
+// debugImplementation ''com.squareup.leakcanary:leakcanary-android:2.14''
+
+// مثال لتسريب كلاسيكي:
+object SingletonManager {
+    // خطأ فادح: الاحتفاظ بـ Activity Context داخل كائن ثابت!
+    var leakedActivity: Activity? = null
+}' or l.common_mistakes is distinct from '["تسجيل مستمعين ومراقبين (Listeners/Callbacks) في كائنات Singleton دون إلغاء الاشتراك عند إغلاق الشاشة.","تخزين مراجع الـ Views في كائنات CoroutineScope أو خيوط عمل طويلة."]'::jsonb or l.follow_up_questions is distinct from '["ما الفرق بين Strong Reference و Weak Reference و Soft Reference في إدارة الذاكرة؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Manage your app''s memory","url":"https://developer.android.com/topic/performance/memory"}]'::jsonb)) then raise exception 'Question aperf-002 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Memory Leaks And Leakcanary?', 'This question checks the core Memory Leaks And Leakcanary concept and how to use it safely in Kotlin and Android.', 'Explain Memory Leaks And Leakcanary with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', '// إضافة LeakCanary كـ debug dependency فقط في build.gradle:
+// debugImplementation ''com.squareup.leakcanary:leakcanary-android:2.14''
+
+// مثال لتسريب كلاسيكي:
+object SingletonManager {
+    // خطأ فادح: الاحتفاظ بـ Activity Context داخل كائن ثابت!
+    var leakedActivity: Activity? = null
+}', '["Missing the key trade-off in Memory Leaks And Leakcanary (point 1).","Missing the key trade-off in Memory Leaks And Leakcanary (point 2)."]'::jsonb, '["How would you apply Memory Leaks And Leakcanary in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Manage your app''s memory","url":"https://developer.android.com/topic/performance/memory"}]'::jsonb from public.question_revisions r where r.question_id = 'aperf-002' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'aperf-002' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Memory Leaks And Leakcanary?' or l.short_answer is distinct from 'This question checks the core Memory Leaks And Leakcanary concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Memory Leaks And Leakcanary with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from '// إضافة LeakCanary كـ debug dependency فقط في build.gradle:
+// debugImplementation ''com.squareup.leakcanary:leakcanary-android:2.14''
+
+// مثال لتسريب كلاسيكي:
+object SingletonManager {
+    // خطأ فادح: الاحتفاظ بـ Activity Context داخل كائن ثابت!
+    var leakedActivity: Activity? = null
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Memory Leaks And Leakcanary (point 1).","Missing the key trade-off in Memory Leaks And Leakcanary (point 2)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Memory Leaks And Leakcanary in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Manage your app''s memory","url":"https://developer.android.com/topic/performance/memory"}]'::jsonb)) then raise exception 'Question aperf-002 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('aperf-002', 'performance-memory') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'aperf-002' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'aperf-002' and revision_number = 1 and status = 'published') where id = 'aperf-002' and exists (select 1 from public.question_revisions where question_id = 'aperf-002' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('aperf-003', 'app-startup-time-optimization', 'android-native', 'Mid') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('aperf-003', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما الفرق بين أنواع إقلاع التطبيق (Cold, Warm, Hot Start) وكيف تحسن وقت الإقلاع البارد؟', 'Cold Start يبدأ من الصفر بإنشاء العملية والـ Application؛ Warm يعيد إنشاء الـ Activity فقط؛ و Hot يعيد التطبيق فورًا للمقدمة من الذاكرة. يتم تحسين الإقلاع بتأخير تهيئة المكتبات غير الضرورية.', 'يعتبر Cold Start الأطول والأكثر حساسية لانطباع المستخدم. لتحسينه، يجب تقليل الكود المنفذ داخل Application.onCreate()، واستخدام مكتبة App Startup لتجميع مزودي المحتوى (ContentProviders) في مهيئ واحد، وتجنب استخدام الانعكاس الديناميكي (Reflection) أو القراءة المتزامنة من القرص أثناء فتح التطبيق.', '// استخدام Jetpack App Startup لتنظيم التهيئة:
+class AnalyticsInitializer : Initializer<Analytics> {
+    override fun create(context: Context): Analytics {
+        return Analytics.init(context)
+    }
+    override fun dependencies(): List<Class<out Initializer<*>>> = emptyList()
+}', '["تهيئة جميع مكتبات التحليلات والإعلانات والأدوات بالتتابع وبشكل متزامن داخل Application.onCreate()."]'::jsonb, '["كيف تساعد شاشة البداية الرسمية (SplashScreen API) في تحسين تجربة الإقلاع البارد بصريًا؟"]'::jsonb, '[{"title":"Android Developers — App startup time","url":"https://developer.android.com/topic/performance/vitals/launch-time"}]'::jsonb from public.question_revisions r where r.question_id = 'aperf-003' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'aperf-003' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما الفرق بين أنواع إقلاع التطبيق (Cold, Warm, Hot Start) وكيف تحسن وقت الإقلاع البارد؟' or l.short_answer is distinct from 'Cold Start يبدأ من الصفر بإنشاء العملية والـ Application؛ Warm يعيد إنشاء الـ Activity فقط؛ و Hot يعيد التطبيق فورًا للمقدمة من الذاكرة. يتم تحسين الإقلاع بتأخير تهيئة المكتبات غير الضرورية.' or l.explanation is distinct from 'يعتبر Cold Start الأطول والأكثر حساسية لانطباع المستخدم. لتحسينه، يجب تقليل الكود المنفذ داخل Application.onCreate()، واستخدام مكتبة App Startup لتجميع مزودي المحتوى (ContentProviders) في مهيئ واحد، وتجنب استخدام الانعكاس الديناميكي (Reflection) أو القراءة المتزامنة من القرص أثناء فتح التطبيق.' or l.code_example is distinct from '// استخدام Jetpack App Startup لتنظيم التهيئة:
+class AnalyticsInitializer : Initializer<Analytics> {
+    override fun create(context: Context): Analytics {
+        return Analytics.init(context)
+    }
+    override fun dependencies(): List<Class<out Initializer<*>>> = emptyList()
+}' or l.common_mistakes is distinct from '["تهيئة جميع مكتبات التحليلات والإعلانات والأدوات بالتتابع وبشكل متزامن داخل Application.onCreate()."]'::jsonb or l.follow_up_questions is distinct from '["كيف تساعد شاشة البداية الرسمية (SplashScreen API) في تحسين تجربة الإقلاع البارد بصريًا؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — App startup time","url":"https://developer.android.com/topic/performance/vitals/launch-time"}]'::jsonb)) then raise exception 'Question aperf-003 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about App Startup Time Optimization?', 'This question checks the core App Startup Time Optimization concept and how to use it safely in Kotlin and Android.', 'Explain App Startup Time Optimization with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', '// استخدام Jetpack App Startup لتنظيم التهيئة:
+class AnalyticsInitializer : Initializer<Analytics> {
+    override fun create(context: Context): Analytics {
+        return Analytics.init(context)
+    }
+    override fun dependencies(): List<Class<out Initializer<*>>> = emptyList()
+}', '["Missing the key trade-off in App Startup Time Optimization (point 1)."]'::jsonb, '["How would you apply App Startup Time Optimization in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — App startup time","url":"https://developer.android.com/topic/performance/vitals/launch-time"}]'::jsonb from public.question_revisions r where r.question_id = 'aperf-003' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'aperf-003' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about App Startup Time Optimization?' or l.short_answer is distinct from 'This question checks the core App Startup Time Optimization concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain App Startup Time Optimization with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from '// استخدام Jetpack App Startup لتنظيم التهيئة:
+class AnalyticsInitializer : Initializer<Analytics> {
+    override fun create(context: Context): Analytics {
+        return Analytics.init(context)
+    }
+    override fun dependencies(): List<Class<out Initializer<*>>> = emptyList()
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in App Startup Time Optimization (point 1)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply App Startup Time Optimization in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — App startup time","url":"https://developer.android.com/topic/performance/vitals/launch-time"}]'::jsonb)) then raise exception 'Question aperf-003 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('aperf-003', 'performance-memory') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'aperf-003' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'aperf-003' and revision_number = 1 and status = 'published') where id = 'aperf-003' and exists (select 1 from public.question_revisions where question_id = 'aperf-003' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('aperf-004', 'bitmap-memory-management', 'android-native', 'Mid') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('aperf-004', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'كيف تدير ذاكرة الصور والـ Bitmaps في أندرويد لتجنب أخطاء OutOfMemoryError (OOM)؟', 'بتصغير أبعاد الصورة وقت فك التشفير باستخدام inSampleSize، وإعادة تدوير كائنات الـ Bitmap السابقة عبر inBitmap، والاعتماد على مكتبات متخصصة كـ Coil.', 'تحجز الصورة في الذاكرة مساحة تعتمد على أبعادها بالبكسل وليس على حجم الملف على القرص (العرض × الارتفاع × 4 بايت لـ ARGB_8888). إذا عرضت صورة 4K داخل ImageView صغير بمقاس 100x100، فستستهلك عشرات الميجابايتات دون فائدة. يحدد BitmapFactory.Options.inSampleSize نسبة تصغير دقيقة تقرأ فقط البكسلات المطلوبة للشاشة.', 'val options = BitmapFactory.Options().apply {
+    inJustDecodeBounds = true // قراءة الأبعاد فقط دون حجز ذاكرة
+    BitmapFactory.decodeFile(imagePath, this)
+
+    // حساب نسبة التصغير بناءً على حجم الشاشة المطلوب:
+    inSampleSize = calculateInSampleSize(this, reqWidth = 200, reqHeight = 200)
+    inJustDecodeBounds = false
+}
+val safeBitmap = BitmapFactory.decodeFile(imagePath, options)', '["تحميل الصور الأصلية ذات الدقة العالية مباشرة في الذاكرة دون حساب inSampleSize.","كتابة كود معالجة وتخزين مؤقت للصور يدويًا بدلاً من استخدام مكتبة حديثة مثل Coil المبنية على Coroutines."]'::jsonb, '["ما هي صيغة الألوان HARDWARE (Bitmap.Config.HARDWARE) وكيف توفر ذاكرة RAM في أندرويد 8.0+؟"]'::jsonb, '[{"title":"Android Developers — Loading large bitmaps efficiently","url":"https://developer.android.com/topic/performance/graphics/load-bitmap"}]'::jsonb from public.question_revisions r where r.question_id = 'aperf-004' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'aperf-004' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'كيف تدير ذاكرة الصور والـ Bitmaps في أندرويد لتجنب أخطاء OutOfMemoryError (OOM)؟' or l.short_answer is distinct from 'بتصغير أبعاد الصورة وقت فك التشفير باستخدام inSampleSize، وإعادة تدوير كائنات الـ Bitmap السابقة عبر inBitmap، والاعتماد على مكتبات متخصصة كـ Coil.' or l.explanation is distinct from 'تحجز الصورة في الذاكرة مساحة تعتمد على أبعادها بالبكسل وليس على حجم الملف على القرص (العرض × الارتفاع × 4 بايت لـ ARGB_8888). إذا عرضت صورة 4K داخل ImageView صغير بمقاس 100x100، فستستهلك عشرات الميجابايتات دون فائدة. يحدد BitmapFactory.Options.inSampleSize نسبة تصغير دقيقة تقرأ فقط البكسلات المطلوبة للشاشة.' or l.code_example is distinct from 'val options = BitmapFactory.Options().apply {
+    inJustDecodeBounds = true // قراءة الأبعاد فقط دون حجز ذاكرة
+    BitmapFactory.decodeFile(imagePath, this)
+
+    // حساب نسبة التصغير بناءً على حجم الشاشة المطلوب:
+    inSampleSize = calculateInSampleSize(this, reqWidth = 200, reqHeight = 200)
+    inJustDecodeBounds = false
+}
+val safeBitmap = BitmapFactory.decodeFile(imagePath, options)' or l.common_mistakes is distinct from '["تحميل الصور الأصلية ذات الدقة العالية مباشرة في الذاكرة دون حساب inSampleSize.","كتابة كود معالجة وتخزين مؤقت للصور يدويًا بدلاً من استخدام مكتبة حديثة مثل Coil المبنية على Coroutines."]'::jsonb or l.follow_up_questions is distinct from '["ما هي صيغة الألوان HARDWARE (Bitmap.Config.HARDWARE) وكيف توفر ذاكرة RAM في أندرويد 8.0+؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Loading large bitmaps efficiently","url":"https://developer.android.com/topic/performance/graphics/load-bitmap"}]'::jsonb)) then raise exception 'Question aperf-004 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Bitmap Memory Management?', 'This question checks the core Bitmap Memory Management concept and how to use it safely in Kotlin and Android.', 'Explain Bitmap Memory Management with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', 'val options = BitmapFactory.Options().apply {
+    inJustDecodeBounds = true // قراءة الأبعاد فقط دون حجز ذاكرة
+    BitmapFactory.decodeFile(imagePath, this)
+
+    // حساب نسبة التصغير بناءً على حجم الشاشة المطلوب:
+    inSampleSize = calculateInSampleSize(this, reqWidth = 200, reqHeight = 200)
+    inJustDecodeBounds = false
+}
+val safeBitmap = BitmapFactory.decodeFile(imagePath, options)', '["Missing the key trade-off in Bitmap Memory Management (point 1).","Missing the key trade-off in Bitmap Memory Management (point 2)."]'::jsonb, '["How would you apply Bitmap Memory Management in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Loading large bitmaps efficiently","url":"https://developer.android.com/topic/performance/graphics/load-bitmap"}]'::jsonb from public.question_revisions r where r.question_id = 'aperf-004' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'aperf-004' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Bitmap Memory Management?' or l.short_answer is distinct from 'This question checks the core Bitmap Memory Management concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Bitmap Memory Management with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from 'val options = BitmapFactory.Options().apply {
+    inJustDecodeBounds = true // قراءة الأبعاد فقط دون حجز ذاكرة
+    BitmapFactory.decodeFile(imagePath, this)
+
+    // حساب نسبة التصغير بناءً على حجم الشاشة المطلوب:
+    inSampleSize = calculateInSampleSize(this, reqWidth = 200, reqHeight = 200)
+    inJustDecodeBounds = false
+}
+val safeBitmap = BitmapFactory.decodeFile(imagePath, options)' or l.common_mistakes is distinct from '["Missing the key trade-off in Bitmap Memory Management (point 1).","Missing the key trade-off in Bitmap Memory Management (point 2)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Bitmap Memory Management in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Loading large bitmaps efficiently","url":"https://developer.android.com/topic/performance/graphics/load-bitmap"}]'::jsonb)) then raise exception 'Question aperf-004 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('aperf-004', 'performance-memory') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'aperf-004' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'aperf-004' and revision_number = 1 and status = 'published') where id = 'aperf-004' and exists (select 1 from public.question_revisions where question_id = 'aperf-004' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('aperf-005', 'systrace-and-perfetto-profiling', 'android-native', 'Senior') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('aperf-005', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'كيف تكتشف تقطيع الإطارات (Jank) وأسباب هبوط معدل الـ 60/120 FPS باستخدام أداة Perfetto؟', 'بتسجيل تتبع زمني لأداء المعالج ومطابقة خط زمني لإطارات الشاشة (Choreographer frame budget) لمعرفة ما إذا كانت معالجة إطار استغرقت أكثر من 16.6ms أو 8.3ms.', 'لتفادي الـ Jank، يجب ألا يتجاوز زمن معالجة كل إطار ميزانية العرض (16.6ms لشاشات 60Hz). تتيح Perfetto و Android Studio Profiler تتبع مسارات الأنوية وخطوات Choreographer#doFrame. باستخدام androidx.tracing يمكنك تمييز دوال محددة بأقسام مخصصة تظهر في التتبع للوقوف على الدوال التي تحجب المعالج.', 'import androidx.tracing.trace
+
+inline fun <T> measureTrace(sectionName: String, block: () -> T): T {
+    return trace(sectionName) {
+        block()
+    }
+}', '["الاعتماد على التخمين لتحسين الأداء بدلاً من أخذ قراءات حقيقية وأدلة رقمية من الـ Profiler."]'::jsonb, '["ما هي أداة Macrobenchmark وكيف تستخدمها لقياس زمن التمرير والإقلاع بصورة آلية؟"]'::jsonb, '[{"title":"Android Developers — Overview of system tracing","url":"https://developer.android.com/topic/performance/tracing"}]'::jsonb from public.question_revisions r where r.question_id = 'aperf-005' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'aperf-005' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'كيف تكتشف تقطيع الإطارات (Jank) وأسباب هبوط معدل الـ 60/120 FPS باستخدام أداة Perfetto؟' or l.short_answer is distinct from 'بتسجيل تتبع زمني لأداء المعالج ومطابقة خط زمني لإطارات الشاشة (Choreographer frame budget) لمعرفة ما إذا كانت معالجة إطار استغرقت أكثر من 16.6ms أو 8.3ms.' or l.explanation is distinct from 'لتفادي الـ Jank، يجب ألا يتجاوز زمن معالجة كل إطار ميزانية العرض (16.6ms لشاشات 60Hz). تتيح Perfetto و Android Studio Profiler تتبع مسارات الأنوية وخطوات Choreographer#doFrame. باستخدام androidx.tracing يمكنك تمييز دوال محددة بأقسام مخصصة تظهر في التتبع للوقوف على الدوال التي تحجب المعالج.' or l.code_example is distinct from 'import androidx.tracing.trace
+
+inline fun <T> measureTrace(sectionName: String, block: () -> T): T {
+    return trace(sectionName) {
+        block()
+    }
+}' or l.common_mistakes is distinct from '["الاعتماد على التخمين لتحسين الأداء بدلاً من أخذ قراءات حقيقية وأدلة رقمية من الـ Profiler."]'::jsonb or l.follow_up_questions is distinct from '["ما هي أداة Macrobenchmark وكيف تستخدمها لقياس زمن التمرير والإقلاع بصورة آلية؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Overview of system tracing","url":"https://developer.android.com/topic/performance/tracing"}]'::jsonb)) then raise exception 'Question aperf-005 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Systrace And Perfetto Profiling?', 'This question checks the core Systrace And Perfetto Profiling concept and how to use it safely in Kotlin and Android.', 'Explain Systrace And Perfetto Profiling with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', 'import androidx.tracing.trace
+
+inline fun <T> measureTrace(sectionName: String, block: () -> T): T {
+    return trace(sectionName) {
+        block()
+    }
+}', '["Missing the key trade-off in Systrace And Perfetto Profiling (point 1)."]'::jsonb, '["How would you apply Systrace And Perfetto Profiling in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Overview of system tracing","url":"https://developer.android.com/topic/performance/tracing"}]'::jsonb from public.question_revisions r where r.question_id = 'aperf-005' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'aperf-005' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Systrace And Perfetto Profiling?' or l.short_answer is distinct from 'This question checks the core Systrace And Perfetto Profiling concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Systrace And Perfetto Profiling with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from 'import androidx.tracing.trace
+
+inline fun <T> measureTrace(sectionName: String, block: () -> T): T {
+    return trace(sectionName) {
+        block()
+    }
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Systrace And Perfetto Profiling (point 1)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Systrace And Perfetto Profiling in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Overview of system tracing","url":"https://developer.android.com/topic/performance/tracing"}]'::jsonb)) then raise exception 'Question aperf-005 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('aperf-005', 'performance-memory') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'aperf-005' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'aperf-005' and revision_number = 1 and status = 'published') where id = 'aperf-005' and exists (select 1 from public.question_revisions where question_id = 'aperf-005' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('aperf-006', 'baseline-profiles-and-dex-optimization', 'android-native', 'Senior') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('aperf-006', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما هي الـ Baseline Profiles وكيف تسرع إقلاع التطبيق وسلاسة التمرير بنسبة تصل إلى 30%؟', 'هي مواصفات مدمجة داخل حزمة APK تحدد مسارات الكود الحرجة ليقوم نظام تشغيل أندرويد (ART) بترجمتها مسبقًا إلى كود آلة أصلي (AOT Compilation) أثناء التثبيت.', 'يعتمد وقت تشغيل أندرويد (Android Runtime - ART) على الترجمة أثناء التنفيذ (JIT) والملاحظة الميدانية لترجمة الكود الشائع. بدون Baseline Profiles، يمر الكود بمرحلة تفسير بطيئة في أول فتح للتطبيق. تضمين Baseline Profiles المجمعة عبر Macrobenchmark يجعل الكود الحرج مترجمًا بالكامل قبل أول تشغيل، مما يلغي بطء التفسير الأولي تمامًا.', '// كتابة مولد Baseline Profile باستخدام Macrobenchmark:
+@OptIn(ExperimentalBaselineProfilesApi::class)
+class BaselineProfileGenerator {
+    @get:Rule val baselineProfileRule = BaselineProfileRule()
+
+    @Test
+    fun generateBaselineProfile() = baselineProfileRule.collect(
+        packageName = "com.example.app"
+    ) {
+        pressHome()
+        startActivityAndWait() // تسجيل مسار الإقلاع الحرج
+    }
+}', '["تضمين التطبيق بأكمله داخل Baseline Profile مما يزيد من حجم الحزمة المثبتة دون فائدة للأماكن النادرة الاستخدام."]'::jsonb, '["كيف تقوم خوادم Google Play Cloud بالتنسيق مع Baseline Profiles لتحسين حزم المستخدمين الجدد؟"]'::jsonb, '[{"title":"Android Developers — Baseline Profiles overview","url":"https://developer.android.com/topic/performance/baselineprofiles/overview"}]'::jsonb from public.question_revisions r where r.question_id = 'aperf-006' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'aperf-006' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما هي الـ Baseline Profiles وكيف تسرع إقلاع التطبيق وسلاسة التمرير بنسبة تصل إلى 30%؟' or l.short_answer is distinct from 'هي مواصفات مدمجة داخل حزمة APK تحدد مسارات الكود الحرجة ليقوم نظام تشغيل أندرويد (ART) بترجمتها مسبقًا إلى كود آلة أصلي (AOT Compilation) أثناء التثبيت.' or l.explanation is distinct from 'يعتمد وقت تشغيل أندرويد (Android Runtime - ART) على الترجمة أثناء التنفيذ (JIT) والملاحظة الميدانية لترجمة الكود الشائع. بدون Baseline Profiles، يمر الكود بمرحلة تفسير بطيئة في أول فتح للتطبيق. تضمين Baseline Profiles المجمعة عبر Macrobenchmark يجعل الكود الحرج مترجمًا بالكامل قبل أول تشغيل، مما يلغي بطء التفسير الأولي تمامًا.' or l.code_example is distinct from '// كتابة مولد Baseline Profile باستخدام Macrobenchmark:
+@OptIn(ExperimentalBaselineProfilesApi::class)
+class BaselineProfileGenerator {
+    @get:Rule val baselineProfileRule = BaselineProfileRule()
+
+    @Test
+    fun generateBaselineProfile() = baselineProfileRule.collect(
+        packageName = "com.example.app"
+    ) {
+        pressHome()
+        startActivityAndWait() // تسجيل مسار الإقلاع الحرج
+    }
+}' or l.common_mistakes is distinct from '["تضمين التطبيق بأكمله داخل Baseline Profile مما يزيد من حجم الحزمة المثبتة دون فائدة للأماكن النادرة الاستخدام."]'::jsonb or l.follow_up_questions is distinct from '["كيف تقوم خوادم Google Play Cloud بالتنسيق مع Baseline Profiles لتحسين حزم المستخدمين الجدد؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Baseline Profiles overview","url":"https://developer.android.com/topic/performance/baselineprofiles/overview"}]'::jsonb)) then raise exception 'Question aperf-006 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Baseline Profiles And Dex Optimization?', 'This question checks the core Baseline Profiles And Dex Optimization concept and how to use it safely in Kotlin and Android.', 'Explain Baseline Profiles And Dex Optimization with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', '// كتابة مولد Baseline Profile باستخدام Macrobenchmark:
+@OptIn(ExperimentalBaselineProfilesApi::class)
+class BaselineProfileGenerator {
+    @get:Rule val baselineProfileRule = BaselineProfileRule()
+
+    @Test
+    fun generateBaselineProfile() = baselineProfileRule.collect(
+        packageName = "com.example.app"
+    ) {
+        pressHome()
+        startActivityAndWait() // تسجيل مسار الإقلاع الحرج
+    }
+}', '["Missing the key trade-off in Baseline Profiles And Dex Optimization (point 1)."]'::jsonb, '["How would you apply Baseline Profiles And Dex Optimization in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Baseline Profiles overview","url":"https://developer.android.com/topic/performance/baselineprofiles/overview"}]'::jsonb from public.question_revisions r where r.question_id = 'aperf-006' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'aperf-006' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Baseline Profiles And Dex Optimization?' or l.short_answer is distinct from 'This question checks the core Baseline Profiles And Dex Optimization concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Baseline Profiles And Dex Optimization with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from '// كتابة مولد Baseline Profile باستخدام Macrobenchmark:
+@OptIn(ExperimentalBaselineProfilesApi::class)
+class BaselineProfileGenerator {
+    @get:Rule val baselineProfileRule = BaselineProfileRule()
+
+    @Test
+    fun generateBaselineProfile() = baselineProfileRule.collect(
+        packageName = "com.example.app"
+    ) {
+        pressHome()
+        startActivityAndWait() // تسجيل مسار الإقلاع الحرج
+    }
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Baseline Profiles And Dex Optimization (point 1)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Baseline Profiles And Dex Optimization in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Baseline Profiles overview","url":"https://developer.android.com/topic/performance/baselineprofiles/overview"}]'::jsonb)) then raise exception 'Question aperf-006 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('aperf-006', 'performance-memory') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'aperf-006' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'aperf-006' and revision_number = 1 and status = 'published') where id = 'aperf-006' and exists (select 1 from public.question_revisions where question_id = 'aperf-006' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('asec-001', 'android-keystore-system', 'android-native', 'Junior') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('asec-001', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما هو نظام Android Keystore وما الميزة الأمنية التي يقدمها مقارنة بالتخزين العادي للمفاتيح؟', 'هو مستودع آمن يسمح بإنشاء وحفظ المفاتيح التشفيرية داخل بيئة أجهزة مخصصة ومعزولة (TEE أو StrongBox) بحيث لا يمكن للتطبيق أو المهاجم استخراج المادة الخام للمفتاح.', 'في التخزين العادي، يتم قراءة المفتاح إلى ذاكرة RAM حيث يمكن سرقته إذا تم عمل Root للجهاز. في Android Keystore، تنفذ عمليات التشفير وفك التشفير والتوقيع الرقمي داخل الشريحة الأمنية المعزولة نفسها دون أن تغادر مفاتيح التشفير العتاد الصلب إطلاقًا، مع إمكانية ربط استخدام المفتاح بمصادقة بصمة المستخدم.', 'val keyStore = KeyStore.getInstance("AndroidKeyStore").apply { load(null) }
+val keyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, "AndroidKeyStore")
+
+val keyGenParameterSpec = KeyGenParameterSpec.Builder(
+    "MySecretKeyAlias",
+    KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT
+)
+    .setBlockModes(KeyProperties.BLOCK_MODE_GCM)
+    .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE)
+    .setUserAuthenticationRequired(true) // يتطلب مصادقة حيوية
+    .build()
+
+keyGenerator.init(keyGenParameterSpec)
+keyGenerator.generateKey()', '["كتابة مفاتيح التشفير بشكل صريح (Hardcoded Strings) داخل الكود المصدري للتطبيق، مما يسهل كشفها فورًا بفك الحزمة (Decompilation)."]'::jsonb, '["ما الفرق بين Trusted Execution Environment (TEE) وشريحة StrongBox المخصصة؟"]'::jsonb, '[{"title":"Android Developers — Android Keystore system","url":"https://developer.android.com/privacy-and-security/keystore"}]'::jsonb from public.question_revisions r where r.question_id = 'asec-001' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'asec-001' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما هو نظام Android Keystore وما الميزة الأمنية التي يقدمها مقارنة بالتخزين العادي للمفاتيح؟' or l.short_answer is distinct from 'هو مستودع آمن يسمح بإنشاء وحفظ المفاتيح التشفيرية داخل بيئة أجهزة مخصصة ومعزولة (TEE أو StrongBox) بحيث لا يمكن للتطبيق أو المهاجم استخراج المادة الخام للمفتاح.' or l.explanation is distinct from 'في التخزين العادي، يتم قراءة المفتاح إلى ذاكرة RAM حيث يمكن سرقته إذا تم عمل Root للجهاز. في Android Keystore، تنفذ عمليات التشفير وفك التشفير والتوقيع الرقمي داخل الشريحة الأمنية المعزولة نفسها دون أن تغادر مفاتيح التشفير العتاد الصلب إطلاقًا، مع إمكانية ربط استخدام المفتاح بمصادقة بصمة المستخدم.' or l.code_example is distinct from 'val keyStore = KeyStore.getInstance("AndroidKeyStore").apply { load(null) }
+val keyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, "AndroidKeyStore")
+
+val keyGenParameterSpec = KeyGenParameterSpec.Builder(
+    "MySecretKeyAlias",
+    KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT
+)
+    .setBlockModes(KeyProperties.BLOCK_MODE_GCM)
+    .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE)
+    .setUserAuthenticationRequired(true) // يتطلب مصادقة حيوية
+    .build()
+
+keyGenerator.init(keyGenParameterSpec)
+keyGenerator.generateKey()' or l.common_mistakes is distinct from '["كتابة مفاتيح التشفير بشكل صريح (Hardcoded Strings) داخل الكود المصدري للتطبيق، مما يسهل كشفها فورًا بفك الحزمة (Decompilation)."]'::jsonb or l.follow_up_questions is distinct from '["ما الفرق بين Trusted Execution Environment (TEE) وشريحة StrongBox المخصصة؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Android Keystore system","url":"https://developer.android.com/privacy-and-security/keystore"}]'::jsonb)) then raise exception 'Question asec-001 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Android Keystore System?', 'This question checks the core Android Keystore System concept and how to use it safely in Kotlin and Android.', 'Explain Android Keystore System with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', 'val keyStore = KeyStore.getInstance("AndroidKeyStore").apply { load(null) }
+val keyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, "AndroidKeyStore")
+
+val keyGenParameterSpec = KeyGenParameterSpec.Builder(
+    "MySecretKeyAlias",
+    KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT
+)
+    .setBlockModes(KeyProperties.BLOCK_MODE_GCM)
+    .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE)
+    .setUserAuthenticationRequired(true) // يتطلب مصادقة حيوية
+    .build()
+
+keyGenerator.init(keyGenParameterSpec)
+keyGenerator.generateKey()', '["Missing the key trade-off in Android Keystore System (point 1)."]'::jsonb, '["How would you apply Android Keystore System in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Android Keystore system","url":"https://developer.android.com/privacy-and-security/keystore"}]'::jsonb from public.question_revisions r where r.question_id = 'asec-001' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'asec-001' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Android Keystore System?' or l.short_answer is distinct from 'This question checks the core Android Keystore System concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Android Keystore System with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from 'val keyStore = KeyStore.getInstance("AndroidKeyStore").apply { load(null) }
+val keyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, "AndroidKeyStore")
+
+val keyGenParameterSpec = KeyGenParameterSpec.Builder(
+    "MySecretKeyAlias",
+    KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT
+)
+    .setBlockModes(KeyProperties.BLOCK_MODE_GCM)
+    .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE)
+    .setUserAuthenticationRequired(true) // يتطلب مصادقة حيوية
+    .build()
+
+keyGenerator.init(keyGenParameterSpec)
+keyGenerator.generateKey()' or l.common_mistakes is distinct from '["Missing the key trade-off in Android Keystore System (point 1)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Android Keystore System in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Android Keystore system","url":"https://developer.android.com/privacy-and-security/keystore"}]'::jsonb)) then raise exception 'Question asec-001 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('asec-001', 'security-android') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'asec-001' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'asec-001' and revision_number = 1 and status = 'published') where id = 'asec-001' and exists (select 1 from public.question_revisions where question_id = 'asec-001' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('asec-002', 'r8-and-proguard-obfuscation', 'android-native', 'Mid') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('asec-002', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما دور أداة R8 في حماية التطبيق وتقليص حجمه وما الفرق بين Shrinking و Obfuscation؟', 'Shrinking يحذف الكود والموارد غير المستخدمة؛ بينما Obfuscation يشوش أسماء الكلاسات والدوال بأسماء قصيرة مبهمة (مثل a.b.c) لتصعيب الهندسة العكسية.', 'يحل R8 محل ProGuard كأداة الترجمة والتحسين المباشرة في Android Gradle Plugin. يقوم R8 بأربع مهام: تقليص الكود (Code Shrinking)، تقليص الموارد (Resource Shrinking)، التحسين الموضعي للـ bytecode (Optimization)، والتشويش (Obfuscation). يتطلب R8 قواعد -keep خاصة للكلاسات التي يتم الوصول إليها عبر Reflection كـ Data Classes المستخدمة في JSON.', '// في ملف proguard-rules.pro:
+# الحفاظ على أسماء الحقول للكلاسات المستخدمة مع مكتبات التسلسل:
+-keepclassmembers class * {
+    @com.google.gson.annotations.SerializedName <fields>;
+}
+
+# الحفاظ على كلاسات محددة بالكامل:
+-keep class com.example.models.** { *; }', '["نسيان إضافة قواعد -keep لكلاسات نماذج الـ API مما يؤدي لتشويش أسمائها وانهيار فك تشفير الـ JSON بعد تفعيل R8 في نسخة Release.","تجاهل الاحتفاظ بملف mapping.txt لكل إصدار يتم رفعه، مما يجعل من المستحيل فك تشفير تقارير الكراش المبهمة (De-obfuscate Crash Stacks)."]'::jsonb, '["كيف يؤثر الـ Optimization في R8 على دمج الكلاسات الفردية وتوسيع الدوال الساكنة؟"]'::jsonb, '[{"title":"Android Developers — Shrink, obfuscate, and optimize your app","url":"https://developer.android.com/build/shrink-code"}]'::jsonb from public.question_revisions r where r.question_id = 'asec-002' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'asec-002' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما دور أداة R8 في حماية التطبيق وتقليص حجمه وما الفرق بين Shrinking و Obfuscation؟' or l.short_answer is distinct from 'Shrinking يحذف الكود والموارد غير المستخدمة؛ بينما Obfuscation يشوش أسماء الكلاسات والدوال بأسماء قصيرة مبهمة (مثل a.b.c) لتصعيب الهندسة العكسية.' or l.explanation is distinct from 'يحل R8 محل ProGuard كأداة الترجمة والتحسين المباشرة في Android Gradle Plugin. يقوم R8 بأربع مهام: تقليص الكود (Code Shrinking)، تقليص الموارد (Resource Shrinking)، التحسين الموضعي للـ bytecode (Optimization)، والتشويش (Obfuscation). يتطلب R8 قواعد -keep خاصة للكلاسات التي يتم الوصول إليها عبر Reflection كـ Data Classes المستخدمة في JSON.' or l.code_example is distinct from '// في ملف proguard-rules.pro:
+# الحفاظ على أسماء الحقول للكلاسات المستخدمة مع مكتبات التسلسل:
+-keepclassmembers class * {
+    @com.google.gson.annotations.SerializedName <fields>;
+}
+
+# الحفاظ على كلاسات محددة بالكامل:
+-keep class com.example.models.** { *; }' or l.common_mistakes is distinct from '["نسيان إضافة قواعد -keep لكلاسات نماذج الـ API مما يؤدي لتشويش أسمائها وانهيار فك تشفير الـ JSON بعد تفعيل R8 في نسخة Release.","تجاهل الاحتفاظ بملف mapping.txt لكل إصدار يتم رفعه، مما يجعل من المستحيل فك تشفير تقارير الكراش المبهمة (De-obfuscate Crash Stacks)."]'::jsonb or l.follow_up_questions is distinct from '["كيف يؤثر الـ Optimization في R8 على دمج الكلاسات الفردية وتوسيع الدوال الساكنة؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Shrink, obfuscate, and optimize your app","url":"https://developer.android.com/build/shrink-code"}]'::jsonb)) then raise exception 'Question asec-002 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about R8 And Proguard Obfuscation?', 'This question checks the core R8 And Proguard Obfuscation concept and how to use it safely in Kotlin and Android.', 'Explain R8 And Proguard Obfuscation with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', '// في ملف proguard-rules.pro:
+# الحفاظ على أسماء الحقول للكلاسات المستخدمة مع مكتبات التسلسل:
+-keepclassmembers class * {
+    @com.google.gson.annotations.SerializedName <fields>;
+}
+
+# الحفاظ على كلاسات محددة بالكامل:
+-keep class com.example.models.** { *; }', '["Missing the key trade-off in R8 And Proguard Obfuscation (point 1).","Missing the key trade-off in R8 And Proguard Obfuscation (point 2)."]'::jsonb, '["How would you apply R8 And Proguard Obfuscation in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Shrink, obfuscate, and optimize your app","url":"https://developer.android.com/build/shrink-code"}]'::jsonb from public.question_revisions r where r.question_id = 'asec-002' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'asec-002' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about R8 And Proguard Obfuscation?' or l.short_answer is distinct from 'This question checks the core R8 And Proguard Obfuscation concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain R8 And Proguard Obfuscation with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from '// في ملف proguard-rules.pro:
+# الحفاظ على أسماء الحقول للكلاسات المستخدمة مع مكتبات التسلسل:
+-keepclassmembers class * {
+    @com.google.gson.annotations.SerializedName <fields>;
+}
+
+# الحفاظ على كلاسات محددة بالكامل:
+-keep class com.example.models.** { *; }' or l.common_mistakes is distinct from '["Missing the key trade-off in R8 And Proguard Obfuscation (point 1).","Missing the key trade-off in R8 And Proguard Obfuscation (point 2)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply R8 And Proguard Obfuscation in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Shrink, obfuscate, and optimize your app","url":"https://developer.android.com/build/shrink-code"}]'::jsonb)) then raise exception 'Question asec-002 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('asec-002', 'security-android') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'asec-002' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'asec-002' and revision_number = 1 and status = 'published') where id = 'asec-002' and exists (select 1 from public.question_revisions where question_id = 'asec-002' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('asec-003', 'biometric-authentication-api', 'android-native', 'Mid') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('asec-003', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'كيف تطبق المصادقة الحيوية باستخدام مكتبة BiometricPrompt الموحدة؟', 'باستخدام BiometricManager للتحقق من دعم الجهاز وجاهزيته، ثم إطلاق BiometricPrompt مع تحديد مستوى الأمان (Strong أو Weak).', 'توفر BiometricPrompt واجهة نظام موحدة وآمنة للمصادقة عبر بصمة الإصبع أو بصمة الوجه. تضمن المكتبة التعامل مع أنواع التشفير المتقدمة عبر BiometricPrompt.CryptoObject لربط مفاتيح Android Keystore بالمصادقة الناجحة، بحيث لا يتم فك تشفير البيانات الحساسة إلا بعد تأكيد هوية المستخدم بيولوجيًا.', 'val biometricPrompt = BiometricPrompt(
+    activity,
+    executor,
+    object : BiometricPrompt.AuthenticationCallback() {
+        override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+            super.onAuthenticationSucceeded(result)
+            // نجحت المصادقة الحيوية
+        }
+    }
+)
+
+val promptInfo = BiometricPrompt.PromptInfo.Builder()
+    .setTitle("تسجيل الدخول بالبصمة")
+    .setNegativeButtonText("إلغاء")
+    .setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_STRONG)
+    .build()
+
+biometricPrompt.authenticate(promptInfo)', '["افتراض نجاح المصادقة تلقائيًا دون فحص canAuthenticate() لاحتمال عدم تعيين المستخدم لبصمة في إعدادات الهاتف."]'::jsonb, '["ما الفرق بين BIOMETRIC_STRONG و BIOMETRIC_WEAK و DEVICE_CREDENTIAL؟"]'::jsonb, '[{"title":"Android Developers — Show a biometric authentication dialog","url":"https://developer.android.com/training/sign-in/biometric-auth"}]'::jsonb from public.question_revisions r where r.question_id = 'asec-003' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'asec-003' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'كيف تطبق المصادقة الحيوية باستخدام مكتبة BiometricPrompt الموحدة؟' or l.short_answer is distinct from 'باستخدام BiometricManager للتحقق من دعم الجهاز وجاهزيته، ثم إطلاق BiometricPrompt مع تحديد مستوى الأمان (Strong أو Weak).' or l.explanation is distinct from 'توفر BiometricPrompt واجهة نظام موحدة وآمنة للمصادقة عبر بصمة الإصبع أو بصمة الوجه. تضمن المكتبة التعامل مع أنواع التشفير المتقدمة عبر BiometricPrompt.CryptoObject لربط مفاتيح Android Keystore بالمصادقة الناجحة، بحيث لا يتم فك تشفير البيانات الحساسة إلا بعد تأكيد هوية المستخدم بيولوجيًا.' or l.code_example is distinct from 'val biometricPrompt = BiometricPrompt(
+    activity,
+    executor,
+    object : BiometricPrompt.AuthenticationCallback() {
+        override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+            super.onAuthenticationSucceeded(result)
+            // نجحت المصادقة الحيوية
+        }
+    }
+)
+
+val promptInfo = BiometricPrompt.PromptInfo.Builder()
+    .setTitle("تسجيل الدخول بالبصمة")
+    .setNegativeButtonText("إلغاء")
+    .setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_STRONG)
+    .build()
+
+biometricPrompt.authenticate(promptInfo)' or l.common_mistakes is distinct from '["افتراض نجاح المصادقة تلقائيًا دون فحص canAuthenticate() لاحتمال عدم تعيين المستخدم لبصمة في إعدادات الهاتف."]'::jsonb or l.follow_up_questions is distinct from '["ما الفرق بين BIOMETRIC_STRONG و BIOMETRIC_WEAK و DEVICE_CREDENTIAL؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Show a biometric authentication dialog","url":"https://developer.android.com/training/sign-in/biometric-auth"}]'::jsonb)) then raise exception 'Question asec-003 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Biometric Authentication Api?', 'This question checks the core Biometric Authentication Api concept and how to use it safely in Kotlin and Android.', 'Explain Biometric Authentication Api with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', 'val biometricPrompt = BiometricPrompt(
+    activity,
+    executor,
+    object : BiometricPrompt.AuthenticationCallback() {
+        override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+            super.onAuthenticationSucceeded(result)
+            // نجحت المصادقة الحيوية
+        }
+    }
+)
+
+val promptInfo = BiometricPrompt.PromptInfo.Builder()
+    .setTitle("تسجيل الدخول بالبصمة")
+    .setNegativeButtonText("إلغاء")
+    .setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_STRONG)
+    .build()
+
+biometricPrompt.authenticate(promptInfo)', '["Missing the key trade-off in Biometric Authentication Api (point 1)."]'::jsonb, '["How would you apply Biometric Authentication Api in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Show a biometric authentication dialog","url":"https://developer.android.com/training/sign-in/biometric-auth"}]'::jsonb from public.question_revisions r where r.question_id = 'asec-003' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'asec-003' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Biometric Authentication Api?' or l.short_answer is distinct from 'This question checks the core Biometric Authentication Api concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Biometric Authentication Api with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from 'val biometricPrompt = BiometricPrompt(
+    activity,
+    executor,
+    object : BiometricPrompt.AuthenticationCallback() {
+        override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+            super.onAuthenticationSucceeded(result)
+            // نجحت المصادقة الحيوية
+        }
+    }
+)
+
+val promptInfo = BiometricPrompt.PromptInfo.Builder()
+    .setTitle("تسجيل الدخول بالبصمة")
+    .setNegativeButtonText("إلغاء")
+    .setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_STRONG)
+    .build()
+
+biometricPrompt.authenticate(promptInfo)' or l.common_mistakes is distinct from '["Missing the key trade-off in Biometric Authentication Api (point 1)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Biometric Authentication Api in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Show a biometric authentication dialog","url":"https://developer.android.com/training/sign-in/biometric-auth"}]'::jsonb)) then raise exception 'Question asec-003 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('asec-003', 'security-android') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'asec-003' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'asec-003' and revision_number = 1 and status = 'published') where id = 'asec-003' and exists (select 1 from public.question_revisions where question_id = 'asec-003' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('asec-004', 'root-detection-and-play-integrity', 'android-native', 'Senior') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('asec-004', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'كيف تحمي التطبيقات الحساسة (كالتطبيقات المصرفية) من التلاعب وبيئات الـ Root باستخدام Play Integrity API؟', 'تطلب توكن أمان مشفر من Play Integrity API وترسله لخادمك الخلفي لفك تشفيره والتحقق من سلامة نظام التشغيل وحزمة التطبيق وحساب المستخدم.', 'تعتمد الحماية القديمة على فحص وجود ملفات su أو كشف حزم الـ Magisk محليًا، وهي طرق سهلة الالتفاف عليها باستخدام أدوات الإخفاء. يوفر Play Integrity API فحصًا سحابيًا مشفرًا موثقًا من جوجل يضمن سلامة الجهاز (MEETS_DEVICE_INTEGRITY)، وسلامة الثنائيات الأصلية غير المعدلة (MEETS_APP_INTEGRITY)، مع التحقق من عدم تشغيل التطبيق داخل محاكي زائف.', '// في التطبيق: طلب الـ Integrity Token وتمريره للسيرفر:
+val integrityManager = PlayIntegrityFactory.create(context)
+val response = integrityManager.requestIntegrityToken(
+    IntegrityTokenRequest.builder()
+        .setCloudProjectNumber(GOOGLE_CLOUD_PROJECT_NUMBER)
+        .build()
+).await()
+
+val integrityToken = response.token()
+apiService.validateTokenOnBackend(integrityToken) // التحقق الصارم في الباك إند فقط', '["التحقق من صحة توكن الأمان داخل التطبيق محليًا بدلاً من إرساله للخادم، مما يمكن المهاجم من التلاعب بنتيجة الفحص بسهولة."]'::jsonb, '["لماذا يجب تضمين Nonce فريد وعشوائي في كل طلب لـ Play Integrity لمنع هجمات إعادة الإرسال (Replay Attacks)؟"]'::jsonb, '[{"title":"Android Developers — Play Integrity API overview","url":"https://developer.android.com/google/play/integrity/overview"}]'::jsonb from public.question_revisions r where r.question_id = 'asec-004' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'asec-004' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'كيف تحمي التطبيقات الحساسة (كالتطبيقات المصرفية) من التلاعب وبيئات الـ Root باستخدام Play Integrity API؟' or l.short_answer is distinct from 'تطلب توكن أمان مشفر من Play Integrity API وترسله لخادمك الخلفي لفك تشفيره والتحقق من سلامة نظام التشغيل وحزمة التطبيق وحساب المستخدم.' or l.explanation is distinct from 'تعتمد الحماية القديمة على فحص وجود ملفات su أو كشف حزم الـ Magisk محليًا، وهي طرق سهلة الالتفاف عليها باستخدام أدوات الإخفاء. يوفر Play Integrity API فحصًا سحابيًا مشفرًا موثقًا من جوجل يضمن سلامة الجهاز (MEETS_DEVICE_INTEGRITY)، وسلامة الثنائيات الأصلية غير المعدلة (MEETS_APP_INTEGRITY)، مع التحقق من عدم تشغيل التطبيق داخل محاكي زائف.' or l.code_example is distinct from '// في التطبيق: طلب الـ Integrity Token وتمريره للسيرفر:
+val integrityManager = PlayIntegrityFactory.create(context)
+val response = integrityManager.requestIntegrityToken(
+    IntegrityTokenRequest.builder()
+        .setCloudProjectNumber(GOOGLE_CLOUD_PROJECT_NUMBER)
+        .build()
+).await()
+
+val integrityToken = response.token()
+apiService.validateTokenOnBackend(integrityToken) // التحقق الصارم في الباك إند فقط' or l.common_mistakes is distinct from '["التحقق من صحة توكن الأمان داخل التطبيق محليًا بدلاً من إرساله للخادم، مما يمكن المهاجم من التلاعب بنتيجة الفحص بسهولة."]'::jsonb or l.follow_up_questions is distinct from '["لماذا يجب تضمين Nonce فريد وعشوائي في كل طلب لـ Play Integrity لمنع هجمات إعادة الإرسال (Replay Attacks)؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Play Integrity API overview","url":"https://developer.android.com/google/play/integrity/overview"}]'::jsonb)) then raise exception 'Question asec-004 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Root Detection And Play Integrity?', 'This question checks the core Root Detection And Play Integrity concept and how to use it safely in Kotlin and Android.', 'Explain Root Detection And Play Integrity with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', '// في التطبيق: طلب الـ Integrity Token وتمريره للسيرفر:
+val integrityManager = PlayIntegrityFactory.create(context)
+val response = integrityManager.requestIntegrityToken(
+    IntegrityTokenRequest.builder()
+        .setCloudProjectNumber(GOOGLE_CLOUD_PROJECT_NUMBER)
+        .build()
+).await()
+
+val integrityToken = response.token()
+apiService.validateTokenOnBackend(integrityToken) // التحقق الصارم في الباك إند فقط', '["Missing the key trade-off in Root Detection And Play Integrity (point 1)."]'::jsonb, '["How would you apply Root Detection And Play Integrity in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Play Integrity API overview","url":"https://developer.android.com/google/play/integrity/overview"}]'::jsonb from public.question_revisions r where r.question_id = 'asec-004' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'asec-004' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Root Detection And Play Integrity?' or l.short_answer is distinct from 'This question checks the core Root Detection And Play Integrity concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Root Detection And Play Integrity with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from '// في التطبيق: طلب الـ Integrity Token وتمريره للسيرفر:
+val integrityManager = PlayIntegrityFactory.create(context)
+val response = integrityManager.requestIntegrityToken(
+    IntegrityTokenRequest.builder()
+        .setCloudProjectNumber(GOOGLE_CLOUD_PROJECT_NUMBER)
+        .build()
+).await()
+
+val integrityToken = response.token()
+apiService.validateTokenOnBackend(integrityToken) // التحقق الصارم في الباك إند فقط' or l.common_mistakes is distinct from '["Missing the key trade-off in Root Detection And Play Integrity (point 1)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Root Detection And Play Integrity in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Play Integrity API overview","url":"https://developer.android.com/google/play/integrity/overview"}]'::jsonb)) then raise exception 'Question asec-004 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('asec-004', 'security-android') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'asec-004' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'asec-004' and revision_number = 1 and status = 'published') where id = 'asec-004' and exists (select 1 from public.question_revisions where question_id = 'asec-004' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('atest-001', 'testing-pyramid-in-android', 'android-native', 'Junior') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('atest-001', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما هو هرم الاختبارات (Testing Pyramid) في أندرويد وما النسبة المقترحة لكل نوع؟', 'يقسم الاختبارات إلى: Unit Tests سريعة ورخيصة في القاعدة (70%)، Integration Tests في الوسط (20%)، و End-to-End UI Tests شاملة وبطيئة في القمة (10%).', 'تركز اختبارات الوحدة (Unit Tests) على فحص منطق الـ ViewModel والـ Use Cases والـ Repositories وتعمل بسرعة فائقة على الـ JVM المحلي. تركز اختبارات التكامل (Integration Tests) على فحص تفاعل المكونات معًا كقواعد بيانات Room. أما اختبارات الـ UI (End-to-End) فتتحقق من تجربة المستخدم الحقيقية على محاكي أو جهاز حقيقي وتعتبر الأبطأ والأكثر حساسية للأعطال (Flaky).', '// Unit Test سريع يعمل على JVM دون الحاجة لجهاز أو محاكي:
+@Test
+fun calculateDiscount_returnsCorrectValue() {
+    val calculator = PriceCalculator()
+    val total = calculator.applyDiscount(100.0, 0.1)
+    assertEquals(90.0, total, 0.001)
+}', '["الاعتماد الكامل على اختبارات الـ UI المعقدة وإهمال اختبارات الوحدة السريعة، مما يجعل عملية الـ CI/CD شديدة البطء وغير مستقرة."]'::jsonb, '["كيف يؤثر وضع الاختبار في المجلد test مقابل androidTest على بيئة التشغيل والسرعة؟"]'::jsonb, '[{"title":"Android Developers — Fundamentals of testing Android apps","url":"https://developer.android.com/training/testing/fundamentals"}]'::jsonb from public.question_revisions r where r.question_id = 'atest-001' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'atest-001' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما هو هرم الاختبارات (Testing Pyramid) في أندرويد وما النسبة المقترحة لكل نوع؟' or l.short_answer is distinct from 'يقسم الاختبارات إلى: Unit Tests سريعة ورخيصة في القاعدة (70%)، Integration Tests في الوسط (20%)، و End-to-End UI Tests شاملة وبطيئة في القمة (10%).' or l.explanation is distinct from 'تركز اختبارات الوحدة (Unit Tests) على فحص منطق الـ ViewModel والـ Use Cases والـ Repositories وتعمل بسرعة فائقة على الـ JVM المحلي. تركز اختبارات التكامل (Integration Tests) على فحص تفاعل المكونات معًا كقواعد بيانات Room. أما اختبارات الـ UI (End-to-End) فتتحقق من تجربة المستخدم الحقيقية على محاكي أو جهاز حقيقي وتعتبر الأبطأ والأكثر حساسية للأعطال (Flaky).' or l.code_example is distinct from '// Unit Test سريع يعمل على JVM دون الحاجة لجهاز أو محاكي:
+@Test
+fun calculateDiscount_returnsCorrectValue() {
+    val calculator = PriceCalculator()
+    val total = calculator.applyDiscount(100.0, 0.1)
+    assertEquals(90.0, total, 0.001)
+}' or l.common_mistakes is distinct from '["الاعتماد الكامل على اختبارات الـ UI المعقدة وإهمال اختبارات الوحدة السريعة، مما يجعل عملية الـ CI/CD شديدة البطء وغير مستقرة."]'::jsonb or l.follow_up_questions is distinct from '["كيف يؤثر وضع الاختبار في المجلد test مقابل androidTest على بيئة التشغيل والسرعة؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Fundamentals of testing Android apps","url":"https://developer.android.com/training/testing/fundamentals"}]'::jsonb)) then raise exception 'Question atest-001 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Testing Pyramid In Android?', 'This question checks the core Testing Pyramid In Android concept and how to use it safely in Kotlin and Android.', 'Explain Testing Pyramid In Android with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', '// Unit Test سريع يعمل على JVM دون الحاجة لجهاز أو محاكي:
+@Test
+fun calculateDiscount_returnsCorrectValue() {
+    val calculator = PriceCalculator()
+    val total = calculator.applyDiscount(100.0, 0.1)
+    assertEquals(90.0, total, 0.001)
+}', '["Missing the key trade-off in Testing Pyramid In Android (point 1)."]'::jsonb, '["How would you apply Testing Pyramid In Android in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Fundamentals of testing Android apps","url":"https://developer.android.com/training/testing/fundamentals"}]'::jsonb from public.question_revisions r where r.question_id = 'atest-001' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'atest-001' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Testing Pyramid In Android?' or l.short_answer is distinct from 'This question checks the core Testing Pyramid In Android concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Testing Pyramid In Android with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from '// Unit Test سريع يعمل على JVM دون الحاجة لجهاز أو محاكي:
+@Test
+fun calculateDiscount_returnsCorrectValue() {
+    val calculator = PriceCalculator()
+    val total = calculator.applyDiscount(100.0, 0.1)
+    assertEquals(90.0, total, 0.001)
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Testing Pyramid In Android (point 1)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Testing Pyramid In Android in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Fundamentals of testing Android apps","url":"https://developer.android.com/training/testing/fundamentals"}]'::jsonb)) then raise exception 'Question atest-001 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('atest-001', 'testing-android') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'atest-001' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'atest-001' and revision_number = 1 and status = 'published') where id = 'atest-001' and exists (select 1 from public.question_revisions where question_id = 'atest-001' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('atest-002', 'mockk-and-unit-testing-viewmodels', 'android-native', 'Mid') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('atest-002', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'كيف تختبر منطق الـ ViewModel باستخدام مكتبة MockK ومجسمات المحاكاة (Mocks)؟', 'بمحاكاة التبعيات عبر mockk() وتحديد سلوكها المتوقع بواسطة every أو coEvery، ثم التحقق من استدعاء الدوال عبر verify أو coVerify.', 'تعتبر MockK مكتبة مصممة أصلاً للغة Kotlin وتدعم Suspend Functions و Coroutines بسلاسة فائقة عبر coEvery و coVerify، بعكس Mockito التي تتطلب إعدادات إضافية. تتيح اختبار الـ ViewModel بمعزل عن الشبكة وقاعدة البيانات عن طريق استبدال الـ Repository بنسخة مقلدة وتأكيد أن الـ UiState تعكس النتيجة بشكل صحيح.', 'class UserViewModelTest {
+    private val repository = mockk<UserRepository>()
+    private lateinit var viewModel: UserViewModel
+
+    @Test
+    fun loadUser_updatesStateToSuccess() = runTest {
+        coEvery { repository.getUser("1") } returns User(1, "Sara")
+
+        viewModel = UserViewModel(repository)
+        viewModel.loadUser("1")
+
+        assertEquals(User(1, "Sara"), viewModel.uiState.value.user)
+        coVerify(exactly = 1) { repository.getUser("1") }
+    }
+}', '["الإفراط في استخدام Mocks لكل شيء؛ إذ يفضل دائمًا استخدام Fake Repositories حقيقية بسيطة في الذاكرة كلما كان ذلك متاحًا لتقليل هشاشة الاختبارات."]'::jsonb, '["ما الفرق بين Mock و Fake و Stub في اختبارات البرمجيات؟"]'::jsonb, '[{"title":"Android Developers — Test ViewModels","url":"https://developer.android.com/topic/architecture/ui-layer/testing#viewmodels"}]'::jsonb from public.question_revisions r where r.question_id = 'atest-002' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'atest-002' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'كيف تختبر منطق الـ ViewModel باستخدام مكتبة MockK ومجسمات المحاكاة (Mocks)؟' or l.short_answer is distinct from 'بمحاكاة التبعيات عبر mockk() وتحديد سلوكها المتوقع بواسطة every أو coEvery، ثم التحقق من استدعاء الدوال عبر verify أو coVerify.' or l.explanation is distinct from 'تعتبر MockK مكتبة مصممة أصلاً للغة Kotlin وتدعم Suspend Functions و Coroutines بسلاسة فائقة عبر coEvery و coVerify، بعكس Mockito التي تتطلب إعدادات إضافية. تتيح اختبار الـ ViewModel بمعزل عن الشبكة وقاعدة البيانات عن طريق استبدال الـ Repository بنسخة مقلدة وتأكيد أن الـ UiState تعكس النتيجة بشكل صحيح.' or l.code_example is distinct from 'class UserViewModelTest {
+    private val repository = mockk<UserRepository>()
+    private lateinit var viewModel: UserViewModel
+
+    @Test
+    fun loadUser_updatesStateToSuccess() = runTest {
+        coEvery { repository.getUser("1") } returns User(1, "Sara")
+
+        viewModel = UserViewModel(repository)
+        viewModel.loadUser("1")
+
+        assertEquals(User(1, "Sara"), viewModel.uiState.value.user)
+        coVerify(exactly = 1) { repository.getUser("1") }
+    }
+}' or l.common_mistakes is distinct from '["الإفراط في استخدام Mocks لكل شيء؛ إذ يفضل دائمًا استخدام Fake Repositories حقيقية بسيطة في الذاكرة كلما كان ذلك متاحًا لتقليل هشاشة الاختبارات."]'::jsonb or l.follow_up_questions is distinct from '["ما الفرق بين Mock و Fake و Stub في اختبارات البرمجيات؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Test ViewModels","url":"https://developer.android.com/topic/architecture/ui-layer/testing#viewmodels"}]'::jsonb)) then raise exception 'Question atest-002 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Mockk And Unit Testing Viewmodels?', 'This question checks the core Mockk And Unit Testing Viewmodels concept and how to use it safely in Kotlin and Android.', 'Explain Mockk And Unit Testing Viewmodels with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', 'class UserViewModelTest {
+    private val repository = mockk<UserRepository>()
+    private lateinit var viewModel: UserViewModel
+
+    @Test
+    fun loadUser_updatesStateToSuccess() = runTest {
+        coEvery { repository.getUser("1") } returns User(1, "Sara")
+
+        viewModel = UserViewModel(repository)
+        viewModel.loadUser("1")
+
+        assertEquals(User(1, "Sara"), viewModel.uiState.value.user)
+        coVerify(exactly = 1) { repository.getUser("1") }
+    }
+}', '["Missing the key trade-off in Mockk And Unit Testing Viewmodels (point 1)."]'::jsonb, '["How would you apply Mockk And Unit Testing Viewmodels in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Test ViewModels","url":"https://developer.android.com/topic/architecture/ui-layer/testing#viewmodels"}]'::jsonb from public.question_revisions r where r.question_id = 'atest-002' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'atest-002' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Mockk And Unit Testing Viewmodels?' or l.short_answer is distinct from 'This question checks the core Mockk And Unit Testing Viewmodels concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Mockk And Unit Testing Viewmodels with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from 'class UserViewModelTest {
+    private val repository = mockk<UserRepository>()
+    private lateinit var viewModel: UserViewModel
+
+    @Test
+    fun loadUser_updatesStateToSuccess() = runTest {
+        coEvery { repository.getUser("1") } returns User(1, "Sara")
+
+        viewModel = UserViewModel(repository)
+        viewModel.loadUser("1")
+
+        assertEquals(User(1, "Sara"), viewModel.uiState.value.user)
+        coVerify(exactly = 1) { repository.getUser("1") }
+    }
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Mockk And Unit Testing Viewmodels (point 1)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Mockk And Unit Testing Viewmodels in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Test ViewModels","url":"https://developer.android.com/topic/architecture/ui-layer/testing#viewmodels"}]'::jsonb)) then raise exception 'Question atest-002 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('atest-002', 'testing-android') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'atest-002' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'atest-002' and revision_number = 1 and status = 'published') where id = 'atest-002' and exists (select 1 from public.question_revisions where question_id = 'atest-002' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('atest-003', 'testing-coroutines-standardtestdispatcher', 'android-native', 'Mid') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('atest-003', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'كيف تختبر كود يعتمد على الكوروتينات باستخدام runTest وموزعات الاختبار (TestDispatchers)؟', 'باستخدام runTest التي تقفز تلقائيًا عبر تأخيرات الوقت (delay skipping)، واستبدال Dispatchers.Main بموزع اختبار عبر Dispatchers.setMain.', 'بدون runTest، فإن استدعاء دالة تحتوي على delay(10_000L) سيجعل الاختبار ينتظر 10 ثوانٍ حقيقية. تقوم بيئة runTest بالتحكم في Virtual Time والقفز التلقائي للوقت الافتراضي. يوفر StandardTestDispatcher جدولة يدوية للمهام عبر advanceUntilIdle() أو advanceTimeBy()، بينما ينفذ UnconfinedTestDispatcher المهام الجديدة بشغف فوري دون انتظار.', '@OptIn(ExperimentalCoroutinesApi::class)
+class CoroutineTest {
+    private val testDispatcher = StandardTestDispatcher()
+
+    @Before
+    fun setUp() { Dispatchers.setMain(testDispatcher) }
+
+    @After
+    fun tearDown() { Dispatchers.resetMain() }
+
+    @Test
+    fun delayedOperation_completesImmediately() = runTest(testDispatcher) {
+        val deferred = async { delay(5000L); "Done" }
+        advanceUntilIdle() // يقفز عبر 5 ثوانٍ افتراضية في جزء من الميلي ثانية!
+        assertEquals("Done", deferred.getCompleted())
+    }
+}', '["نسيان استدعاء Dispatchers.setMain في بداية الاختبارات التي تستخدم viewModelScope، مما يسبب كراش IllegalStateException لفقدان Looper الخيط الرئيسي."]'::jsonb, '["ما الفرق العملي في السلوك بين StandardTestDispatcher و UnconfinedTestDispatcher في اختبارات Flow؟"]'::jsonb, '[{"title":"Kotlin Docs — Testing Coroutines","url":"https://kotlinlang.org/docs/test-coroutine.html"}]'::jsonb from public.question_revisions r where r.question_id = 'atest-003' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'atest-003' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'كيف تختبر كود يعتمد على الكوروتينات باستخدام runTest وموزعات الاختبار (TestDispatchers)؟' or l.short_answer is distinct from 'باستخدام runTest التي تقفز تلقائيًا عبر تأخيرات الوقت (delay skipping)، واستبدال Dispatchers.Main بموزع اختبار عبر Dispatchers.setMain.' or l.explanation is distinct from 'بدون runTest، فإن استدعاء دالة تحتوي على delay(10_000L) سيجعل الاختبار ينتظر 10 ثوانٍ حقيقية. تقوم بيئة runTest بالتحكم في Virtual Time والقفز التلقائي للوقت الافتراضي. يوفر StandardTestDispatcher جدولة يدوية للمهام عبر advanceUntilIdle() أو advanceTimeBy()، بينما ينفذ UnconfinedTestDispatcher المهام الجديدة بشغف فوري دون انتظار.' or l.code_example is distinct from '@OptIn(ExperimentalCoroutinesApi::class)
+class CoroutineTest {
+    private val testDispatcher = StandardTestDispatcher()
+
+    @Before
+    fun setUp() { Dispatchers.setMain(testDispatcher) }
+
+    @After
+    fun tearDown() { Dispatchers.resetMain() }
+
+    @Test
+    fun delayedOperation_completesImmediately() = runTest(testDispatcher) {
+        val deferred = async { delay(5000L); "Done" }
+        advanceUntilIdle() // يقفز عبر 5 ثوانٍ افتراضية في جزء من الميلي ثانية!
+        assertEquals("Done", deferred.getCompleted())
+    }
+}' or l.common_mistakes is distinct from '["نسيان استدعاء Dispatchers.setMain في بداية الاختبارات التي تستخدم viewModelScope، مما يسبب كراش IllegalStateException لفقدان Looper الخيط الرئيسي."]'::jsonb or l.follow_up_questions is distinct from '["ما الفرق العملي في السلوك بين StandardTestDispatcher و UnconfinedTestDispatcher في اختبارات Flow؟"]'::jsonb or l.sources is distinct from '[{"title":"Kotlin Docs — Testing Coroutines","url":"https://kotlinlang.org/docs/test-coroutine.html"}]'::jsonb)) then raise exception 'Question atest-003 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Testing Coroutines Standardtestdispatcher?', 'This question checks the core Testing Coroutines Standardtestdispatcher concept and how to use it safely in Kotlin and Android.', 'Explain Testing Coroutines Standardtestdispatcher with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', '@OptIn(ExperimentalCoroutinesApi::class)
+class CoroutineTest {
+    private val testDispatcher = StandardTestDispatcher()
+
+    @Before
+    fun setUp() { Dispatchers.setMain(testDispatcher) }
+
+    @After
+    fun tearDown() { Dispatchers.resetMain() }
+
+    @Test
+    fun delayedOperation_completesImmediately() = runTest(testDispatcher) {
+        val deferred = async { delay(5000L); "Done" }
+        advanceUntilIdle() // يقفز عبر 5 ثوانٍ افتراضية في جزء من الميلي ثانية!
+        assertEquals("Done", deferred.getCompleted())
+    }
+}', '["Missing the key trade-off in Testing Coroutines Standardtestdispatcher (point 1)."]'::jsonb, '["How would you apply Testing Coroutines Standardtestdispatcher in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Kotlin Docs — Testing Coroutines","url":"https://kotlinlang.org/docs/test-coroutine.html"}]'::jsonb from public.question_revisions r where r.question_id = 'atest-003' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'atest-003' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Testing Coroutines Standardtestdispatcher?' or l.short_answer is distinct from 'This question checks the core Testing Coroutines Standardtestdispatcher concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Testing Coroutines Standardtestdispatcher with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from '@OptIn(ExperimentalCoroutinesApi::class)
+class CoroutineTest {
+    private val testDispatcher = StandardTestDispatcher()
+
+    @Before
+    fun setUp() { Dispatchers.setMain(testDispatcher) }
+
+    @After
+    fun tearDown() { Dispatchers.resetMain() }
+
+    @Test
+    fun delayedOperation_completesImmediately() = runTest(testDispatcher) {
+        val deferred = async { delay(5000L); "Done" }
+        advanceUntilIdle() // يقفز عبر 5 ثوانٍ افتراضية في جزء من الميلي ثانية!
+        assertEquals("Done", deferred.getCompleted())
+    }
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Testing Coroutines Standardtestdispatcher (point 1)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Testing Coroutines Standardtestdispatcher in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Kotlin Docs — Testing Coroutines","url":"https://kotlinlang.org/docs/test-coroutine.html"}]'::jsonb)) then raise exception 'Question atest-003 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('atest-003', 'testing-android') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'atest-003' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'atest-003' and revision_number = 1 and status = 'published') where id = 'atest-003' and exists (select 1 from public.question_revisions where question_id = 'atest-003' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('atest-004', 'robolectric-vs-instrumentation-tests', 'android-native', 'Mid') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('atest-004', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما الفرق بين اختبارات Robolectric واختبارات الأجهزة الحقيقية (Instrumentation Tests)؟', 'تنفذ Robolectric اختبارات معتمدة على Android SDK مباشرة على جهاز الحاسوب (JVM) بمحاكاة كائنات أندرويد وظلالها (Shadows) بسرعة فائقة ودون الحاجة لتشغيل محاكي أو جهاز حقيقي.', 'تتطلب اختبارات الـ Instrumentation تثبيت APK على محاكي، مما يجعلها بطيئة في التنفيذ على خوادم CI. يوفر إطار عمل Robolectric طبقة محاكاة كاملة لبيئة أندرويد (تضخيم الواجهات، قواعد البيانات، الصلاحيات) ويعمل داخل بيئة JVM العادية، محققًا سرعة فائقة مع قدرة عالية على فحص سلوك مكونات أندرويد.', '@RunWith(RobolectricTestRunner::class)
+class MainActivityTest {
+    @Test
+    fun clickingButton_updatesTextView() {
+        val activity = Robolectric.buildActivity(MainActivity::class.java).setup().get()
+        val button = activity.findViewById<Button>(R.id.button)
+        val textView = activity.findViewById<TextView>(R.id.text)
+
+        button.performClick()
+        assertEquals("تم النقر", textView.text.toString())
+    }
+}', '["الاعتماد الحصري على Robolectric وافتراض تطابق محاكاته بنسبة 100% مع أجهزة الهواتف الحقيقية، وخصوصًا في تفاصيل عتاد الكاميرا ورسوم OpenGL."]'::jsonb, '["ما هي كائنات الظلال (Shadow Objects) في Robolectric وكيف تستخدمها لتعديل استجابات النظام؟"]'::jsonb, '[{"title":"Android Developers — Test in Android / Tools","url":"https://developer.android.com/training/testing/fundamentals/tools"}]'::jsonb from public.question_revisions r where r.question_id = 'atest-004' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'atest-004' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما الفرق بين اختبارات Robolectric واختبارات الأجهزة الحقيقية (Instrumentation Tests)؟' or l.short_answer is distinct from 'تنفذ Robolectric اختبارات معتمدة على Android SDK مباشرة على جهاز الحاسوب (JVM) بمحاكاة كائنات أندرويد وظلالها (Shadows) بسرعة فائقة ودون الحاجة لتشغيل محاكي أو جهاز حقيقي.' or l.explanation is distinct from 'تتطلب اختبارات الـ Instrumentation تثبيت APK على محاكي، مما يجعلها بطيئة في التنفيذ على خوادم CI. يوفر إطار عمل Robolectric طبقة محاكاة كاملة لبيئة أندرويد (تضخيم الواجهات، قواعد البيانات، الصلاحيات) ويعمل داخل بيئة JVM العادية، محققًا سرعة فائقة مع قدرة عالية على فحص سلوك مكونات أندرويد.' or l.code_example is distinct from '@RunWith(RobolectricTestRunner::class)
+class MainActivityTest {
+    @Test
+    fun clickingButton_updatesTextView() {
+        val activity = Robolectric.buildActivity(MainActivity::class.java).setup().get()
+        val button = activity.findViewById<Button>(R.id.button)
+        val textView = activity.findViewById<TextView>(R.id.text)
+
+        button.performClick()
+        assertEquals("تم النقر", textView.text.toString())
+    }
+}' or l.common_mistakes is distinct from '["الاعتماد الحصري على Robolectric وافتراض تطابق محاكاته بنسبة 100% مع أجهزة الهواتف الحقيقية، وخصوصًا في تفاصيل عتاد الكاميرا ورسوم OpenGL."]'::jsonb or l.follow_up_questions is distinct from '["ما هي كائنات الظلال (Shadow Objects) في Robolectric وكيف تستخدمها لتعديل استجابات النظام؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Test in Android / Tools","url":"https://developer.android.com/training/testing/fundamentals/tools"}]'::jsonb)) then raise exception 'Question atest-004 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Robolectric Vs Instrumentation Tests?', 'This question checks the core Robolectric Vs Instrumentation Tests concept and how to use it safely in Kotlin and Android.', 'Explain Robolectric Vs Instrumentation Tests with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', '@RunWith(RobolectricTestRunner::class)
+class MainActivityTest {
+    @Test
+    fun clickingButton_updatesTextView() {
+        val activity = Robolectric.buildActivity(MainActivity::class.java).setup().get()
+        val button = activity.findViewById<Button>(R.id.button)
+        val textView = activity.findViewById<TextView>(R.id.text)
+
+        button.performClick()
+        assertEquals("تم النقر", textView.text.toString())
+    }
+}', '["Missing the key trade-off in Robolectric Vs Instrumentation Tests (point 1)."]'::jsonb, '["How would you apply Robolectric Vs Instrumentation Tests in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Test in Android / Tools","url":"https://developer.android.com/training/testing/fundamentals/tools"}]'::jsonb from public.question_revisions r where r.question_id = 'atest-004' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'atest-004' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Robolectric Vs Instrumentation Tests?' or l.short_answer is distinct from 'This question checks the core Robolectric Vs Instrumentation Tests concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Robolectric Vs Instrumentation Tests with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from '@RunWith(RobolectricTestRunner::class)
+class MainActivityTest {
+    @Test
+    fun clickingButton_updatesTextView() {
+        val activity = Robolectric.buildActivity(MainActivity::class.java).setup().get()
+        val button = activity.findViewById<Button>(R.id.button)
+        val textView = activity.findViewById<TextView>(R.id.text)
+
+        button.performClick()
+        assertEquals("تم النقر", textView.text.toString())
+    }
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Robolectric Vs Instrumentation Tests (point 1)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Robolectric Vs Instrumentation Tests in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Test in Android / Tools","url":"https://developer.android.com/training/testing/fundamentals/tools"}]'::jsonb)) then raise exception 'Question atest-004 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('atest-004', 'testing-android') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'atest-004' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'atest-004' and revision_number = 1 and status = 'published') where id = 'atest-004' and exists (select 1 from public.question_revisions where question_id = 'atest-004' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('atest-005', 'compose-ui-tests-and-semantics', 'android-native', 'Senior') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('atest-005', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'كيف تعمل اختبارات واجهة المستخدم في Jetpack Compose بالاعتماد على شجرة الـ Semantics؟', 'تستخدم ComposeTestRule للبحث في شجرة المعاني (Semantics Tree) ومطابقة العناصر بنصوصها أو دورها والتحقق من التفاعل معها بشكل مستقل عن تفاصيل الرسم الداخلي.', 'لا يمتلك Compose عناصر Views تقليدية يمكن البحث عنها بـ findViewById. بدلاً من ذلك، يولد شجرة Semantics موازية تصف الغرض الوظيفي لكل مكون (لخدمة إمكانية الوصول والاختبارات). تتيح أدوات مثل onNodeWithText و onNodeWithTag التفاعل مع المكونات (performClick) ومزامنة أوقات الرسوم المتحركة آليًا مع خيط الاختبار.', 'class CounterTest {
+    @get:Rule
+    val composeTestRule = createComposeRule()
+
+    @Test
+    fun incrementCounter_updatesCountText() {
+        composeTestRule.setContent {
+            CounterScreen()
+        }
+
+        composeTestRule.onNodeWithText("العدد: 0").assertIsDisplayed()
+        composeTestRule.onNodeWithText("زيادة").performClick()
+        composeTestRule.onNodeWithText("العدد: 1").assertIsDisplayed()
+    }
+}', '["الإفراط في وضع modifier.testTag واستخدامها كطريقة وحيدة للبحث، بدلاً من البحث بالنصوص وإمكانية الوصول لضمان جودة تطبيقك لذوي الاحتياجات الخاصة."]'::jsonb, '["كيف تضبط composeTestRule.mainClock للتحكم في الرسوم المتحركة خطوة بخطوة أثناء الاختبار؟"]'::jsonb, '[{"title":"Android Developers — Testing your Compose layout","url":"https://developer.android.com/develop/ui/compose/testing"}]'::jsonb from public.question_revisions r where r.question_id = 'atest-005' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'atest-005' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'كيف تعمل اختبارات واجهة المستخدم في Jetpack Compose بالاعتماد على شجرة الـ Semantics؟' or l.short_answer is distinct from 'تستخدم ComposeTestRule للبحث في شجرة المعاني (Semantics Tree) ومطابقة العناصر بنصوصها أو دورها والتحقق من التفاعل معها بشكل مستقل عن تفاصيل الرسم الداخلي.' or l.explanation is distinct from 'لا يمتلك Compose عناصر Views تقليدية يمكن البحث عنها بـ findViewById. بدلاً من ذلك، يولد شجرة Semantics موازية تصف الغرض الوظيفي لكل مكون (لخدمة إمكانية الوصول والاختبارات). تتيح أدوات مثل onNodeWithText و onNodeWithTag التفاعل مع المكونات (performClick) ومزامنة أوقات الرسوم المتحركة آليًا مع خيط الاختبار.' or l.code_example is distinct from 'class CounterTest {
+    @get:Rule
+    val composeTestRule = createComposeRule()
+
+    @Test
+    fun incrementCounter_updatesCountText() {
+        composeTestRule.setContent {
+            CounterScreen()
+        }
+
+        composeTestRule.onNodeWithText("العدد: 0").assertIsDisplayed()
+        composeTestRule.onNodeWithText("زيادة").performClick()
+        composeTestRule.onNodeWithText("العدد: 1").assertIsDisplayed()
+    }
+}' or l.common_mistakes is distinct from '["الإفراط في وضع modifier.testTag واستخدامها كطريقة وحيدة للبحث، بدلاً من البحث بالنصوص وإمكانية الوصول لضمان جودة تطبيقك لذوي الاحتياجات الخاصة."]'::jsonb or l.follow_up_questions is distinct from '["كيف تضبط composeTestRule.mainClock للتحكم في الرسوم المتحركة خطوة بخطوة أثناء الاختبار؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Testing your Compose layout","url":"https://developer.android.com/develop/ui/compose/testing"}]'::jsonb)) then raise exception 'Question atest-005 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Compose Ui Tests And Semantics?', 'This question checks the core Compose Ui Tests And Semantics concept and how to use it safely in Kotlin and Android.', 'Explain Compose Ui Tests And Semantics with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', 'class CounterTest {
+    @get:Rule
+    val composeTestRule = createComposeRule()
+
+    @Test
+    fun incrementCounter_updatesCountText() {
+        composeTestRule.setContent {
+            CounterScreen()
+        }
+
+        composeTestRule.onNodeWithText("العدد: 0").assertIsDisplayed()
+        composeTestRule.onNodeWithText("زيادة").performClick()
+        composeTestRule.onNodeWithText("العدد: 1").assertIsDisplayed()
+    }
+}', '["Missing the key trade-off in Compose Ui Tests And Semantics (point 1)."]'::jsonb, '["How would you apply Compose Ui Tests And Semantics in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Testing your Compose layout","url":"https://developer.android.com/develop/ui/compose/testing"}]'::jsonb from public.question_revisions r where r.question_id = 'atest-005' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'atest-005' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Compose Ui Tests And Semantics?' or l.short_answer is distinct from 'This question checks the core Compose Ui Tests And Semantics concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Compose Ui Tests And Semantics with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from 'class CounterTest {
+    @get:Rule
+    val composeTestRule = createComposeRule()
+
+    @Test
+    fun incrementCounter_updatesCountText() {
+        composeTestRule.setContent {
+            CounterScreen()
+        }
+
+        composeTestRule.onNodeWithText("العدد: 0").assertIsDisplayed()
+        composeTestRule.onNodeWithText("زيادة").performClick()
+        composeTestRule.onNodeWithText("العدد: 1").assertIsDisplayed()
+    }
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Compose Ui Tests And Semantics (point 1)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Compose Ui Tests And Semantics in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Testing your Compose layout","url":"https://developer.android.com/develop/ui/compose/testing"}]'::jsonb)) then raise exception 'Question atest-005 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('atest-005', 'testing-android') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'atest-005' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'atest-005' and revision_number = 1 and status = 'published') where id = 'atest-005' and exists (select 1 from public.question_revisions where question_id = 'atest-005' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('abld-001', 'gradle-build-lifecycle-phases', 'android-native', 'Junior') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('abld-001', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما هي المراحل الثلاث الأساسية لدورة حياة بناء المشروع في Gradle؟', 'مرحلة التهيئة (Initialization)، ثم مرحلة الإعداد (Configuration)، ثم مرحلة التنفيذ الفعلي (Execution).', 'في مرحلة Initialization يحدد Gradle المشاريع الفرعية المضمنة في settings.gradle ويُنشئ كائنات Project. في مرحلة Configuration يقرأ ملفات build.gradle لكل وحدة ويبني شجرة المهام (Task Execution Graph) ويقيم الكود خارج كتل doFirst و doLast. في مرحلة Execution ينفذ فقط المهام المطلوبة ومهامها التابعة وفق الترتيب المخطط.', '// مثال يوضح الفرق بين الإعداد والتنفيذ:
+tasks.register("myTask") {
+    // ينفذ دائمًا في مرحلة Configuration عند أي عملية مزامنة (Sync)!
+    println("Configuration phase: تهيئة المهمة")
+
+    doLast {
+        // ينفذ فقط في مرحلة Execution عند طلب المهمة صراحة:
+        println("Execution phase: جاري تنفيذ المهمة الآن")
+    }
+}', '["كتابة كود معالجة ملفات مكلف أو استدعاءات شبكة داخل جسم المهمة مباشرة دون وضعه داخل doLast، مما يبطئ عملية مزامنة المشروع (Gradle Sync)."]'::jsonb, '["ما هو التخزين المؤقت للإعداد (Configuration Cache) في Gradle وكيف يسرع البناء المتكرر؟"]'::jsonb, '[{"title":"Android Developers — Configure your build","url":"https://developer.android.com/build"}]'::jsonb from public.question_revisions r where r.question_id = 'abld-001' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'abld-001' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما هي المراحل الثلاث الأساسية لدورة حياة بناء المشروع في Gradle؟' or l.short_answer is distinct from 'مرحلة التهيئة (Initialization)، ثم مرحلة الإعداد (Configuration)، ثم مرحلة التنفيذ الفعلي (Execution).' or l.explanation is distinct from 'في مرحلة Initialization يحدد Gradle المشاريع الفرعية المضمنة في settings.gradle ويُنشئ كائنات Project. في مرحلة Configuration يقرأ ملفات build.gradle لكل وحدة ويبني شجرة المهام (Task Execution Graph) ويقيم الكود خارج كتل doFirst و doLast. في مرحلة Execution ينفذ فقط المهام المطلوبة ومهامها التابعة وفق الترتيب المخطط.' or l.code_example is distinct from '// مثال يوضح الفرق بين الإعداد والتنفيذ:
+tasks.register("myTask") {
+    // ينفذ دائمًا في مرحلة Configuration عند أي عملية مزامنة (Sync)!
+    println("Configuration phase: تهيئة المهمة")
+
+    doLast {
+        // ينفذ فقط في مرحلة Execution عند طلب المهمة صراحة:
+        println("Execution phase: جاري تنفيذ المهمة الآن")
+    }
+}' or l.common_mistakes is distinct from '["كتابة كود معالجة ملفات مكلف أو استدعاءات شبكة داخل جسم المهمة مباشرة دون وضعه داخل doLast، مما يبطئ عملية مزامنة المشروع (Gradle Sync)."]'::jsonb or l.follow_up_questions is distinct from '["ما هو التخزين المؤقت للإعداد (Configuration Cache) في Gradle وكيف يسرع البناء المتكرر؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Configure your build","url":"https://developer.android.com/build"}]'::jsonb)) then raise exception 'Question abld-001 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Gradle Build Lifecycle Phases?', 'This question checks the core Gradle Build Lifecycle Phases concept and how to use it safely in Kotlin and Android.', 'Explain Gradle Build Lifecycle Phases with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', '// مثال يوضح الفرق بين الإعداد والتنفيذ:
+tasks.register("myTask") {
+    // ينفذ دائمًا في مرحلة Configuration عند أي عملية مزامنة (Sync)!
+    println("Configuration phase: تهيئة المهمة")
+
+    doLast {
+        // ينفذ فقط في مرحلة Execution عند طلب المهمة صراحة:
+        println("Execution phase: جاري تنفيذ المهمة الآن")
+    }
+}', '["Missing the key trade-off in Gradle Build Lifecycle Phases (point 1)."]'::jsonb, '["How would you apply Gradle Build Lifecycle Phases in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Configure your build","url":"https://developer.android.com/build"}]'::jsonb from public.question_revisions r where r.question_id = 'abld-001' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'abld-001' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Gradle Build Lifecycle Phases?' or l.short_answer is distinct from 'This question checks the core Gradle Build Lifecycle Phases concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Gradle Build Lifecycle Phases with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from '// مثال يوضح الفرق بين الإعداد والتنفيذ:
+tasks.register("myTask") {
+    // ينفذ دائمًا في مرحلة Configuration عند أي عملية مزامنة (Sync)!
+    println("Configuration phase: تهيئة المهمة")
+
+    doLast {
+        // ينفذ فقط في مرحلة Execution عند طلب المهمة صراحة:
+        println("Execution phase: جاري تنفيذ المهمة الآن")
+    }
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Gradle Build Lifecycle Phases (point 1)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Gradle Build Lifecycle Phases in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Configure your build","url":"https://developer.android.com/build"}]'::jsonb)) then raise exception 'Question abld-001 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('abld-001', 'build-gradle') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'abld-001' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'abld-001' and revision_number = 1 and status = 'published') where id = 'abld-001' and exists (select 1 from public.question_revisions where question_id = 'abld-001' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('abld-002', 'build-variants-flavors-and-types', 'android-native', 'Mid') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('abld-002', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'كيف يتم إنشاء الـ Build Variants بدمج Product Flavors و Build Types في Gradle؟', 'الـ Build Variant هو حاصل الضرب التبادلي بين كل Product Flavor (ميزات التطبيق) وكل Build Type (إعدادات البناء كـ debug و release).', 'تحدد الـ Build Types (مثل debug و release) خيارات التوقيع والتشويش عبر R8 والـ debuggable. بينما تحدد الـ Product Flavors (مثل demo و full، أو dev و staging و prod) تخصيصات المنتج كـ applicationId ومصادر الموارد وعناوين الـ API الأساسية. دمج flavor (free) مع type (release) ينتج الـ Variant النهائي: freeRelease.', 'android {
+    buildTypes {
+        debug { applicationIdSuffix ".debug"; isMinifyEnabled false }
+        release { isMinifyEnabled true; proguardFiles(...) }
+    }
+    flavorDimensions += "tier"
+    productFlavors {
+        create("free") { dimension = "tier"; applicationIdSuffix = ".free" }
+        create("paid") { dimension = "tier" }
+    }
+}
+// ينتج: freeDebug, freeRelease, paidDebug, paidRelease', '["نسيان تحديد flavorDimensions عند تعريف أكثر من Product Flavor مما يسبب فشل البناء.","تكرار ملفات الموارد كاملة داخل كل flavor بدلاً من مشاركة الملفات المشتركة في مجلد src/main."]'::jsonb, '["كيف تختلف أولوية دمج الموارد (Resource Merging Priority) بين مجلدات Flavor و Main و BuildType؟"]'::jsonb, '[{"title":"Android Developers — Configure build variants","url":"https://developer.android.com/build/build-variants"}]'::jsonb from public.question_revisions r where r.question_id = 'abld-002' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'abld-002' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'كيف يتم إنشاء الـ Build Variants بدمج Product Flavors و Build Types في Gradle؟' or l.short_answer is distinct from 'الـ Build Variant هو حاصل الضرب التبادلي بين كل Product Flavor (ميزات التطبيق) وكل Build Type (إعدادات البناء كـ debug و release).' or l.explanation is distinct from 'تحدد الـ Build Types (مثل debug و release) خيارات التوقيع والتشويش عبر R8 والـ debuggable. بينما تحدد الـ Product Flavors (مثل demo و full، أو dev و staging و prod) تخصيصات المنتج كـ applicationId ومصادر الموارد وعناوين الـ API الأساسية. دمج flavor (free) مع type (release) ينتج الـ Variant النهائي: freeRelease.' or l.code_example is distinct from 'android {
+    buildTypes {
+        debug { applicationIdSuffix ".debug"; isMinifyEnabled false }
+        release { isMinifyEnabled true; proguardFiles(...) }
+    }
+    flavorDimensions += "tier"
+    productFlavors {
+        create("free") { dimension = "tier"; applicationIdSuffix = ".free" }
+        create("paid") { dimension = "tier" }
+    }
+}
+// ينتج: freeDebug, freeRelease, paidDebug, paidRelease' or l.common_mistakes is distinct from '["نسيان تحديد flavorDimensions عند تعريف أكثر من Product Flavor مما يسبب فشل البناء.","تكرار ملفات الموارد كاملة داخل كل flavor بدلاً من مشاركة الملفات المشتركة في مجلد src/main."]'::jsonb or l.follow_up_questions is distinct from '["كيف تختلف أولوية دمج الموارد (Resource Merging Priority) بين مجلدات Flavor و Main و BuildType؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Configure build variants","url":"https://developer.android.com/build/build-variants"}]'::jsonb)) then raise exception 'Question abld-002 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Build Variants Flavors And Types?', 'This question checks the core Build Variants Flavors And Types concept and how to use it safely in Kotlin and Android.', 'Explain Build Variants Flavors And Types with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', 'android {
+    buildTypes {
+        debug { applicationIdSuffix ".debug"; isMinifyEnabled false }
+        release { isMinifyEnabled true; proguardFiles(...) }
+    }
+    flavorDimensions += "tier"
+    productFlavors {
+        create("free") { dimension = "tier"; applicationIdSuffix = ".free" }
+        create("paid") { dimension = "tier" }
+    }
+}
+// ينتج: freeDebug, freeRelease, paidDebug, paidRelease', '["Missing the key trade-off in Build Variants Flavors And Types (point 1).","Missing the key trade-off in Build Variants Flavors And Types (point 2)."]'::jsonb, '["How would you apply Build Variants Flavors And Types in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Configure build variants","url":"https://developer.android.com/build/build-variants"}]'::jsonb from public.question_revisions r where r.question_id = 'abld-002' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'abld-002' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Build Variants Flavors And Types?' or l.short_answer is distinct from 'This question checks the core Build Variants Flavors And Types concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Build Variants Flavors And Types with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from 'android {
+    buildTypes {
+        debug { applicationIdSuffix ".debug"; isMinifyEnabled false }
+        release { isMinifyEnabled true; proguardFiles(...) }
+    }
+    flavorDimensions += "tier"
+    productFlavors {
+        create("free") { dimension = "tier"; applicationIdSuffix = ".free" }
+        create("paid") { dimension = "tier" }
+    }
+}
+// ينتج: freeDebug, freeRelease, paidDebug, paidRelease' or l.common_mistakes is distinct from '["Missing the key trade-off in Build Variants Flavors And Types (point 1).","Missing the key trade-off in Build Variants Flavors And Types (point 2)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Build Variants Flavors And Types in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Configure build variants","url":"https://developer.android.com/build/build-variants"}]'::jsonb)) then raise exception 'Question abld-002 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('abld-002', 'build-gradle') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'abld-002' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'abld-002' and revision_number = 1 and status = 'published') where id = 'abld-002' and exists (select 1 from public.question_revisions where question_id = 'abld-002' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('abld-003', 'version-catalogs-toml', 'android-native', 'Mid') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('abld-003', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما هي ميزة استخدام Gradle Version Catalogs (ملف libs.versions.toml) لإدارة التبعيات؟', 'توفر مكانًا مركزيًا وموحدًا لإدارة إصدارات المكتبات والـ Plugins عبر جميع وحدات المشروع، مع دعم الإكمال التلقائي والتحقق الصارم من الأنواع في ملفات kts.', 'في المشاريع الكبيرة متعددة الوحدات، كان تكرار أسماء المكتبات يسبب تضاربًا في الإصدارات وصعوبة في الترقية. يقسم ملف libs.versions.toml التبعيات إلى أربعة أقسام: [versions] للإصدارات، [libraries] للمكتبات، [bundles] لتجميع مكتبات ذات صلة في متغير واحد، و [plugins] لإضافات Gradle، مما يمنع الأخطاء المطبعية تمامًا.', '// 1. ملف gradle/libs.versions.toml:
+[versions]
+retrofit = "2.11.0"
+
+[libraries]
+retrofit-core = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+
+// 2. الاستخدام في build.gradle.kts:
+dependencies {
+    implementation(libs.retrofit.core)
+}', '["تثبيت إصدارات مختلفة لنفس المكتبة يدويًا داخل بعض الوحدات الفرعية متجاوزًا الـ Version Catalog."]'::jsonb, '["ما هي فائدة [bundles] في Version Catalogs لربط مكتبات شائعة مثل Compose BOM؟"]'::jsonb, '[{"title":"Android Developers — Migrate your build to version catalogs","url":"https://developer.android.com/build/migrate-to-catalogs"}]'::jsonb from public.question_revisions r where r.question_id = 'abld-003' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'abld-003' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما هي ميزة استخدام Gradle Version Catalogs (ملف libs.versions.toml) لإدارة التبعيات؟' or l.short_answer is distinct from 'توفر مكانًا مركزيًا وموحدًا لإدارة إصدارات المكتبات والـ Plugins عبر جميع وحدات المشروع، مع دعم الإكمال التلقائي والتحقق الصارم من الأنواع في ملفات kts.' or l.explanation is distinct from 'في المشاريع الكبيرة متعددة الوحدات، كان تكرار أسماء المكتبات يسبب تضاربًا في الإصدارات وصعوبة في الترقية. يقسم ملف libs.versions.toml التبعيات إلى أربعة أقسام: [versions] للإصدارات، [libraries] للمكتبات، [bundles] لتجميع مكتبات ذات صلة في متغير واحد، و [plugins] لإضافات Gradle، مما يمنع الأخطاء المطبعية تمامًا.' or l.code_example is distinct from '// 1. ملف gradle/libs.versions.toml:
+[versions]
+retrofit = "2.11.0"
+
+[libraries]
+retrofit-core = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+
+// 2. الاستخدام في build.gradle.kts:
+dependencies {
+    implementation(libs.retrofit.core)
+}' or l.common_mistakes is distinct from '["تثبيت إصدارات مختلفة لنفس المكتبة يدويًا داخل بعض الوحدات الفرعية متجاوزًا الـ Version Catalog."]'::jsonb or l.follow_up_questions is distinct from '["ما هي فائدة [bundles] في Version Catalogs لربط مكتبات شائعة مثل Compose BOM؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Migrate your build to version catalogs","url":"https://developer.android.com/build/migrate-to-catalogs"}]'::jsonb)) then raise exception 'Question abld-003 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Version Catalogs Toml?', 'This question checks the core Version Catalogs Toml concept and how to use it safely in Kotlin and Android.', 'Explain Version Catalogs Toml with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', '// 1. ملف gradle/libs.versions.toml:
+[versions]
+retrofit = "2.11.0"
+
+[libraries]
+retrofit-core = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+
+// 2. الاستخدام في build.gradle.kts:
+dependencies {
+    implementation(libs.retrofit.core)
+}', '["Missing the key trade-off in Version Catalogs Toml (point 1)."]'::jsonb, '["How would you apply Version Catalogs Toml in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Migrate your build to version catalogs","url":"https://developer.android.com/build/migrate-to-catalogs"}]'::jsonb from public.question_revisions r where r.question_id = 'abld-003' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'abld-003' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Version Catalogs Toml?' or l.short_answer is distinct from 'This question checks the core Version Catalogs Toml concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Version Catalogs Toml with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from '// 1. ملف gradle/libs.versions.toml:
+[versions]
+retrofit = "2.11.0"
+
+[libraries]
+retrofit-core = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+
+// 2. الاستخدام في build.gradle.kts:
+dependencies {
+    implementation(libs.retrofit.core)
+}' or l.common_mistakes is distinct from '["Missing the key trade-off in Version Catalogs Toml (point 1)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Version Catalogs Toml in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Migrate your build to version catalogs","url":"https://developer.android.com/build/migrate-to-catalogs"}]'::jsonb)) then raise exception 'Question abld-003 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('abld-003', 'build-gradle') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'abld-003' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'abld-003' and revision_number = 1 and status = 'published') where id = 'abld-003' and exists (select 1 from public.question_revisions where question_id = 'abld-003' and revision_number = 1 and status = 'published');
+
+insert into public.interview_questions (id, slug, track_id, difficulty) values ('abld-004', 'modularization-strategies-feature-vs-layer', 'android-native', 'Senior') on conflict (id) do update set slug = excluded.slug, track_id = excluded.track_id, difficulty = excluded.difficulty;
+insert into public.question_revisions (question_id, revision_number, status, reviewed_at) values ('abld-004', 1, 'draft', '2026-09-01') on conflict (question_id, revision_number) do nothing;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'ar', 'ما هي أفضل ممارسات تقسيم تطبيق أندرويد إلى وحدات متعددة (Multi-module Architecture) وما أثرها على سرعة البناء؟', 'التقسيم حسب الميزة (Modularization by Feature) مع استخراج وحدات النواة المشتركة (Core/Domain/UI)، مما يتيح توازي عمليات البناء وتفعيل الـ Build Cache.', 'في التطبيق المكون من وحدة واحدة (Monolith)، فإن أي تعديل بسيط يجبر Gradle على إعادة ترجمة الكود بالكامل. في المعمارية المجزأة، إذا عدلت كود داخل :feature:auth، فإن Gradle يعيد بناء هذه الوحدة فقط ويعيد استخدام مخرجات باقي الوحدات من الـ Cache، مع تقليص وقت البناء التزايدي (Incremental Build) بنسبة هائلة وفرض حدود معمارية صارمة تمنع تشابك التبعيات.', '// نموذج هيكلي موصى به:
+// :app (تجميع الـ Features وحقن التبعيات)
+// :feature:login (يعتمد على :core:model و :core:ui)
+// :feature:checkout
+// :core:network
+// :core:database
+// :core:model (نقي تمامًا بدون تبعيات أندرويد)', '["التقسيم فقط حسب الطبقات (Module for UI, Module for Data) مما يخلق وحدات ضخمة تعتمد على بعضها دائريًا وتفقد ميزة عزل الميزات واستقلالية الفرق.","إنشاء تبعيات دائرية (Circular Dependencies) بين الوحدات وهو ما يمنعه Gradle بشكل صارم."]'::jsonb, '["كيف تمنع تسريب التبعيات الداخلية بين الوحدات باستخدام api مقابل implementation في Gradle؟"]'::jsonb, '[{"title":"Android Developers — Guide to Android app modularization","url":"https://developer.android.com/topic/modularization"}]'::jsonb from public.question_revisions r where r.question_id = 'abld-004' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'abld-004' and r.revision_number = 1 and l.locale = 'ar' and (l.question is distinct from 'ما هي أفضل ممارسات تقسيم تطبيق أندرويد إلى وحدات متعددة (Multi-module Architecture) وما أثرها على سرعة البناء؟' or l.short_answer is distinct from 'التقسيم حسب الميزة (Modularization by Feature) مع استخراج وحدات النواة المشتركة (Core/Domain/UI)، مما يتيح توازي عمليات البناء وتفعيل الـ Build Cache.' or l.explanation is distinct from 'في التطبيق المكون من وحدة واحدة (Monolith)، فإن أي تعديل بسيط يجبر Gradle على إعادة ترجمة الكود بالكامل. في المعمارية المجزأة، إذا عدلت كود داخل :feature:auth، فإن Gradle يعيد بناء هذه الوحدة فقط ويعيد استخدام مخرجات باقي الوحدات من الـ Cache، مع تقليص وقت البناء التزايدي (Incremental Build) بنسبة هائلة وفرض حدود معمارية صارمة تمنع تشابك التبعيات.' or l.code_example is distinct from '// نموذج هيكلي موصى به:
+// :app (تجميع الـ Features وحقن التبعيات)
+// :feature:login (يعتمد على :core:model و :core:ui)
+// :feature:checkout
+// :core:network
+// :core:database
+// :core:model (نقي تمامًا بدون تبعيات أندرويد)' or l.common_mistakes is distinct from '["التقسيم فقط حسب الطبقات (Module for UI, Module for Data) مما يخلق وحدات ضخمة تعتمد على بعضها دائريًا وتفقد ميزة عزل الميزات واستقلالية الفرق.","إنشاء تبعيات دائرية (Circular Dependencies) بين الوحدات وهو ما يمنعه Gradle بشكل صارم."]'::jsonb or l.follow_up_questions is distinct from '["كيف تمنع تسريب التبعيات الداخلية بين الوحدات باستخدام api مقابل implementation في Gradle؟"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Guide to Android app modularization","url":"https://developer.android.com/topic/modularization"}]'::jsonb)) then raise exception 'Question abld-004 ar content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_revision_locales (revision_id, locale, question, short_answer, explanation, code_example, common_mistakes, follow_up_questions, sources) select r.id, 'en', 'What should an Android developer know about Modularization Strategies Feature Vs Layer?', 'This question checks the core Modularization Strategies Feature Vs Layer concept and how to use it safely in Kotlin and Android.', 'Explain Modularization Strategies Feature Vs Layer with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.', '// نموذج هيكلي موصى به:
+// :app (تجميع الـ Features وحقن التبعيات)
+// :feature:login (يعتمد على :core:model و :core:ui)
+// :feature:checkout
+// :core:network
+// :core:database
+// :core:model (نقي تمامًا بدون تبعيات أندرويد)', '["Missing the key trade-off in Modularization Strategies Feature Vs Layer (point 1).","Missing the key trade-off in Modularization Strategies Feature Vs Layer (point 2)."]'::jsonb, '["How would you apply Modularization Strategies Feature Vs Layer in a production Android app (follow-up 1)?"]'::jsonb, '[{"title":"Android Developers — Guide to Android app modularization","url":"https://developer.android.com/topic/modularization"}]'::jsonb from public.question_revisions r where r.question_id = 'abld-004' and r.revision_number = 1 on conflict (revision_id, locale) do nothing;
+do $$ begin if exists (select 1 from public.question_revision_locales l join public.question_revisions r on r.id = l.revision_id where r.question_id = 'abld-004' and r.revision_number = 1 and l.locale = 'en' and (l.question is distinct from 'What should an Android developer know about Modularization Strategies Feature Vs Layer?' or l.short_answer is distinct from 'This question checks the core Modularization Strategies Feature Vs Layer concept and how to use it safely in Kotlin and Android.' or l.explanation is distinct from 'Explain Modularization Strategies Feature Vs Layer with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.' or l.code_example is distinct from '// نموذج هيكلي موصى به:
+// :app (تجميع الـ Features وحقن التبعيات)
+// :feature:login (يعتمد على :core:model و :core:ui)
+// :feature:checkout
+// :core:network
+// :core:database
+// :core:model (نقي تمامًا بدون تبعيات أندرويد)' or l.common_mistakes is distinct from '["Missing the key trade-off in Modularization Strategies Feature Vs Layer (point 1).","Missing the key trade-off in Modularization Strategies Feature Vs Layer (point 2)."]'::jsonb or l.follow_up_questions is distinct from '["How would you apply Modularization Strategies Feature Vs Layer in a production Android app (follow-up 1)?"]'::jsonb or l.sources is distinct from '[{"title":"Android Developers — Guide to Android app modularization","url":"https://developer.android.com/topic/modularization"}]'::jsonb)) then raise exception 'Question abld-004 en content changed; create a new revision before seeding'; end if; end $$;
+insert into public.question_topics (question_id, topic_id) values ('abld-004', 'build-gradle') on conflict (question_id, topic_id) do nothing;
+update public.question_revisions set status = 'published' where question_id = 'abld-004' and revision_number = 1 and status = 'draft';
+update public.interview_questions set published_revision_id = (select id from public.question_revisions where question_id = 'abld-004' and revision_number = 1 and status = 'published') where id = 'abld-004' and exists (select 1 from public.question_revisions where question_id = 'abld-004' and revision_number = 1 and status = 'published');
+
 insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'dart-006', 1 from public.question_revisions source join public.interview_questions target on target.id = 'dart-006' where source.question_id = 'dart-001' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
 
 insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'dart-005', 1 from public.question_revisions source join public.interview_questions target on target.id = 'dart-005' where source.question_id = 'dart-002' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
@@ -1963,6 +6613,202 @@ insert into public.question_follow_ups (source_revision_id, target_question_id, 
 insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'arch-008', 1 from public.question_revisions source join public.interview_questions target on target.id = 'arch-008' where source.question_id = 'arch-006' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
 
 insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'test-005', 1 from public.question_revisions source join public.interview_questions target on target.id = 'test-005' where source.question_id = 'test-006' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'kt-002', 1 from public.question_revisions source join public.interview_questions target on target.id = 'kt-002' where source.question_id = 'kt-001' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'kt-001', 1 from public.question_revisions source join public.interview_questions target on target.id = 'kt-001' where source.question_id = 'kt-002' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'kt-005', 1 from public.question_revisions source join public.interview_questions target on target.id = 'kt-005' where source.question_id = 'kt-003' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'kt-006', 1 from public.question_revisions source join public.interview_questions target on target.id = 'kt-006' where source.question_id = 'kt-004' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'aarch-005', 1 from public.question_revisions source join public.interview_questions target on target.id = 'aarch-005' where source.question_id = 'kt-006' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'kt-009', 1 from public.question_revisions source join public.interview_questions target on target.id = 'kt-009' where source.question_id = 'kt-007' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'kt-007', 1 from public.question_revisions source join public.interview_questions target on target.id = 'kt-007' where source.question_id = 'kt-008' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'kt-011', 1 from public.question_revisions source join public.interview_questions target on target.id = 'kt-011' where source.question_id = 'kt-009' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'astor-001', 1 from public.question_revisions source join public.interview_questions target on target.id = 'astor-001' where source.question_id = 'kt-010' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'kt-012', 1 from public.question_revisions source join public.interview_questions target on target.id = 'kt-012' where source.question_id = 'kt-011' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'afund-006', 1 from public.question_revisions source join public.interview_questions target on target.id = 'afund-006' where source.question_id = 'afund-001' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'aarch-001', 1 from public.question_revisions source join public.interview_questions target on target.id = 'aarch-001' where source.question_id = 'afund-002' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'adi-001', 1 from public.question_revisions source join public.interview_questions target on target.id = 'adi-001' where source.question_id = 'afund-003' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'afund-005', 1 from public.question_revisions source join public.interview_questions target on target.id = 'afund-005' where source.question_id = 'afund-004' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'afund-001', 1 from public.question_revisions source join public.interview_questions target on target.id = 'afund-001' where source.question_id = 'afund-005' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'afund-009', 1 from public.question_revisions source join public.interview_questions target on target.id = 'afund-009' where source.question_id = 'afund-006' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'astor-001', 1 from public.question_revisions source join public.interview_questions target on target.id = 'astor-001' where source.question_id = 'afund-007' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'abg-001', 1 from public.question_revisions source join public.interview_questions target on target.id = 'abg-001' where source.question_id = 'afund-008' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'aarch-004', 1 from public.question_revisions source join public.interview_questions target on target.id = 'aarch-004' where source.question_id = 'afund-009' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'asec-003', 1 from public.question_revisions source join public.interview_questions target on target.id = 'asec-003' where source.question_id = 'afund-010' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'aui-006', 1 from public.question_revisions source join public.interview_questions target on target.id = 'aui-006' where source.question_id = 'aui-001' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'aui-003', 1 from public.question_revisions source join public.interview_questions target on target.id = 'aui-003' where source.question_id = 'aui-002' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'aui-004', 1 from public.question_revisions source join public.interview_questions target on target.id = 'aui-004' where source.question_id = 'aui-003' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'aui-003', 1 from public.question_revisions source join public.interview_questions target on target.id = 'aui-003' where source.question_id = 'aui-004' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'aui-001', 1 from public.question_revisions source join public.interview_questions target on target.id = 'aui-001' where source.question_id = 'aui-005' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'aui-001', 1 from public.question_revisions source join public.interview_questions target on target.id = 'aui-001' where source.question_id = 'aui-006' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'compose-002', 1 from public.question_revisions source join public.interview_questions target on target.id = 'compose-002' where source.question_id = 'compose-001' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'compose-004', 1 from public.question_revisions source join public.interview_questions target on target.id = 'compose-004' where source.question_id = 'compose-002' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'compose-004', 1 from public.question_revisions source join public.interview_questions target on target.id = 'compose-004' where source.question_id = 'compose-003' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'aarch-004', 1 from public.question_revisions source join public.interview_questions target on target.id = 'aarch-004' where source.question_id = 'compose-004' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'coro-005', 1 from public.question_revisions source join public.interview_questions target on target.id = 'coro-005' where source.question_id = 'compose-005' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'compose-003', 1 from public.question_revisions source join public.interview_questions target on target.id = 'compose-003' where source.question_id = 'compose-006' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'compose-002', 1 from public.question_revisions source join public.interview_questions target on target.id = 'compose-002' where source.question_id = 'compose-007' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'compose-001', 1 from public.question_revisions source join public.interview_questions target on target.id = 'compose-001' where source.question_id = 'compose-008' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'compose-010', 1 from public.question_revisions source join public.interview_questions target on target.id = 'compose-010' where source.question_id = 'compose-009' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'compose-009', 1 from public.question_revisions source join public.interview_questions target on target.id = 'compose-009' where source.question_id = 'compose-010' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'aarch-002', 1 from public.question_revisions source join public.interview_questions target on target.id = 'aarch-002' where source.question_id = 'aarch-001' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'coro-009', 1 from public.question_revisions source join public.interview_questions target on target.id = 'coro-009' where source.question_id = 'aarch-002' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'aarch-005', 1 from public.question_revisions source join public.interview_questions target on target.id = 'aarch-005' where source.question_id = 'aarch-003' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'afund-009', 1 from public.question_revisions source join public.interview_questions target on target.id = 'afund-009' where source.question_id = 'aarch-004' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'aarch-003', 1 from public.question_revisions source join public.interview_questions target on target.id = 'aarch-003' where source.question_id = 'aarch-005' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'aarch-007', 1 from public.question_revisions source join public.interview_questions target on target.id = 'aarch-007' where source.question_id = 'aarch-006' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'astor-001', 1 from public.question_revisions source join public.interview_questions target on target.id = 'astor-001' where source.question_id = 'aarch-007' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'aarch-002', 1 from public.question_revisions source join public.interview_questions target on target.id = 'aarch-002' where source.question_id = 'aarch-008' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'afund-004', 1 from public.question_revisions source join public.interview_questions target on target.id = 'afund-004' where source.question_id = 'aarch-009' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'astor-001', 1 from public.question_revisions source join public.interview_questions target on target.id = 'astor-001' where source.question_id = 'aarch-010' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'coro-002', 1 from public.question_revisions source join public.interview_questions target on target.id = 'coro-002' where source.question_id = 'coro-001' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'coro-001', 1 from public.question_revisions source join public.interview_questions target on target.id = 'coro-001' where source.question_id = 'coro-002' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'coro-004', 1 from public.question_revisions source join public.interview_questions target on target.id = 'coro-004' where source.question_id = 'coro-003' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'coro-005', 1 from public.question_revisions source join public.interview_questions target on target.id = 'coro-005' where source.question_id = 'coro-004' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'coro-006', 1 from public.question_revisions source join public.interview_questions target on target.id = 'coro-006' where source.question_id = 'coro-005' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'coro-005', 1 from public.question_revisions source join public.interview_questions target on target.id = 'coro-005' where source.question_id = 'coro-006' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'coro-008', 1 from public.question_revisions source join public.interview_questions target on target.id = 'coro-008' where source.question_id = 'coro-007' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'coro-007', 1 from public.question_revisions source join public.interview_questions target on target.id = 'coro-007' where source.question_id = 'coro-008' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'coro-010', 1 from public.question_revisions source join public.interview_questions target on target.id = 'coro-010' where source.question_id = 'coro-009' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'coro-009', 1 from public.question_revisions source join public.interview_questions target on target.id = 'coro-009' where source.question_id = 'coro-010' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'anet-002', 1 from public.question_revisions source join public.interview_questions target on target.id = 'anet-002' where source.question_id = 'anet-001' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'anet-001', 1 from public.question_revisions source join public.interview_questions target on target.id = 'anet-001' where source.question_id = 'anet-002' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'anet-001', 1 from public.question_revisions source join public.interview_questions target on target.id = 'anet-001' where source.question_id = 'anet-003' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'anet-001', 1 from public.question_revisions source join public.interview_questions target on target.id = 'anet-001' where source.question_id = 'anet-004' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'anet-002', 1 from public.question_revisions source join public.interview_questions target on target.id = 'anet-002' where source.question_id = 'anet-005' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'anet-002', 1 from public.question_revisions source join public.interview_questions target on target.id = 'anet-002' where source.question_id = 'anet-006' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'astor-003', 1 from public.question_revisions source join public.interview_questions target on target.id = 'astor-003' where source.question_id = 'astor-001' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'astor-006', 1 from public.question_revisions source join public.interview_questions target on target.id = 'astor-006' where source.question_id = 'astor-002' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'astor-001', 1 from public.question_revisions source join public.interview_questions target on target.id = 'astor-001' where source.question_id = 'astor-003' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'astor-001', 1 from public.question_revisions source join public.interview_questions target on target.id = 'astor-001' where source.question_id = 'astor-004' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'astor-001', 1 from public.question_revisions source join public.interview_questions target on target.id = 'astor-001' where source.question_id = 'astor-005' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'astor-002', 1 from public.question_revisions source join public.interview_questions target on target.id = 'astor-002' where source.question_id = 'astor-006' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'adi-002', 1 from public.question_revisions source join public.interview_questions target on target.id = 'adi-002' where source.question_id = 'adi-001' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'adi-003', 1 from public.question_revisions source join public.interview_questions target on target.id = 'adi-003' where source.question_id = 'adi-002' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'adi-004', 1 from public.question_revisions source join public.interview_questions target on target.id = 'adi-004' where source.question_id = 'adi-003' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'adi-005', 1 from public.question_revisions source join public.interview_questions target on target.id = 'adi-005' where source.question_id = 'adi-004' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'adi-006', 1 from public.question_revisions source join public.interview_questions target on target.id = 'adi-006' where source.question_id = 'adi-005' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'adi-004', 1 from public.question_revisions source join public.interview_questions target on target.id = 'adi-004' where source.question_id = 'adi-006' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'abg-004', 1 from public.question_revisions source join public.interview_questions target on target.id = 'abg-004' where source.question_id = 'abg-001' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'abg-003', 1 from public.question_revisions source join public.interview_questions target on target.id = 'abg-003' where source.question_id = 'abg-002' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'abg-002', 1 from public.question_revisions source join public.interview_questions target on target.id = 'abg-002' where source.question_id = 'abg-003' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'abg-001', 1 from public.question_revisions source join public.interview_questions target on target.id = 'abg-001' where source.question_id = 'abg-004' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'abg-002', 1 from public.question_revisions source join public.interview_questions target on target.id = 'abg-002' where source.question_id = 'abg-005' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'aperf-002', 1 from public.question_revisions source join public.interview_questions target on target.id = 'aperf-002' where source.question_id = 'aperf-001' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'aperf-001', 1 from public.question_revisions source join public.interview_questions target on target.id = 'aperf-001' where source.question_id = 'aperf-002' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'aperf-006', 1 from public.question_revisions source join public.interview_questions target on target.id = 'aperf-006' where source.question_id = 'aperf-003' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'aperf-002', 1 from public.question_revisions source join public.interview_questions target on target.id = 'aperf-002' where source.question_id = 'aperf-004' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'aperf-001', 1 from public.question_revisions source join public.interview_questions target on target.id = 'aperf-001' where source.question_id = 'aperf-005' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'aperf-003', 1 from public.question_revisions source join public.interview_questions target on target.id = 'aperf-003' where source.question_id = 'aperf-006' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'asec-003', 1 from public.question_revisions source join public.interview_questions target on target.id = 'asec-003' where source.question_id = 'asec-001' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'abld-002', 1 from public.question_revisions source join public.interview_questions target on target.id = 'abld-002' where source.question_id = 'asec-002' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'asec-001', 1 from public.question_revisions source join public.interview_questions target on target.id = 'asec-001' where source.question_id = 'asec-003' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'asec-001', 1 from public.question_revisions source join public.interview_questions target on target.id = 'asec-001' where source.question_id = 'asec-004' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'atest-002', 1 from public.question_revisions source join public.interview_questions target on target.id = 'atest-002' where source.question_id = 'atest-001' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'atest-003', 1 from public.question_revisions source join public.interview_questions target on target.id = 'atest-003' where source.question_id = 'atest-002' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'atest-002', 1 from public.question_revisions source join public.interview_questions target on target.id = 'atest-002' where source.question_id = 'atest-003' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'atest-001', 1 from public.question_revisions source join public.interview_questions target on target.id = 'atest-001' where source.question_id = 'atest-004' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'compose-002', 1 from public.question_revisions source join public.interview_questions target on target.id = 'compose-002' where source.question_id = 'atest-005' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'abld-002', 1 from public.question_revisions source join public.interview_questions target on target.id = 'abld-002' where source.question_id = 'abld-001' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'abld-003', 1 from public.question_revisions source join public.interview_questions target on target.id = 'abld-003' where source.question_id = 'abld-002' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'abld-002', 1 from public.question_revisions source join public.interview_questions target on target.id = 'abld-002' where source.question_id = 'abld-003' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
+
+insert into public.question_follow_ups (source_revision_id, target_question_id, position) select source.id, 'abld-001', 1 from public.question_revisions source join public.interview_questions target on target.id = 'abld-001' where source.question_id = 'abld-004' and source.revision_number = 1 and source.status = 'published' and target.published_revision_id is not null on conflict (source_revision_id, target_question_id) do nothing;
 
 commit;
 
