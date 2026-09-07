@@ -45,8 +45,10 @@ export function localeFromPathname(pathname: string): Locale {
 }
 
 export function localizedHref(locale: Locale, path = "/"): string {
-  const normalized = path.startsWith("/") ? path : `/${path}`;
-  return `/${locale}${normalized === "/" ? "/" : normalized}`;
+  const [pathname, search = ""] = (path.startsWith("/") ? path : `/${path}`).split("?", 2);
+  const cleanPath = pathname === "/" ? "" : pathname.replace(/\/+$/, "");
+  const base = `/${locale}${cleanPath}`;
+  return search ? `${base}?${search}` : base;
 }
 
 export function localeDirection(locale: Locale): "rtl" | "ltr" {

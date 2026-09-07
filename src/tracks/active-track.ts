@@ -49,9 +49,10 @@ export function withTrack(path: string, trackSlug: string): string {
 
 export function withQueryContext(path: string, contextQuery: string, trackSlug?: string): string {
   const [pathname, query = ""] = path.split("?", 2);
+  const cleanPathname = pathname === "/" ? "/" : pathname.replace(/\/+$/, "");
   const params = new URLSearchParams(contextQuery);
   new URLSearchParams(query).forEach((value, key) => params.set(key, value));
   if (trackSlug) params.set("track", trackSlug);
   const suffix = params.toString();
-  return suffix ? `${pathname}?${suffix}` : pathname;
+  return suffix ? `${cleanPathname}?${suffix}` : cleanPathname;
 }

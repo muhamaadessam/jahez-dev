@@ -79,8 +79,9 @@ test("invalid explicit Track and cross-Track Topic preserve invalid context", ()
   assert.equal(scoped.invalidTopic, true);
 });
 
-test("shareable links preserve Track alongside existing query parameters", () => {
+test("shareable links preserve Track alongside existing query parameters and strip trailing slashes", () => {
   assert.equal(withTrack("/questions?topic=dart", "flutter"), "/questions?topic=dart&track=flutter");
   assert.equal(withTrack("/session", "flutter"), "/session?track=flutter");
-  assert.equal(withQueryContext("/questions?topic=oop", "?track=flutter&topic=dart&view=compact", "backend"), "/questions?track=backend&topic=oop&view=compact");
+  assert.equal(withTrack("/questions/", "ui-ux"), "/questions?track=ui-ux");
+  assert.equal(withQueryContext("/questions/?topic=oop", "?track=flutter&topic=dart&view=compact", "backend"), "/questions?track=backend&topic=oop&view=compact");
 });

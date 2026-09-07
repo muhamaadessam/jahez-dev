@@ -50,8 +50,9 @@ export function StudySession({ questions, topics, locale = "ar" }: { questions: 
     if (next.topic) params.set("topic", next.topic);
     if (next.difficulty) params.set("difficulty", next.difficulty);
     if (activeTrack) params.set("track", activeTrack.slug);
+    const cleanPathname = window.location.pathname.replace(/\/+$/, "") || "/";
     const query = params.toString();
-    window.history.replaceState(null, "", `${window.location.pathname}${query ? `?${query}` : ""}`);
+    window.history.replaceState(null, "", `${cleanPathname}${query ? `?${query}` : ""}`);
   }
 
   if (!isHydrated) return <section className="shell section"><LoadingPlaceholder variant="session" /></section>;

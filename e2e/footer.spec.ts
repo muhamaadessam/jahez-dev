@@ -3,7 +3,7 @@ import { expect, test } from "@playwright/test";
 test("footer exposes localized legal links and stays after the page content", async ({
   page,
 }) => {
-  await page.goto("/ar/privacy/");
+  await page.goto("/ar/privacy");
 
   await expect(
     page.getByRole("heading", { name: "سياسة الخصوصية" }),
@@ -11,7 +11,7 @@ test("footer exposes localized legal links and stays after the page content", as
   const footer = page.getByRole("contentinfo");
   await expect(
     footer.getByRole("link", { name: "شروط الاستخدام" }),
-  ).toHaveAttribute("href", "/ar/terms/");
+  ).toHaveAttribute("href", "/ar/terms");
   await expect(
     footer.getByRole("link", { name: "المشروع على GitHub" }),
   ).toHaveAttribute(
@@ -37,7 +37,7 @@ test("footer exposes localized legal links and stays after the page content", as
 });
 
 test("english footer links point to english legal pages", async ({ page }) => {
-  await page.goto("/en/terms/");
+  await page.goto("/en/terms");
 
   const footer = page.getByRole("contentinfo");
   await expect(
@@ -45,5 +45,5 @@ test("english footer links point to english legal pages", async ({ page }) => {
   ).toBeVisible();
   await expect(
     footer.getByRole("link", { name: "Privacy policy" }),
-  ).toHaveAttribute("href", "/en/privacy/");
+  ).toHaveAttribute("href", "/en/privacy");
 });

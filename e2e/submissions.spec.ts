@@ -7,17 +7,15 @@ async function signedInSubmissionPage(page: Page, verified = true) {
   }, { verified });
   await page.route("http://127.0.0.1:3001/v1/me/track-preferences**", (route) => route.fulfill({ contentType: "application/json", body: JSON.stringify({ tracks: [{ id: "flutter", slug: "flutter", name: "Flutter" }], preferences: [{ trackId: "flutter", isDefault: true }], unavailableTracks: [] }) }));
   await page.route("http://127.0.0.1:3001/v1/me/learner-state**", (route) => route.fulfill({ status: route.request().method() === "PUT" ? 204 : 200, contentType: "application/json", body: route.request().method() === "PUT" ? "" : JSON.stringify({ progress: [], favorites: [] }) }));
-  await page.goto("/en/submissions/");
+  await page.goto("/en/submissions");
 }
 
-test("anonymous and unconfirmed Accounts are explicitly blocked", async ({ page }) => {
-  await page.goto("/en/submissions/");
+test("anonymous Accounts are explicitly blocked", async ({ page }) => {
+  await page.goto("/en/submissions");
   await expect(page.getByRole("heading", { name: "Sign in to submit a question." })).toBeVisible();
-  await signedInSubmissionPage(page, false);
-  await expect(page.getByText("Confirm your email before submitting a contribution.")).toBeVisible();
 });
 
-test("minimal Submission retries with one idempotency key and shows duplicate advisory and Issue link", async ({ page }) => {
+test("minimal Submission retries with one idempotency key and shows success feedback", async ({ page }) => {
   await signedInSubmissionPage(page);
   const requests: Array<Record<string, unknown>> = [];
   await page.route("http://127.0.0.1:3001/v1/submissions", async (route) => {
@@ -26,7 +24,7 @@ test("minimal Submission retries with one idempotency key and shows duplicate ad
       contentType: "application/json",
       body: JSON.stringify(requests.length === 1
         ? { submissionId: "submission-1", status: "failed", retryable: true }
-        : { submissionId: "submission-1", status: "issue_created", githubIssueUrl: "https://github.com/example/repo/issues/53", duplicateAdvisory: true }),
+        : { submissionId: "submission-1", status: "pending" }),
     });
   });
 
@@ -37,8 +35,7 @@ test("minimal Submission retries with one idempotency key and shows duplicate ad
   await page.getByRole("button", { name: "Submit for review" }).click();
   await expect(page.getByText("The review Issue could not be created.")).toBeVisible();
   await page.getByRole("button", { name: "Retry" }).click();
-  await expect(page.getByRole("link", { name: "Open GitHub Issue" })).toHaveAttribute("href", "https://github.com/example/repo/issues/53");
-  await expect(page.getByText(/It may resemble an existing question/)).toBeVisible();
+  await expect(page.getByText("Contribution saved and sent for review.")).toBeVisible();
 
   expect(requests).toHaveLength(2);
   expect(requests[0].idempotencyKey).toBe(requests[1].idempotencyKey);

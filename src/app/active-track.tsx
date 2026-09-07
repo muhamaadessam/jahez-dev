@@ -90,7 +90,7 @@ function ActiveTrackProvider({ children, authenticated, loading = false, userId,
   const catalogueTracks = useMemo(() => {
     const source = authenticated && preferences ? preferences.tracks : publicTracks;
     return source.flatMap((track) => {
-      const slug = track.slug ?? publicTracks.find(({ id }) => id === track.id)?.slug;
+      const slug = track.slug ?? publicTracks.find(({ id }) => id === track.id)?.slug ?? track.id;
       return slug ? [{ id: track.id, slug, name: track.name }] : [];
     });
   }, [authenticated, preferences, publicTracks]);
@@ -110,7 +110,8 @@ function ActiveTrackProvider({ children, authenticated, loading = false, userId,
     params.set("track", track.slug);
     params.delete("topic");
     params.delete("topics");
-    window.history.replaceState(null, "", `${window.location.pathname}?${params}`);
+    const cleanPathname = window.location.pathname.replace(/\/+$/, "") || "/";
+    window.history.replaceState(null, "", `${cleanPathname}?${params}`);
     window.dispatchEvent(new Event("urlchange"));
   }, [resolution.selectableTracks]);
   const value = useMemo<ActiveTrackValue>(() => ({

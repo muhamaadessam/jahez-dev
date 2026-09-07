@@ -31,8 +31,9 @@ function updateUrl(selection: InterviewSelection, track: string | null) {
   if (selection.topicValues.length) params.set("topics", selection.topicValues.join(","));
   if (selection.difficulty) params.set("difficulty", selection.difficulty);
   if (track) params.set("track", track);
+  const cleanPathname = window.location.pathname.replace(/\/+$/, "") || "/";
   const query = params.toString();
-  window.history.replaceState(null, "", `${window.location.pathname}${query ? `?${query}` : ""}`);
+  window.history.replaceState(null, "", `${cleanPathname}${query ? `?${query}` : ""}`);
   window.dispatchEvent(new Event("urlchange"));
 }
 

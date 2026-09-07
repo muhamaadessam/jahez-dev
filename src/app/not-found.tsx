@@ -23,8 +23,8 @@ export default function NotFound() {
         <h1 id="not-found-title">الصفحة دي خرجت من المسار.</h1>
         <p>الرابط مش موجود أو اتنقل. ارجع للمكتبة وكمّل مراجعتك من مكان واضح.</p>
         <div className="not-found-actions">
-          <Link className="button primary" href="/ar/">العودة للرئيسية</Link>
-          <Link className="button" href="/ar/questions/">فتح مكتبة الأسئلة</Link>
+          <Link className="button primary" href="/ar">العودة للرئيسية</Link>
+          <Link className="button" href="/ar/questions">فتح مكتبة الأسئلة</Link>
         </div>
         <p className="not-found-english">The page you’re looking for moved. Start again from the question library.</p>
       </div>
