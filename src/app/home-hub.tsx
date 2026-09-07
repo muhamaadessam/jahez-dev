@@ -75,19 +75,53 @@ export function HomeHub({ locale = "ar" }: { locale?: Locale }) {
         </div>
 
         <aside className="hero-card" aria-label={locale === "ar" ? "ملخص المحتوى الحالي" : "Current content summary"}>
-          <strong>{questions.length}</strong>
-          <span>{questions.length} {copy.currentQuestions}</span>
-          <hr />
+          <div className="hero-card-header">
+            <div className="hero-card-track-badge">
+              {activeTrack ? (
+                <>
+                  <span className="hero-card-track-icon" aria-hidden="true">
+                    <TrackLogo trackId={activeTrack.id} size={20} />
+                  </span>
+                  <span>{activeTrack.name}</span>
+                </>
+              ) : (
+                <span>{copy.exploreAllTracks}</span>
+              )}
+            </div>
+            <span className="hero-card-status-pill">
+              <span className="hero-card-pulse-dot" aria-hidden="true" />
+              {locale === "ar" ? "جاهز للمراجعة" : "Ready to Practice"}
+            </span>
+          </div>
+
+          <div className="hero-card-stat-main">
+            <strong className="hero-card-number">{questions.length}</strong>
+            <span className="hero-card-label">{questions.length} {copy.currentQuestions}</span>
+          </div>
+
+          <div className="hero-card-divider" />
+
           {activeTrack && scoped ? (
-            <>
-              <b>{activeTrack.name} · {scoped.topics.length} {copy.trackTopics}</b>
-              <p>{scoped.questions.length} {copy.availableQuestions}</p>
-            </>
+            <div className="hero-card-track-details">
+              <div className="hero-card-metric-row">
+                <div className="hero-card-metric">
+                  <span className="hero-card-metric-num">{scoped.topics.length}</span>
+                  <span className="hero-card-metric-label">{copy.trackTopics}</span>
+                </div>
+                <div className="hero-card-metric">
+                  <span className="hero-card-metric-num">{scoped.questions.length}</span>
+                  <span className="hero-card-metric-label">{copy.availableQuestions}</span>
+                </div>
+              </div>
+              <Link className="hero-card-action" href={localizedHref(locale, trackHref("/questions"))}>
+                <span>{locale === "ar" ? `كل أسئلة ${activeTrack.name}` : `All ${activeTrack.name} Questions`}</span>
+                <span className="hero-card-action-arrow">{locale === "ar" ? "←" : "→"}</span>
+              </Link>
+            </div>
           ) : (
-            <>
-              <b>{copy.exploreAllTracks}</b>
-              <p>{locale === "ar" ? "اختر مسارك التقني للبدء." : "Select your track to begin."}</p>
-            </>
+            <div className="hero-card-track-details">
+              <p className="hero-card-hint">{locale === "ar" ? "اختر مسارك التقني للبدء." : "Select your track to begin."}</p>
+            </div>
           )}
         </aside>
       </section>
