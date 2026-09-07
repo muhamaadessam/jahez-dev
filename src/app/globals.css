@@ -442,7 +442,7 @@ a {
 
 .brand:hover .brand-logo {
   transform: scale(1.08) translateY(-1px);
-  filter: drop-shadow(0 4px 14px rgba(16, 185, 129, 0.45));
+  filter: drop-shadow(0 4px 14px rgba(52, 211, 153, 0.45));
 }
 
 .brand-logo svg {
@@ -845,6 +845,7 @@ h3 {
   letter-spacing: -0.03em;
   background: linear-gradient(135deg, var(--text) 30%, var(--brand) 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 

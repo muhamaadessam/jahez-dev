@@ -22,26 +22,26 @@ export function BrandLogo({ size = 36, className = "" }: BrandLogoProps = {}): R
           width="44"
           height="44"
           rx="12"
-          fill="url(#jahez-bg)"
+          fill="#0F172A"
           stroke="url(#jahez-border)"
           strokeWidth="1.5"
         />
-        {/* Subtle emerald glow */}
-        <circle cx="22" cy="22" r="14" fill="#10B981" fillOpacity="0.14" />
+        {/* Center circle disc */}
+        <circle cx="22" cy="22" r="14" fill="#10B981" fillOpacity={0.14} />
 
         {/* Left chevron `<` */}
         <path
-          d="M12 16L6 22L12 28"
-          stroke="#38BDF8"
+          d="M11 16L5 22L11 28"
+          stroke="#60A5FA"
           strokeWidth="2.8"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
 
-        {/* Center checkmark `✓` */}
+        {/* Bold checkmark `✓` */}
         <path
-          d="M16.5 22.5L21.5 27.5L31.5 14.5"
-          stroke="#10B981"
+          d="M16 22.5L21 27.5L31 14.5"
+          stroke="#34D399"
           strokeWidth="3.2"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -49,21 +49,17 @@ export function BrandLogo({ size = 36, className = "" }: BrandLogoProps = {}): R
 
         {/* Right chevron `>` */}
         <path
-          d="M32 16L38 22L32 28"
-          stroke="#38BDF8"
+          d="M33 16L39 22L33 28"
+          stroke="#60A5FA"
           strokeWidth="2.8"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
 
         <defs>
-          <linearGradient id="jahez-bg" x1="0" y1="0" x2="44" y2="44" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#0E172A" />
-            <stop offset="1" stopColor="#030712" />
-          </linearGradient>
           <linearGradient id="jahez-border" x1="0" y1="0" x2="44" y2="44" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#38BDF8" stopOpacity="0.65" />
-            <stop offset="1" stopColor="#10B981" stopOpacity="0.65" />
+            <stop stopColor="#60A5FA" stopOpacity="0.6" />
+            <stop offset="1" stopColor="#34D399" stopOpacity="0.6" />
           </linearGradient>
         </defs>
       </svg>
