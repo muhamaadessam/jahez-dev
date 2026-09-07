@@ -3,6 +3,13 @@ export type Locale = "ar" | "en";
 
 import { staticFollowUpTargets } from "./follow-up-relations.ts";
 import { androidBaseQuestions } from "./android-questions.ts";
+import { nodeBaseQuestions } from "./node-questions.ts";
+import { phpBaseQuestions } from "./php-questions.ts";
+import { dotnetBaseQuestions } from "./dotnet-questions.ts";
+import { reactBaseQuestions } from "./react-questions.ts";
+import { reactNativeBaseQuestions } from "./react-native-questions.ts";
+import { flutterExpansionBaseQuestions } from "./flutter-expansion-questions.ts";
+import { fundamentalsBaseQuestions } from "./fundamentals-questions.ts";
 
 export type FollowUpQuestionRef = {
   id: string;
@@ -55,13 +62,16 @@ export type InterviewQuestion = {
 export const tracks: Track[] = [
   { id: "flutter", slug: "flutter", name: "Flutter" },
   { id: "android-native", slug: "android-native", name: "Android Native" },
-  { id: "backend", slug: "backend", name: "Backend" },
+  { id: "node", slug: "node", name: "Node.js" },
+  { id: "php", slug: "php", name: "PHP & Laravel" },
+  { id: "dotnet", slug: "dotnet", name: ".NET" },
+  { id: "react", slug: "react", name: "React" },
+  { id: "react-native", slug: "react-native", name: "React Native" },
+  { id: "fundamentals", slug: "fundamentals", name: "Software Fundamentals" },
 ];
 
 export const topics: Topic[] = [
   { id: "dart", slug: "dart", trackId: "flutter", name: "Dart" },
-  { id: "oop", slug: "oop", trackId: "flutter", name: "OOP" },
-  { id: "solid", slug: "solid", trackId: "flutter", name: "SOLID" },
   { id: "flutter-fundamentals", slug: "flutter-fundamentals", trackId: "flutter", name: "Flutter Fundamentals" },
   { id: "widgets", slug: "widgets", trackId: "flutter", name: "Widgets" },
   { id: "state-management", slug: "state-management", trackId: "flutter", name: "State Management" },
@@ -74,6 +84,8 @@ export const topics: Topic[] = [
   { id: "testing", slug: "testing", trackId: "flutter", name: "Testing" },
   { id: "performance", slug: "performance", trackId: "flutter", name: "Performance" },
   { id: "async-isolates", slug: "async-isolates", trackId: "flutter", name: "Async & Isolates" },
+  { id: "flutter-animations", slug: "flutter-animations", trackId: "flutter", name: "Animations & Motion" },
+  { id: "flutter-internals", slug: "flutter-internals", trackId: "flutter", name: "RenderObjects & Internals" },
   { id: "kotlin", slug: "kotlin", trackId: "android-native", name: "Kotlin Fundamentals" },
   { id: "android-fundamentals", slug: "android-fundamentals", trackId: "android-native", name: "Android Fundamentals" },
   { id: "android-ui", slug: "android-ui", trackId: "android-native", name: "UI & Layouts" },
@@ -88,6 +100,78 @@ export const topics: Topic[] = [
   { id: "security-android", slug: "security-android", trackId: "android-native", name: "Security & Obfuscation" },
   { id: "testing-android", slug: "testing-android", trackId: "android-native", name: "Testing" },
   { id: "build-gradle", slug: "build-gradle", trackId: "android-native", name: "Build & Gradle" },
+
+  // Node.js Topics
+  { id: "node-core", slug: "node-core", trackId: "node", name: "Node.js Core & Event Loop" },
+  { id: "node-async", slug: "node-async", trackId: "node", name: "Async Programming & Timers" },
+  { id: "node-streams", slug: "node-streams", trackId: "node", name: "Buffers & Streams" },
+  { id: "node-modules", slug: "node-modules", trackId: "node", name: "Modules, ESM & Package Management" },
+  { id: "node-web", slug: "node-web", trackId: "node", name: "HTTP, Fastify & Web Frameworks" },
+  { id: "node-database", slug: "node-database", trackId: "node", name: "Databases, ORMs & Transactions" },
+  { id: "node-security", slug: "node-security", trackId: "node", name: "Security & Best Practices" },
+  { id: "node-perf", slug: "node-perf", trackId: "node", name: "Performance & Memory Profiling" },
+  { id: "node-testing", slug: "node-testing", trackId: "node", name: "Testing & Quality Assurance" },
+  { id: "node-arch", slug: "node-arch", trackId: "node", name: "Microservices & Distributed Systems" },
+
+  // PHP & Laravel Topics
+  { id: "php-core", slug: "php-core", trackId: "php", name: "PHP Core Fundamentals" },
+  { id: "php-oop", slug: "php-oop", trackId: "php", name: "OOP & Design Patterns in PHP" },
+  { id: "php-modern", slug: "php-modern", trackId: "php", name: "Modern PHP 8.x Features" },
+  { id: "php-laravel-core", slug: "php-laravel-core", trackId: "php", name: "Laravel Core Architecture & Lifecycle" },
+  { id: "php-eloquent", slug: "php-eloquent", trackId: "php", name: "Eloquent ORM & Database Design" },
+  { id: "php-rest-api", slug: "php-rest-api", trackId: "php", name: "RESTful APIs & Authentication" },
+  { id: "php-security", slug: "php-security", trackId: "php", name: "Security, OWASP & Hardening" },
+  { id: "php-queues", slug: "php-queues", trackId: "php", name: "Queues, Jobs & Background Workers" },
+  { id: "php-performance-cache", slug: "php-performance-cache", trackId: "php", name: "Caching & Performance Optimization" },
+  { id: "php-testing", slug: "php-testing", trackId: "php", name: "Testing & Quality Assurance" },
+
+  // .NET Topics
+  { id: "dotnet-csharp", slug: "dotnet-csharp", trackId: "dotnet", name: "C# Fundamentals & Modern Language Features" },
+  { id: "dotnet-runtime", slug: "dotnet-runtime", trackId: "dotnet", name: ".NET Runtime, CLR & Memory Management" },
+  { id: "dotnet-aspnet", slug: "dotnet-aspnet", trackId: "dotnet", name: "ASP.NET Core & Web APIs" },
+  { id: "dotnet-di", slug: "dotnet-di", trackId: "dotnet", name: "Dependency Injection & Configuration" },
+  { id: "dotnet-efcore", slug: "dotnet-efcore", trackId: "dotnet", name: "Entity Framework Core & Data Access" },
+  { id: "dotnet-async", slug: "dotnet-async", trackId: "dotnet", name: "Asynchronous & Multithreaded Programming" },
+  { id: "dotnet-security", slug: "dotnet-security", trackId: "dotnet", name: "Security, Identity & Authentication" },
+  { id: "dotnet-perf", slug: "dotnet-perf", trackId: "dotnet", name: "High Performance & Low Allocation Coding" },
+  { id: "dotnet-testing", slug: "dotnet-testing", trackId: "dotnet", name: "Unit & Integration Testing" },
+  { id: "dotnet-architecture", slug: "dotnet-architecture", trackId: "dotnet", name: "Clean Architecture & Microservices" },
+
+  // React Topics
+  { id: "react-core", slug: "react-core", trackId: "react", name: "React Core & Virtual DOM" },
+  { id: "react-hooks", slug: "react-hooks", trackId: "react", name: "Hooks Fundamentals" },
+  { id: "react-hooks-advanced", slug: "react-hooks-advanced", trackId: "react", name: "Advanced Hooks & Custom Hooks" },
+  { id: "react-state-management", slug: "react-state-management", trackId: "react", name: "State Management & Context" },
+  { id: "react-routing-navigation", slug: "react-routing-navigation", trackId: "react", name: "Routing & Single Page Apps" },
+  { id: "react-performance", slug: "react-performance", trackId: "react", name: "Performance Optimization & Profiling" },
+  { id: "react-rendering-ssr", slug: "react-rendering-ssr", trackId: "react", name: "SSR, SSG & Server Components" },
+  { id: "react-forms-validation", slug: "react-forms-validation", trackId: "react", name: "Forms & Data Handling" },
+  { id: "react-testing", slug: "react-testing", trackId: "react", name: "Testing React Components" },
+  { id: "react-architecture-patterns", slug: "react-architecture-patterns", trackId: "react", name: "Architecture, Component Patterns & Best Practices" },
+
+  // React Native Topics
+  { id: "react-native-core", slug: "react-native-core", trackId: "react-native", name: "React Native Architecture & Bridge / New Architecture" },
+  { id: "react-native-components", slug: "react-native-components", trackId: "react-native", name: "Core Components & Primitives" },
+  { id: "react-native-styling", slug: "react-native-styling", trackId: "react-native", name: "Styling, Layout & Flexbox" },
+  { id: "react-native-navigation", slug: "react-native-navigation", trackId: "react-native", name: "React Navigation & Screen Stacks" },
+  { id: "react-native-state-storage", slug: "react-native-state-storage", trackId: "react-native", name: "State & Local Storage (AsyncStorage, MMKV)" },
+  { id: "react-native-animations", slug: "react-native-animations", trackId: "react-native", name: "Animations & Gestures (Reanimated & RNGH)" },
+  { id: "react-native-device-native", slug: "react-native-device-native", trackId: "react-native", name: "Native Modules & Hardware APIs" },
+  { id: "react-native-performance", slug: "react-native-performance", trackId: "react-native", name: "Performance & Memory Optimization" },
+  { id: "react-native-expo", slug: "react-native-expo", trackId: "react-native", name: "Expo Ecosystem & EAS" },
+  { id: "react-native-deployment", slug: "react-native-deployment", trackId: "react-native", name: "Release, App Stores & CI/CD" },
+
+  // Software Fundamentals Topics
+  { id: "fund-oop", slug: "fund-oop", trackId: "fundamentals", name: "Object-Oriented Programming (OOP)" },
+  { id: "fund-solid", slug: "fund-solid", trackId: "fundamentals", name: "SOLID Principles" },
+  { id: "fund-patterns", slug: "fund-patterns", trackId: "fundamentals", name: "Design Patterns" },
+  { id: "fund-clean-code", slug: "fund-clean-code", trackId: "fundamentals", name: "Clean Code & Refactoring" },
+  { id: "fund-data-structures", slug: "fund-data-structures", trackId: "fundamentals", name: "Data Structures" },
+  { id: "fund-algorithms", slug: "fund-algorithms", trackId: "fundamentals", name: "Algorithms & Complexity" },
+  { id: "fund-concurrency", slug: "fund-concurrency", trackId: "fundamentals", name: "Concurrency & Multi-threading" },
+  { id: "fund-system-design", slug: "fund-system-design", trackId: "fundamentals", name: "System Design & Architecture" },
+  { id: "fund-networking", slug: "fund-networking", trackId: "fundamentals", name: "Computer Networks & Protocols" },
+  { id: "fund-testing", slug: "fund-testing", trackId: "fundamentals", name: "Software Testing & Quality" },
 ];
 
 const baseQuestions: Omit<InterviewQuestion, "translations">[] = [
@@ -343,319 +427,6 @@ try {
     commonMistakes: ["اعتبار await معناه تشغيل العملية على isolate آخر.", "نسيان await ثم التعامل مع Future كأنه القيمة النهائية."],
     followUpQuestions: ["إمتى تستخدم Future.wait بدل انتظار العمليات واحدة تلو الأخرى؟"],
     sources: [{ title: "Dart language — Asynchronous programming", url: "https://dart.dev/language/async" }],
-    lastReviewedAt: "2026-08-30",
-  },
-  {
-    id: "oop-001",
-    slug: "class-and-object-in-dart",
-    trackId: "flutter",
-    topicIds: ["oop"],
-    difficulty: "Junior",
-    question: "إيه الفرق بين class و object في Dart؟",
-    shortAnswer: "الـclass هو تعريف للبيانات والسلوك، والـobject هو instance فعلية منشأة من هذا التعريف.",
-    explanation: "الكلاس يحدد الحقول والميثودز والـconstructors التي تشترك فيها instances. عند استدعاء constructor ينشئ Dart object له state مستقل، حتى لو كان أكثر من object مبنيًا من نفس الكلاس.",
-    codeExample: `class Candidate {
-  final String name;
-  Candidate(this.name);
-}
-
-final candidate = Candidate("Mona");`,
-    commonMistakes: ["اعتبار class نفسه قيمة يمكن تعديل state الخاص بها.", "نسيان أن كل instance تملك state خاصًا بها."],
-    followUpQuestions: ["أين تضع السلوك الذي لا يعتمد على instance state؟"],
-    sources: [
-      { title: "Dart language — Classes", url: "https://dart.dev/language/classes" },
-    ],
-    lastReviewedAt: "2026-08-30",
-  },
-  {
-    id: "oop-002",
-    slug: "encapsulation-and-private-members-in-dart",
-    trackId: "flutter",
-    topicIds: ["oop"],
-    difficulty: "Junior",
-    question: "إزاي نطبق Encapsulation في Dart؟",
-    shortAnswer: "نخفي تفاصيل التغيير خلف API صغيرة، وتُعد الأسماء التي تبدأ بـ _ خاصة بالـlibrary في Dart.",
-    explanation: "Encapsulation ليست مجرد جعل الحقول private؛ الفكرة أن الكلاس يحافظ على invariants ويمنح المستهلك عمليات صحيحة لتعديل state. خصوصية Dart مرتبطة بالـlibrary، لذلك صمّم حدود الملفات والواجهات بعناية ولا تعتمد على setter لكل حقل.",
-    codeExample: `class Score {
-  int _value = 0;
-
-  void add(int points) {
-    if (points > 0) _value += points;
-  }
-
-  int get value => _value;
-}`,
-    commonMistakes: ["تعريض كل state عبر public setters وإضاعة قواعد الكلاس.", "اعتبار _private على مستوى object فقط؛ هو private للـlibrary."],
-    followUpQuestions: ["متى يكون getter محسوبًا أفضل من كشف field؟"],
-    sources: [
-      { title: "Dart language — Classes", url: "https://dart.dev/language/classes" },
-    ],
-    lastReviewedAt: "2026-08-30",
-  },
-  {
-    id: "oop-003",
-    slug: "composition-vs-inheritance-in-flutter",
-    trackId: "flutter",
-    topicIds: ["oop"],
-    difficulty: "Mid",
-    question: "إمتى تختار composition بدل inheritance في كود Flutter؟",
-    shortAnswer: "اختر composition عندما تجمع سلوكيات مستقلة وتريد تغييرها أو اختبارها، واستخدم inheritance لعلاقة is-a مستقرة وواضحة.",
-    explanation: "Composition تبني object من collaborators وتقلل coupling إلى implementation base class. Inheritance مفيدة عندما يفرض framework contract أو توجد علاقة تخصص حقيقية، لكنها تجعل التغيير في base class يؤثر على subclasses؛ لذلك لا تستخدمها لمشاركة كود صغير فقط.",
-    codeExample: `class LoginController {
-  LoginController(this.validator);
-  final Validator validator;
-}
-
-abstract interface class Validator {
-  bool isValid(String value);
-}`,
-    commonMistakes: ["وراثة كلاس فقط لإعادة استخدام ميثود واحدة.", "تحويل composition إلى طبقات كثيرة من غير حدود مفهومة."],
-    followUpQuestions: ["كيف تختبر collaborator في تصميم قائم على composition؟"],
-    sources: [
-      { title: "Dart language — Classes", url: "https://dart.dev/language/classes" },
-      { title: "Flutter FAQ — Programming paradigm", url: "https://docs.flutter.dev/resources/faq#what-programming-paradigm-does-flutters-framework-use" },
-    ],
-    lastReviewedAt: "2026-08-30",
-  },
-  {
-    id: "oop-004",
-    slug: "polymorphism-and-interfaces-in-dart",
-    trackId: "flutter",
-    topicIds: ["oop"],
-    difficulty: "Mid",
-    question: "كيف نستخدم Polymorphism في Dart من غير ربط الكود بتطبيق واحد؟",
-    shortAnswer: "عرّف contract مشتركًا، واجعل الكود المستعمل يتعامل مع النوع المجرد بينما توفر implementations مختلفة نفس السلوك.",
-    explanation: "Polymorphism يسمح باستدعاء نفس العملية على implementations مختلفة من خلال interface أو abstract class. في Dart كل class يعرّف interface ضمنيًا، ويمكن استخدام abstract interface class لتوضيح أن المستهلك يعتمد على contract لا على constructor أو تفاصيل التنفيذ.",
-    codeExample: `abstract interface class Formatter {
-  String format(String value);
-}
-
-String render(Formatter formatter, String value) => formatter.format(value);`,
-    commonMistakes: ["فحص نوع concrete داخل كل مستهلك بدل الاعتماد على contract.", "إضافة interface لا يملك أكثر من implementation ولا يحتاج نقطة تغيير."],
-    followUpQuestions: ["ما الفرق بين runtime dispatch و static extension dispatch؟"],
-    sources: [{ title: "Dart language — Class modifiers", url: "https://dart.dev/language/class-modifiers" }],
-    lastReviewedAt: "2026-08-30",
-  },
-  {
-    id: "oop-005",
-    slug: "abstract-class-and-interface-in-dart",
-    trackId: "flutter",
-    topicIds: ["oop"],
-    difficulty: "Mid",
-    question: "ما الفرق العملي بين abstract class و abstract interface class في Dart؟",
-    shortAnswer: "abstract class تصلح كأساس للمشاركة والوراثة، بينما abstract interface class توضح أن الهدف هو تعريف contract يمكن تطبيقه من غير وراثة implementation.",
-    explanation: "الاثنان لا يمكن إنشاء instance منهما مباشرة. abstract class قد تحتوي implementation وحقولًا مشتركة، أما abstract interface class فتمنع استخدامها كـbase class خارج المكتبة وتعبّر عن اعتماد المستهلك على الواجهة فقط؛ اختر modifier حسب الحد الذي تريد فرضه.",
-    commonMistakes: ["اعتبار abstract interface class مجرد اسم مختلف بلا أثر تصميمي.", "استخدام abstract class كحاوية utility عامة بلا علاقة وراثة واضحة."],
-    followUpQuestions: ["متى يكون class modifier final أو sealed أنسب؟"],
-    sources: [{ title: "Dart language — Class modifiers", url: "https://dart.dev/language/class-modifiers" }],
-    lastReviewedAt: "2026-08-30",
-  },
-  {
-    id: "oop-006",
-    slug: "mixins-and-reusable-behavior-in-dart",
-    trackId: "flutter",
-    topicIds: ["oop"],
-    difficulty: "Senior",
-    question: "متى يكون mixin مناسبًا لمشاركة سلوك في Dart؟",
-    shortAnswer: "mixin مناسب لسلوك أفقي صغير يمكن تركيبه على classes متعددة من غير ادعاء علاقة وراثة، مع تحديد on عندما يحتاج نوعًا أساسيًا معينًا.",
-    explanation: "المـixin يضيف implementation إلى class عبر with، ويمنع تكرار سلوك مشترك لا يمثل is-a relationship. اجعله مركزًا ومحدودًا، واستخدم on فقط عندما يعتمد السلوك فعلًا على contract محدد؛ mixin ضخم يتحول إلى base class مخفي.",
-    codeExample: `mixin Loggable {
-  void log(String message) => print(message);
-}
-
-class ApiClient with Loggable {}`,
-    commonMistakes: ["استخدام mixin لتجميع state وعلاقات كثيرة غير مترابطة.", "نسيان أن ترتيب mixins قد يؤثر على override resolution."],
-    followUpQuestions: ["ما الفرق بين mixin وextension method؟"],
-    sources: [{ title: "Dart language — Mixins", url: "https://dart.dev/language/mixins" }],
-    lastReviewedAt: "2026-08-30",
-  },
-  {
-    id: "oop-007",
-    slug: "equality-and-hashcode-for-dart-objects",
-    trackId: "flutter",
-    topicIds: ["oop"],
-    difficulty: "Senior",
-    question: "إزاي تعرّف equality صحيحة لـ value object في Dart؟",
-    shortAnswer: "override == وhashCode معًا باستخدام نفس الحقول التي تحدد الهوية المنطقية، ولا تغيّر هذه الحقول أثناء استخدام object كمفتاح.",
-    explanation: "الـSet والـMap يعتمدان على اتساق == مع hashCode: لو كائنان متساويان يجب أن يكون لهما hashCode واحد. قارن الأنواع والحقول المهمة فقط، وحافظ على immutability للحقول التي تدخل في الهوية حتى لا يصبح المفتاح غير قابل للوصول.",
-    codeExample: `final class Point {
-  const Point(this.x, this.y);
-  final int x;
-  final int y;
-
-  @override bool operator ==(Object other) =>
-      other is Point && other.x == x && other.y == y;
-  @override int get hashCode => Object.hash(x, y);
-}`,
-    commonMistakes: ["override == من غير hashCode.", "استخدام mutable fields في hashCode ثم تعديلها داخل Set أو Map."],
-    followUpQuestions: ["لماذا يجب فحص runtime type قبل مقارنة الحقول؟"],
-    sources: [
-      { title: "Dart API — Object ==", url: "https://api.dart.dev/dart-core/Object/operator_equals.html" },
-      { title: "Dart API — Object.hashCode", url: "https://api.dart.dev/dart-core/Object/hashCode.html" },
-    ],
-    lastReviewedAt: "2026-08-30",
-  },
-  {
-    id: "oop-008",
-    slug: "immutable-value-objects-in-dart",
-    trackId: "flutter",
-    topicIds: ["oop"],
-    difficulty: "Senior",
-    question: "إيه فوائد immutable value objects في تطبيق Flutter؟",
-    shortAnswer: "القيم غير القابلة للتعديل أسهل في المقارنة والاختبار وتتبع تغييرات الواجهة، وتقلل الآثار الجانبية بين أجزاء التطبيق.",
-    explanation: "اجعل الحقول final، وفّر constructor واضحًا، وأعد instance جديدة عند التغيير بدل تعديل القديمة. هذا يجعل state transitions صريحة ويقلل مفاجآت rebuilds، لكن لا تحوّل كل object إلى immutable بلا حاجة؛ الصور والموارد ذات lifecycle مختلف.",
-    commonMistakes: ["تجميد reference مع إبقاء List داخلية قابلة للتعديل.", "اعتبار إنشاء نسخة جديدة حلًا لمشكلة أداء قبل القياس."],
-    followUpQuestions: ["كيف تحمي collection داخل value object من التعديل الخارجي؟"],
-    sources: [{ title: "Dart Blog — An intro to immutability", url: "https://dart.dev/blog/an-intro-to-immutability-with-dart" }],
-    lastReviewedAt: "2026-08-30",
-  },
-  {
-    id: "solid-001",
-    slug: "single-responsibility-in-flutter",
-    trackId: "flutter",
-    topicIds: ["solid"],
-    difficulty: "Junior",
-    question: "إزاي نطبق Single Responsibility Principle في شاشة Flutter؟",
-    shortAnswer: "خلي كل وحدة تملك سبب تغيير واحد؛ الشاشة تنسق العرض، والخدمات أو controllers تملك منطق البيانات المناسب لها.",
-    explanation: "SRP لا يعني أن كل class يحتوي ميثود واحدة. اسأل: هل تغييرات تصميم الواجهة وتغييرات API ستجبر نفس الملف على التعديل؟ فصل orchestration عن data access وعن presentation يجعل الكود أوضح وأسهل في الاختبار من غير طبقات شكلية.",
-    commonMistakes: ["تقسيم كل سطر إلى class جديد بلا سبب تغيير حقيقي.", "ترك parsing وطلبات الشبكة داخل build method."],
-    followUpQuestions: ["ما العلامة التي تقول إن الفصل زاد عن حاجته؟"],
-    sources: [
-      { title: "Flutter docs — App architecture", url: "https://docs.flutter.dev/app-architecture" },
-      { title: "Robert C. Martin — Solid Relevance", url: "https://blog.cleancoder.com/uncle-bob/2020/10/18/Solid-Relevance.html" },
-    ],
-    lastReviewedAt: "2026-08-30",
-  },
-  {
-    id: "solid-002",
-    slug: "open-closed-principle-for-renderers",
-    trackId: "flutter",
-    topicIds: ["solid"],
-    difficulty: "Mid",
-    question: "كيف يساعد Open/Closed Principle عند إضافة أنواع UI جديدة؟",
-    shortAnswer: "صمّم نقطة امتداد تضيف implementation جديدة من غير تعديل منطق قديم ومستقر، لكن لا تبنِ abstraction قبل ظهور variation حقيقي.",
-    explanation: "بدل if أو switch يتضخم مع كل نوع، يمكن تعريف contract للمصدر أو renderer وإضافة implementation جديدة. OCP ليس منع كل تعديل؛ الكود نفسه يجب أن يتغير عندما يتغير المتطلب، والفائدة تظهر عندما يكون محور التغيير معروفًا ومكررًا.",
-    codeExample: `abstract interface class CardRenderer {
-  String render();
-}
-
-String buildCard(CardRenderer renderer) => renderer.render();`,
-    commonMistakes: ["إنشاء factory وinterface لفرع واحد لا يتغير.", "إخفاء switch داخل abstraction من غير تقليل تكلفة التغيير."],
-    followUpQuestions: ["إمتى يكون switch الواضح أفضل من polymorphism؟"],
-    sources: [
-      { title: "Flutter docs — Design patterns", url: "https://docs.flutter.dev/app-architecture/design-patterns" },
-      { title: "Robert C. Martin — Solid Relevance", url: "https://blog.cleancoder.com/uncle-bob/2020/10/18/Solid-Relevance.html" },
-    ],
-    lastReviewedAt: "2026-08-30",
-  },
-  {
-    id: "solid-003",
-    slug: "liskov-substitution-in-dart",
-    trackId: "flutter",
-    topicIds: ["solid"],
-    difficulty: "Mid",
-    question: "ما معنى Liskov Substitution Principle في كود Dart؟",
-    shortAnswer: "أي subtype يجب أن يحل محل الـbase contract من غير كسر توقعات المستهلك في النتائج أو القيود أو الأخطاء.",
-    explanation: "لو implementation ترمي UnsupportedError لميثود يفرضها base interface أو تقبل مدخلات أضيق من العقد، فهي غالبًا ليست subtype صالحًا. أصلح العقد ليعبّر عن القدرات الحقيقية أو استخدم interfaces أصغر بدل إجبار كل implementation على سلوك لا يملكه.",
-    commonMistakes: ["اعتبار inheritance صحيحًا لمجرد أن الكود يترجم.", "إرجاع null أو خطأ مفاجئ بدل contract متوقع."],
-    followUpQuestions: ["كيف تكشف اختبارًا أن implementation كسرت LSP؟"],
-    sources: [
-      { title: "Dart language — Class modifiers", url: "https://dart.dev/language/class-modifiers" },
-      { title: "Robert C. Martin — Solid Relevance", url: "https://blog.cleancoder.com/uncle-bob/2020/10/18/Solid-Relevance.html" },
-    ],
-    lastReviewedAt: "2026-08-30",
-  },
-  {
-    id: "solid-004",
-    slug: "interface-segregation-in-flutter",
-    trackId: "flutter",
-    topicIds: ["solid"],
-    difficulty: "Mid",
-    question: "إزاي نطبق Interface Segregation في طبقة بيانات Flutter؟",
-    shortAnswer: "قسّم contract الكبير إلى capabilities صغيرة يحتاجها المستهلك فعلًا، بدل إجبار class على تنفيذ عمليات لا يستخدمها.",
-    explanation: "interface صغيرة مثل UserReader وUserWriter تسمح للـview model بالاعتماد على القراءة فقط، وللاختبار بتوفير fake أصغر. لا تقسّم كل ميثود في interface منفصلة؛ اجمع العمليات التي تتغير معًا ولها نفس المستهلك.",
-    commonMistakes: ["إضافة ميثود no-op لإرضاء interface ضخمة.", "تقسيم الواجهة بلا محور استخدام واضح."],
-    followUpQuestions: ["ما علاقة ISP بالـmock أو fake في اختبارات Flutter؟"],
-    sources: [
-      { title: "Flutter docs — App architecture", url: "https://docs.flutter.dev/app-architecture" },
-      { title: "Robert C. Martin — Solid Relevance", url: "https://blog.cleancoder.com/uncle-bob/2020/10/18/Solid-Relevance.html" },
-    ],
-    lastReviewedAt: "2026-08-30",
-  },
-  {
-    id: "solid-005",
-    slug: "dependency-inversion-in-flutter",
-    trackId: "flutter",
-    topicIds: ["solid"],
-    difficulty: "Senior",
-    question: "ما المقصود بـ Dependency Inversion Principle في تطبيق Flutter؟",
-    shortAnswer: "الطبقات الأعلى تعتمد على contracts مستقرة، بينما تفاصيل مثل HTTP أو التخزين تطبق هذه العقود وتُحقن من الخارج.",
-    explanation: "DIP يقلل اعتماد use case أو view model على package أو client concrete. عرّف interface عند الحد الذي يحتاجه المستهلك، ومرّر implementation في constructor أو composition root. لا تضف service locator عالميًا لمجرد تطبيق المبدأ؛ سهولة التتبع والاختبار أهم.",
-    codeExample: `abstract interface class UserReader {
-  Future<String> readName();
-}
-
-class ProfileController {
-  ProfileController(this.reader);
-  final UserReader reader;
-}`,
-    commonMistakes: ["اعتبار حقن dependency عبر global singleton تطبيقًا كاملًا لـDIP.", "وضع interface بجانب implementation بدل حدود المستهلك."],
-    followUpQuestions: ["أين يكون composition root في تطبيق Flutter؟"],
-    sources: [
-      { title: "Flutter docs — App architecture", url: "https://docs.flutter.dev/app-architecture" },
-      { title: "Robert C. Martin — Solid Relevance", url: "https://blog.cleancoder.com/uncle-bob/2020/10/18/Solid-Relevance.html" },
-    ],
-    lastReviewedAt: "2026-08-30",
-  },
-  {
-    id: "solid-006",
-    slug: "solid-boundaries-in-flutter-widgets",
-    trackId: "flutter",
-    topicIds: ["solid"],
-    difficulty: "Senior",
-    question: "إزاي نستخدم مبادئ SOLID من غير ما نحمّل Widget مسؤوليات زائدة؟",
-    shortAnswer: "خلّي Widget ينسق rendering والتفاعل، ومرّر state أو callbacks واضحة بدل جعلها تقرأ الشبكة وتقرر قواعد المجال.",
-    explanation: "Flutter يشجع composition، لذلك فصل العرض عن state والبيانات غالبًا أوضح من توريث Widgets مخصصة. خذ القرار على أساس أسباب التغيير واختباراتك، لا على أسماء طبقات ثابتة؛ شاشة صغيرة قد لا تحتاج architecture كاملة.",
-    commonMistakes: ["وضع كل منطق التطبيق داخل build لأن الوصول إلى context سهل.", "نسخ Widget tree عميقة لإخفاء مسؤوليات مختلطة."],
-    followUpQuestions: ["ما الذي يبقى داخل StatefulWidget حتى بعد فصل state؟"],
-    sources: [
-      { title: "Flutter docs — Architectural overview", url: "https://docs.flutter.dev/app-architecture/guide" },
-      { title: "Robert C. Martin — Solid Relevance", url: "https://blog.cleancoder.com/uncle-bob/2020/10/18/Solid-Relevance.html" },
-    ],
-    lastReviewedAt: "2026-08-30",
-  },
-  {
-    id: "solid-007",
-    slug: "when-not-to-apply-solid",
-    trackId: "flutter",
-    topicIds: ["solid"],
-    difficulty: "Junior",
-    question: "هل لازم نطبق كل مبادئ SOLID في كل جزء من تطبيق Flutter؟",
-    shortAnswer: "لا؛ استخدم المبدأ عندما يقلل تكلفة تغيير أو اختبار حقيقية، وإلا قد تضيف indirection وتعقيدًا بلا عائد.",
-    explanation: "SOLID heuristics وليست checklist. في feature صغيرة، function واضحة قد تكون أفضل من خمس interfaces. راقب محاور التغيير، حجم الفريق، وعمر الكود، ثم افصل عند ظهور ضغط حقيقي بدل بناء بنية مستقبلية غير مؤكدة.",
-    commonMistakes: ["قياس جودة التصميم بعدد الملفات والـinterfaces.", "استخدام SOLID ذريعة لتأجيل شحن feature بسيطة."],
-    followUpQuestions: ["كيف تكتشف أن abstraction أصبحت عبئًا؟"],
-    sources: [
-      { title: "Flutter docs — App architecture", url: "https://docs.flutter.dev/app-architecture" },
-      { title: "Robert C. Martin — Solid Relevance", url: "https://blog.cleancoder.com/uncle-bob/2020/10/18/Solid-Relevance.html" },
-    ],
-    lastReviewedAt: "2026-08-30",
-  },
-  {
-    id: "solid-008",
-    slug: "refactoring-legacy-flutter-code-with-solid",
-    trackId: "flutter",
-    topicIds: ["solid"],
-    difficulty: "Senior",
-    question: "إزاي تبدأ refactor لكود Flutter قديم باستخدام SOLID بأمان؟",
-    shortAnswer: "ابدأ بسلوك قابل للملاحظة واختبار صغير، حدد أكثر سبب تغيير مؤلم، ثم افصل حدًا واحدًا مع إبقاء السلوك كما هو.",
-    explanation: "لا تعِد كتابة الشاشة كلها دفعة واحدة. أضف characterization test، افصل طلب الشبكة أو parsing خلف contract، ثم انقل المسؤولية تدريجيًا. كل خطوة يجب أن تقلل coupling أو تحسن الاختبار، وإلا ارجع لأبسط شكل.",
-    commonMistakes: ["دمج refactor شامل مع تغيير سلوك يصعب مراجعته.", "اختيار abstraction قبل فهم السلوك الحالي والقيود."],
-    followUpQuestions: ["ما أول seam تختاره لاختبار شاشة تعتمد على API؟"],
-    sources: [
-      { title: "Flutter docs — App architecture", url: "https://docs.flutter.dev/app-architecture" },
-      { title: "Robert C. Martin — Solid Relevance", url: "https://blog.cleancoder.com/uncle-bob/2020/10/18/Solid-Relevance.html" },
-    ],
     lastReviewedAt: "2026-08-30",
   },
   {
@@ -1796,9 +1567,40 @@ function englishLabel(slug: string): string {
 
 function createEnglishTranslation(question: Omit<InterviewQuestion, "translations">): QuestionTranslation {
   const label = englishLabel(question.slug);
-  const trackDev = question.trackId === "android-native" ? "an Android" : "a Flutter";
-  const trackTech = question.trackId === "android-native" ? "Kotlin and Android" : "Dart and Flutter";
-  const trackApp = question.trackId === "android-native" ? "Android" : "Flutter";
+  let trackDev = "a Flutter";
+  let trackTech = "Dart and Flutter";
+  let trackApp = "Flutter";
+
+  if (question.trackId === "android-native") {
+    trackDev = "an Android";
+    trackTech = "Kotlin and Android";
+    trackApp = "Android";
+  } else if (question.trackId === "node") {
+    trackDev = "a Node.js";
+    trackTech = "Node.js, TypeScript, and backend architectures";
+    trackApp = "Node.js";
+  } else if (question.trackId === "php") {
+    trackDev = "a PHP & Laravel";
+    trackTech = "PHP 8, Laravel, and web services";
+    trackApp = "PHP/Laravel";
+  } else if (question.trackId === "dotnet") {
+    trackDev = "a .NET";
+    trackTech = "C#, ASP.NET Core, and modern .NET runtime";
+    trackApp = ".NET";
+  } else if (question.trackId === "react") {
+    trackDev = "a React";
+    trackTech = "React, modern hooks, and frontend architecture";
+    trackApp = "React";
+  } else if (question.trackId === "react-native") {
+    trackDev = "a React Native";
+    trackTech = "React Native, mobile performance, and native integrations";
+    trackApp = "React Native";
+  } else if (question.trackId === "fundamentals") {
+    trackDev = "a Software";
+    trackTech = "Computer Science, Software Engineering, and architecture";
+    trackApp = "Software Engineering";
+  }
+
   return {
     question: `What should ${trackDev} developer know about ${label}?`,
     shortAnswer: `This question checks the core ${label} concept and how to use it safely in ${trackTech}.`,
@@ -1822,7 +1624,17 @@ function arabicTranslation(question: Omit<InterviewQuestion, "translations">): Q
   };
 }
 
-export const questions: InterviewQuestion[] = [...baseQuestions, ...androidBaseQuestions].map((question) => ({
+export const questions: InterviewQuestion[] = [
+  ...baseQuestions,
+  ...flutterExpansionBaseQuestions,
+  ...androidBaseQuestions,
+  ...nodeBaseQuestions,
+  ...phpBaseQuestions,
+  ...dotnetBaseQuestions,
+  ...reactBaseQuestions,
+  ...reactNativeBaseQuestions,
+  ...fundamentalsBaseQuestions,
+].map((question) => ({
   ...question,
   translations: {
     ar: arabicTranslation(question),
@@ -1839,6 +1651,82 @@ export const topicTranslations: Record<Locale, Record<string, string>> = {
     "architecture-components": "Architecture Components", "coroutines-concurrency": "Coroutines & Concurrency", "dependency-injection": "Dependency Injection",
     "networking-android": "Networking", "local-storage-android": "Local Storage", "background-processing": "Background Processing",
     "performance-memory": "Performance & Memory", "security-android": "Security & Obfuscation", "testing-android": "Testing", "build-gradle": "Build & Gradle",
+
+    // Node.js
+    "node-core": "أساسيات نود والـ Event Loop",
+    "node-async": "البرمجة غير المتزامنة والمؤقتات",
+    "node-streams": "الـ Streams والـ Buffers",
+    "node-modules": "نظام الحزم والموديولات",
+    "node-web": "خوادم الويب وأطر العمل",
+    "node-database": "قواعد البيانات والـ ORMs",
+    "node-security": "أمان وحماية تطبيقات نود",
+    "node-perf": "تحسين الأداء وإدارة الذاكرة",
+    "node-testing": "اختبار تطبيقات نود وجودتها",
+    "node-arch": "المعمارية والأنظمة الموزعة",
+
+    // PHP & Laravel
+    "php-core": "أساسيات لغة PHP ونظام الأنواع",
+    "php-oop": "البرمجة كائنية التوجه وأنماط التصميم",
+    "php-modern": "ميزات PHP الحديثة",
+    "php-laravel-core": "معمارية ودورة حياة لارافيل",
+    "php-eloquent": "Eloquent ORM وقواعد البيانات",
+    "php-rest-api": "بناء الـ APIs والمصادقة",
+    "php-security": "حماية وأمان تطبيقات الويب",
+    "php-queues": "طوابير العمليات والمهام الخلفية",
+    "php-performance-cache": "الكاش وتحسين الأداء",
+    "php-testing": "اختبار التطبيقات وضمان الجودة",
+
+    // .NET
+    "dotnet-csharp": "أساسيات وميزات C# الحديثة",
+    "dotnet-runtime": "محرك تشغيل دوت نت وإدارة الذاكرة",
+    "dotnet-aspnet": "ASP.NET Core والـ Web APIs",
+    "dotnet-di": "حقن الاعتماديات وإعدادات التطبيق",
+    "dotnet-efcore": "Entity Framework Core والتعامل مع البيانات",
+    "dotnet-async": "البرمجة غير المتزامنة وتعدد المسارات",
+    "dotnet-security": "الأمان والتحقق والتشفير",
+    "dotnet-perf": "الأداء العالي وتقليل التخصيص",
+    "dotnet-testing": "اختبار الوحدات والتكامل",
+    "dotnet-architecture": "الهندسة النظيفة والـ Microservices",
+
+    // React
+    "react-core": "أساسيات ريأكت وشجرة Virtual DOM",
+    "react-hooks": "أساسيات الـ Hooks",
+    "react-hooks-advanced": "الـ Hooks المتقدمة والـ Custom Hooks",
+    "react-state-management": "إدارة الحالة والـ Context",
+    "react-routing-navigation": "التوجيه وتطبيقات الصفحة الواحدة",
+    "react-performance": "تحسين الأداء والـ Profiler",
+    "react-rendering-ssr": "أنماط التصيير والـ Server Components",
+    "react-forms-validation": "النماذج والتحقق من المدخلات",
+    "react-testing": "اختبار مكونات ريأكت",
+    "react-architecture-patterns": "أنماط المعمارية والتصميم",
+
+    // React Native
+    "react-native-core": "معمارية ريأكت نيتف والمعمارية الجديدة",
+    "react-native-components": "المكونات الأساسية والقوائم",
+    "react-native-styling": "التنسيق وتخطيط الفليكس بوكس",
+    "react-native-navigation": "التنقل وإدارة الشاشات",
+    "react-native-state-storage": "إدارة الحالة والتخزين المحلي",
+    "react-native-animations": "التحريك والإيماءات",
+    "react-native-device-native": "الربط مع عتاد الهاتف والـ Native",
+    "react-native-performance": "تحسين الأداء والذاكرة",
+    "react-native-expo": "منظومة إكسبو وأدوات EAS",
+    "react-native-deployment": "النشر ومتاجر التطبيقات وأتمتة البناء",
+
+    // Flutter Expansion
+    "flutter-animations": "الرسوميات والحركة والـ CustomPainter",
+    "flutter-internals": "المعمارية الداخلية ومحرك الرندر",
+
+    // Software Fundamentals
+    "fund-oop": "البرمجة كائنية التوجه (OOP)",
+    "fund-solid": "مبادئ سولد (SOLID)",
+    "fund-patterns": "أنماط التصميم (Design Patterns)",
+    "fund-clean-code": "الشفرة النظيفة وإعادة الهيكلة",
+    "fund-data-structures": "هياكل البيانات (Data Structures)",
+    "fund-algorithms": "الخوارزميات والتعقيد الحسابي",
+    "fund-concurrency": "التزامن وتعدد الخيوط (Concurrency)",
+    "fund-system-design": "تصميم الأنظمة والمعمارية الموزعة",
+    "fund-networking": "شبكات الحاسوب والبروتوكولات",
+    "fund-testing": "اختبار البرمجيات وضمان الجودة",
   },
   en: {
     dart: "Dart", oop: "OOP", solid: "SOLID", "flutter-fundamentals": "Flutter Fundamentals", widgets: "Widgets",
@@ -1848,6 +1736,82 @@ export const topicTranslations: Record<Locale, Record<string, string>> = {
     "architecture-components": "Architecture Components", "coroutines-concurrency": "Coroutines & Concurrency", "dependency-injection": "Dependency Injection",
     "networking-android": "Networking", "local-storage-android": "Local Storage", "background-processing": "Background Processing",
     "performance-memory": "Performance & Memory", "security-android": "Security & Obfuscation", "testing-android": "Testing", "build-gradle": "Build & Gradle",
+
+    // Node.js
+    "node-core": "Node.js Core & Event Loop",
+    "node-async": "Async Programming & Timers",
+    "node-streams": "Buffers & Streams",
+    "node-modules": "Modules, ESM & Package Management",
+    "node-web": "HTTP, Fastify & Web Frameworks",
+    "node-database": "Databases, ORMs & Transactions",
+    "node-security": "Security & Best Practices",
+    "node-perf": "Performance & Memory Profiling",
+    "node-testing": "Testing & Quality Assurance",
+    "node-arch": "Microservices & Distributed Systems",
+
+    // PHP & Laravel
+    "php-core": "PHP Core Fundamentals",
+    "php-oop": "OOP & Design Patterns in PHP",
+    "php-modern": "Modern PHP 8.x Features",
+    "php-laravel-core": "Laravel Core Architecture & Lifecycle",
+    "php-eloquent": "Eloquent ORM & Database Design",
+    "php-rest-api": "RESTful APIs & Authentication",
+    "php-security": "Security, OWASP & Hardening",
+    "php-queues": "Queues, Jobs & Background Workers",
+    "php-performance-cache": "Caching & Performance Optimization",
+    "php-testing": "Testing & Quality Assurance",
+
+    // .NET
+    "dotnet-csharp": "C# Fundamentals & Modern Language Features",
+    "dotnet-runtime": ".NET Runtime, CLR & Memory Management",
+    "dotnet-aspnet": "ASP.NET Core & Web APIs",
+    "dotnet-di": "Dependency Injection & Configuration",
+    "dotnet-efcore": "Entity Framework Core & Data Access",
+    "dotnet-async": "Asynchronous & Multithreaded Programming",
+    "dotnet-security": "Security, Identity & Authentication",
+    "dotnet-perf": "High Performance & Low Allocation Coding",
+    "dotnet-testing": "Unit & Integration Testing",
+    "dotnet-architecture": "Clean Architecture & Microservices",
+
+    // React
+    "react-core": "React Core & Virtual DOM",
+    "react-hooks": "Hooks Fundamentals",
+    "react-hooks-advanced": "Advanced Hooks & Custom Hooks",
+    "react-state-management": "State Management & Context",
+    "react-routing-navigation": "Routing & Single Page Apps",
+    "react-performance": "Performance Optimization & Profiling",
+    "react-rendering-ssr": "SSR, SSG & Server Components",
+    "react-forms-validation": "Forms & Data Handling",
+    "react-testing": "Testing React Components",
+    "react-architecture-patterns": "Architecture, Component Patterns & Best Practices",
+
+    // React Native
+    "react-native-core": "React Native Architecture & Bridge / New Architecture",
+    "react-native-components": "Core Components & Primitives",
+    "react-native-styling": "Styling, Layout & Flexbox",
+    "react-native-navigation": "React Navigation & Screen Stacks",
+    "react-native-state-storage": "State & Local Storage (AsyncStorage, MMKV)",
+    "react-native-animations": "Animations & Gestures (Reanimated & RNGH)",
+    "react-native-device-native": "Native Modules & Hardware APIs",
+    "react-native-performance": "Performance & Memory Optimization",
+    "react-native-expo": "Expo Ecosystem & EAS",
+    "react-native-deployment": "Release, App Stores & CI/CD",
+
+    // Flutter Expansion
+    "flutter-animations": "Animations, Motion & Custom Painters",
+    "flutter-internals": "RenderObjects & Internals",
+
+    // Software Fundamentals
+    "fund-oop": "Object-Oriented Programming (OOP)",
+    "fund-solid": "SOLID Principles",
+    "fund-patterns": "Design Patterns",
+    "fund-clean-code": "Clean Code & Refactoring",
+    "fund-data-structures": "Data Structures",
+    "fund-algorithms": "Algorithms & Complexity",
+    "fund-concurrency": "Concurrency & Multi-threading",
+    "fund-system-design": "System Design & Architecture",
+    "fund-networking": "Computer Networks & Protocols",
+    "fund-testing": "Software Testing & Quality",
   },
 };
 
@@ -1882,8 +1846,6 @@ const requiredQuestionFields = [
 
 export const productionTopicCounts = {
   dart: 12,
-  oop: 8,
-  solid: 8,
   "flutter-fundamentals": 10,
   widgets: 10,
   "state-management": 10,
@@ -1896,6 +1858,8 @@ export const productionTopicCounts = {
   testing: 6,
   performance: 5,
   "async-isolates": 4,
+  "flutter-animations": 10,
+  "flutter-internals": 10,
   kotlin: 12,
   "android-fundamentals": 10,
   "android-ui": 6,
@@ -1910,9 +1874,107 @@ export const productionTopicCounts = {
   "security-android": 4,
   "testing-android": 5,
   "build-gradle": 4,
+
+  // Node.js (100)
+  "node-core": 10,
+  "node-async": 10,
+  "node-streams": 10,
+  "node-modules": 10,
+  "node-web": 10,
+  "node-database": 10,
+  "node-security": 10,
+  "node-perf": 10,
+  "node-testing": 10,
+  "node-arch": 10,
+
+  // PHP & Laravel (100)
+  "php-core": 10,
+  "php-oop": 10,
+  "php-modern": 10,
+  "php-laravel-core": 10,
+  "php-eloquent": 10,
+  "php-rest-api": 10,
+  "php-security": 10,
+  "php-queues": 10,
+  "php-performance-cache": 10,
+  "php-testing": 10,
+
+  // .NET (100)
+  "dotnet-csharp": 10,
+  "dotnet-runtime": 10,
+  "dotnet-aspnet": 10,
+  "dotnet-di": 10,
+  "dotnet-efcore": 10,
+  "dotnet-async": 10,
+  "dotnet-security": 10,
+  "dotnet-perf": 10,
+  "dotnet-testing": 10,
+  "dotnet-architecture": 10,
+
+  // React (100)
+  "react-core": 10,
+  "react-hooks": 10,
+  "react-hooks-advanced": 10,
+  "react-state-management": 10,
+  "react-routing-navigation": 10,
+  "react-performance": 10,
+  "react-rendering-ssr": 10,
+  "react-forms-validation": 10,
+  "react-testing": 10,
+  "react-architecture-patterns": 10,
+
+  // React Native (100)
+  "react-native-core": 10,
+  "react-native-components": 10,
+  "react-native-styling": 10,
+  "react-native-navigation": 10,
+  "react-native-state-storage": 10,
+  "react-native-animations": 10,
+  "react-native-device-native": 10,
+  "react-native-performance": 10,
+  "react-native-expo": 10,
+  "react-native-deployment": 10,
+
+  // Software Fundamentals (100)
+  "fund-oop": 10,
+  "fund-solid": 10,
+  "fund-patterns": 10,
+  "fund-clean-code": 10,
+  "fund-data-structures": 10,
+  "fund-algorithms": 10,
+  "fund-concurrency": 10,
+  "fund-system-design": 10,
+  "fund-networking": 10,
+  "fund-testing": 10,
 } as const;
 
-const approvedSourceHosts = new Set(["dart.dev", "api.dart.dev", "docs.flutter.dev", "api.flutter.dev", "blog.cleancoder.com", "www.rfc-editor.org", "developer.android.com", "kotlinlang.org"]);
+const approvedSourceHosts = new Set([
+  "dart.dev",
+  "api.dart.dev",
+  "docs.flutter.dev",
+  "api.flutter.dev",
+  "blog.cleancoder.com",
+  "www.rfc-editor.org",
+  "developer.android.com",
+  "kotlinlang.org",
+  "nodejs.org",
+  "php.net",
+  "www.php.net",
+  "laravel.com",
+  "learn.microsoft.com",
+  "dotnet.microsoft.com",
+  "react.dev",
+  "legacy.reactjs.org",
+  "reactnative.dev",
+  "docs.expo.dev",
+  "expo.dev",
+  "reactnavigation.org",
+  "martinfowler.com",
+  "refactoring.guru",
+  "en.wikipedia.org",
+  "developer.mozilla.org",
+  "sandimetz.com",
+]);
 
 export function validateQuestions(interviewQuestions: InterviewQuestion[]): void {
   const ids = new Set<string>();
@@ -1946,7 +2008,7 @@ export function validateQuestions(interviewQuestions: InterviewQuestion[]): void
 export function validateProductionCatalogue(interviewQuestions: InterviewQuestion[] = questions): void {
   validateQuestions(interviewQuestions);
   validateBilingualCatalogue(interviewQuestions);
-  if (interviewQuestions.length !== 206) throw new Error(`Production catalogue must contain exactly 206 questions; found ${interviewQuestions.length}`);
+  if (interviewQuestions.length !== 810) throw new Error(`Production catalogue must contain exactly 810 questions; found ${interviewQuestions.length}`);
   for (const [topicId, expectedCount] of Object.entries(productionTopicCounts)) {
     const actualCount = interviewQuestions.filter((question) => question.topicIds.includes(topicId)).length;
     if (actualCount !== expectedCount) throw new Error(`Topic ${topicId} must contain exactly ${expectedCount} questions; found ${actualCount}`);
