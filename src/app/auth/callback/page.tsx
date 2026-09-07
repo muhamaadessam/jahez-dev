@@ -2,6 +2,6 @@
 
 import { AuthenticateWithRedirectCallback } from "@clerk/react";
 
-export default function ClerkCallbackPage() {
+export default function AuthCallbackPage() {
   return process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY ? <AuthenticateWithRedirectCallback /> : null;
 }

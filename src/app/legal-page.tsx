@@ -15,7 +15,7 @@ const content = {
       sections: [
         [
           "ما الذي نحتاجه؟",
-          "يمكنك تصفح الأسئلة العامة بدون حساب. عند تسجيل الدخول، يزوّدنا Clerk بمعرّف الحساب وحالة المصادقة وبعض بيانات الحساب التي تختار مشاركتها. يحفظ الحساب تقدّمك ومفضلاتك وتفضيلات المسارات والمساهمات التي ترسلها.",
+          "يمكنك تصفح الأسئلة العامة بدون حساب. عند تسجيل الدخول، يزوّدنا مزود المصادقة بمعرّف الحساب وحالة المصادقة. يحفظ حسابك تقدّمك ومفضلاتك وتفضيلات المسارات والمساهمات واسم المستخدم العام الذي تختاره داخل المنتج.",
         ],
         [
           "كيف نستخدم البيانات؟",
@@ -23,7 +23,7 @@ const content = {
         ],
         [
           "مقدمو الخدمات",
-          "تتم المصادقة عبر Clerk، ويعمل الـbackend على Vercel، وتستضيف الواجهة Cloudflare Pages. يتعامل الـbackend مع قاعدة البيانات نيابةً عن المتصفح؛ لا يتصل المتصفح بقاعدة البيانات مباشرة. تُحفظ المساهمات للمراجعة داخل النظام.",
+          "تتم المصادقة عبر مزود تسجيل دخول آمن، ويعمل الـbackend على Vercel، وتستضيف الواجهة Cloudflare Pages. يتعامل الـbackend مع قاعدة البيانات نيابةً عن المتصفح؛ لا يتصل المتصفح بقاعدة البيانات مباشرة. تُحفظ المساهمات للمراجعة داخل النظام.",
         ],
         [
           "المحتوى العام",
@@ -81,7 +81,7 @@ const content = {
       sections: [
         [
           "What we need",
-          "You can browse public questions without an account. When you sign in, Clerk provides an account identifier, authentication state, and some account details you choose to share. Your account can store progress, favorites, Track Preferences, and submissions.",
+          "You can browse public questions without an account. When you sign in, the authentication provider supplies an account identifier and authentication state. Your account stores progress, favorites, Track Preferences, submissions, and the public username you choose inside the product.",
         ],
         [
           "How we use it",
@@ -89,7 +89,7 @@ const content = {
         ],
         [
           "Service providers",
-          "Authentication is provided by Clerk, the Node backend runs on Vercel, and the frontend is hosted on Cloudflare Pages. The backend talks to the database on the browser’s behalf; the browser does not connect to the database directly. Submissions are retained for review inside the product.",
+          "Authentication uses a secure sign-in provider, the Node backend runs on Vercel, and the frontend is hosted on Cloudflare Pages. The backend talks to the database on the browser’s behalf; the browser does not connect to the database directly. Submissions are retained for review inside the product.",
         ],
         [
           "Public contributions",

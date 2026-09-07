@@ -1,9 +1,10 @@
 "use client";
 
-import { useAuth, useUser } from "@clerk/react";
+import { useAuth } from "@clerk/react";
 import { useEffect, useState } from "react";
 
 import { formatNumber, messages, type Locale } from "../../i18n";
+import { loadProfile, saveProfile } from "../../profile/api";
 import { submitQuestion, SubmissionError, type SubmissionResult } from "../../submissions/api";
 import { ActiveTrackSelector, useActiveTrack } from "../active-track";
 import { AuthDialogTrigger } from "../auth-dialog";
@@ -19,14 +20,22 @@ export function SubmissionForm({ locale, topics, clerkEnabled }: { locale: Local
 function AuthenticatedSubmissionForm({ locale, topics }: { locale: Locale; topics: TopicOption[] }) {
   const copy = messages[locale];
   const { isLoaded, isSignedIn, getToken } = useAuth();
-  const { user } = useUser();
   const { phase, activeTrack, selectableTracks, setActiveTrack } = useActiveTrack();
   const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
   const [result, setResult] = useState<SubmissionResult | null>(null);
   const [error, setError] = useState("");
+  const [username, setUsername] = useState("");
+  const [profileLoading, setProfileLoading] = useState(true);
   const [form, setForm] = useState({ question: "", shortAnswer: "", explanation: "", difficulty: "", sources: "", codeExample: "", commonMistakes: "", followUpQuestions: "", licenseConsent: false, idempotencyKey: "" });
 
   useEffect(() => setSelectedTopics([]), [activeTrack?.id]);
+  useEffect(() => {
+    if (!isSignedIn) { setProfileLoading(false); return; }
+    let active = true;
+    setProfileLoading(true);
+    void loadProfile(getToken).then((profile) => { if (active) setUsername(profile.username ?? ""); }).catch(() => { if (active) setError("profile_unavailable"); }).finally(() => { if (active) setProfileLoading(false); });
+    return () => { active = false; };
+  }, [getToken, isSignedIn]);
 
   function update(field: keyof typeof form, value: string | boolean) {
     setForm((current) => ({ ...current, [field]: value }));
@@ -43,6 +52,7 @@ function AuthenticatedSubmissionForm({ locale, topics }: { locale: Locale; topic
     try {
       const idempotencyKey = form.idempotencyKey || crypto.randomUUID();
       if (!form.idempotencyKey) update("idempotencyKey", idempotencyKey);
+      await saveProfile(username, getToken);
       const response = await submitQuestion({
         getToken,
         draft: {
@@ -56,7 +66,6 @@ function AuthenticatedSubmissionForm({ locale, topics }: { locale: Locale; topic
           codeExample: form.codeExample || undefined,
           commonMistakes: form.commonMistakes.split("\n").map((item) => item.trim()).filter(Boolean),
           followUpQuestions: form.followUpQuestions.split("\n").map((item) => item.trim()).filter(Boolean),
-          displayName: user?.username || undefined,
           licenseConsent: form.licenseConsent,
           idempotencyKey,
         },
@@ -64,7 +73,7 @@ function AuthenticatedSubmissionForm({ locale, topics }: { locale: Locale; topic
       setResult(response);
     } catch (caught) {
       setResult(null);
-      setError(caught instanceof SubmissionError ? caught.code : "submission_unavailable");
+      setError(caught instanceof SubmissionError ? caught.code : (caught as { code?: string }).code ?? "submission_unavailable");
     }
   }
 
@@ -87,13 +96,13 @@ function AuthenticatedSubmissionForm({ locale, topics }: { locale: Locale; topic
         <label>{copy.submitCode}<textarea maxLength={10000} value={form.codeExample} onChange={(event) => update("codeExample", event.target.value)} /></label>
         <label>{copy.submitMistakes}<textarea value={form.commonMistakes} onChange={(event) => update("commonMistakes", event.target.value)} /></label>
         <label>{copy.submitFollowups}<textarea value={form.followUpQuestions} onChange={(event) => update("followUpQuestions", event.target.value)} /></label>
-        <label>{copy.submitDisplayName}<input readOnly value={user?.username || "Community contributor"} /></label>
+        <label>{copy.submitDisplayName}<input dir="ltr" value={username} onChange={(event) => setUsername(event.target.value)} placeholder="your_name" minLength={3} maxLength={30} pattern="[A-Za-z0-9_]+" disabled={profileLoading} /><span className="field-hint">{locale === "ar" ? "اختياري · 3–30 حرفًا إنجليزيًا أو رقمًا أو _." : "Optional · 3–30 letters, numbers, or _."}</span></label>
       </div>
       <label className="consent-checkbox"><input type="checkbox" checked={form.licenseConsent} onChange={(event) => update("licenseConsent", event.target.checked)} required />{copy.submitConsent}</label>
-      {error && <p className="form-error" role="alert">{errorMessage(error, copy)}</p>}
+      {error && <p className="form-error" role="alert">{error === "username_taken" ? (locale === "ar" ? "اسم المستخدم مستخدم بالفعل؛ اختر اسمًا آخر." : "That username is taken; choose another one.") : errorMessage(error, copy)}</p>}
       {result?.status === "pending" && <div className="form-success" role="status"><p>{locale === "ar" ? "تم حفظ المساهمة وإرسالها للمراجعة." : "Contribution saved and sent for review."}</p></div>}
       {result?.status === "failed" && <p className="form-error" role="alert">{copy.submitFailed} <button className="text-button" type="submit">{copy.submitRetry}</button></p>}
-      <button className="button primary" type="submit" disabled={result?.status === "approved"}>{result?.status === "pending" && !result.submissionId ? copy.submitSubmitting : copy.submitButton}</button>
+      <button className="button primary" type="submit" disabled={profileLoading || result?.status === "approved"}>{result?.status === "pending" && !result.submissionId ? copy.submitSubmitting : copy.submitButton}</button>
     </form>
   );
 }

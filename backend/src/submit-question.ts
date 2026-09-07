@@ -7,33 +7,20 @@ const cors = {
   "Access-Control-Allow-Origin": "*",
   "Content-Type": "application/json",
 };
-const maxDailySubmissions = 5;
-const cooldownMs = 60_000;
-
-type SubmissionRow = {
-  id: string;
-  status: string;
-  last_error: string | null;
-  revision_number: number;
-  duplicate_advisory: boolean;
-};
 type FetchLike = typeof fetch;
 
 class DatabaseError extends Error {
   readonly status: number;
-  constructor(status: number) {
-    super("database_error");
+  readonly code: string;
+  constructor(status: number, code = "database_error") {
+    super(code);
     this.status = status;
+    this.code = code;
   }
 }
 
 function response(body: Record<string, unknown>, status = 200): Response {
   return new Response(JSON.stringify(body), { status, headers: cors });
-}
-
-async function pseudonymousUserId(userId: string): Promise<string> {
-  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(userId));
-  return `user:${Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, "0")).join("")}`;
 }
 
 function dbConfig(): { url: string; key: string } {
@@ -53,7 +40,10 @@ async function dbRequest(path: string, key: string, init: RequestInit = {}, fetc
       ...(init.headers ?? {}),
     },
   });
-  if (!response.ok) throw new DatabaseError(response.status);
+  if (!response.ok) {
+    const body = await response.json().catch(() => ({})) as { message?: unknown };
+    throw new DatabaseError(response.status, typeof body.message === "string" ? body.message : "database_error");
+  }
   return response;
 }
 
@@ -92,25 +82,7 @@ export async function handleSubmit(request: Request, fetchImpl: FetchLike = fetc
 
   try {
     const { key } = dbConfig();
-    const roles = await (await db(`/rest/v1/account_roles?select=suspended&user_id=eq.${encodeURIComponent(userId)}&limit=1`, key)).json() as Array<{ suspended?: boolean }>;
-    if (roles[0]?.suspended) return response({ error: "submission_suspended" }, 403);
-    const existing = await (await db(`/rest/v1/submissions?select=id,status,last_error,revision_number,duplicate_advisory&submitted_by=eq.${encodeURIComponent(userId)}&idempotency_key=eq.${encodeURIComponent(draft.idempotencyKey)}&limit=1`, key)).json() as SubmissionRow[];
-    const previous = existing[0];
-    if (previous && previous.status !== "failed") {
-      return response({ submissionId: previous.id, status: previous.status, duplicateAdvisory: previous.duplicate_advisory });
-    }
-    const preferences = await (await db(`/rest/v1/account_track_preferences?select=track_id,tracks!inner(is_active)&user_id=eq.${encodeURIComponent(userId)}&track_id=eq.${encodeURIComponent(draft.trackId)}&tracks.is_active=eq.true&limit=1`, key)).json() as Array<{ track_id: string }>;
-    if (preferences.length !== 1) return response({ error: "track_preference_required" }, 403);
-    const topics = draft.topicIds.length
-      ? await (await db(`/rest/v1/topics?select=id,track_id&id=in.(${draft.topicIds.map(encodeURIComponent).join(",")})`, key)).json() as Array<{ id: string; track_id: string }>
-      : [];
-    if (topics.length !== draft.topicIds.length || topics.some((topic) => topic.track_id !== draft.trackId)) return response({ error: "taxonomy_invalid" }, 400);
-
     const duplicateOf = await isDuplicate(draft, key, fetchImpl);
-    if (!previous) {
-      const limit = await (await db("/rest/v1/rpc/claim_submission_slot_reason", key, { method: "POST", body: JSON.stringify({ p_user_id: userId, p_daily_limit: maxDailySubmissions, p_cooldown_seconds: cooldownMs / 1000 }) })).json() as "allowed" | "daily_limit_reached" | "cooldown_active";
-      if (limit !== "allowed") return response({ error: limit }, 429);
-    }
     const payload = {
       question: draft.question,
       ...(draft.shortAnswer ? { shortAnswer: draft.shortAnswer } : {}),
@@ -120,32 +92,20 @@ export async function handleSubmit(request: Request, fetchImpl: FetchLike = fetc
       ...(draft.commonMistakes.length ? { commonMistakes: draft.commonMistakes } : {}),
       ...(draft.followUpQuestions.length ? { followUpQuestions: draft.followUpQuestions } : {}),
     };
-    let submissionId = previous?.id;
-    let insertedNew = false;
-    if (!submissionId) {
-      try {
-        const inserted = await (await db("/rest/v1/submissions", key, { method: "POST", headers: { Prefer: "return=representation" }, body: JSON.stringify([{ submitted_by: userId, status: "pending", track_id: draft.trackId, topic_ids: draft.topicIds, difficulty: draft.difficulty, payload, idempotency_key: draft.idempotencyKey, duplicate_advisory: Boolean(duplicateOf), duplicate_of: duplicateOf, display_name: draft.displayName, license_consent: true }]) })).json() as Array<{ id: string }>;
-        submissionId = inserted[0]?.id;
-        insertedNew = Boolean(submissionId);
-      } catch (error) {
-        if (!(error instanceof DatabaseError) || error.status !== 409) throw error;
-        const concurrent = await (await db(`/rest/v1/submissions?select=id&submitted_by=eq.${encodeURIComponent(userId)}&idempotency_key=eq.${encodeURIComponent(draft.idempotencyKey)}&limit=1`, key)).json() as Array<{ id: string }>;
-        submissionId = concurrent[0]?.id;
-      }
-      if (!submissionId) throw new Error("database_error");
-      if (insertedNew) {
-        await db("/rest/v1/submission_revisions", key, { method: "POST", headers: { Prefer: "return=minimal" }, body: JSON.stringify([{ submission_id: submissionId, revision_number: 1, submitted_by: userId, track_id: draft.trackId, topic_ids: draft.topicIds, difficulty: draft.difficulty, payload }]) });
-        await db("/rest/v1/moderation_audit_events", key, { method: "POST", headers: { Prefer: "return=minimal" }, body: JSON.stringify([{ actor_user_id: await pseudonymousUserId(userId), action: "submission_created", target_type: "submission", target_id: submissionId, metadata: { duplicate_advisory: Boolean(duplicateOf) } }]) });
-      }
-    } else {
-      const revisions = await (await db(`/rest/v1/submission_revisions?select=id&submission_id=eq.${encodeURIComponent(submissionId)}&revision_number=eq.1&limit=1`, key)).json() as Array<{ id: string }>;
-      if (!revisions.length) await db("/rest/v1/submission_revisions", key, { method: "POST", headers: { Prefer: "return=minimal" }, body: JSON.stringify([{ submission_id: submissionId, revision_number: 1, submitted_by: userId, track_id: draft.trackId, topic_ids: draft.topicIds, difficulty: draft.difficulty, payload }]) });
-      await db(`/rest/v1/submissions?id=eq.${encodeURIComponent(submissionId)}`, key, { method: "PATCH", headers: { Prefer: "return=minimal" }, body: JSON.stringify({ status: "pending", last_error: null }) });
-    }
-
-    return response({ submissionId, status: "pending", duplicateAdvisory: Boolean(duplicateOf) });
+    const created = await (await db("/rest/v1/rpc/create_submission_for_account", key, {
+      method: "POST",
+      body: JSON.stringify({ p_account_id: userId, p_track_id: draft.trackId, p_topic_ids: draft.topicIds, p_difficulty: draft.difficulty, p_payload: payload, p_idempotency_key: draft.idempotencyKey, p_duplicate_of: duplicateOf }),
+    })).json() as Array<{ submission_id?: string; submission_status?: string; duplicate_advisory?: boolean }>;
+    const result = created[0];
+    if (!result?.submission_id || !result.submission_status) throw new Error("database_error");
+    return response({ submissionId: result.submission_id, status: result.submission_status, duplicateAdvisory: Boolean(result.duplicate_advisory) });
   } catch (error) {
     console.error(error);
+    if (error instanceof DatabaseError) {
+      if (["submission_suspended", "track_preference_required"].includes(error.code)) return response({ error: error.code }, 403);
+      if (["daily_limit_reached", "cooldown_active"].includes(error.code)) return response({ error: error.code }, 429);
+      if (error.code === "taxonomy_invalid") return response({ error: error.code }, 400);
+    }
     return response({ error: "submission_unavailable" }, 503);
   }
 }

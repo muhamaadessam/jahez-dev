@@ -11,6 +11,7 @@ import { CommunityStoreError, createSupabaseCommunityStore, type CommunityStore 
 import { createSupabaseOperations, OperationError, type Operations } from "./operations.ts";
 import { createRateLimiter } from "./rate-limit.ts";
 import { AccountDeletionError, createAccountDeletionStore, type AccountDeletionStore } from "./account-deletion.ts";
+import { createSupabaseProfileStore, ProfileError, type ProfileStore } from "./profile.ts";
 
 type LogSink = { info?: (line: string) => void; error?: (line: string) => void };
 
@@ -32,6 +33,7 @@ export type ServerOptions = {
   community?: CommunityStore;
   operations?: Operations;
   accountDeletion?: AccountDeletionStore;
+  profile?: ProfileStore;
 };
 
 export function accountPolicyEnabled(value = process.env.ACCOUNT_POLICY_ENABLED): boolean {
@@ -52,7 +54,7 @@ function questionIds(value: unknown): string[] | null {
   return ids.length > 0 && ids.length <= 200 && ids.every((id) => /^[a-zA-Z0-9._:-]{1,120}$/.test(id)) ? ids : null;
 }
 
-export async function buildServer({ allowedOrigins, ready = true, logger = console, auth, policy, tracks, catalogue, learnerState, submission, community, operations, accountDeletion }: ServerOptions): Promise<FastifyInstance> {
+export async function buildServer({ allowedOrigins, ready = true, logger = console, auth, policy, tracks, catalogue, learnerState, submission, community, operations, accountDeletion, profile }: ServerOptions): Promise<FastifyInstance> {
   const origins = new Set(allowedOrigins.filter(Boolean));
   const limiter = createRateLimiter({ limit: 300, windowMs: 60_000, maxKeys: 10_000 });
   const trustProxy = process.env.TRUST_PROXY_HOPS === "1";
@@ -124,6 +126,14 @@ export async function buildServer({ allowedOrigins, ready = true, logger = conso
     if (!Array.isArray(body?.trackIds) || !body.trackIds.every((id) => typeof id === "string") || typeof body.defaultTrackId !== "string") return reply.code(400).send({ error: "invalid_track_preferences" });
     await tracks.savePreferences(request.account!.sub, body.trackIds, body.defaultTrackId);
     return reply.code(204).send();
+  });
+  app.get("/v1/me/profile", { preHandler: [app.authenticate, app.requireAuthenticated] }, async (request, reply) => {
+    if (!profile) return reply.code(503).send({ error: "profile_not_configured" });
+    return profile.get(request.account!.sub);
+  });
+  app.put("/v1/me/profile", { preHandler: [app.authenticate, app.requireAuthenticated] }, async (request, reply) => {
+    if (!profile) return reply.code(503).send({ error: "profile_not_configured" });
+    return profile.save(request.account!.sub, (request.body as { username?: unknown })?.username);
   });
   app.get("/v1/questions/:slug", async (request, reply) => {
     if (!catalogue) return reply.code(503).send({ error: "catalogue_not_configured" });
@@ -250,6 +260,10 @@ export async function buildServer({ allowedOrigins, ready = true, logger = conso
       reply.code(error.status).send({ error: error.code });
       return;
     }
+    if (error instanceof ProfileError) {
+      reply.code(error.status).send({ error: error.code });
+      return;
+    }
     const statusCode = typeof error === "object" && error !== null && "statusCode" in error && typeof error.statusCode === "number" ? error.statusCode : 500;
     logger.error?.(JSON.stringify({ error: "request_failed", statusCode }));
     reply.code(statusCode >= 400 ? statusCode : 500).send({ error: "internal_error" });
@@ -273,7 +287,8 @@ export async function createProductionServer() {
   const community = supabaseUrl && serviceRoleKey ? createSupabaseCommunityStore({ url: supabaseUrl, serviceRoleKey }) : undefined;
   const operations = supabaseUrl && serviceRoleKey ? createSupabaseOperations({ url: supabaseUrl, serviceRoleKey }) : undefined;
   const accountDeletion = supabaseUrl && serviceRoleKey && process.env.CLERK_SECRET_KEY ? createAccountDeletionStore({ url: supabaseUrl, serviceRoleKey, clerkSecretKey: process.env.CLERK_SECRET_KEY }) : undefined;
-  return buildServer({ allowedOrigins: (process.env.CORS_ALLOWED_ORIGINS ?? "").split(",").map((origin) => origin.trim()), ready: true, auth, policy, tracks, catalogue, learnerState, submission, community, operations, accountDeletion });
+  const profile = supabaseUrl && serviceRoleKey ? createSupabaseProfileStore({ url: supabaseUrl, serviceRoleKey }) : undefined;
+  return buildServer({ allowedOrigins: (process.env.CORS_ALLOWED_ORIGINS ?? "").split(",").map((origin) => origin.trim()), ready: true, auth, policy, tracks, catalogue, learnerState, submission, community, operations, accountDeletion, profile });
 }
 
 async function main() {
