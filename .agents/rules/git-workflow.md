@@ -32,3 +32,8 @@
    - **Step 5 - Merge & Clean**:
      - Create a PR from `agy/<task-name>` into `main`.
      - After merging on GitHub (especially if using Squash & Merge), always update local `main` (`git checkout main && git pull origin main`) to avoid ancestor conflict issues.
+
+## Verification Status
+- Branch prefix `agy/<task-name>` verified and active.
+- Target branch is `main`.
+
