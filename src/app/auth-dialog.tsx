@@ -1,13 +1,12 @@
 "use client";
 
-import { useAuth, useClerk, useSignIn, useSignUp } from "@clerk/react";
+import { useAuth, useClerk, useSignIn, useSignUp, useUser } from "@clerk/react";
 import Link from "next/link";
 import { useEffect, useRef, useState, type FormEvent, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 
 import { messages, type Locale } from "../i18n";
 import { nodeRequest } from "../backend/api.ts";
-import { loadProfile, saveProfile as saveAccountProfile } from "../profile/api.ts";
 
 type AuthMode = "signIn" | "signUp" | "verify";
 
@@ -118,30 +117,31 @@ function AuthDialog({ locale, initialMode, onClose }: { locale: Locale; initialM
 }
 
 export function AccountMenu({ locale, myTracksHref, moderatorHref, showModerator }: { locale: Locale; myTracksHref: string; moderatorHref: string; showModerator: boolean }) {
-  const { getToken } = useAuth();
+  const { user } = useUser();
   const { signOut } = useClerk();
   const [open, setOpen] = useState(false);
-  const [username, setUsername] = useState<string | null>(null);
-  useEffect(() => { void loadProfile(getToken).then((profile) => setUsername(profile.username)).catch(() => undefined); }, [getToken]);
-  const displayName = username ? `@${username}` : locale === "ar" ? "حسابي" : "My account";
+  const email = user?.primaryEmailAddress?.emailAddress ?? user?.username ?? "";
+  const displayName = user?.fullName || user?.username || email || "User";
   const initial = (displayName || "U").slice(0, 1).toUpperCase();
   const copy = messages[locale];
   return <div className="auth-account">
     <button className="auth-profile-trigger" type="button" aria-label={`${copy.account}: ${displayName}`} aria-expanded={open} aria-haspopup="dialog" onClick={() => setOpen(true)}>
-      <span className="auth-avatar" aria-hidden="true">{initial}</span>
+      <span className="auth-avatar" aria-hidden="true">{user?.imageUrl ? <img src={user.imageUrl} alt="" referrerPolicy="no-referrer" /> : initial}</span>
     </button>
-    {open && <AccountDialog locale={locale} username={username} onUsernameChange={setUsername} myTracksHref={myTracksHref} moderatorHref={moderatorHref} showModerator={showModerator} onClose={() => setOpen(false)} signOut={signOut} />}
+    {open && <AccountDialog locale={locale} user={user} email={email} displayName={displayName} myTracksHref={myTracksHref} moderatorHref={moderatorHref} showModerator={showModerator} onClose={() => setOpen(false)} signOut={signOut} />}
   </div>;
 }
 
-function AccountDialog({ locale, username, onUsernameChange, myTracksHref, moderatorHref, showModerator, onClose, signOut }: { locale: Locale; username: string | null; onUsernameChange: (username: string | null) => void; myTracksHref: string; moderatorHref: string; showModerator: boolean; onClose: () => void; signOut: ReturnType<typeof useClerk>["signOut"] }) {
+function AccountDialog({ locale, user, email, displayName, myTracksHref, moderatorHref, showModerator, onClose, signOut }: { locale: Locale; user: ReturnType<typeof useUser>["user"]; email: string; displayName: string; myTracksHref: string; moderatorHref: string; showModerator: boolean; onClose: () => void; signOut: ReturnType<typeof useClerk>["signOut"] }) {
   const [tab, setTab] = useState<"profile" | "security">("profile");
-  const [handle, setHandle] = useState(username ?? "");
+  const [firstName, setFirstName] = useState(user?.firstName ?? "");
+  const [lastName, setLastName] = useState(user?.lastName ?? "");
+  const [handle, setHandle] = useState(user?.username ?? "");
   const [status, setStatus] = useState("");
   const [busy, setBusy] = useState(false);
   const { getToken } = useAuth();
   const ar = locale === "ar";
-  async function saveProfile(event: FormEvent<HTMLFormElement>) { event.preventDefault(); setBusy(true); setStatus(""); try { const profile = await saveAccountProfile(handle, getToken); onUsernameChange(profile.username); setHandle(profile.username ?? ""); setStatus(ar ? "تم حفظ اسم المستخدم." : "Username saved."); } catch (error) { const code = (error as { code?: string }).code; setStatus(code === "username_taken" ? (ar ? "اسم المستخدم مستخدم بالفعل." : "That username is already taken.") : code === "username_invalid" ? (ar ? "استخدم 3–30 حرفًا إنجليزيًا أو رقمًا أو _." : "Use 3–30 letters, numbers, or _.") : (ar ? "تعذر حفظ اسم المستخدم. حاول مرة أخرى." : "Could not save the username. Try again.")); } finally { setBusy(false); } }
+  async function saveProfile(event: FormEvent<HTMLFormElement>) { event.preventDefault(); if (!user) return; setBusy(true); setStatus(""); try { await user.update({ firstName: firstName || undefined, lastName: lastName || undefined, username: handle || undefined }); setStatus(ar ? "تم حفظ بيانات الحساب." : "Account details saved."); } catch (error) { setStatus(errorMessage(error, ar ? "تعذر حفظ البيانات." : "Could not save account details.")); } finally { setBusy(false); } }
   async function deleteAccount() { if (!window.confirm(ar ? "هل تريد حذف الحساب نهائيًا؟" : "Delete this account permanently?")) return; setBusy(true); setStatus(""); try { await nodeRequest({ path: "/me/account", token: (await getToken()) ?? undefined, init: { method: "DELETE" } }); await signOut(); } catch (error) { setStatus(errorMessage(error, ar ? "تعذر حذف الحساب." : "Could not delete the account.")); setBusy(false); } }
   useEffect(() => { const close = (event: KeyboardEvent) => { if (event.key === "Escape") onClose(); }; document.addEventListener("keydown", close); return () => document.removeEventListener("keydown", close); }, [onClose]);
 
@@ -164,13 +164,17 @@ function AccountDialog({ locale, username, onUsernameChange, myTracksHref, moder
           {tab === "profile" ? (
             <form className="account-form" onSubmit={(event) => void saveProfile(event)}>
               <div className="account-identity">
-                <span className="auth-avatar account-avatar">{(username ?? "U").slice(0, 1).toUpperCase()}</span>
+                <span className="auth-avatar account-avatar">{user?.imageUrl ? <img src={user.imageUrl} alt="" referrerPolicy="no-referrer" /> : displayName.slice(0, 1).toUpperCase()}</span>
                 <div>
-                  <strong>{username ? `@${username}` : (ar ? "اختر اسمك العام" : "Choose your public username")}</strong>
-                  <span>{ar ? "ده الاسم اللي هيظهر على مساهماتك." : "This name appears on your contributions."}</span>
+                  <strong>{displayName}</strong>
+                  <span dir="ltr">{email}</span>
                 </div>
               </div>
-              <label>{ar ? "اسم المستخدم العام" : "Public username"}<input dir="ltr" value={handle} onChange={(event) => setHandle(event.target.value)} placeholder="your_name" minLength={3} maxLength={30} pattern="[A-Za-z0-9_]+" aria-describedby="username-hint" /><span className="field-hint" id="username-hint">{ar ? "3–30 حرفًا إنجليزيًا أو رقمًا أو _." : "3–30 letters, numbers, or _."}</span></label>
+              <div className="account-fields">
+                <label>{ar ? "الاسم الأول" : "First name"}<input value={firstName} onChange={(event) => setFirstName(event.target.value)} /></label>
+                <label>{ar ? "اسم العائلة" : "Last name"}<input value={lastName} onChange={(event) => setLastName(event.target.value)} /></label>
+              </div>
+              <label>{ar ? "اسم المستخدم" : "Username"}<input dir="ltr" value={handle} onChange={(event) => setHandle(event.target.value)} placeholder={ar ? "اختياري" : "Optional"} /></label>
               {status && <p className="account-status" role="status">{status}</p>}
               <div className="actions">
                 <button className="button primary" type="submit" disabled={busy}>{ar ? "حفظ التغييرات" : "Save changes"}</button>
