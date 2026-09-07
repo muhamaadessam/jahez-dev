@@ -10,6 +10,7 @@ import { reactBaseQuestions } from "./react-questions.ts";
 import { reactNativeBaseQuestions } from "./react-native-questions.ts";
 import { flutterExpansionBaseQuestions } from "./flutter-expansion-questions.ts";
 import { fundamentalsBaseQuestions } from "./fundamentals-questions.ts";
+import { uiUxBaseQuestions } from "./ui-ux-questions.ts";
 
 export type FollowUpQuestionRef = {
   id: string;
@@ -68,6 +69,7 @@ export const tracks: Track[] = [
   { id: "react", slug: "react", name: "React" },
   { id: "react-native", slug: "react-native", name: "React Native" },
   { id: "fundamentals", slug: "fundamentals", name: "Software Fundamentals" },
+  { id: "ui-ux", slug: "ui-ux", name: "UI / UX Design" },
 ];
 
 export const topics: Topic[] = [
@@ -172,6 +174,18 @@ export const topics: Topic[] = [
   { id: "fund-system-design", slug: "fund-system-design", trackId: "fundamentals", name: "System Design & Architecture" },
   { id: "fund-networking", slug: "fund-networking", trackId: "fundamentals", name: "Computer Networks & Protocols" },
   { id: "fund-testing", slug: "fund-testing", trackId: "fundamentals", name: "Software Testing & Quality" },
+
+  // UI / UX Design Topics
+  { id: "ux-research", slug: "ux-research", trackId: "ui-ux", name: "UX Research & Testing" },
+  { id: "ux-principles", slug: "ux-principles", trackId: "ui-ux", name: "UX Laws & Psychology" },
+  { id: "information-architecture", slug: "information-architecture", trackId: "ui-ux", name: "Information Architecture" },
+  { id: "wireframing-prototyping", slug: "wireframing-prototyping", trackId: "ui-ux", name: "Wireframing & Prototyping" },
+  { id: "ui-design-systems", slug: "ui-design-systems", trackId: "ui-ux", name: "Design Systems" },
+  { id: "visual-design", slug: "visual-design", trackId: "ui-ux", name: "Visual Design & Hierarchy" },
+  { id: "interaction-motion", slug: "interaction-motion", trackId: "ui-ux", name: "Interaction & Motion" },
+  { id: "accessibility-inclusive", slug: "accessibility-inclusive", trackId: "ui-ux", name: "Accessibility & Inclusive Design" },
+  { id: "product-metrics", slug: "product-metrics", trackId: "ui-ux", name: "Product & UX Metrics" },
+  { id: "mobile-platform-guidelines", slug: "mobile-platform-guidelines", trackId: "ui-ux", name: "Mobile & Platform Guidelines" },
 ];
 
 const baseQuestions: Omit<InterviewQuestion, "translations">[] = [
@@ -1599,6 +1613,10 @@ function createEnglishTranslation(question: Omit<InterviewQuestion, "translation
     trackDev = "a Software";
     trackTech = "Computer Science, Software Engineering, and architecture";
     trackApp = "Software Engineering";
+  } else if (question.trackId === "ui-ux") {
+    trackDev = "a UI/UX";
+    trackTech = "UI/UX design, user research, and design systems";
+    trackApp = "Product Design";
   }
 
   return {
@@ -1634,6 +1652,7 @@ export const questions: InterviewQuestion[] = [
   ...reactBaseQuestions,
   ...reactNativeBaseQuestions,
   ...fundamentalsBaseQuestions,
+  ...uiUxBaseQuestions,
 ].map((question) => ({
   ...question,
   translations: {
@@ -1727,6 +1746,18 @@ export const topicTranslations: Record<Locale, Record<string, string>> = {
     "fund-system-design": "تصميم الأنظمة والمعمارية الموزعة",
     "fund-networking": "شبكات الحاسوب والبروتوكولات",
     "fund-testing": "اختبار البرمجيات وضمان الجودة",
+
+    // UI / UX Design
+    "ux-research": "أبحاث المستخدم واختبارات قابلية الاستخدام",
+    "ux-principles": "قوانين تجربة المستخدم وعلم النفس الإدراكي",
+    "information-architecture": "هندسة المعلومات وبنية التنقل",
+    "wireframing-prototyping": "المخططات السلكية والنماذج التفاعلية",
+    "ui-design-systems": "أنظمة التصميم ورموز Design Tokens",
+    "visual-design": "التصميم البصري والتسلسل الهرمي",
+    "interaction-motion": "تصميم التفاعل والحركة الدقيقة",
+    "accessibility-inclusive": "إمكانية الوصول والتصميم الشامل (a11y)",
+    "product-metrics": "مقاييس تجربة المستخدم وأداء المنتج",
+    "mobile-platform-guidelines": "إرشادات منصات الجوال (HIG و Material)",
   },
   en: {
     dart: "Dart", oop: "OOP", solid: "SOLID", "flutter-fundamentals": "Flutter Fundamentals", widgets: "Widgets",
@@ -1812,6 +1843,18 @@ export const topicTranslations: Record<Locale, Record<string, string>> = {
     "fund-system-design": "System Design & Architecture",
     "fund-networking": "Computer Networks & Protocols",
     "fund-testing": "Software Testing & Quality",
+
+    // UI / UX Design
+    "ux-research": "UX Research & Usability Testing",
+    "ux-principles": "UX Laws & Cognitive Psychology",
+    "information-architecture": "Information Architecture & Navigation",
+    "wireframing-prototyping": "Wireframing & Interactive Prototyping",
+    "ui-design-systems": "Design Systems & Design Tokens",
+    "visual-design": "Visual Design & Hierarchy",
+    "interaction-motion": "Interaction Design & Micro-motion",
+    "accessibility-inclusive": "Accessibility & Inclusive Design (a11y)",
+    "product-metrics": "UX Metrics & Product Performance",
+    "mobile-platform-guidelines": "Mobile Platform Guidelines (HIG & Material)",
   },
 };
 
@@ -1946,6 +1989,18 @@ export const productionTopicCounts = {
   "fund-system-design": 10,
   "fund-networking": 10,
   "fund-testing": 10,
+
+  // UI / UX Design (100)
+  "ux-research": 10,
+  "ux-principles": 10,
+  "information-architecture": 10,
+  "wireframing-prototyping": 10,
+  "ui-design-systems": 10,
+  "visual-design": 10,
+  "interaction-motion": 10,
+  "accessibility-inclusive": 10,
+  "product-metrics": 10,
+  "mobile-platform-guidelines": 10,
 } as const;
 
 const approvedSourceHosts = new Set([
@@ -1974,6 +2029,12 @@ const approvedSourceHosts = new Set([
   "en.wikipedia.org",
   "developer.mozilla.org",
   "sandimetz.com",
+  "www.nngroup.com",
+  "lawsofux.com",
+  "material.io",
+  "developer.apple.com",
+  "www.w3.org",
+  "www.microsoft.com",
 ]);
 
 export function validateQuestions(interviewQuestions: InterviewQuestion[]): void {
@@ -2008,7 +2069,7 @@ export function validateQuestions(interviewQuestions: InterviewQuestion[]): void
 export function validateProductionCatalogue(interviewQuestions: InterviewQuestion[] = questions): void {
   validateQuestions(interviewQuestions);
   validateBilingualCatalogue(interviewQuestions);
-  if (interviewQuestions.length !== 810) throw new Error(`Production catalogue must contain exactly 810 questions; found ${interviewQuestions.length}`);
+  if (interviewQuestions.length !== 910) throw new Error(`Production catalogue must contain exactly 910 questions; found ${interviewQuestions.length}`);
   for (const [topicId, expectedCount] of Object.entries(productionTopicCounts)) {
     const actualCount = interviewQuestions.filter((question) => question.topicIds.includes(topicId)).length;
     if (actualCount !== expectedCount) throw new Error(`Topic ${topicId} must contain exactly ${expectedCount} questions; found ${actualCount}`);
