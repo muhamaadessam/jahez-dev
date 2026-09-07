@@ -46,16 +46,16 @@ test("most-asked sorting survives a shareable library URL", () => {
 test("full interview filters multiple topics and includes lower difficulty levels", () => {
   const fixtures: SearchableQuestion[] = [
     ...searchFixtures,
-    { id: "fixture-003", slug: "fixture-three", trackId: "flutter", topicIds: ["oop"], difficulty: "Mid", question: "What is a class?", shortAnswer: "A type." },
-    { id: "fixture-004", slug: "fixture-four", trackId: "flutter", topicIds: ["solid"], difficulty: "Senior", question: "What is DIP?", shortAnswer: "Depend on abstractions." },
+    { id: "fixture-003", slug: "fixture-three", trackId: "flutter", topicIds: ["flutter-animations"], difficulty: "Mid", question: "What is a class?", shortAnswer: "A type." },
+    { id: "fixture-004", slug: "fixture-four", trackId: "flutter", topicIds: ["flutter-internals"], difficulty: "Senior", question: "What is DIP?", shortAnswer: "Depend on abstractions." },
   ];
 
   assert.deepEqual(
-    filterInterviewQuestions(fixtures, ["dart", "oop"], "Mid", topics).map(({ id }) => id),
+    filterInterviewQuestions(fixtures, ["dart", "flutter-animations"], "Mid", topics).map(({ id }) => id),
     ["fixture-001", "fixture-002", "fixture-003"],
   );
   assert.deepEqual(
-    filterInterviewQuestions(fixtures, ["oop", "solid"], "Senior", topics).map(({ id }) => id),
+    filterInterviewQuestions(fixtures, ["flutter-animations", "flutter-internals"], "Senior", topics).map(({ id }) => id),
     ["fixture-003", "fixture-004"],
   );
 });
