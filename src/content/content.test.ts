@@ -50,10 +50,10 @@ test("every question has complete Arabic and English translations", () => {
   }
 });
 
-test("production validation enforces the 706-question topic distribution", () => {
+test("production validation enforces the 810-question topic distribution", () => {
   assert.doesNotThrow(() => validateProductionCatalogue());
-  assert.throws(() => validateProductionCatalogue(questions.slice(0, -1)), /exactly 706 questions/);
-  const wrongDistribution = questions.map((question, index) => index === 0 ? { ...question, topicIds: ["oop"] } : question);
+  assert.throws(() => validateProductionCatalogue(questions.slice(0, -1)), /exactly 810 questions/);
+  const wrongDistribution = questions.map((question, index) => index === 0 ? { ...question, topicIds: ["widgets"] } : question);
   assert.throws(() => validateProductionCatalogue(wrongDistribution), /Topic dart must contain exactly 12/);
   assert.throws(() => validateProductionCatalogue(questions.map((question, index) => index === 0 ? { ...question, difficulty: "Expert" as never } : question)), /invalid difficulty/);
   assert.throws(() => validateProductionCatalogue(questions.map((question, index) => index === 0 ? { ...question, lastReviewedAt: "2026-99-99" } : question)), /invalid review date/);
@@ -83,10 +83,10 @@ test("the public question catalogue rejects missing data and duplicate identity"
   );
 });
 
-test("the OOP and SOLID topics contain their planned question sets", () => {
+test("the Fundamentals OOP and SOLID topics contain their planned question sets", () => {
   const expected = {
-    oop: ["class-and-object-in-dart", "encapsulation-and-private-members-in-dart", "composition-vs-inheritance-in-flutter", "polymorphism-and-interfaces-in-dart", "abstract-class-and-interface-in-dart", "mixins-and-reusable-behavior-in-dart", "equality-and-hashcode-for-dart-objects", "immutable-value-objects-in-dart"],
-    solid: ["single-responsibility-in-flutter", "open-closed-principle-for-renderers", "liskov-substitution-in-dart", "interface-segregation-in-flutter", "dependency-inversion-in-flutter", "solid-boundaries-in-flutter-widgets", "when-not-to-apply-solid", "refactoring-legacy-flutter-code-with-solid"],
+    "fund-oop": ["oop-four-pillars-encapsulation-abstraction", "oop-composition-over-inheritance-benefits"],
+    "fund-solid": ["solid-single-responsibility-principle-definition", "solid-open-closed-principle-real-world"],
   } as const;
   for (const [topic, slugs] of Object.entries(expected)) {
     const actual = new Set(questions.filter((question) => question.topicIds.includes(topic)).map((question) => question.slug));
@@ -249,7 +249,8 @@ test("the Performance and Async & Isolates topics contain their planned question
 test("the catalogue keeps official HTTPS sources and real review dates", () => {
   const approvedHosts = [
     "dart.dev", "api.dart.dev", "docs.flutter.dev", "api.flutter.dev", "blog.cleancoder.com", "www.rfc-editor.org", "developer.android.com", "kotlinlang.org",
-    "nodejs.org", "php.net", "www.php.net", "laravel.com", "learn.microsoft.com", "dotnet.microsoft.com", "react.dev", "legacy.reactjs.org", "reactnative.dev", "docs.expo.dev", "expo.dev", "reactnavigation.org"
+    "nodejs.org", "php.net", "www.php.net", "laravel.com", "learn.microsoft.com", "dotnet.microsoft.com", "react.dev", "legacy.reactjs.org", "reactnative.dev", "docs.expo.dev", "expo.dev", "reactnavigation.org",
+    "martinfowler.com", "refactoring.guru", "en.wikipedia.org", "developer.mozilla.org", "sandimetz.com"
   ];
   for (const question of questions) {
     assert.equal(new Date(`${question.lastReviewedAt}T00:00:00Z`).toISOString().slice(0, 10), question.lastReviewedAt);
@@ -275,8 +276,8 @@ test("the Android Native track contains its 100 planned questions across 14 topi
   }
 });
 
-test("the catalogue contains 100 questions for each of the 5 new tracks", () => {
-  for (const trackId of ["node", "php", "dotnet", "react", "react-native"]) {
+test("the catalogue contains 100 questions for each of the 6 specialized tracks", () => {
+  for (const trackId of ["node", "php", "dotnet", "react", "react-native", "fundamentals"]) {
     const trackQuestions = questions.filter((q) => q.trackId === trackId);
     assert.equal(trackQuestions.length, 100, `Track ${trackId} should have 100 questions`);
     assert.deepEqual(new Set(trackQuestions.map((q) => q.difficulty)), new Set(["Junior", "Mid", "Senior"]));
@@ -289,4 +290,14 @@ test("the catalogue contains 100 questions for each of the 5 new tracks", () => 
       assert.ok(q.sources.length > 0);
     }
   }
+});
+
+test("the Flutter track contains 110 specialized questions across 15 topics", () => {
+  const flutterQuestions = questions.filter((q) => q.trackId === "flutter");
+  assert.equal(flutterQuestions.length, 110);
+  assert.deepEqual(new Set(flutterQuestions.map((q) => q.difficulty)), new Set(["Junior", "Mid", "Senior"]));
+  const anim = questions.filter((q) => q.topicIds.includes("flutter-animations"));
+  assert.equal(anim.length, 10);
+  const internals = questions.filter((q) => q.topicIds.includes("flutter-internals"));
+  assert.equal(internals.length, 10);
 });

@@ -12,6 +12,13 @@ The default five-role triage vocabulary is used. See `docs/agents/triage-labels.
 
 This is a single-context repository. See `docs/agents/domain.md`.
 
+### Git Workflow & Branching Strategy
+
+- **Base Branch**: `agy` is the default target branch on GitHub.
+- **Task Branches**: Every task must be performed on a dedicated task branch named after the task (e.g. `feat/<task-name>`, `fix/<task-name>`).
+- **Merge & Push**: After finishing the task and verifying all checks pass, merge the task branch into `agy` and push `agy` to `origin/agy`.
+
+
 <!-- BEGIN:nextjs-agent-rules -->
 
 # This is NOT the Next.js you know
