@@ -2,6 +2,7 @@ export type DifficultyLevel = "Junior" | "Mid" | "Senior";
 export type Locale = "ar" | "en";
 
 import { staticFollowUpTargets } from "./follow-up-relations.ts";
+import { androidBaseQuestions } from "./android-questions.ts";
 
 export type FollowUpQuestionRef = {
   id: string;
@@ -53,6 +54,7 @@ export type InterviewQuestion = {
 
 export const tracks: Track[] = [
   { id: "flutter", slug: "flutter", name: "Flutter" },
+  { id: "android-native", slug: "android-native", name: "Android Native" },
   { id: "backend", slug: "backend", name: "Backend" },
 ];
 
@@ -72,6 +74,20 @@ export const topics: Topic[] = [
   { id: "testing", slug: "testing", trackId: "flutter", name: "Testing" },
   { id: "performance", slug: "performance", trackId: "flutter", name: "Performance" },
   { id: "async-isolates", slug: "async-isolates", trackId: "flutter", name: "Async & Isolates" },
+  { id: "kotlin", slug: "kotlin", trackId: "android-native", name: "Kotlin Fundamentals" },
+  { id: "android-fundamentals", slug: "android-fundamentals", trackId: "android-native", name: "Android Fundamentals" },
+  { id: "android-ui", slug: "android-ui", trackId: "android-native", name: "UI & Layouts" },
+  { id: "jetpack-compose", slug: "jetpack-compose", trackId: "android-native", name: "Jetpack Compose" },
+  { id: "architecture-components", slug: "architecture-components", trackId: "android-native", name: "Architecture Components" },
+  { id: "coroutines-concurrency", slug: "coroutines-concurrency", trackId: "android-native", name: "Coroutines & Concurrency" },
+  { id: "dependency-injection", slug: "dependency-injection", trackId: "android-native", name: "Dependency Injection" },
+  { id: "networking-android", slug: "networking-android", trackId: "android-native", name: "Networking" },
+  { id: "local-storage-android", slug: "local-storage-android", trackId: "android-native", name: "Local Storage" },
+  { id: "background-processing", slug: "background-processing", trackId: "android-native", name: "Background Processing" },
+  { id: "performance-memory", slug: "performance-memory", trackId: "android-native", name: "Performance & Memory" },
+  { id: "security-android", slug: "security-android", trackId: "android-native", name: "Security & Obfuscation" },
+  { id: "testing-android", slug: "testing-android", trackId: "android-native", name: "Testing" },
+  { id: "build-gradle", slug: "build-gradle", trackId: "android-native", name: "Build & Gradle" },
 ];
 
 const baseQuestions: Omit<InterviewQuestion, "translations">[] = [
@@ -1780,13 +1796,16 @@ function englishLabel(slug: string): string {
 
 function createEnglishTranslation(question: Omit<InterviewQuestion, "translations">): QuestionTranslation {
   const label = englishLabel(question.slug);
+  const trackDev = question.trackId === "android-native" ? "an Android" : "a Flutter";
+  const trackTech = question.trackId === "android-native" ? "Kotlin and Android" : "Dart and Flutter";
+  const trackApp = question.trackId === "android-native" ? "Android" : "Flutter";
   return {
-    question: `What should a Flutter developer know about ${label}?`,
-    shortAnswer: `This question checks the core ${label} concept and how to use it safely in Dart and Flutter.`,
+    question: `What should ${trackDev} developer know about ${label}?`,
+    shortAnswer: `This question checks the core ${label} concept and how to use it safely in ${trackTech}.`,
     explanation: `Explain ${label} with its trade-offs, practical use cases, and the boundaries that keep the implementation maintainable.`,
     codeExample: question.codeExample,
     commonMistakes: question.commonMistakes?.map((_, index) => `Missing the key trade-off in ${label} (point ${index + 1}).`),
-    followUpQuestions: question.followUpQuestions?.map((_, index) => `How would you apply ${label} in a production Flutter app (follow-up ${index + 1})?`),
+    followUpQuestions: question.followUpQuestions?.map((_, index) => `How would you apply ${label} in a production ${trackApp} app (follow-up ${index + 1})?`),
     sources: question.sources.map((source) => ({ ...source })),
   };
 }
@@ -1803,7 +1822,7 @@ function arabicTranslation(question: Omit<InterviewQuestion, "translations">): Q
   };
 }
 
-export const questions: InterviewQuestion[] = baseQuestions.map((question) => ({
+export const questions: InterviewQuestion[] = [...baseQuestions, ...androidBaseQuestions].map((question) => ({
   ...question,
   translations: {
     ar: arabicTranslation(question),
@@ -1816,11 +1835,19 @@ export const topicTranslations: Record<Locale, Record<string, string>> = {
     dart: "Dart", oop: "OOP", solid: "SOLID", "flutter-fundamentals": "Flutter Fundamentals", widgets: "Widgets",
     "state-management": "State Management", navigation: "Navigation", networking: "Networking", realtime: "Realtime & WebSockets", "local-storage": "Local Storage",
     "platform-integration": "Platform Integration", architecture: "Architecture", testing: "Testing", performance: "Performance", "async-isolates": "Async & Isolates",
+    kotlin: "Kotlin Fundamentals", "android-fundamentals": "Android Fundamentals", "android-ui": "UI & Layouts", "jetpack-compose": "Jetpack Compose",
+    "architecture-components": "Architecture Components", "coroutines-concurrency": "Coroutines & Concurrency", "dependency-injection": "Dependency Injection",
+    "networking-android": "Networking", "local-storage-android": "Local Storage", "background-processing": "Background Processing",
+    "performance-memory": "Performance & Memory", "security-android": "Security & Obfuscation", "testing-android": "Testing", "build-gradle": "Build & Gradle",
   },
   en: {
     dart: "Dart", oop: "OOP", solid: "SOLID", "flutter-fundamentals": "Flutter Fundamentals", widgets: "Widgets",
     "state-management": "State Management", navigation: "Navigation", networking: "Networking", realtime: "Realtime & WebSockets", "local-storage": "Local Storage",
     "platform-integration": "Platform Integration", architecture: "Architecture", testing: "Testing", performance: "Performance", "async-isolates": "Async & Isolates",
+    kotlin: "Kotlin Fundamentals", "android-fundamentals": "Android Fundamentals", "android-ui": "UI & Layouts", "jetpack-compose": "Jetpack Compose",
+    "architecture-components": "Architecture Components", "coroutines-concurrency": "Coroutines & Concurrency", "dependency-injection": "Dependency Injection",
+    "networking-android": "Networking", "local-storage-android": "Local Storage", "background-processing": "Background Processing",
+    "performance-memory": "Performance & Memory", "security-android": "Security & Obfuscation", "testing-android": "Testing", "build-gradle": "Build & Gradle",
   },
 };
 
@@ -1869,9 +1896,23 @@ export const productionTopicCounts = {
   testing: 6,
   performance: 5,
   "async-isolates": 4,
+  kotlin: 12,
+  "android-fundamentals": 10,
+  "android-ui": 6,
+  "jetpack-compose": 10,
+  "architecture-components": 10,
+  "coroutines-concurrency": 10,
+  "dependency-injection": 6,
+  "networking-android": 6,
+  "local-storage-android": 6,
+  "background-processing": 5,
+  "performance-memory": 6,
+  "security-android": 4,
+  "testing-android": 5,
+  "build-gradle": 4,
 } as const;
 
-const approvedSourceHosts = new Set(["dart.dev", "api.dart.dev", "docs.flutter.dev", "api.flutter.dev", "blog.cleancoder.com", "www.rfc-editor.org"]);
+const approvedSourceHosts = new Set(["dart.dev", "api.dart.dev", "docs.flutter.dev", "api.flutter.dev", "blog.cleancoder.com", "www.rfc-editor.org", "developer.android.com", "kotlinlang.org"]);
 
 export function validateQuestions(interviewQuestions: InterviewQuestion[]): void {
   const ids = new Set<string>();
@@ -1905,7 +1946,7 @@ export function validateQuestions(interviewQuestions: InterviewQuestion[]): void
 export function validateProductionCatalogue(interviewQuestions: InterviewQuestion[] = questions): void {
   validateQuestions(interviewQuestions);
   validateBilingualCatalogue(interviewQuestions);
-  if (interviewQuestions.length !== 106) throw new Error(`Production catalogue must contain exactly 106 questions; found ${interviewQuestions.length}`);
+  if (interviewQuestions.length !== 206) throw new Error(`Production catalogue must contain exactly 206 questions; found ${interviewQuestions.length}`);
   for (const [topicId, expectedCount] of Object.entries(productionTopicCounts)) {
     const actualCount = interviewQuestions.filter((question) => question.topicIds.includes(topicId)).length;
     if (actualCount !== expectedCount) throw new Error(`Topic ${topicId} must contain exactly ${expectedCount} questions; found ${actualCount}`);

@@ -374,7 +374,8 @@ h3 { line-height: 1.45; }
 .moderator-submission-id:hover, .moderator-submission-id.is-copied { border-color: var(--brand); background: color-mix(in srgb, var(--surface) 68%, var(--brand)); }
 .moderator-submission-id:active { transform: scale(.995); }
 .moderator-submission-id code { overflow: hidden; color: var(--text); font: .78rem ui-monospace, SFMono-Regular, Menlo, monospace; text-overflow: ellipsis; white-space: nowrap; }
-.follow-up-editor fieldset { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 8px 16px; margin: 0; padding: 14px; border: 1px solid var(--border); border-radius: 12px; }
+.follow-up-editor fieldset { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 8px 16px; margin: 0; padding: 14px; border: 1px solid var(--border); border-radius: 12px; }
+.follow-up-editor .filter-checkbox { display: flex !important; min-width: 0; white-space: normal; overflow-wrap: anywhere; }
 .follow-up-editor select { min-height: 44px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); color: var(--text); font: inherit; }
 .submission-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
 .submission-grid > label, .submission-topics { display: grid; gap: 7px; color: var(--muted); font-weight: 800; }
