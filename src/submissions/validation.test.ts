@@ -52,9 +52,11 @@ test("duplicate advisory normalization is stable", () => {
 });
 
 test("imported bilingual question accepts the catalogue contract and rejects unsafe values", () => {
-  const value = { contributorUsername: "Community contributor", trackId: "flutter", topicIds: ["dart"], difficulty: "Junior", translations: { ar: { question: "ما هو final؟", shortAnswer: "ثابت", explanation: "شرح", codeExample: null, commonMistakes: [], followUpQuestions: [], sources: [{ title: "Dart docs", url: "https://dart.dev" }] }, en: { question: "What is final?", shortAnswer: "A constant", explanation: "Explanation", codeExample: null, commonMistakes: [], followUpQuestions: [], sources: [{ title: "Dart docs", url: "https://dart.dev" }] } } };
+  const value = { contributorUsername: "Community contributor", trackId: "flutter", topicIds: ["dart"], relatedQuestionSlugs: ["var-vs-dynamic-in-dart"], difficulty: "Junior", translations: { ar: { question: "ما هو final؟", shortAnswer: "ثابت", explanation: "شرح", codeExample: null, commonMistakes: [], followUpQuestions: [], sources: [{ title: "Dart docs", url: "https://dart.dev" }] }, en: { question: "What is final?", shortAnswer: "A constant", explanation: "Explanation", codeExample: null, commonMistakes: [], followUpQuestions: [], sources: [{ title: "Dart docs", url: "https://dart.dev" }] } } };
   assert.deepEqual(validateImportedQuestion(value), value);
-  assert.deepEqual(validateImportedQuestion({ ...value, topicIds: [] }).topicIds, []);
+  assert.throws(() => validateImportedQuestion({ ...value, topicIds: [] }), /import_topics_invalid/);
+  assert.throws(() => validateImportedQuestion({ ...value, relatedQuestionSlugs: ["Not a slug"] }), /import_related_questions_invalid/);
+  assert.throws(() => validateImportedQuestion({ ...value, translations: { ...value.translations, en: { ...value.translations.en, sources: [] } } }), /import_en_sources_invalid/);
   assert.equal(validateImportedQuestion({ ...value, contributorUsername: "Mina" }).contributorUsername, "Mina");
   assert.throws(() => validateImportedQuestion(({ ...value, contributorUsername: undefined })), /import_username_invalid/);
   assert.throws(() => validateImportedQuestion({ ...value, translations: { ...value.translations, en: { ...value.translations.en, question: "<script>" } } }), /import_en_question_invalid/);
@@ -66,5 +68,6 @@ test("submission prompt contains no private identity", () => {
   assert.match(prompt, /contributorUsername/);
   assert.match(prompt, /question catalogue and database context/);
   assert.match(prompt, /followUpQuestions/);
+  assert.match(prompt, /relatedQuestionSlugs/);
   assert.doesNotMatch(prompt, /email|clerk|token/i);
 });

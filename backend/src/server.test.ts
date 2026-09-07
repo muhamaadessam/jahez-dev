@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import { PolicyError } from "./account-policy.ts";
+import { normalizeUsername, ProfileError } from "./profile.ts";
 import { buildServer } from "./server-impl.ts";
 
 test("health is public and returns process health", async () => {
@@ -29,6 +30,24 @@ test("public Track route delegates to the configured store", async () => {
   assert.equal(response.statusCode, 200);
   assert.deepEqual(response.json(), { tracks: [{ id: "flutter", slug: "flutter", name: "Flutter" }] });
   assert.equal(locale, "ar");
+  await app.close();
+});
+
+test("Account profile owns the public username outside the identity provider", async () => {
+  assert.equal(normalizeUsername("  New_Name "), "new_name");
+  assert.throws(() => normalizeUsername("bad name"), (error: unknown) => error instanceof ProfileError && error.code === "username_invalid");
+  const calls: unknown[] = [];
+  const auth = { preHandler: async (request: Parameters<NonNullable<Parameters<typeof buildServer>[0]["auth"]>["preHandler"]>[0]) => { request.account = { sub: "account-1", claims: {}, token: "token" }; } };
+  const policy = { requireAuthenticated: async () => undefined, requireModerator: async () => undefined, requireOwnership: async () => "account-1" };
+  const profile = {
+    get: async (userId: string) => { calls.push(["get", userId]); return { username: "mohamed" }; },
+    save: async (userId: string, username: unknown) => { calls.push(["save", userId, username]); return { username: "new_name" }; },
+  };
+  const app = await buildServer({ allowedOrigins: [], auth, policy, profile });
+
+  assert.deepEqual((await app.inject({ method: "GET", url: "/v1/me/profile" })).json(), { username: "mohamed" });
+  assert.deepEqual((await app.inject({ method: "PUT", url: "/v1/me/profile", payload: { username: "new_name" } })).json(), { username: "new_name" });
+  assert.deepEqual(calls, [["get", "account-1"], ["save", "account-1", "new_name"]]);
   await app.close();
 });
 

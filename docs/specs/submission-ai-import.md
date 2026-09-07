@@ -10,13 +10,13 @@ reviewable Interview Question.
 
 ## Solution
 
-The Node backend persists the Submission and returns a bounded, copyable Prompt
-containing the contributor's display name and submitted learning material. The
-Prompt asks any external AI agent to return one JSON document matching the
-catalogue's bilingual question shape. A Moderator pastes that JSON into the
-Node-backed moderation console, previews the normalized result, and explicitly
-confirms it. Confirmation creates the proposed Interview Question content
-through the existing Submission and Question Revision model. GitHub Issues,
+The Node backend persists the Submission. A Moderator can then copy a bounded
+Prompt from that Submission's review card and send it to an external AI agent.
+The Prompt asks for one JSON document matching the catalogue's bilingual
+question shape, including Topic and related published-question choices. The
+Moderator pastes that JSON back into the same review card, previews the
+normalized result, and explicitly confirms publication. Confirmation creates
+the Submission Revision and public Interview Question as one transaction. GitHub Issues,
 GitHub comments, GitHub closing, and product GitHub credentials are removed
 from this workflow. Supabase remains accessible only through Node.
 
@@ -24,16 +24,10 @@ from this workflow. Supabase remains accessible only through Node.
 
 1. As an authenticated contributor, I want my Submission saved before any AI
    processing, so that a provider or copy/paste failure cannot lose my work.
-2. As an authenticated contributor, I want a ready-to-copy Prompt after a
-   successful Submission, so that I can use any AI agent I choose.
-3. As a contributor, I want the Prompt to include my display name, Track,
-   Topics, question, answer material, and optional fields, so that the agent
-   has the full context of my Submission.
-4. As a contributor, I do not want my email, Clerk identity, auth token, or
-   private account data included in the Prompt.
-5. As a contributor, I want the Prompt to state that submitted text is quoted
-   data and not instructions, so that prompt injection in a Submission does
-   not control the external agent.
+2. As a Moderator, I want a ready-to-copy Prompt on each Submission, so that I
+   can use an external AI agent with the full catalogue context.
+3. As a Moderator, I want the Prompt to include submitted learning material
+   but no private identity, so the agent has useful context without account data.
 6. As a contributor, I want a clear retry-safe response when the Submission
    already exists, so that resubmitting cannot create duplicate Submissions.
 7. As a Moderator, I want to paste the returned JSON into the moderation
@@ -51,9 +45,8 @@ from this workflow. Supabase remains accessible only through Node.
 12. As a Moderator, I want to continue requesting changes or rejecting a
     Submission without depending on GitHub, so that moderation remains
     available when GitHub is unavailable or removed.
-13. As a Moderator, I want approved content to continue through the existing
-    explicit publication action, so that importing JSON never publishes
-    content by itself.
+13. As a Moderator, I want confirmation to publish atomically, so a partial
+    import cannot leave a half-created Question.
 14. As a learner, I want only explicitly published Interview Questions to
     appear in the catalogue, so that an imported draft cannot leak publicly.
 15. As an operator, I want GitHub Issue secrets and product GitHub calls
@@ -65,8 +58,8 @@ from this workflow. Supabase remains accessible only through Node.
 ## Implementation Decisions
 
 - Use the existing Node submission route as the first seam. It validates and
-  persists the Submission, then returns a server-generated Prompt in the
-  response. It must not call an AI provider or GitHub.
+  persists the Submission but never returns the Prompt to a contributor. It
+  must not call an AI provider or GitHub.
 - Use the existing Node moderation action route as the second seam. Add an
   import-preview operation and an explicit confirm operation behind the
   existing Moderator authorization policy.
@@ -81,9 +74,9 @@ from this workflow. Supabase remains accessible only through Node.
   Difficulty Level values, required localized fields, and rejection of
   unknown or structurally invalid values.
 - Return a normalized preview without changing publication state. Confirmation
-  writes through the existing Submission/Question Revision and moderation
-  audit model, is idempotent, and leaves publication as a separate explicit
-  Moderator action.
+  writes through one database transaction, is idempotent, and creates the
+  Submission Revision, Question Revision, locales, Topics, related Questions,
+  attribution, audit event, and public publication together.
 - Preserve legacy GitHub columns in existing database rows unless a later
   migration proves that dropping them is safe and useful. New code must not
   read or write them for product behavior.
@@ -91,9 +84,8 @@ from this workflow. Supabase remains accessible only through Node.
   links, advisory comments, product environment requirements, and stale
   submission/review documentation. Keep GitHub only for source-code hosting
   and engineering issue tracking.
-- Keep the Prompt bounded and avoid logging its private content. The response
-  may expose the Prompt to the authenticated contributor who created the
-  Submission and to authorized Moderators through the existing backend policy.
+- Keep the Prompt bounded and avoid logging its content. Only authorized
+  Moderators may see it through the existing backend policy.
 
 ## Testing Decisions
 
