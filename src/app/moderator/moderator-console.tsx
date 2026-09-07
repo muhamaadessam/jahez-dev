@@ -101,9 +101,8 @@ function AuthenticatedModeratorConsole({ locale }: { locale: Locale }) {
 
   async function publish(submissionId: string) {
     const questionId = questionIds[submissionId]?.trim();
-    if (!questionId) return;
     setError("");
-    try { await moderationRequest({ getToken, body: { action: "publish_submission", submissionId, questionId } }); await load(); }
+    try { await moderationRequest({ getToken, body: { action: "publish_submission", submissionId, ...(questionId ? { questionId } : {}) } }); await load(); }
     catch (caught) { setError(caught instanceof ModerationError ? caught.code : "moderation_unavailable"); }
   }
 
@@ -143,7 +142,7 @@ function AuthenticatedModeratorConsole({ locale }: { locale: Locale }) {
       {row.prompt && <div className="moderator-prompt"><label>{locale === "ar" ? "Prompt مراجعة السؤال بالـAI" : "AI question review prompt"}<textarea readOnly value={row.prompt} rows={12} /></label><button className="button" type="button" onClick={() => void copyPrompt(row.id, row.prompt ?? "")}>{copiedPromptId === row.id ? (locale === "ar" ? "تم النسخ" : "Copied") : (locale === "ar" ? "نسخ الـPrompt" : "Copy prompt")}</button></div>}
       {row.review_notes && <p className="field-hint">{row.review_notes}</p>}
       <label>{copy.moderatorReason}<textarea value={reason[row.id] ?? ""} onChange={(event) => setReason((current) => ({ ...current, [row.id]: event.target.value }))} maxLength={500} /></label>
-      {row.status === "approved" && <label>{locale === "ar" ? "معرّف السؤال المنشور" : "Published question ID"}<input value={questionIds[row.id] ?? ""} onChange={(event) => setQuestionIds((current) => ({ ...current, [row.id]: event.target.value }))} placeholder="question-id" /></label>}
+      {row.status === "approved" && <label>{locale === "ar" ? "معرّف السؤال المنشور (اختياري - توليد تلقائي)" : "Published question ID (optional - auto generated)"}<input value={questionIds[row.id] ?? ""} onChange={(event) => setQuestionIds((current) => ({ ...current, [row.id]: event.target.value }))} placeholder={locale === "ar" ? "توليد تلقائي (مثال: flutter-099)" : "Auto-generated (e.g. flutter-099)"} /></label>}
       <div className="actions"><button className="button" type="button" onClick={() => void act(row.id, "changes_requested")}>{copy.moderatorChanges}</button><button className="button danger" type="button" onClick={() => void act(row.id, "reject_submission")}>{copy.moderatorReject}</button>{row.status === "approved" && <button className="button primary" type="button" onClick={() => void publish(row.id)}>{locale === "ar" ? "نشر في المجتمع" : "Publish to community"}</button>}</div>
     </article>)}</div>}
   </div>;
