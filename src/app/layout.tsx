@@ -46,6 +46,12 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
             __html: `(()=>{try{const s=localStorage.getItem(${JSON.stringify(themeKey)});document.documentElement.dataset.theme=s==="light"||s==="dark"?s:matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}catch{}})()`,
           }}
         />
+        <script
+          id="track-init"
+          dangerouslySetInnerHTML={{
+            __html: `(()=>{try{const p=new URLSearchParams(location.search).get("track")||localStorage.getItem("selected-track")||"flutter";document.documentElement.dataset.track=p}catch{}})()`,
+          }}
+        />
       </head>
       <body>
         <ClerkRoot><SiteShell>{children}</SiteShell></ClerkRoot>
