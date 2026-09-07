@@ -9,6 +9,7 @@ import { repositoryUrl } from "./site-config";
 import { ThemeToggle } from "./theme-toggle";
 import { BrandLogo } from "./logo";
 import { ClerkControls } from "./clerk-controls";
+import { ModeratorNavLink } from "./moderator-nav-link";
 import { useActiveTrack } from "./active-track";
 
 const cataloguePaths = [["topics", "/topics"], ["questions", "/questions"], ["interview", "/interview"]] as const;
@@ -57,7 +58,22 @@ export function SiteShell({ children }: { children: ReactNode }) {
   const targetLocale: Locale = locale === "ar" ? "en" : "ar";
   const switchHref = `${localizedHref(targetLocale, unprefixedPath(pathname))}${query}`;
   const href = (path: string) => localizedHref(locale, trackHref(path));
-  const links = <>{cataloguePaths.map(([key, path]) => <Link key={path} href={href(path)} prefetch={false} onClick={() => menu.current?.close()}>{copy[key]}</Link>)}<span className="nav-divider" aria-hidden="true" />{activityPaths.map(([key, path]) => <Link key={path} href={href(path)} prefetch={false} onClick={() => menu.current?.close()}>{copy[key]}</Link>)}</>;
+  const links = (
+    <>
+      {cataloguePaths.map(([key, path]) => (
+        <Link key={path} href={href(path)} prefetch={false} onClick={() => menu.current?.close()}>
+          {copy[key]}
+        </Link>
+      ))}
+      <span className="nav-divider" aria-hidden="true" />
+      {activityPaths.map(([key, path]) => (
+        <Link key={path} href={href(path)} prefetch={false} onClick={() => menu.current?.close()}>
+          {copy[key]}
+        </Link>
+      ))}
+      <ModeratorNavLink locale={locale} href={href("/moderator")} onClick={() => menu.current?.close()} />
+    </>
+  );
 
   function openMenu() {
     menu.current?.showModal();
