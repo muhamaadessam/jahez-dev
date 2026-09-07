@@ -1,0 +1,1810 @@
+import { writeFileSync } from "node:fs";
+import { resolve } from "node:path";
+
+interface RawQuestion {
+  id: string;
+  slug: string;
+  topicId: string;
+  difficulty: "Junior" | "Mid" | "Senior";
+  question: string;
+  shortAnswer: string;
+  explanation: string;
+  codeExample?: string;
+  commonMistakes: string[];
+  followUpQuestions: string[];
+  sources: { title: string; url: string }[];
+}
+
+// 10 topics x 10 questions = 100 questions for PHP / Laravel
+const rawQuestions: RawQuestion[] = [
+  // Topic: php-core (10 questions: pcore-001 to pcore-010)
+  {
+    id: "pcore-001",
+    slug: "php-type-juggling-vs-strict-types",
+    topicId: "php-core",
+    difficulty: "Junior",
+    question: "ما الفرق بين Type Juggling وموجه declare(strict_types=1) في PHP؟",
+    shortAnswer: "Type Juggling يقوم بتحويل الأنواع ضمنياً وبشكل تلقائي، بينما strict_types يفرض مطابقة دقيقة للأنواع في المعاملات والقيم المعادة ويرمي TypeError عند عدم التطابق.",
+    explanation: "افتراضياً في PHP، إذا كانت الدالة تتوقع int ومررت النص '42'، ستقوم اللغة بتحويله ضمنياً. عند وضع declare(strict_types=1) في السطر الأول من الملف، تُلغى التحويلات الضمنية للملف المستدعي، ويرمي المحرك TypeError فوراً، مما يمنع الأخطاء الخفية ويحسن أمان واستقرار الكود.",
+    codeExample: `<?php
+declare(strict_types=1);
+
+function add(int $a, int $b): int {
+    return $a + $b;
+}
+add(5, 10); // صحيح
+// add("5", 10); // يرمي Fatal TypeError`,
+    commonMistakes: ["الاعتقاد بأن declare(strict_types=1) يؤثر على كامل المشروع بمجرد وضعه في ملف واحد؛ هو يؤثر حصراً على الملف المكتوب فيه."],
+    followUpQuestions: ["كيف تتعامل strict_types مع تمرير int لدالة تتوقع float؟"],
+    sources: [{ title: "PHP docs — Type declarations", url: "https://www.php.net/manual/en/language.types.declarations.php" }],
+  },
+  {
+    id: "pcore-002",
+    slug: "php-comparison-operators-equal-vs-identical",
+    topicId: "php-core",
+    difficulty: "Junior",
+    question: "ما الفرق بين عامل المقارنة == (Equal) وعامل التطابق === (Identical) في PHP 8+؟",
+    shortAnswer: "يقارن == القيم بعد محاولة تحويل الأنواع، بينما يقارن === القيمة والنوع معاً دون أي تحويل ضمني.",
+    explanation: "في الإصدارات السابقة لـ PHP، كانت المقارنات الضمنية عبر == تؤدي لكوارث أمنية (مثل 0 == 'admin' كانت تعيد true). في PHP 8 تم تحسين المقارنات بين الأرقام والنصوص لتصبح أكثر حذراً، ولكن القاعدة الذهبية الموصى بها في المقابلات دائماً هي استخدام === في كل مكان لتفادي مفاجآت التحويلات الضمنية.",
+    codeExample: `0 === "0"; // false
+0 == "0";  // true
+false === 0; // false`,
+    commonMistakes: ["استخدام == لمقارنة كلمات المرور أو الرموز الأمنية مما يتيح ثغرات التخمين والـ Type Juggling."],
+    followUpQuestions: ["كيف تغير سلوك المقارنة بين الأرقام والنصوص غير الرقمية في PHP 8 مقارنة بـ PHP 7؟"],
+    sources: [{ title: "PHP docs — Comparison Operators", url: "https://www.php.net/manual/en/language.operators.comparison.php" }],
+  },
+  {
+    id: "pcore-003",
+    slug: "php-opcache-and-jit-compilation",
+    topicId: "php-core",
+    difficulty: "Senior",
+    question: "كيف يعمل OPcache وما دور مجمع JIT (Just-In-Time) الذي أضيف في PHP 8؟",
+    shortAnswer: "يقوم OPcache بتخزين الـ Opcode المجمع مسبقاً في الذاكرة لتفادي إعادة قراءة الملفات، بينما يقوم JIT بترجمة مقاطع الـ Opcode المتكررة مباشرة إلى تعليمات الآلة الأصلية (Machine Code).",
+    explanation: "في دورة حياة PHP التقليدية، يتم قراءة الكود وتحليله (Tokenization & Parsing) وتجميعه إلى Opcodes مع كل طلب. يلغي OPcache هذه الخطوة بتخزين الـ Opcodes في الذاكرة المشتركة. أما JIT (المبني بنظام DynASM) فيأخذ المقاطع الأكثر استخداماً (Hot Spots) ويترجمها إلى تعليمات المعالج المباشرة، مما يفيد المهام الحسابية والرياضية الثقيلة أكثر من تطبيقات الويب المقيدة بالـ I/O.",
+    codeExample: `// إعدادات opcache.ini
+opcache.enable=1
+opcache.jit=tracing
+opcache.jit_buffer_size=100M`,
+    commonMistakes: ["توقع أن يضاعف JIT سرعة تطبيقات الويب العادية (مثل Laravel)، متناسين أن عنق الزجاجة فيها هو استعلامات قواعد البيانات والشبكة."],
+    followUpQuestions: ["ما الفرق بين tracing JIT و function JIT في إعدادات PHP؟"],
+    sources: [{ title: "PHP docs — OPcache and JIT", url: "https://www.php.net/manual/en/book.opcache.php" }],
+  },
+  {
+    id: "pcore-004",
+    slug: "php-memory-management-and-reference-counting",
+    topicId: "php-core",
+    difficulty: "Senior",
+    question: "كيف تدير PHP الذاكرة باستخدام عد المراجع (Reference Counting) ونظام جمع الدورات (Cycles Collection)؟",
+    shortAnswer: "تخزن المتغيرات في كائنات zval تحتوي على refcount؛ وعندما يصل العداد لصفر تُحرر الذاكرة، ويدير Cycle Collector استرجاع الكائنات ذات المراجع الدائرية المغلقة.",
+    explanation: "كل متغير في محرك Zend يمثله هيكل zval. عند إسناد متغير لآخر، لا يتم نسخ القيمة في الذاكرة فوراً بل يُطبق نمط Copy-On-Write (COW) ويزداد الـ refcount. إذا كان كائنان يشيران لبعضهما البعض وحُذفت المتغيرات الأصلية (Circular Reference)، يظل refcount=1 ولا يستطيع النظام العادي تحريرهما، وهنا يتدخل Cycle Garbage Collector لفحص جذور المراجع وتصفية الحلقات المغلقة.",
+    codeExample: `// Copy-on-write
+$a = range(1, 1000000);
+$b = $a; // لا يتم استهلاك ذاكرة جديدة هنا
+$b[0] = 99; // يتم نسخ المصفوفة فعلياً في الذاكرة الآن فقط`,
+    commonMistakes: ["الاعتقاد بأن إسناد المتغيرات الكبيرة في PHP يضاعف استهلاك الذاكرة دائماً، وتجاهل آلية Copy-On-Write."],
+    followUpQuestions: ["كيف تستدعي دالة gc_collect_cycles() يدوياً أثناء تشغيل سكريبتات المعالجة الطويلة للـ CLI؟"],
+    sources: [{ title: "PHP docs — Reference Counting Basics", url: "https://www.php.net/manual/en/features.gc.refcounting-basics.php" }],
+  },
+  {
+    id: "pcore-005",
+    slug: "php-null-coalescing-and-nullsafe-operator",
+    topicId: "php-core",
+    difficulty: "Junior",
+    question: "ما الفرق بين عامل Null Coalescing (??) وعامل Nullsafe Operator (?->) في PHP الحديثة؟",
+    shortAnswer: "العامل ?? يوفر قيمة بديلة إذا كان المتغير null أو غير معرف، بينما ?-> يسمح باستدعاء الدوال والخصائص بأمان وتجاوز السلسلة إذا كان الكائن null دون رمي خطأ.",
+    explanation: "قديماً كان فحص كائن متداخل يتطلب عدة شروط isset($user) && isset($user->profile). في PHP 8، يسمح عامل ?-> باختصارها إلى $user?->profile?->getAddress()؛ فإذا كانت أي حلقة في السلسلة null، تتوقف المعالجة فوراً وتعيد null. أما ?? فيُستخدم لإعطاء قيمة افتراضية: $name = $user?->name ?? 'Guest'.",
+    codeExample: `$country = $order?->customer?->address?->getCountry() ?? "Unknown";`,
+    commonMistakes: ["استخدام ?-> للكتابة أو تعيين الخصائص ($user?->name = 'Ali') وهو أمر غير مدعوم في PHP."],
+    followUpQuestions: ["ما الفرق بين عامل Null Coalescing (??) وعامل Elvis Operator (?:)؟"],
+    sources: [{ title: "PHP docs — Nullsafe Operator", url: "https://www.php.net/manual/en/language.oop5.basic.php#language.oop5.basic.nullsafe" }],
+  },
+  {
+    id: "pcore-006",
+    slug: "php-generators-and-yield-memory-efficiency",
+    topicId: "php-core",
+    difficulty: "Senior",
+    question: "ما هي المولدات (Generators) وكيف توفر كلمة yield استهلاك الذاكرة عند قراءة البيانات الضخمة؟",
+    shortAnswer: "المولد هو دالة تعيد مكرراً (Iterator) دون تخزين كامل البيانات في الذاكرة، حيث تعيد كل قيمة بـ yield وتعلق التنفيذ حتى يُطلب العنصر التالي.",
+    explanation: "إذا حاولت قراءة ملف بحجم 1GB ومصفوفة بمليون سجل، ستتجاوز memory_limit فوراً. باستخدام المولدات، تنتج الدالة قيمة واحدة في كل دورة وتتوقف، مما يحافظ على استهلاك ذاكرة ثابت وصغير جداً (بضعة كيلوبايت) مهما كان حجم مجموعة البيانات الكلية.",
+    codeExample: `function readLargeFile(string $path): Generator {
+    $handle = fopen($path, 'r');
+    while (($line = fgets($handle)) !== false) {
+        yield trim($line);
+    }
+    fclose($handle);
+}
+foreach (readLargeFile("large.txt") as $line) {
+    // معالجة سطر بسطر
+}`,
+    commonMistakes: ["محاولة استدعاء count() على دالة مولدة Generator حيث إنها لا تحتوي على طول ثابت مسبق."],
+    followUpQuestions: ["كيف تدعم المولدات إرسال البيانات إلى الداخل عبر دالة $generator->send()؟"],
+    sources: [{ title: "PHP docs — Generators overview", url: "https://www.php.net/manual/en/language.generators.overview.php" }],
+  },
+  {
+    id: "pcore-007",
+    slug: "php-errors-vs-exceptions-hierarchy",
+    topicId: "php-core",
+    difficulty: "Mid",
+    question: "كيف تطور التسلسل الهرمي للأخطاء والاستثناءات تحت واجهة Throwable في PHP الحديثة؟",
+    shortAnswer: "ترث فئات Exception و Error من الواجهة العامة Throwable، مما يتيح التقاط أخطاء المحرك الجسيمة (Fatal Errors) بكتلة try/catch.",
+    explanation: "قبل PHP 7، كانت الأخطاء الفادحة (Fatal Errors) مثل استدعاء دالة غير موجودة أو انتهاء الذاكرة توقف السكريبت فوراً دون إمكانية التقاطها برمجياً. في الأنظمة الحديثة، تحولت معظم الأخطاء إلى فئات ترث من Error (مثل TypeError وParseError). بالتقاط Throwable، تستطيع حماية التطبيق من الانهيار وتسجيل الخطأ وإعادة استجابة منسقة للمستخدم.",
+    codeExample: `try {
+    nonExistentFunction();
+} catch (Throwable $e) {
+    // يلتقط الاستثناءات والأخطاء الفادحة معاً
+    error_log($e->getMessage());
+}`,
+    commonMistakes: ["كتابة فئات مخصصة تنفذ واجهة Throwable مباشرة؛ المحرك يمنع ذلك ويشترط الوراثة من Exception أو Error."],
+    followUpQuestions: ["ما الفرق بين ParseError و CompileError في تسلسل الوراثة؟"],
+    sources: [{ title: "PHP docs — The Throwable interface", url: "https://www.php.net/manual/en/class.throwable.php" }],
+  },
+  {
+    id: "pcore-008",
+    slug: "php-sessions-and-session-locking",
+    topicId: "php-core",
+    difficulty: "Senior",
+    question: "كيف تعمل الجلسات (Sessions) في PHP وما هي مشكلة قفل الجلسة (Session Locking) وكيف تحلها؟",
+    shortAnswer: "تقفل PHP ملف الجلسة للمستخدم حصرياً طوال فترة تنفيذ الطلب لمنع تضارب البيانات؛ وتحل المشكلة باستدعاء session_write_close() فور الانتهاء من قراءة وتعديل الجلسة.",
+    explanation: "عند استدعاء session_start()، تحجز PHP قفلاً حصرياً (Exclusive Lock) على ملف الجلسة الخاص بذلك المستخدم. إذا فتح المستخدم عدة تبويبات أو أرسل عدة طلبات AJAX متزامنة، ستعلق كل الطلبات اللاحقة في طابور انتظار حتى ينتهي الطلب الأول من التنفيذ تماماً. استدعاء session_write_close() يحرر القفل فوراً ويسمح للطلبات المتزامنة بالعمل بالتوازي.",
+    codeExample: `session_start();
+$userId = $_SESSION['user_id'];
+// تحرير القفل فوراً حتى لا تعطل الطلبات المتزامنة الأخرى
+session_write_close();
+// تنفيذ عمليات الـ I/O الطويلة بأمان`,
+    commonMistakes: ["ترك الجلسة مقفلة أثناء تنفيذ عمليات خارجية طويلة مثل استدعاءات الـ APIs الخارجية."],
+    followUpQuestions: ["كيف يؤثر استخدام Redis كمخزن للجلسات على سلوك الـ Session Locking؟"],
+    sources: [{ title: "PHP docs — session_write_close", url: "https://www.php.net/manual/en/function.session-write-close.php" }],
+  },
+  {
+    id: "pcore-009",
+    slug: "php-anonymous-functions-and-arrow-functions",
+    topicId: "php-core",
+    difficulty: "Junior",
+    question: "ما الفرق بين الدوال المجهولة (Closures) ودوال الأسهم (Arrow Functions fn()) في PHP؟",
+    shortAnswer: "الـ Closures العادية تتطلب استخدام كلمة use لتمرير المتغيرات الخارجية، بينما الـ Arrow Functions تلتقط المتغيرات من النطاق الخارجي ضمنياً عبر القيمة (By-Value).",
+    explanation: "أضيفت Arrow Functions في PHP 7.4 لصياغة الدوال السريعة بسطر واحد fn($x) => $x * $multiplier. تتميز بالتقاطها التلقائي للمتغيرات في النطاق المحيط دون الحاجة لكتابة use ($multiplier). في المقابل، تتيح الـ Closures الكلاسيكية تعديل المتغيرات الخارجية عند تمريرها بالمرجع use (&$count) وتدعم كتل كود متعددة الأسطر.",
+    codeExample: `$factor = 2;
+// Arrow function: التقاط تلقائي
+$nums = array_map(fn($n) => $n * $factor, [1, 2, 3]);
+
+// Traditional closure
+$double = function($n) use ($factor) {
+    return $n * $factor;
+};`,
+    commonMistakes: ["محاولة كتابة عدة أسطر برمجية داخل fn()؛ دوال الأسهم في PHP تدعم حصراً تعبيراً واحداً يُعاد تلقائياً."],
+    followUpQuestions: ["هل يمكن للدوال السهمية fn() تعديل قيمة المتغير الخارجي الملتقط؟"],
+    sources: [{ title: "PHP docs — Arrow Functions", url: "https://www.php.net/manual/en/functions.arrow.php" }],
+  },
+  {
+    id: "pcore-010",
+    slug: "php-fpm-architecture-and-process-pools",
+    topicId: "php-core",
+    difficulty: "Senior",
+    question: "كيف تعمل بنية PHP-FPM وما الفرق بين أوضاع إدارة العمليات: static و dynamic و ondemand؟",
+    shortAnswer: "PHP-FPM هو مدير عمليات FastCGI؛ وضع static يحافظ على عدد ثابت من العمليات لأقصى أداء، بينما dynamic يغير العدد بناءً على الحمل، وondemand ينشئ العمليات فقط عند وصول الطلب لتوفير الرام.",
+    explanation: "يتواصل خادم الويب (Nginx) مع PHP-FPM عبر مقبس شبكة أو UNIX Socket. في الخوادم عالية الزيارات المخصصة لتطبيق واحد، يعد وضع static الأفضل لأنه يلغي تكلفة إنشاء وإغلاق العمليات المستمرة. بينما يفيد dynamic في الخوادم متوسطة الموارد، ويفيد ondemand في الاستضافات المشتركة لتوفير استهلاك الذاكرة للمواقع الخاملة.",
+    codeExample: `// php-fpm.d/www.conf
+pm = dynamic
+pm.max_children = 50
+pm.start_servers = 10
+pm.min_spare_servers = 5
+pm.max_spare_servers = 20
+pm.max_requests = 1000`,
+    commonMistakes: ["عدم تحديد pm.max_requests مما يسبب تراكم تسريبات الذاكرة في عمليات PHP-FPM طويلة العمر."],
+    followUpQuestions: ["كيف تحسب القيمة المثلى لمعامل pm.max_children بناءً على حجم الرام ومتوسط استهلاك العملية؟"],
+    sources: [{ title: "PHP docs — FastCGI Process Manager (FPM)", url: "https://www.php.net/manual/en/install.fpm.php" }],
+  },
+
+  // Topic: php-oop (10 questions: poop-001 to poop-010)
+  {
+    id: "poop-001",
+    slug: "php-constructor-property-promotion",
+    topicId: "php-oop",
+    difficulty: "Junior",
+    question: "كيف تختصر ميزة Constructor Property Promotion كتابة الفئات في PHP 8+؟",
+    shortAnswer: "تسمح بتعريف الخصائص ونوعها ومستوى الرؤية وإسنادها مباشرة داخل معاملات الباني (__construct) في سطر واحد دون تكرار الكود.",
+    explanation: "قديماً، كان إنشاء خاصية يتطلب الإعلان عنها أعلى الفئة، ثم استقبالها كمعامل في الباني، ثم إسنادها عبر $this->property = $property. في PHP 8، مجرد وضع كلمة public أو private أو protected أمام المعامل في الباني يوجه المحرك لإنشاء الخاصية وإسناد قيمتها تلقائياً.",
+    codeExample: `class User {
+    public function __construct(
+        public readonly int $id,
+        public string $name,
+        private string $email
+    ) {}
+}`,
+    commonMistakes: ["استخدام constructor promotion خارج دالة الباني __construct."],
+    followUpQuestions: ["كيف تدمج ميزة readonly مع Constructor Property Promotion؟"],
+    sources: [{ title: "PHP docs — Constructor Promotion", url: "https://www.php.net/manual/en/language.oop5.decon.php#language.oop5.decon.constructor.promotion" }],
+  },
+  {
+    id: "poop-002",
+    slug: "php-readonly-classes-and-immutability",
+    topicId: "php-oop",
+    difficulty: "Mid",
+    question: "ما هي فئات Readonly Classes في PHP 8.2 وكيف تعزز مبدأ كائنات القيمة غير القابلة للتعديل (Value Objects)؟",
+    shortAnswer: "فئة تجعل كل خصائصها readonly تلقائياً وتمنع إضافة أي خصائص ديناميكية، مما يضمن ثبات حالة الكائن بعد إنشائه.",
+    explanation: "تعد كائنات القيمة غير القابلة للتعديل (Immutable Value Objects) من ركائز الـ Domain-Driven Design والبرمجة الآمنة. قبل PHP 8.2 كان المطور يضطر لكتابة readonly أمام كل خاصية. عند وسم الفئة بـ readonly class، يضمن المحرك تعيين كل الخصائص في الباني وعدم إمكانية تغييرها مطلقاً طوال دورة حياة الكائن.",
+    codeExample: `readonly class Money {
+    public function __construct(
+        public int $amount,
+        public string $currency
+    ) {}
+}`,
+    commonMistakes: ["محاولة وسم فئة تحتوي على خصائص غير محددة الأنواع (Untyped Properties) بـ readonly حيث يشترط المحرك تحديد النوع."],
+    followUpQuestions: ["كيف تؤثر الوراثة على الفئات الموسومة بـ readonly class؟"],
+    sources: [{ title: "PHP docs — Readonly classes", url: "https://www.php.net/manual/en/language.oop5.basic.php#language.oop5.basic.class.readonly" }],
+  },
+  {
+    id: "poop-003",
+    slug: "php-traits-precedence-and-method-conflicts",
+    topicId: "php-oop",
+    difficulty: "Mid",
+    question: "كيف تحل تعارض أسماء الدوال عند استخدام سمات Traits متعددة في PHP؟",
+    shortAnswer: "تستخدم كلمة insteadof لتحديد الدالة الفائزة من السمة المحددة، وكلمة as لإعطاء اسم بديل (Alias) أو تغيير مستوى الرؤية للدالة الأخرى.",
+    explanation: "الـ Traits هي آلية لإعادة استخدام الكود الأفقي في لغات الوراثة الأحادية. إذا اشتركت سمتان A و B في دالة بنفس الاسم doWork()، سيرمي المحرك Fatal Error عند استخدامها. الحل هو إعلان التفضيل الصريح داخل الفئة عبر insteadof واستخدام as لحفظ الدالة الأخرى باسم بديل.",
+    codeExample: `class App {
+    use TraitA, TraitB {
+        TraitA::doWork insteadof TraitB;
+        TraitB::doWork as doWorkFromB;
+    }
+}`,
+    commonMistakes: ["استخدام Traits كبديل عشوائي للوراثة وحقن التبعيات مما يخلق كائنات ضخمة غير قابلة للاختبار."],
+    followUpQuestions: ["ما هو ترتيب الأسبقية (Precedence) لتنفيذ الدوال بين الفئة الحالية والـ Trait والفئة الأب؟"],
+    sources: [{ title: "PHP docs — Traits", url: "https://www.php.net/manual/en/language.oop5.traits.php" }],
+  },
+  {
+    id: "poop-004",
+    slug: "php-magic-methods-overview",
+    topicId: "php-oop",
+    difficulty: "Junior",
+    question: "ما هي الدوال السحرية (Magic Methods) الأساسية في PHP وما هو دور __get و __set و __call؟",
+    shortAnswer: "دوال تبدأ بشرطتين سفليتين (__); وتُستدعى تلقائياً عند وقوع أحداث محددة مثل محاولة قراءة (__get) أو كتابة (__set) خاصية غير موجودة أو استدعاء دالة غير معلنة (__call).",
+    explanation: "توفر الدوال السحرية مرونة ديناميكية استثنائية تُبنى عليها مكتبات كبرى مثل Eloquent ORM. على سبيل المثال، يعتمد نمط Active Record على __get و__set لاعتراض قراءة وتعديل أعمدة الجداول دون الحاجة لتعريف getter وsetter لكل عمود يدوياً. ومع ذلك، يترتب عليها تكلفة أدائية طفيفة وصعوبة في التحليل الساكن للكود.",
+    codeExample: `class Dynamic {
+    private array $data = [];
+    public function __get(string $name) {
+        return $this->data[$name] ?? null;
+    }
+    public function __set(string $name, $value) {
+        $this->data[$name] = $value;
+    }
+}`,
+    commonMistakes: ["الاعتماد المفرط على __get و __set في منطق الأعمال العادي مما يفقد أدوات الـ IDE ومحللات الأنواع القدرة على فحص الكود."],
+    followUpQuestions: ["ما الفرق بين __call و __callStatic في التعامل مع استدعاء الدوال الديناميكية؟"],
+    sources: [{ title: "PHP docs — Magic Methods", url: "https://www.php.net/manual/en/language.oop5.magic.php" }],
+  },
+  {
+    id: "poop-005",
+    slug: "php-interfaces-vs-abstract-classes",
+    topicId: "php-oop",
+    difficulty: "Junior",
+    question: "متى تختار واجهة برمجة (Interface) ومتى تختار فئة مجردة (Abstract Class) في تصميم كود PHP؟",
+    shortAnswer: "تختار Interface لتعريف عقد سلوكي مجرد وتطبيقه عبر فئات غير مترابطة، وتختار Abstract Class عندما تريد مشاركة كود وتنفيذ حقيقي بين فئات تنتمي لنفس العائلة الهرمية.",
+    explanation: "تتيح PHP تطبيق عدة Interfaces لنفس الفئة (Multiple Interfaces)، مما يدعم مبدأ Interface Segregation. أما الفئات المجردة فتوفر وراثة أحادية (Single Inheritance) وتسمح بتعريف متغيرات حالة (State) ودوال كاملة التنفيذ مع إجبار الفئات المشتقة على تنفيذ الدوال المجردة فقط.",
+    codeExample: `interface PaymentGateway {
+    public function charge(int $amount): bool;
+}
+
+abstract class BaseGateway implements PaymentGateway {
+    protected function logTransaction(int $amount): void {
+        // كود مشترك
+    }
+}`,
+    commonMistakes: ["إنشاء Abstract Class لا يحتوي على أي كود تنفيذي مشترك، وكان الأولى تحويله إلى Interface."],
+    followUpQuestions: ["هل يمكن للواجهات في PHP أن ترث من واجهات متعددة أخرى؟"],
+    sources: [{ title: "PHP docs — Object Interfaces", url: "https://www.php.net/manual/en/language.oop5.interfaces.php" }],
+  },
+  {
+    id: "poop-006",
+    slug: "php-late-static-binding-self-vs-static",
+    topicId: "php-oop",
+    difficulty: "Mid",
+    question: "ما الفرق الجوهري بين كلمة self وكلمة static في استدعاءات الـ Late Static Binding بـ PHP؟",
+    shortAnswer: "تشير self إلى الفئة التي كُتب فيها الكود أثناء زمن الترجمة، بينما تشير static إلى الفئة التي تم استدعاء الدالة منها فعلياً وقت التشغيل.",
+    explanation: "في الوراثة، إذا كانت الفئة الأب تحتوي على دالة static تنشئ نسخة جديدة عبر new self()، وقامت فئة ابن باستدعاء الدالة، ستنشئ self نسخة من الأب دائماً. إدخال مفهوم Late Static Binding عبر new static() يوجه المحرك لحل الفئة بناءً على الفئة المستدعية وقت التشغيل، وهو الأساس المعتمد في نمط Model::create() بـ Laravel.",
+    codeExample: `class Model {
+    public static function make() {
+        return new static(); // ينشئ نسخة من الفئة الفرعية المستدعية
+    }
+}
+class User extends Model {}
+User::make(); // ينشئ User وليس Model`,
+    commonMistakes: ["استخدام self::class في مصانع الفئات الموروثة مما يعيد اسم الفئة الأساسية دائماً."],
+    followUpQuestions: ["كيف تعمل دالة get_called_class() بالتوازي مع مفهوم static Late Binding؟"],
+    sources: [{ title: "PHP docs — Late Static Bindings", url: "https://www.php.net/manual/en/language.oop5.late-static-bindings.php" }],
+  },
+  {
+    id: "poop-007",
+    slug: "php-anonymous-classes-usage",
+    topicId: "poop-007",
+    difficulty: "Mid",
+    question: "ما هي الفئات المجهولة (Anonymous Classes) ومتى يتم استخدامها في PHP؟",
+    shortAnswer: "هي فئات تُنشأ وتُنفذ في مكانها دون إعطائها اسماً رسمياً، وتستخدم في الاختبارات لإنشاء كائنات تجريبية أو تمرير تطبيقات سريعة لواجهات أحادية الاستخدام.",
+    explanation: "أضيفت الفئات المجهولة في PHP 7 لتجنب إنشاء ملفات فئات جديدة عندما لا تحتاج الكائن إلا في سياق محدد لمرة واحدة. تستطيع الفئة المجهولة تمرير معاملات إلى الباني، وتطبيق الواجهات، وتوريث الفئات، مع الاحتفاظ بكامل ميزات الفئات العادية.",
+    codeExample: `$logger = new class implements LoggerInterface {
+    public function log(string $msg): void {
+        echo $msg;
+    }
+};`,
+    commonMistakes: ["استخدام فئات مجهولة لكائنات تحتاج للتخزين المؤقت في الجلسات أو الـ Serialization."],
+    followUpQuestions: ["هل تمتلك الفئات المجهولة في PHP أسماء داخلية يولدها المحرك يمكن رؤيتها بـ get_class()؟"],
+    sources: [{ title: "PHP docs — Anonymous Classes", url: "https://www.php.net/manual/en/language.oop5.anonymous.php" }],
+  },
+  {
+    id: "poop-008",
+    slug: "php-magic-methods-invoke-and-clone",
+    topicId: "php-oop",
+    difficulty: "Mid",
+    question: "كيف تعمل الدالة السحرية __invoke ودالة __clone وما هو النسخ العميق (Deep Copy)؟",
+    shortAnswer: "__invoke تسمح بمعاملة الكائن وكأنه دالة واستدعائه مباشرة، بينما __clone تُستدعى عند نسخ كائن لتنفيذ نسخ عميق للكائنات المتداخلة بداخله.",
+    explanation: "في PHP، نسخ كائن بـ $b = clone $a ينفذ نسخاً سطحياً (Shallow Copy)؛ فإذا كان الكائن يحتوي على مراجع لكائنات أخرى، ستشير النسختان إلى نفس الكائنات التابعة. تتيح دالة __clone اعتراضا لهذه العملية واستدعاء clone على الخصائص المتداخلة لضمان استقلالية الكائن الجديد تماماً. أما __invoke فتستخدم على نطاق واسع في Action Classes وحزم الـ Middlewares.",
+    codeExample: `class Action {
+    public function __invoke(string $data) {
+        return strtoupper($data);
+    }
+}
+$action = new Action();
+echo $action("hello"); // يعامل الكائن كدالة`,
+    commonMistakes: ["الاعتماد على clone السطحي وتوقع استقلال الكائنات المتداخلة دون كتابة منطق __clone صريح."],
+    followUpQuestions: ["كيف تدعم أطر العمل مثل Laravel متحكمات الـ Single Action Controllers عبر __invoke؟"],
+    sources: [{ title: "PHP docs — Object Cloning", url: "https://www.php.net/manual/en/language.oop5.cloning.php" }],
+  },
+  {
+    id: "poop-009",
+    slug: "php-autovivification-and-object-references",
+    topicId: "php-oop",
+    difficulty: "Senior",
+    question: "كيف تختلف معاملات الكائنات (Objects by Reference) عن المتغيرات العادية في تمرير دوال PHP؟",
+    shortAnswer: "تُمرر الكائنات بمعرف الكائن (Object Identifier)؛ لذا فإن تعديل خصائص الكائن داخل دالة ينعكس على الكائن الأصلي دون الحاجة لعلامة &.",
+    explanation: "في PHP، المتغيرات البدائية تُمرر بالقيمة (Copy-On-Write). أما الكائنات، فإن المتغير يحمل مجرد معرف يشير إلى الكائن الفعلي في ذاكرة الـ Zend Engine. عند تمرير الكائن لدالة، يحصل المعامل على نسخة من المعرف تشير لنفس الكائن في الذاكرة. التمييز الدقيق هو أن استبدال الكائن بالكامل داخل الدالة بـ $obj = new Other() لا يغير الأصل، ولكن $obj->prop = 5 يغير الأصل فوراً.",
+    codeExample: `function modify(stdClass $o) {
+    $o->name = "Updated"; // ينعكس على الكائن الأصلي خارج الدالة
+}
+$user = (object)['name' => 'Original'];
+modify($user);
+echo $user->name; // Updated`,
+    commonMistakes: ["إضافة علامة & قبل معاملات الكائنات دون حاجة ظناً أنها ضرورية لتعديل خصائص الكائن."],
+    followUpQuestions: ["متى تكون علامة & ضرورية فعلاً مع الكائنات (مثلاً لإعادة توجيه المتغير نفسه لكائن آخر)؟"],
+    sources: [{ title: "PHP docs — Objects and references", url: "https://www.php.net/manual/en/language.oop5.references.php" }],
+  },
+  {
+    id: "poop-010",
+    slug: "php-reflection-api-and-dependency-injection",
+    topicId: "poop-010",
+    difficulty: "Senior",
+    question: "كيف تستخدم حزم الـ Service Containers واجهة Reflection API في PHP لتحقيق الـ Auto-wiring؟",
+    shortAnswer: "تفحص فئات ReflectionClass و ReflectionMethod معاملات الباني، وتستخرج أنواعها البرمجية، وتنشئ نسخ التبعيات تلقائياً وتحقنها دون إعداد يدوي.",
+    explanation: "تتيح مكتبة Reflection قراءة بيانات الكود (Introspection) وقت التشغيل. عند طلب خدمة من الـ Service Container (مثل Laravel Container)، يفحص الباني: $reflector = new ReflectionClass($class). إذا وجد معاملات من نوع فئات أخرى، يستدعي الحاوية تكرارياً لإنشاء تلك التبعيات، ثم ينشئ الفئة المستهدفة عبر $reflector->newInstanceArgs($dependencies).",
+    codeExample: `$refMethod = new ReflectionMethod(UserController::class, "__construct");
+foreach ($refMethod->getParameters() as $param) {
+    $type = $param->getType()->getName();
+    // جلب التبعية وحقنها تلقائياً
+}`,
+    commonMistakes: ["الاستخدام المفرط للـ Reflection في مسارات الطلبات المتكررة دون تخزين مؤقت للنتائج (Caching) مما يبطئ الأداء."],
+    followUpQuestions: ["كيف يتعامل الـ Container مع المعاملات البدائية (Primitive values) التي لا تملك قيود أنواع للفئات؟"],
+    sources: [{ title: "PHP docs — Reflection", url: "https://www.php.net/manual/en/book.reflection.php" }],
+  },
+
+  // Topic: php-modern (10 questions: pmod-001 to pmod-010)
+  {
+    id: "pmod-001",
+    slug: "php-match-expression-vs-switch",
+    topicId: "php-modern",
+    difficulty: "Junior",
+    question: "ما هي مزايا تعبير match في PHP 8 مقارنة بجملة switch الكلاسيكية؟",
+    shortAnswer: "match هو تعبير يعيد قيمة مباشرة، ويستخدم المقارنة الصارمة (===)، ولا يحتاج لعبارات break، ويرمي UnhandledMatchError إذا لم تطابق أي حالة.",
+    explanation: "جملة switch التقليدية تستخدم المقارنة الفضفاضة (==) وتتطلب كتابة break بعد كل حالة لتفادي السقوط (Fallthrough). تعبير match أضاف صياغة وظيفية موجزة وآمنة للغاية تضمن التطابق الصارم للأنواع وتعيد القيمة الناتجة مباشرة لإسنادها لمتغير.",
+    codeExample: `$statusText = match ($code) {
+    200, 201 => "Success",
+    400 => "Bad Request",
+    404 => "Not Found",
+    default => "Unknown Status",
+};`,
+    commonMistakes: ["نسيان توفير حالة default في تعبير match عند عدم تغطية كل الاحتمالات الممكنة."],
+    followUpQuestions: ["كيف يدعم تعبير match الشروط المعقدة باستخدام match (true)؟"],
+    sources: [{ title: "PHP docs — match expression", url: "https://www.php.net/manual/en/control-structures.match.php" }],
+  },
+  {
+    id: "pmod-002",
+    slug: "php-attributes-vs-phpdoc-annotations",
+    topicId: "php-modern",
+    difficulty: "Mid",
+    question: "ما هي السمات (Attributes) في PHP 8+ وكيف تفوقت على تعليقات PHPDoc القديمة؟",
+    shortAnswer: "السمات هي بيانات وصفية مهيكلة ومدمجة في لغة PHP رسمياً، ويتم فحص صحتها وقت الترجمة والوصول إليها عبر Reflection دون الحاجة لتحليل نصوص التعليقات.",
+    explanation: "تاريخياً، كانت أطر العمل مثل Symfony وDoctrine تعتمد على مكتبات خارجية لتحليل نصوص التعليقات /** @Route('/api') */ عبر الـ DocBlocks Parsing. وفرت PHP 8 بنية أصيلة #[Route('/api')] يفسرها المحرك كتعليمات نظامية تدعم الأنواع الصارمة، وإكمال الكود التلقائي في الـ IDE، وتوليد كائنات حقيقية عند استدعاء getAttributes().",
+    codeExample: `#[Attribute(Attribute::TARGET_METHOD)]
+class Route {
+    public function __construct(public string $path) {}
+}
+
+class ApiController {
+    #[Route("/users")]
+    public function list() {}
+}`,
+    commonMistakes: ["افتراض أن السمات تنفذ كوداً تلقائياً بمجرد كتابتها؛ هي مجرد مصفوفة بيانات وصفية تتطلب كوداً خارجياً لفحصها وتطبيق أثرها."],
+    followUpQuestions: ["ما هو دور الراية Attribute::IS_REPEATABLE في السماح بتكرار نفس السمة على دالة واحدة؟"],
+    sources: [{ title: "PHP docs — Attributes overview", url: "https://www.php.net/manual/en/language.attributes.overview.php" }],
+  },
+  {
+    id: "pmod-003",
+    slug: "php-enumerations-enums-backed-and-methods",
+    topicId: "php-modern",
+    difficulty: "Mid",
+    question: "كيف تعمل التعدادات (Enums) في PHP 8.1 وما الفرق بين Pure Enums و Backed Enums؟",
+    shortAnswer: "الـ Pure Enums هي حالات مجردة بلا قيم، بينما الـ Backed Enums ترتبط بقيمة نصية أو رقمية وتدعم دوال من نوع tryFrom() وميثودز داخلية.",
+    explanation: "حلت الـ Enums محل الثوابت الكلاسيكية (Class Constants) التي كانت تفتقر لأمان الأنواع. الـ Backed Enums تحدد نوعاً: enum Status: string وتدعم التحويل الآمن من نصوص قواعد البيانات عبر Status::from($val) أو Status::tryFrom($val). كما يمكن للـ Enums تطبيق الواجهات واحتواء دوال مخصصة.",
+    codeExample: `enum OrderStatus: string {
+    case Pending = 'pending';
+    case Paid = 'paid';
+    case Shipped = 'shipped';
+
+    public function label(): string {
+        return match($this) {
+            self::Pending => 'قيد الانتظار',
+            self::Paid => 'تم الدفع',
+            self::Shipped => 'تم الشحن',
+        };
+    }
+}`,
+    commonMistakes: ["محاولة إسناد قيم من أنواع مختلطة (مثل خلط int و string) في نفس الـ Backed Enum."],
+    followUpQuestions: ["كيف تستفيد أطر العمل مثل Laravel من الـ Enums في توجيه المسارات والتحقق التلقائي للنماذج؟"],
+    sources: [{ title: "PHP docs — Enumerations", url: "https://www.php.net/manual/en/language.enumerations.php" }],
+  },
+  {
+    id: "pmod-004",
+    slug: "php-named-arguments-and-optional-parameters",
+    topicId: "php-modern",
+    difficulty: "Junior",
+    question: "ما هي المعاملات المسماة (Named Arguments) في PHP 8 وما فائدتها مع الدوال متعددة الخيارات؟",
+    shortAnswer: "تتيح تمرير المعاملات بأسمائها بدلاً من ترتيبها، وتسمح بتخطي المعاملات الاختيارية ذات القيم الافتراضية بسهولة.",
+    explanation: "إذا كانت الدالة تحتوي على 6 معاملات اختيارية وتريد تغيير المعامل الأخير فقط، كنت تضطر قديماً لكتابة كل القيم الافتراضية السابقة بالترتيب. مع المعاملات المسماة، يمكنك كتابة setcookie(name: 'session', value: '123', secure: true) متخطياً باقي المعاملات، مع تحسين وضوح ومقروءية الكود بشكل جذري.",
+    codeExample: `function createUser(string $name, int $age = 18, bool $isAdmin = false) {}
+// تخطي $age وتمرير $isAdmin مباشرة
+createUser(name: "Sara", isAdmin: true);`,
+    commonMistakes: ["تغيير أسماء معاملات الدوال في المكتبات المشتركة، حيث يعتبر ذلك تغييراً كاسراً (Breaking Change) للمستهلكين المعتمدين على Named Arguments."],
+    followUpQuestions: ["كيف تتفاعل المعاملات المسماة مع مصفوفات البيانات عبر الـ Argument Unpacking (...$args)؟"],
+    sources: [{ title: "PHP docs — Named Arguments", url: "https://www.php.net/manual/en/functions.arguments.php#functions.named-arguments" }],
+  },
+  {
+    id: "pmod-005",
+    slug: "php-fibers-and-asynchronous-concurrency",
+    topicId: "php-modern",
+    difficulty: "Senior",
+    question: "ما هي ألياف Fibers في PHP 8.1 وكيف تتيح تنفيذ الكود غير المتزامن (Async Concurrency)؟",
+    shortAnswer: "هي خيوط تنفيذ دقيقة خفيفة (Coroutines) يمكن إيقافها واستئنافها من أي مكان في مكدس الاستدعاءات، مما يسمح بكتابة كود غير متزامن بدون تعقيد الـ Promises.",
+    explanation: "قديماً كانت PHP تفتقر إلى دعم التوقف والاستئناف العميق للكود بخلاف المولدات البسيطة. توفر فئة Fiber هيكلاً للـ Concurrency التشاركي؛ حيث يمكن إيقاف الـ Fiber عبر Fiber::suspend() وانتظار إشارة I/O من حلقة أحداث (Event Loop مثل Revolt أو Amp) ثم استئنافها بـ $fiber->resume(). تتيح هذه الميزة لأطر العمل الحديثة تشغيل خوادم سريعة وغير حاجبة مثل FrankenPHP وRoadRunner.",
+    codeExample: `$fiber = new Fiber(function(): void {
+    $data = Fiber::suspend("waiting for IO");
+    echo "Resumed with: " . $data;
+});
+$value = $fiber->start();
+$fiber->resume("ready data");`,
+    commonMistakes: ["الظن بأن الـ Fibers توفر Multi-threading متوازياً حقيقياً على عدة أنوية؛ هي تعمل في خيط واحد بنظام الـ Cooperative Scheduling."],
+    followUpQuestions: ["كيف بنيت مكتبة Revolt Event Loop فوق ألياف Fibers لتوحيد بيئة الـ Async في PHP؟"],
+    sources: [{ title: "PHP docs — Fibers", url: "https://www.php.net/manual/en/language.fibers.php" }],
+  },
+  {
+    id: "pmod-006",
+    slug: "php-union-and-intersection-types",
+    topicId: "php-modern",
+    difficulty: "Mid",
+    question: "ما الفرق بين أنواع الاتحاد (Union Types) وأنواع التقاطع (Intersection Types) في PHP 8+؟",
+    shortAnswer: "أنواع الاتحاد (A|B) تقبل قيمة تنتمي للنوع A أو النوع B، بينما أنواع التقاطع (A&B) تشترط أن تطبق القيمة كلا النوعين A و B معاً.",
+    explanation: "سمحت PHP 8 بتحديد Union Types مثل int|float|null لتوسيع دقة الفحص الساكن دون الحاجة لـ mixed. وفي PHP 8.1 أضيفت Intersection Types التي تفرض أن يكون الكائن محققاً لعقدين معاً مثل Countable&Iterator. وفي PHP 8.2 دُمج المفهومان في Disjunctive Normal Form (DNF Types) مثل (HasId&HasName)|null.",
+    codeExample: `function render(Renderable&JsonSerializable $view): string {
+    return json_encode($view);
+}
+function parse(string|int $input): int {
+    return (int)$input;
+}`,
+    commonMistakes: ["استخدام أنواع بدائية (Primitives مثل int أو string) داخل Intersection Types؛ تقبل التقاطعات حصراً أسماء الفئات والواجهات."],
+    followUpQuestions: ["كيف تكتب أنواع DNF المركبة مثل (A&B)|C في تعريفات معاملات دوال PHP 8.2؟"],
+    sources: [{ title: "PHP docs — Type declarations", url: "https://www.php.net/manual/en/language.types.declarations.php#language.types.declarations.composite" }],
+  },
+  {
+    id: "pmod-007",
+    slug: "php-first-class-callable-syntax",
+    topicId: "php-modern",
+    difficulty: "Junior",
+    question: "ما هي صياغة First-Class Callables الممثلة بـ (...) في PHP 8.1 وكيف تحسن كتابة الـ Callbacks؟",
+    shortAnswer: "تسمح بتحويل أي دالة أو ميثود مباشرة إلى كائن Closure مغلق باستخدام (...) دون الحاجة لتمرير نصوص أو مصفوفات غير آمنة.",
+    explanation: "قديماً، كان تمرير ميثود كـ callback يتطلب كتابة مصفوفة نصوص غير آمنة: [$this, 'handleMethod'] أو 'strlen'. في PHP 8.1، أضيفت صياغة First-Class Callable: strlen(...) أو $this->handleMethod(...)؛ حيث يقوم المحرك بإنشاء كائن Closure فوري مع فحص وجود الدالة وصحتها وقت الترجمة ودعم إكمال الـ IDE التلقائي.",
+    codeExample: `$numbers = ["10", "20", "30"];
+// الصياغة الحديثة
+$integers = array_map(intval(...), $numbers);`,
+    commonMistakes: ["استخدام نصوص أسماء الدوال القديمة في التطبيقات الحديثة مما يمنع أدوات التحليل الساكن من اكتشاف الأخطاء المطبعية."],
+    followUpQuestions: ["كيف تتعامل First-Class Callables مع الدوال المحمية والخاصة داخل نفس الفئة؟"],
+    sources: [{ title: "PHP docs — First-class callable syntax", url: "https://www.php.net/manual/en/functions.first_class_callable_syntax.php" }],
+  },
+  {
+    id: "pmod-008",
+    slug: "php-str-contains-and-modern-string-helpers",
+    topicId: "php-modern",
+    difficulty: "Junior",
+    question: "ما هي دوال النصوص الحديثة str_contains و str_starts_with و str_ends_with في PHP 8؟",
+    shortAnswer: "دوال أصلية بديهية تفحص وجود نص داخل آخر وتعيد boolean مباشرة، كبديل لدوال strpos المعقدة والمعرضة للخطأ.",
+    explanation: "قديماً، كان فحص بداية النص يتطلب: strpos($str, $prefix) === 0؛ وكان المطورون يقعون في فخ if (strpos(...)) حيث أن وجود النص في الموضع 0 يعيد 0 التي تفسر كـ false. وفرت PHP 8 دوال str_contains وstr_starts_with وstr_ends_with التي تقبل سلاسل نصية وتعيد true أو false بوضوح وأمان.",
+    codeExample: `if (str_starts_with($path, "/api/")) {
+    // توجيه لـ API
+}
+if (str_contains($email, "@gmail.com")) {
+    // تحقق
+}`,
+    commonMistakes: ["استخدام if (strpos($haystack, $needle)) للتحقق من وجود الكلمة متناسين فخ الموضع 0."],
+    followUpQuestions: ["كيف تتعامل هذه الدوال مع النصوص الفارغة '' في معامل البحث؟"],
+    sources: [{ title: "PHP docs — str_contains", url: "https://www.php.net/manual/en/function.str-contains.php" }],
+  },
+  {
+    id: "pmod-009",
+    slug: "php-frankenphp-and-application-runtimes",
+    topicId: "php-modern",
+    difficulty: "Senior",
+    question: "ما هو FrankenPHP وكيف يغير نمط تشغيل تطبيقات PHP التقليدي عبر وضع Worker Mode؟",
+    shortAnswer: "خادم ويب حديث مبني بـ Go (Caddy) ومحرك PHP مدمج؛ ووضع Worker Mode يبقي التطبيق محملاً في الذاكرة بين الطلبات مما يضاعف الأداء عشرات المرات.",
+    explanation: "النمط التاريخي لـ PHP يقوم على 'Share Nothing'؛ حيث تُبنى البيئة وتُفرغ بالكامل مع كل طلب HTTP. يتيح خادم FrankenPHP وضع Worker Mode؛ حيث يتم إقلاع إطار العمل (مثل Laravel) وتحميل الحزم وقواعد البيانات لمرة واحدة فقط في الذاكرة، ثم يخدم الخادم آلاف الطلبات المتتالية دون إعادة بناء البيئة، محققاً أزمنة استجابة بالمللي ثوانٍ الفردية.",
+    codeExample: `// وضع Worker في FrankenPHP
+// frankenphp run --worker public/index.php`,
+    commonMistakes: ["تخزين حالات المستخدمين في متغيرات static في وضع الـ Worker مما يسبب تسريب بيانات بين طلبات المستخدمين."],
+    followUpQuestions: ["كيف تنظف حاويات الـ Dependency Injection وحالات الـ Singletons بين الطلبات في بيئات الـ Long-Running PHP؟"],
+    sources: [{ title: "PHP docs — FastCGI and SAPI architecture", url: "https://www.php.net/manual/en/internals2.structure.modstruct.php" }],
+  },
+  {
+    id: "pmod-010",
+    slug: "php-override-attribute-in-php83",
+    topicId: "pmod-010",
+    difficulty: "Junior",
+    question: "ما هي سمة #[\\Override] المضافة في PHP 8.3 وما أهميتها في حماية الوراثة؟",
+    shortAnswer: "سمة توضع على الدوال المشتقة لتأكيد أنها تعيد كتابة دالة موجودة بالفعل في الفئة الأب أو الواجهة؛ ويرمي المحرك خطأ وقت الترجمة إذا تغيرت الدالة الأصلية.",
+    explanation: "في المشاريع الكبيرة، إذا قمت بإعادة كتابة دالة في الفئة الابن، ثم قام مطور آخر بتعديل اسم الدالة أو حذفها في الفئة الأب، ستتحول دالتك المشتقة إلى دالة جديدة صامتة ولن يتم استدعاؤها، مما يخلق ثغرات خفية. إضافة السمة #[\\Override] تجعل محرك PHP يتحقق بنفسه من وجود الدالة في الأب ويرمي Compile Error فوراً إذا لم يجدها.",
+    codeExample: `class ChildClass extends ParentClass {
+    #[\Override]
+    public function execute(): void {
+        // يضمن المحرك وجود execute() في ParentClass
+    }
+}`,
+    commonMistakes: ["وضع #[\\Override] على دالة جديدة كلياً لا تطبق واجهة ولا تعيد كتابة دالة في فئة أب."],
+    followUpQuestions: ["كيف تساهم سمة Override في تسهيل مهام الـ Refactoring وتحديث الحزم الخارجية؟"],
+    sources: [{ title: "PHP docs — Override Attribute", url: "https://www.php.net/manual/en/class.override.php" }],
+  },
+
+  // Topic: php-laravel-core (10 questions: plaracore-001 to plaracore-010)
+  {
+    id: "plaracore-001",
+    slug: "laravel-request-lifecycle-from-index-to-response",
+    topicId: "php-laravel-core",
+    difficulty: "Mid",
+    question: "ما هي دورة حياة الطلب (Request Lifecycle) في Laravel من لحظة وصوله لـ public/index.php وحتى خروج الاستجابة؟",
+    shortAnswer: "يبدأ بـ index.php، ثم تحميل Autoloader، وإنشاء نسخة التطبيق وتمرير الطلب لـ HTTP Kernel، وتشغيل Service Providers، والمرور عبر الـ Middlewares، والتوجيه للـ Controller، وإعادة الاستجابة.",
+    explanation: "يدخل الطلب إلى public/index.php ويتم تحميل الـ Composer autoloader. يستدعي bootstrap/app.php لإنشاء نسخة التطبيق (Application Container). يتم تمرير الطلب إلى HTTP Kernel الذي يشغل مسلسلات الإقلاع (Bootstrappers) لتحميل الإعدادات، ومعالجة الأخطاء، وتسجيل وتشغيل الـ Service Providers (عبر register ثم boot). يمر الطلب بعد ذلك عبر مصفوفة الـ Middlewares العالمية وميدلوير المسار، ليصل إلى المتحكم (Controller)، وتتحول النتيجة إلى Response يعود عبر نفس الـ Middlewares وصولاً لمتصفح العميل.",
+    codeExample: `// public/index.php
+$response = $kernel->handle(
+    $request = Request::capture()
+)->send();
+$kernel->terminate($request, $response);`,
+    commonMistakes: ["وضع كود يعتمد على خدمات أخرى داخل دالة register() في الـ Service Provider قبل اكتمال مرحلة boot()."],
+    followUpQuestions: ["ما الذي يحدث داخل دالة $kernel->terminate() بعد إرسال الاستجابة للعميل؟"],
+    sources: [{ title: "Laravel docs — Request Lifecycle", url: "https://laravel.com/docs/master/lifecycle" }],
+  },
+  {
+    id: "plaracore-002",
+    slug: "laravel-service-container-bindings-and-singletons",
+    topicId: "php-laravel-core",
+    difficulty: "Mid",
+    question: "ما الفرق بين bind و singleton و scoped في Service Container الخاص بـ Laravel؟",
+    shortAnswer: "bind ينشئ نسخة جديدة تماماً مع كل استدعاء، وsingleton يحتفظ بنسخة واحدة طوال عمر التطبيق، بينما scoped يحتفظ بنسخة واحدة لكل طلب HTTP وتُفرغ مع الطلب التالي.",
+    explanation: "الـ Service Container هو عقل Laravel لإدارة التبعيات. تستخدم bind للخدمات خفيفة الوزن أو عديمة الحالة. وتستخدم singleton للخدمات التي تتطلب اتصالات باهظة أو تحتفظ بحالة مشتركة. أضيفت scoped خصيصاً لبيئات الـ Long-Running (مثل Laravel Octane)؛ حيث يجب أن تشترك كل عمليات الطلب الواحد في نفس النسخة، مع ضمان إتلافها فور انتهاء الطلب وتفادي تسريب بيانات المستخدمين.",
+    codeExample: `// نسخة جديدة مع كل طلب حل
+$this->app->bind(Transactor::class, StripeTransactor::class);
+
+// نسخة واحدة للأبد
+$this->app->singleton(DatabaseConnection::class, fn() => new DatabaseConnection());
+
+// نسخة واحدة لكل طلب HTTP
+$this->app->scoped(CurrentTenant::class, fn() => new CurrentTenant());`,
+    commonMistakes: ["استخدام singleton مع كائنات تحتفظ ببيانات مستخدم محدد في بيئات Laravel Octane."],
+    followUpQuestions: ["كيف يعمل الـ Contextual Binding عند الحاجة لحقن تطبيقات مختلفة لنفس الواجهة في متحكمين مختلفين؟"],
+    sources: [{ title: "Laravel docs — Service Container", url: "https://laravel.com/docs/master/container" }],
+  },
+  {
+    id: "plaracore-003",
+    slug: "laravel-service-providers-register-vs-boot",
+    topicId: "php-laravel-core",
+    difficulty: "Mid",
+    question: "ما الفرق بين دالتي register() و boot() في Service Providers بـ Laravel ومتى تستخدم كلاً منهما؟",
+    shortAnswer: "تستخدم register() حصراً لربط الكائنات داخل الـ Container دون استدعاء أي خدمات أخرى، وتستخدم boot() لتنفيذ منطق يعتمد على خدمات أخرى اكتمل تسجيلها.",
+    explanation: "ينفذ Laravel مرحلة التسجيل أولاً؛ فيمر على كل الـ Service Providers ويستدعي دوال register() الخاصة بها. لذلك، إذا حاولت استخدام مستمع أحداث أو استدعاء خدمة أخرى داخل register()، قد يفشل التطبيق لأن الخدمة المستهدفة لم تسجل بعد. بمجرد انتهاء تسجيل جميع الخدمات، يستدعي Laravel دالة boot() عبر جميع المزودات، حيث يصبح كل شيء جاهزاً للاستخدام الآمن.",
+    codeExample: `class AppServiceProvider extends ServiceProvider {
+    public function register(): void {
+        $this->app->singleton(MyService::class, fn() => new MyService());
+    }
+
+    public function boot(): void {
+        // آمن تماماً: استدعاء نماذج، أحداث، وفحص صلاحيات
+        Gate::define('view-dashboard', fn($user) => $user->isAdmin);
+    }
+}`,
+    commonMistakes: ["تسجيل مستمعي الأحداث (Event Listeners) أو استدعاء نماذج قواعد البيانات داخل دالة register()."],
+    followUpQuestions: ["ما هي الـ Deferred Providers ومتى تلجأ إليها لتحسين سرعة إقلاع التطبيق؟"],
+    sources: [{ title: "Laravel docs — Service Providers", url: "https://laravel.com/docs/master/providers" }],
+  },
+  {
+    id: "plaracore-004",
+    slug: "laravel-facades-architecture-and-mocking",
+    topicId: "php-laravel-core",
+    difficulty: "Mid",
+    question: "كيف تعمل واجهات Facades في Laravel داخلياً وما دور دالة getFacadeAccessor؟",
+    shortAnswer: "تعمل كـ Static Proxies لكائنات مسجلة في الـ Service Container، حيث تعيد getFacadeAccessor مفتاح الخدمة وتوجه __callStatic الاستدعاء للنسخة الحقيقية.",
+    explanation: "تمنح الـ Facades صياغة استدعاءات إستاتيكية مريحة مثل Cache::get() أو DB::table(). داخلياً، ترث الفئة من Illuminate\\Support\\Facades\\Facade وتنفذ getFacadeAccessor() لتعيد اسم الخدمة في الـ Container (مثل 'cache'). عند استدعاء أي دالة إستاتيكية، تلتقطها دالة __callStatic وتجلب الكائن الحقيقي من الـ Container وتمرر الاستدعاء إليه، مما يسمح باختبارها واستبدالها بـ Mocks عبر Cache::shouldReceive().",
+    codeExample: `class Cache extends Facade {
+    protected static function getFacadeAccessor(): string {
+        return 'cache';
+    }
+}
+// في الاختبارات
+Cache::shouldReceive('get')->once()->andReturn('mocked');`,
+    commonMistakes: ["الاعتقاد بأن Facades هي دوال إستاتيكية جامدة لا يمكن اختبارها أو استبدالها بـ Mocks."],
+    followUpQuestions: ["ما هي الـ Real-time Facades في Laravel وكيف تُنشأ بإضافة بادئة Facades\\؟"],
+    sources: [{ title: "Laravel docs — Facades", url: "https://laravel.com/docs/master/facades" }],
+  },
+  {
+    id: "plaracore-005",
+    slug: "laravel-octane-and-stateful-memory-leaks",
+    topicId: "php-laravel-core",
+    difficulty: "Senior",
+    question: "كيف يعزز Laravel Octane أداء التطبيقات وما هي مخاطر تسريب الحالة في الذاكرة (State Leaks)؟",
+    shortAnswer: "يشغل التطبيق فوق خوادم عالية السرعة (FrankenPHP أو Swoole) مع إبقاء التطبيق محملاً في الذاكرة؛ وتحدث تسريبات الحالة عند تخزين بيانات الطلب في متغيرات عامة أو Singletons.",
+    explanation: "يلغي Octane وقت إقلاع Laravel لكل طلب. ولكن نظراً لأن العملية الواحدة تخدم آلاف الطلبات المتتالية، فإن أي متغير يُحفظ في فئة Singleton أو متغير إستاتيكي لن يُمسح بعد انتهاء الطلب، مما يهدد بتسريب بيانات مستخدم لآخر. يوفر Octane أدوات لتسجيل حزم التنظيف (Warmers & Terminators) ومستمعات لإعادة تعيين الحالات الحساسة بين الطلبات.",
+    codeExample: `// خطير جداً في Octane: تسريب بيانات بين المستخدمين
+class BadService {
+    public static ?User $currentUser = null;
+}`,
+    commonMistakes: ["الاعتماد على الـ Singletons لتخزين معلومات الطلب الحالي أو المستخدم النشط في بيئة Octane."],
+    followUpQuestions: ["كيف يساعد الأمر php artisan octane:status في مراقبة استهلاك العمال والذاكرة؟"],
+    sources: [{ title: "Laravel docs — Laravel Octane", url: "https://laravel.com/docs/master/octane" }],
+  },
+  {
+    id: "plaracore-006",
+    slug: "laravel-middleware-pipeline-and-terminable",
+    topicId: "php-laravel-core",
+    difficulty: "Mid",
+    question: "كيف ينفذ Laravel نمط خط الأنابيب (Pipeline) في الـ Middlewares وما هي واجهة TerminableMiddleware؟",
+    shortAnswer: "يمرر الطلب عبر سلسلة مغلفة بدوال Closures؛ والـ Terminable Middleware توفر دالة terminate($request, $response) تنفذ بعد إرسال الاستجابة للعميل.",
+    explanation: "تعتمد الـ Middlewares على كلاس Illuminate\\Pipeline\\Pipeline. كل وسيط يستقبل $request ودالة $next؛ يمكنه فحص الطلب قبل استدعاء $next($request)، أو تعديل الاستجابة بعد عودتها. إذا كانت الـ Middleware تطبق دالة terminate()، يقوم Laravel باستدعائها بعد أن يكون العميل قد استلم الاستجابة بالكامل، مما يجعلها مثالية لمهام التسجيل (Logging) وجمع المقاييس دون تعطيل المستخدم.",
+    codeExample: `class LogRequest {
+    public function handle($request, Closure $next) {
+        return $next($request);
+    }
+    public function terminate($request, $response): void {
+        // ينفذ بعد وصول الرد للمتصفح
+        Log::info("Request finished with code: " . $response->status());
+    }
+}`,
+    commonMistakes: ["تنفيذ عمليات طويلة داخل handle() بعد $next() بدلاً من استخدام دالة terminate()."],
+    followUpQuestions: ["كيف تختلف مجموعات الـ Middleware Groups مثل 'web' و 'api' في معالجة الجلسات والـ CSRF؟"],
+    sources: [{ title: "Laravel docs — Middleware", url: "https://laravel.com/docs/master/middleware" }],
+  },
+  {
+    id: "plaracore-007",
+    slug: "laravel-configuration-caching-and-env-pitfall",
+    topicId: "php-laravel-core",
+    difficulty: "Junior",
+    question: "لماذا لا يجب استدعاء دالة env() مطلقاً خارج ملفات مجلد config/ في مشاريع Laravel؟",
+    shortAnswer: "لأن تشغيل أمر config:cache يجمع كل ملفات الإعدادات في ملف واحد ولا يقوم بتحميل ملف .env، مما يجعل دالة env() تعيد null دائماً في كود التطبيق.",
+    explanation: "أمر php artisan config:cache هو تحسين إنتاجي إلزامي يدمج كل الإعدادات في ملف كاش واحد سريع. بمجرد تفعيل الكاش، يتوقف Laravel عن قراءة ملف .env وتصبح مصفوفة المتغيرات غير محملة، وتفشل كل استدعاءات env('KEY') المباشرة داخل الـ Controllers أو الخدمات. الطريقة الصحيحة دائماً هي قراءة المتغير في config/app.php ثم استدعاء config('app.key') في التطبيق.",
+    codeExample: `// خطأ شائع في الإنتاج:
+$secret = env("STRIPE_SECRET"); // سيعيد null عند تشغيل config:cache!
+
+// الطريقة الصحيحة:
+$secret = config("services.stripe.secret");`,
+    commonMistakes: ["استخدام env() داخل الـ Controllers أو الـ Models مما يتسبب في تعطل التطبيق فور تشغيل أمر النشر في الإنتاج."],
+    followUpQuestions: ["كيف تتأكد أثناء مراجعة الكود (Code Review) من عدم وجود أي استدعاء مباشر لـ env() خارج مجلد config؟"],
+    sources: [{ title: "Laravel docs — Configuration Caching", url: "https://laravel.com/docs/master/configuration#configuration-caching" }],
+  },
+  {
+    id: "plaracore-008",
+    slug: "laravel-events-listeners-and-subscribers",
+    topicId: "php-laravel-core",
+    difficulty: "Mid",
+    question: "ما الفرق بين Event Listeners العادية و Event Subscribers في Laravel؟",
+    shortAnswer: "الـ Listener يستمع لحدث واحد محدد، بينما الـ Subscriber هو فئة تستطيع الاشتراك في عدة أحداث مختلفة وتحديد دوال معالجة مخصصة لكل منها.",
+    explanation: "تساعد الأحداث في تطبيق معمارية مفككة الارتباط (Decoupled Architecture). الـ Listener يركز على حدث منفرد مثل OrderShippedListener. أما الـ Event Subscriber فيسمح بتجميع منطق إدارة نطاق كامل (مثل UserEventSubscriber) للاستماع لأحداث تسجيل الدخول، وتغيير كلمة المرور، وتسجيل الخروج داخل فئة واحدة عبر دالة subscribe($events).",
+    codeExample: `class UserEventSubscriber {
+    public function handleLogin($event): void {}
+    public function handleLogout($event): void {}
+
+    public function subscribe(Dispatcher $events): array {
+        return [
+            Login::class => 'handleLogin',
+            Logout::class => 'handleLogout',
+        ];
+    }
+}`,
+    commonMistakes: ["عدم تفعيل واجهة ShouldQueue على الـ Listeners الثقيلة مما يؤدي لتأخير استجابة الـ HTTP للمستخدم."],
+    followUpQuestions: ["كيف يدعم Laravel اكتشاف الأحداث تلقائياً (Event Discovery) دون الحاجة لتسجيلها في EventServiceProvider؟"],
+    sources: [{ title: "Laravel docs — Events and Subscribers", url: "https://laravel.com/docs/master/events#event-subscribers" }],
+  },
+  {
+    id: "plaracore-009",
+    slug: "laravel-custom-artisan-commands-and-scheduling",
+    topicId: "php-laravel-core",
+    difficulty: "Junior",
+    question: "كيف تصمم أوامر Artisan المخصصة وجدولتها تلقائياً عبر Laravel Task Scheduler؟",
+    shortAnswer: "تنشئ الأمر عبر make:command وتنفذ منطقه داخل handle()، وتجدوله في routes/console.php دون الحاجة لكتابة إدخالات Cron متعددة على السيرفر.",
+    explanation: "قديماً كان تشغيل عدة مهام يتطلب إضافة سطر Cron لكل سكريبت على السيرفر. في Laravel، يتم إضافة سطر واحد فقط للـ Cron: * * * * * php artisan schedule:run. يقوم هذا المشغل بفحص كل المهام المجدولة في الكود وتشغيل ما حان وقته، مع دعم ميزات متقدمة مثل withoutOverlapping لمنع تكرار المهمة إن لم تنتهِ السابقة، والتشغيل على خادم واحد فقط (onOneServer).",
+    codeExample: `Schedule::command('reports:generate')
+    ->dailyAt('02:00')
+    ->withoutOverlapping()
+    ->onOneServer();`,
+    commonMistakes: ["نسيان withoutOverlapping للمهام الطويلة مما يؤدي لتشغيل نسخ مكررة تتنافس على نفس البيانات وتستنزف السيرفر."],
+    followUpQuestions: ["كيف تضمن إرسال تنبيهات تلقائية عند فشل إحدى المهام المجدولة عبر onFailure()؟"],
+    sources: [{ title: "Laravel docs — Task Scheduling", url: "https://laravel.com/docs/master/scheduling" }],
+  },
+  {
+    id: "plaracore-010",
+    slug: "laravel-bootstrap-structure-in-v11",
+    topicId: "php-laravel-core",
+    difficulty: "Mid",
+    question: "كيف تغيرت بنية إقلاع التطبيق في Laravel 11 بإلغاء الـ Http Kernel ودمج التكوين في bootstrap/app.php؟",
+    shortAnswer: "أصبحت البنية أكثر رشاقة؛ حيث دُمجت إعدادات الـ Middlewares والـ Routing والـ Exceptions مباشرة داخل Application Builder في ملف bootstrap/app.php.",
+    explanation: "في Laravel 11 تم التخلص من الملفات الافتراضية الكثيرة مثل app/Http/Kernel.php ومعظم الـ Providers الفارغة. يتم الآن ضبط المسارات والـ Middlewares العامة ومجموعات api/web ومعالجات الاستثناءات عبر صياغة تعبيرية وظيفية داخل bootstrap/app.php باستخدام كائن Application::configure().",
+    codeExample: `// bootstrap/app.php (Laravel 11)
+return Application::configure(basePath: dirname(__DIR__))
+    ->withRouting(web: __DIR__.'/../routes/web.php', api: __DIR__.'/../routes/api.php')
+    ->withMiddleware(function (Middleware $middleware) {
+        $middleware->append(CustomHeaderMiddleware::class);
+    })
+    ->withExceptions(function (Exceptions $exceptions) {
+        // معالجة الأخطاء
+    })->create();`,
+    commonMistakes: ["البحث عن مجلدات Kernels المحذوفة عند الترقية إلى Laravel 11 بدلاً من تعديل bootstrap/app.php."],
+    followUpQuestions: ["كيف تضيف مسار Health Check المدمج /up في Laravel 11؟"],
+    sources: [{ title: "Laravel docs — Release Notes 11.x", url: "https://laravel.com/docs/master/releases" }],
+  },
+
+  // Topic: php-eloquent (10 questions: peloq-001 to peloq-010)
+  {
+    id: "peloq-001",
+    slug: "laravel-eloquent-n-plus-one-and-eager-loading",
+    topicId: "php-eloquent",
+    difficulty: "Junior",
+    question: "ما هي مشكلة N+1 في استعلامات Eloquent وكيف تقضي عليها باستخدام Eager Loading؟",
+    shortAnswer: "تحدث عند قراءة علاقة السجلات داخل حلقة تكرارية مما يولد استعلاماً منفصلاً لكل صف؛ وتحل باستخدام with(['relation']) لجلب كل التبعيات في استعلامين فقط.",
+    explanation: "إذا كان لديك 100 منشور، واستدعيت $post->author داخل حلقة، سينفذ Eloquent استعلاماً لجلب المنشورات و100 استعلام منفصل لجلب كاتب كل منشور (101 استعلاماً). استخدام Eager Loading عبر Post::with('author')->get() يجمع معرفات الكتاب وينفذ استعلامين فقط: استعلام لجلب المنشورات واستعلام SELECT WHERE id IN (...) للكتاب، مما يخفض الضغط على قاعدة البيانات بنسبة 99%.",
+    codeExample: `// الحل الأمثل
+$posts = Post::with(['author', 'comments.user'])->get();`,
+    commonMistakes: ["الاعتماد على Lazy Loading التلقائي داخل قوالب Blade."],
+    followUpQuestions: ["كيف تفعل Model::preventLazyLoading() في بيئة التطوير لاكتشاف المشكلة تلقائياً؟"],
+    sources: [{ title: "Laravel docs — Eloquent: Relationships Eager Loading", url: "https://laravel.com/docs/master/eloquent-relationships#eager-loading" }],
+  },
+  {
+    id: "peloq-002",
+    slug: "laravel-eloquent-relationships-polymorphic",
+    topicId: "php-eloquent",
+    difficulty: "Senior",
+    question: "كيف تعمل العلاقات متعددة الأشكال (Polymorphic Relationships) في Eloquent وما مخاطر تخزين أسماء الفئات؟",
+    shortAnswer: "تسمح لنموذج واحد (مثل Comment) بالارتباط بعدة نماذج مختلفة عبر حقلي commentable_id و commentable_type؛ وتخزين أسماء الفئات بالكامل يسبب هشاشة يُفضل حلها بـ morphMap.",
+    explanation: "في العلاقات متعددة الأشكال، يمكن التعليق على مقال (Post) أو فيديو (Video). يخزن الجدول نوع الكائن ومعرفه. إذا تم تخزين اسم الفئة كاملاً مثل App\\Models\\Post، فإن أي إعادة هيكلة لاسم الفئة أو مجلدها ستعطل العلاقات السابقة. الحل الاحترافي هو تسجيل خريطة تحويل ثابتة Relation::morphMap(['post' => Post::class]) في AppServiceProvider.",
+    codeExample: `Relation::morphMap([
+    'post' => \App\Models\Post::class,
+    'video' => \App\Models\Video::class,
+]);`,
+    commonMistakes: ["ترك Eloquent يخزن المسار الكامل للـ namespace في قاعدة البيانات دون استخدام morphMap."],
+    followUpQuestions: ["ما الفرق بين morphOne و morphMany و morphToMany في بنية الجداول؟"],
+    sources: [{ title: "Laravel docs — Eloquent: Polymorphic Relationships", url: "https://laravel.com/docs/master/eloquent-relationships#polymorphic-relationships" }],
+  },
+  {
+    id: "peloq-003",
+    slug: "laravel-eloquent-query-scopes",
+    topicId: "php-eloquent",
+    difficulty: "Junior",
+    question: "ما الفرق بين Local Scopes و Global Scopes في نماذج Eloquent وكيف تطبق كلاً منهما؟",
+    shortAnswer: "الـ Local Scope دالة مساعدة تُستدعى يدوياً لإعادة استخدام شروط الاستعلام، بينما الـ Global Scope شرط يُطبق تلقائياً على جميع استعلامات النموذج ما لم يُلغَ صراحة.",
+    explanation: "الـ Local Scope يبدأ بكلمة scope (مثل scopeActive) ويسمح بكتابة User::active()->get(). أما الـ Global Scope (مثل ميزة SoftDeletes) فيطبق شرطاً دائماً كعزل بيانات المستأجر الحالي (Tenant) أو استبعاد الحسابات المحظورة. يمكن إلغاء الـ Global Scope عند الحاجة باستخدام withoutGlobalScope().",
+    codeExample: `// Local scope
+public function scopeActive(Builder $query): void {
+    $query->where('status', 'active');
+}
+// استخدام: User::active()->get();`,
+    commonMistakes: ["تطبيق Global Scope يحتوي على شروط معقدة دون توفير فهارس (Indexes) مناسبة مما يبطئ كل استعلامات الجدول."],
+    followUpQuestions: ["كيف تنشئ فئة Global Scope مخصصة تطبق واجهة Scope وتطبقها بـ addGlobalScope؟"],
+    sources: [{ title: "Laravel docs — Eloquent: Query Scopes", url: "https://laravel.com/docs/master/eloquent#query-scopes" }],
+  },
+  {
+    id: "peloq-004",
+    slug: "laravel-eloquent-mutators-casts-and-custom-casts",
+    topicId: "php-eloquent",
+    difficulty: "Mid",
+    question: "كيف تطور نظام التحويل (Casts) في Laravel وما الفرق بين مصفوفة $casts ودالة casts() الجديدة؟",
+    shortAnswer: "دالة casts() تتيح تعريف التحويلات بصيغة إستاتيكية صارمة الأنواع وتدعم استدعاء الـ Custom Casts مع تمرير معاملات دون الحاجة لمصفوفة نصية.",
+    explanation: "في Laravel 11، أصبح من الممكن استبدال الخاصية المحمية $casts بدالة casts() تعيد مصفوفة من الأنواع. هذا يتيح استخدام ميزات مثل AsEncryptedArrayObject و AsEnumCollection، أو تخصيص تحويلات خاصة تنفذ واجهة CastsAttributes للتحكم في كيفية حفظ القيمة في قاعدة البيانات وكيفية تحويلها لكائن عند القراءة.",
+    codeExample: `protected function casts(): array {
+    return [
+        'is_admin' => 'boolean',
+        'options' => 'array',
+        'status' => OrderStatus::class,
+    ];
+}`,
+    commonMistakes: ["الاعتماد على Mutators القديمة (getAttrAttribute) للتحويلات البسيطة التي توفر لها الـ Casts أداءً وأنواعاً أفضل."],
+    followUpQuestions: ["كيف تنشئ Custom Cast يطبق تشفيراً مخصصاً لقيمة العمود عند التخزين؟"],
+    sources: [{ title: "Laravel docs — Eloquent: Attribute Casting", url: "https://laravel.com/docs/master/eloquent-mutators#attribute-casting" }],
+  },
+  {
+    id: "peloq-005",
+    slug: "laravel-chunk-vs-chunkbyid-vs-lazy",
+    topicId: "php-eloquent",
+    difficulty: "Senior",
+    question: "قارن بين chunk و chunkById و lazy و cursor عند معالجة ملايين السجلات في Eloquent.",
+    shortAnswer: "تعتمد chunk على OFFSET (وهو بطيء ويتخطى السجلات عند التعديل)، بينما chunkById تعتمد على معرف ID ثابت وهي آمنة وسريعة، وlazy/cursor تستخدم Generators لتقليل الذاكرة.",
+    explanation: "إذا قمت بتحديث سجلات أثناء استخدام chunk() العادية، فإن إزاحة الـ OFFSET ستتغير وستتخطى الدفعة التالية بعض السجلات دون معالجة. حل هذه المشكلة هو chunkById() التي تستعلم WHERE id > last_id وتوفر سرعة فائقة مستفيدة من فهرس الـ Primary Key. أما cursor() فتستخدم ميزة PDO Unbuffered Query لجلب السجلات سطراً بسطر في الذاكرة دون مصفوفات ضخمة.",
+    codeExample: `User::where('active', false)->chunkById(1000, function ($users) {
+    foreach ($users as $user) {
+        $user->update(['status' => 'archived']);
+    }
+});`,
+    commonMistakes: ["تعديل نفس الشروط داخل حلقة chunk() العادية مما يؤدي لتخطي نصف السجلات."],
+    followUpQuestions: ["ما الفرق بين lazy() و cursor() من حيث استهلاك الاتصالات وحجز موارد السيرفر؟"],
+    sources: [{ title: "Laravel docs — Chunking Results", url: "https://laravel.com/docs/master/queries#chunking-results" }],
+  },
+  {
+    id: "peloq-006",
+    slug: "laravel-eloquent-upsert-and-mass-updates",
+    topicId: "php-eloquent",
+    difficulty: "Mid",
+    question: "كيف تنفذ عمليات الإدخال والتحديث الشاملة (Upsert) بكفاءة في Eloquent في استعلام واحد؟",
+    shortAnswer: "باستخدام دالة upsert() التي تقبل مصفوفة البيانات، وقائمة الأعمدة التي تحدد التفرد، وقائمة الأعمدة المراد تحديثها عند وجود تعارض.",
+    explanation: "بدلاً من تنفيذ فحص updateOrCreate لكل سجل على حدة في حلقة تكرارية (مما يولد مئات الاستعلامات)، تترجم دالة upsert إلى استعلام SQL واحد متقدم (INSERT ... ON DUPLICATE KEY UPDATE في MySQL أو ON CONFLICT DO UPDATE في PostgreSQL)، مما يوفر أداءً فائق السرعة للمعاملات الدفعية.",
+    codeExample: `User::upsert([
+    ['email' => 'a@test.com', 'name' => 'Ali', 'points' => 10],
+    ['email' => 'b@test.com', 'name' => 'Sara', 'points' => 20],
+], ['email'], ['name', 'points']);`,
+    commonMistakes: ["استخدام updateOrCreate داخل حلقة لملايين السجلات متسببين في بطء هائل وإجهاد لقاعدة البيانات."],
+    followUpQuestions: ["هل تُطلق دالة upsert أحداث النماذج (Eloquent Events) مثل creating أو updating؟"],
+    sources: [{ title: "Laravel docs — Upserts", url: "https://laravel.com/docs/master/queries#upserts" }],
+  },
+  {
+    id: "peloq-007",
+    slug: "laravel-eloquent-observers-and-events",
+    topicId: "php-eloquent",
+    difficulty: "Junior",
+    question: "ما هي أحداث النماذج (Eloquent Events) وما دور الـ Observers في تنظيم منطق الأعمال؟",
+    shortAnswer: "تطلق أحداثاً مثل creating، created، updating، deleted خلال دورة حياة السجل؛ ويجمع الـ Observer مستمعي هذه الأحداث في فئة مخصصة.",
+    explanation: "تتيح أحداث Eloquent تنفيذ إجراءات تلقائية، مثل توليد UUID أو إرسال إشعار عند إنشاء السجل، أو منع الحذف بإعادة false من حدث deleting. يجمع الـ Observer هذه الدوال في فئة أنيقة ويتم ربطه بالنموذج عبر سمة #[ObservedBy([UserObserver::class])] في Laravel الحديثة.",
+    codeExample: `class UserObserver {
+    public function creating(User $user): void {
+        $user->uuid = (string) Str::uuid();
+    }
+}`,
+    commonMistakes: ["استدعاء دالة $model->save() داخل حدث updating أو saved في الـ Observer دون احتراز مما يسبب حلقة تكرارية لا نهائية (Infinite Loop)."],
+    followUpQuestions: ["كيف تتفادى إطلاق أحداث الـ Observer أثناء تنفيذ عمليات معينة باستخدام Model::withoutEvents()؟"],
+    sources: [{ title: "Laravel docs — Eloquent: Observers", url: "https://laravel.com/docs/master/eloquent#observers" }],
+  },
+  {
+    id: "peloq-008",
+    slug: "laravel-eloquent-soft-deletes-and-indexes",
+    topicId: "php-eloquent",
+    difficulty: "Mid",
+    question: "كيف تعمل ميزة الحذف اللين (Soft Deletes) في Laravel وما هو أثرها على فهارس قواعد البيانات؟",
+    shortAnswer: "تضيف عمود deleted_at وتستبعد السجلات المحذوفة تلقائياً بـ Global Scope؛ ويجب تضمين deleted_at في الفهارس المركبة للحفاظ على سرعة الاستعلامات.",
+    explanation: "عند استخدام SoftDeletes، لا يتم حذف الصف من القرص بل يُسجل وقت الحذف في deleted_at. يقوم Eloquent تلقائياً بحقن WHERE deleted_at IS NULL في كل استعلام. في الجداول المليونية، إذا كانت فهارسك لا تتضمن عمود deleted_at، ستتدهور كفاءة الفهارس وقد تجبر المحرك على فحص كامل للجدول (Full Table Scan).",
+    codeExample: `// استخدام الحذف اللين
+use SoftDeletes;
+// استعادة المحذوفات
+User::withTrashed()->where('id', 1)->restore();`,
+    commonMistakes: ["عدم مراعاة قيد التفرد (Unique Constraint) مع الحذف اللين، حيث يفشل إنشاء مستخدم بنفس البريد إذا كان هناك مستخدم سابق محذوف ليناً ما لم يُدمج deleted_at في القيد."],
+    followUpQuestions: ["كيف تصمم Unique Index مركب يتعامل مع Soft Deletes في PostgreSQL باستخدام Partial Indexes؟"],
+    sources: [{ title: "Laravel docs — Eloquent: Soft Deleting", url: "https://laravel.com/docs/master/eloquent#soft-deleting" }],
+  },
+  {
+    id: "peloq-009",
+    slug: "laravel-eloquent-database-transactions-and-deadlocks",
+    topicId: "php-eloquent",
+    difficulty: "Senior",
+    question: "كيف تدير معاملات قواعد البيانات بـ DB::transaction وكيف تتعامل مع أخطاء الأقفال الميتة (Deadlocks)؟",
+    shortAnswer: "تنفذ العمليات ذرية وتلغيها عند الفشل؛ وتقبل دالة DB::transaction معاملاً يحدد عدد مرات إعادة المحاولة التلقائية عند حدوث Deadlock.",
+    explanation: "في العمليات المالية والحجوزات، تضمن المعاملات عدم وقوع أخطاء جزئية. عند تشغيل معاملات متزامنة، قد تقفل العمليات صفوفاً بترتيب متعارض مما يسبب Deadlock في قاعدة البيانات. توفر دالة DB::transaction(callback, attempts: 5) إعادة محاولة تلقائية ذكية لمعالجة الـ Deadlocks العابرة دون إشعار العميل بالخطأ.",
+    codeExample: `DB::transaction(function () use ($from, $to, $amount) {
+    $from->decrement('balance', $amount);
+    $to->increment('balance', $amount);
+}, 5); // 5 محاولات عند حدوث Deadlock`,
+    commonMistakes: ["إرسال إيميلات أو طلبات HTTP لجهات خارجية داخل دالة DB::transaction، حيث إنها ستتكرر مع كل محاولة ولا يمكن التراجع عنها عند الـ Rollback."],
+    followUpQuestions: ["لماذا يجب تأجيل إطلاق الأحداث والإشعارات حتى اكتمال المعاملة باستخدام DB::afterCommit()؟"],
+    sources: [{ title: "Laravel docs — Database Transactions", url: "https://laravel.com/docs/master/database#database-transactions" }],
+  },
+  {
+    id: "peloq-010",
+    slug: "laravel-eloquent-raw-queries-and-security",
+    topicId: "peloq-010",
+    difficulty: "Senior",
+    question: "متى تلجأ لاستخدام DB::raw وما هي الاحتياطات الأمنية الإلزامية لتجنب SQL Injection؟",
+    shortAnswer: "تستخدم DB::raw لتنفيذ تعبيرات SQL معقدة لا يدعمها الـ Query Builder؛ ويجب عدم دمج مدخلات المستخدم بداخلها مطلقاً وتمريرها دائماً كمصفوفة bindings منفصلة.",
+    explanation: "دوال مثل whereRaw وselectRaw تسمح بكتابة تعبيرات SQL خاصة بمحرك قاعدة البيانات. الخطر الأكبر هو استخدام دمج النصوص المباشر. الطريقة الآمنة الحتمية هي استخدام علامات الاستفهام واستدعاء المعاملات كمصفوفة تمرر كمعامل ثانٍ لقاعدة البيانات لضمان عدم تفسيرها كأوامر برمجية.",
+    codeExample: `// آمن تماماً
+Order::whereRaw("total > ? AND status = ?", [$minTotal, $status])->get();
+
+// خطير جداً وثغرة فادحة:
+// Order::whereRaw("total > " . $request->total);`,
+    commonMistakes: ["افتراض أن دوال whereRaw تقوم بتنقية وتجهيز النصوص المدمجة تلقائياً."],
+    followUpQuestions: ["ما الفرق بين DB::raw و Builder::selectRaw من حيث الإرجاع والربط؟"],
+    sources: [{ title: "Laravel docs — Raw Expressions", url: "https://laravel.com/docs/master/queries#raw-expressions" }],
+  },
+
+  // Topic: php-api (10 questions: papi-001 to papi-010)
+  {
+    id: "papi-001",
+    slug: "laravel-api-resources-and-data-transformation",
+    topicId: "papi-001",
+    difficulty: "Junior",
+    question: "ما هي API Resources في Laravel ولماذا تعد أفضل من إرجاع نماذج Eloquent كـ JSON مباشرة؟",
+    shortAnswer: "تعمل كطبقة تحويل (Transformation Layer) تفصل بنية جداول قاعدة البيانات عن استجابة الـ API، وتمنع تسريب الحقول الحساسة وتوحد تنسيق البيانات.",
+    explanation: "إرجاع $user مباشرة كـ JSON يربط واجهة الـ API بهيكل جدول قاعدة البيانات؛ فأي تعديل في اسم عمود سيكسر تطبيقات الموبايل والعملاء الخارجيين، بالإضافة لخطر تسريب أعمدة حساسة. فئات JsonResource تسمح باختيار الحقول بدقة، وإعادة تسميتها، وتضمين العلاقات المشروطة عبر whenLoaded()، وتنسيق التواريخ بشكل موحد.",
+    codeExample: `class UserResource extends JsonResource {
+    public function toArray(Request $request): array {
+        return [
+            'id' => $this->id,
+            'fullName' => $this->name,
+            'posts' => PostResource::collection($this->whenLoaded('posts')),
+        ];
+    }
+}`,
+    commonMistakes: ["تحميل العلاقات داخل الـ Resource مباشرة مما يعيد خلق مشكلة N+1، بدلاً من استخدام $this->whenLoaded()."],
+    followUpQuestions: ["كيف تتحكم في المفتاح المغلف للبيانات (Data Wrapping) عبر JsonResource::withoutWrapping()؟"],
+    sources: [{ title: "Laravel docs — Eloquent: API Resources", url: "https://laravel.com/docs/master/eloquent-resources" }],
+  },
+  {
+    id: "papi-002",
+    slug: "laravel-form-requests-and-authorization",
+    topicId: "papi-002",
+    difficulty: "Junior",
+    question: "كيف تعزل منطق التحقق والصلاحيات في فئات Form Requests بـ Laravel؟",
+    shortAnswer: "عبر فئة مخصصة تنفذ authorize() للتحقق من صلاحية المستخدم، و rules() لقواعد التحقق، وترجع أخطاء التحقق برمز 422 تلقائياً دون وصولها للمتحكم.",
+    explanation: "بدلاً من ملء دوال الـ Controller باستدعاءات $request->validate()، توفر Form Requests فئات متخصصة ونظيفة. يتم حقن الفئة كمعامل في الدالة؛ يقوم Laravel باستدعاء authorize() أولاً (ويرجع 403 Forbidden إذا أعادت false)، ثم يطبق قواعد rules()، وإذا فشل أي شرط يرجع استجابة JSON برمز 422 وتفاصيل الحقول غير المطابقة فوراً.",
+    codeExample: `class StorePostRequest extends FormRequest {
+    public function authorize(): bool {
+        return $this->user()->can('create', Post::class);
+    }
+    public function rules(): array {
+        return [
+            'title' => ['required', 'string', 'max:255'],
+            'body' => ['required'],
+        ];
+    }
+}`,
+    commonMistakes: ["ترك دالة authorize() تعيد false افتراضياً دون تعديل مما يمنع جميع المستخدمين برمز 403."],
+    followUpQuestions: ["كيف تجهز أو تعدل المدخلات قبل تطبيق قواعد التحقق باستخدام دالة prepareForValidation()؟"],
+    sources: [{ title: "Laravel docs — Form Request Validation", url: "https://laravel.com/docs/master/validation#form-request-validation" }],
+  },
+  {
+    id: "papi-003",
+    slug: "laravel-api-versioning-strategies",
+    topicId: "papi-003",
+    difficulty: "Senior",
+    question: "ما هي أفضل استراتيجيات تطبيق ترقيم الإصدارات (API Versioning) في أنظمة Laravel؟",
+    shortAnswer: "إما عبر المسارات (URI Versioning مثل /api/v1/) وهي الأكثر شيوعاً ووضوحاً، أو عبر ترويسات الطلب (Header/Accept Versioning) للحفاظ على نظافة الروابط.",
+    explanation: "عندما تخدم الـ API تطبيقات هواتف ذكية لا يمكن إجبار مستخدميها على التحديث الفوري، يصبح دعم عدة إصدارات بالتوازي أمراً إلزامياً. في Laravel، يتم تنظيم الإصدارات إما بفصل مجموعات المسارات والمتحكمات في مجلدات منفصلة (App\\Http\\Controllers\\Api\\V1 و V2) واستخدام Route Groups، أو عبر وسيط (Middleware) يفحص ترويسة Accept ويعدل توجيه الطلب داخلياً.",
+    codeExample: `Route::prefix('v1')->group(base_path('routes/api_v1.php'));
+Route::prefix('v2')->group(base_path('routes/api_v2.php'));`,
+    commonMistakes: ["إجراء تغييرات كاسرة على الإصدار الحالي دون إطلاق إصدار جديد، مما يسقط إصدارات تطبيقات الموبايل القديمة."],
+    followUpQuestions: ["كيف تعيد استخدام منطق الأعمال المشترك بين الإصدارات وتفادي تكرار الكود عبر الـ Services؟"],
+    sources: [{ title: "Laravel docs — Routing Groups and Prefixes", url: "https://laravel.com/docs/master/routing#route-group-prefixes" }],
+  },
+  {
+    id: "papi-004",
+    slug: "laravel-rate-limiting-and-throttling",
+    topicId: "papi-004",
+    difficulty: "Mid",
+    question: "كيف تصمم محددات معدل الطلبات (Rate Limiting) المتقدمة باستخدام فئة RateLimiter في Laravel؟",
+    shortAnswer: "تُعرف محددات مخصصة في AppServiceProvider عبر RateLimiter::for() وتحدد عدد الطلبات في الدقيقة بحسب الـ IP أو المستخدم، وتطبق بـ throttle:name.",
+    explanation: "حماية الـ API من إساءة الاستخدام وهجمات الـ Brute Force تتطلب تحديد سقف للطلبات. يوفر Laravel RateLimiter إمكانية إنشاء محددات ذكية؛ فيمكنك مثلاً منح المستخدمين المشتركين 1000 طلب في الدقيقة والمستخدمين المجانيين 60 طلباً، وتمرير الرد بترويسات قياسية X-RateLimit-Limit و X-RateLimit-Remaining وتوليد رمز 429 Too Many Requests تلقائياً عند التجاوز.",
+    codeExample: `RateLimiter::for('api', function (Request $request) {
+    return $request->user()?->isVip()
+        ? Limit::none()
+        : Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
+});`,
+    commonMistakes: ["تقييد الطلبات بناءً على عنوان IP فقط للمستخدمين المسجلين، مما يظلم مستخدمي الشبكات المشتركة كالشركات والجامعات."],
+    followUpQuestions: ["كيف يدعم Laravel تقييد محاولات تسجيل الدخول مع تأخير تصاعدي (Exponential Decay)? "],
+    sources: [{ title: "Laravel docs — Rate Limiting", url: "https://laravel.com/docs/master/routing#rate-limiting" }],
+  },
+  {
+    id: "papi-005",
+    slug: "laravel-restful-best-practices-and-http-status-codes",
+    topicId: "papi-005",
+    difficulty: "Junior",
+    question: "ما هي أفضل الممارسات لاختيار رموز حالة HTTP (Status Codes) في واجهات الـ RESTful API؟",
+    shortAnswer: "استخدام الرموز الدلالية بدقة: 200 للنجاح، 201 للإنشاء، 204 للحذف الناجح، 400 للمدخلات المشوهة، 401 لغياب المصادقة، 403 لغياب الصلاحية، و422 لفشل التحقق.",
+    explanation: "من الأخطاء الفادحة في تصميم الـ APIs إرجاع 200 OK دائماً مع وضع رسالة خطأ داخل الـ JSON. التصميم المعياري يفرض استخدام الرمز المناسب؛ فالرمز 401 يعني أن العميل غير معروف، و403 يعني أنه معروف لكنه لا يمتلك الإذن، و404 للمورد المفقود، و422 لفشل قواعد البيانات والتحقق، مما يتيح للعملاء معالجة الأخطاء برمجةً وموثوقية.",
+    codeExample: `return response()->json(['data' => $user], 201); // بعد الإنشاء
+return response()->noContent(); // 204 بعد الحذف`,
+    commonMistakes: ["إرجاع رمز 200 OK مع محتوى { status: 'error', code: 404 } بدلاً من إرسال رمز الحالة الفعلي في الترويسة."],
+    followUpQuestions: ["متى يفضل استخدام رمز 409 Conflict بدلاً من 422 Unprocessable Entity؟"],
+    sources: [{ title: "Laravel docs — Responses and Status Codes", url: "https://laravel.com/docs/master/responses" }],
+  },
+  {
+    id: "papi-006",
+    slug: "laravel-cursor-pagination-vs-length-aware",
+    topicId: "papi-006",
+    difficulty: "Senior",
+    question: "ما الفرق الجوهري بين LengthAwarePagination و CursorPagination في واجهات برمجة التطبيقات؟",
+    shortAnswer: "الـ LengthAware تعتمد على OFFSET وتستعلم COUNT() الإجمالي (وهي بطيئة في الجداول الكبيرة)، بينما الـ Cursor تعتمد على مؤشر مشفر (WHERE id > X) وسريعة وتناسب الـ Infinite Scroll.",
+    explanation: "في الجداول المليونية، استعلام COUNT(*) لحساب إجمالي الصفحات مكلف للغاية، كما أن التنقل بـ OFFSET 100000 يجعل قاعدة البيانات تفحص 100 ألف صف قبل إرجاع 15 صفاً. الـ Cursor Pagination تلغي استعلام العد، وتستعلم بدقة بناءً على مؤشر مشفر للسجل الأخير، مما يوفر أداءً ثابتاً وفائق السرعة ويمنع تكرار العناصر عند إضافة سجلات جديدة أثناء التمرير.",
+    codeExample: `// Pagination عادي (بطيء مع البيانات الضخمة)
+$posts = Post::paginate(20);
+
+// Cursor pagination (فائق السرعة ولا يتأثر بحجم الجدول)
+$posts = Post::orderBy('id')->cursorPaginate(20);`,
+    commonMistakes: ["استخدام Cursor Pagination عندما تتطلب الواجهة أرقام صفحات صريحة للتنقل المباشر (Jump to page 5)."],
+    followUpQuestions: ["لماذا تشترط الـ Cursor Pagination ترتيب الاستعلام بعمود فريد وغير قابل للقيم الفارغة؟"],
+    sources: [{ title: "Laravel docs — Database: Pagination", url: "https://laravel.com/docs/master/pagination#cursor-pagination" }],
+  },
+  {
+    id: "papi-007",
+    slug: "laravel-global-exception-handling-for-apis",
+    topicId: "papi-007",
+    difficulty: "Mid",
+    question: "كيف تصمم معالج أخطاء مركزي وموحد لاستجابات الـ API في Laravel؟",
+    shortAnswer: "بتخصيص معالجة الاستثناءات في bootstrap/app.php أو Handler عبر دالة renderable لتحويل أخطاء مثل ModelNotFoundException إلى ردود JSON منسقة.",
+    explanation: "افتراضياً، قد يرجع Laravel صفحات HTML أو تفاصيل كود حساسة عند وقوع أخطاء. يجب ضبط معالج الاستثناءات ليتعرف تلقائياً على طلبات الـ API عبر $request->expectsJson() ويرجع بنية موحدة ثابتة تحتوي على error code و message واضحة، مع إخفاء الـ Stack Trace في بيئات الإنتاج.",
+    codeExample: `// bootstrap/app.php (Laravel 11)
+->withExceptions(function (Exceptions $exceptions) {
+    $exceptions->render(function (NotFoundHttpException $e, Request $request) {
+        if ($request->is('api/*')) {
+            return response()->json(['message' => 'Resource not found'], 404);
+        }
+    });
+})`,
+    commonMistakes: ["تسريب تفاصيل الـ SQL Exceptions وأسماء الجداول والحقول للمستخدم في بيئة الإنتاج."],
+    followUpQuestions: ["كيف تتعامل مع تسجيل الأخطاء الحرجة في خدمات المراقبة مثل Sentry دون تعطيل المستخدم؟"],
+    sources: [{ title: "Laravel docs — Error Handling", url: "https://laravel.com/docs/master/errors" }],
+  },
+  {
+    id: "papi-008",
+    slug: "laravel-api-idempotency-keys",
+    topicId: "papi-008",
+    difficulty: "Senior",
+    question: "كيف تطبق مفاتيح عدم التكرار (Idempotency Keys) في واجهات الدفع وإنشاء الطلبات بـ Laravel؟",
+    shortAnswer: "باستقبال ترويسة Idempotency-Key وتخزين استجابة الطلب الأول في Redis؛ فإذا تكرر نفس المفتاح تُعاد نفس الاستجابة المخزنة فوراً دون تكرار العملية المالية.",
+    explanation: "في بوابات الدفع وشبكات الاتصال غير المستقرة، قد يضغط المستخدم زر الشراء مرتين، أو ينقطع الاتصال قبل وصول الاستجابة فيعيد التطبيق إرسال الطلب. باستخدام وسيط (Middleware)، يتم حجز المفتاح في Redis عبر SET NX؛ فإذا كان مسجلاً يُعاد الرد السابق، وإن لم يكن تُنفذ العملية ويُخزن الرد لمدة 24 ساعة، مانعاً الخصم المزدوج.",
+    codeExample: `// فحص المفتاح وتخزين الاستجابة في وسيط Idempotency`,
+    commonMistakes: ["تخزين المفتاح دون قفله ذريةً (Atomic Lock)، مما يتيح للطلبين المتزامنين تماماً النفاذ معاً."],
+    followUpQuestions: ["ما هو كود الحالة المناسب إرجاعه إذا استقبلت طلباً بنفس المفتاح بينما الطلب الأول لا يزال قيد المعالجة؟"],
+    sources: [{ title: "Laravel docs — Cache and Atomic Locks", url: "https://laravel.com/docs/master/cache#atomic-locks" }],
+  },
+  {
+    id: "papi-009",
+    slug: "laravel-sanctum-vs-passport-tokens",
+    topicId: "papi-009",
+    difficulty: "Mid",
+    question: "قارن بين حزمة Laravel Sanctum وحزمة Laravel Passport ومتى تختار كلاً منهما؟",
+    shortAnswer: "Sanctum حزمة خفيفة للمصادقة بالرموز الشخصية (API Tokens) والكوكي لتطبيقات SPA، بينما Passport خادم OAuth2 متكامل للمشاريع الضخمة التي تتطلب أذونات OAuth2 ومشاركة الهوية مع أطراف ثالثة.",
+    explanation: "Sanctum تعد الخيار الافتراضي والمثالي لـ 95% من التطبيقات (تطبيقات الموبايل وواجهات React/Vue SPA) بفضل بساطتها وخفتها. في المقابل، توفر Passport خادماً كاملاً يدعم معايير OAuth2 مثل Authorization Code Grant و Client Credentials Grant، وهي ضرورية إذا كنت تبني منصة تسمح لشركات خارجية بالوصول لبيانات مستخدميك عبر بروتوكول OAuth القياسي.",
+    codeExample: `// استخدام Sanctum لإصدار رمز
+$token = $user->createToken('mobile-app')->plainTextToken;`,
+    commonMistakes: ["تثبيت حزمة Passport المعقدة وجداولها الكثيرة لتطبيق جوال بسيط لا يحتاج إلا لمصادقة رموز عادية."],
+    followUpQuestions: ["كيف تحمي Sanctum تطبيقات الـ SPA من ثغرات سرقة الرموز عبر المصادقة المعتمدة على الكوكيز والـ CSRF؟"],
+    sources: [{ title: "Laravel docs — Laravel Sanctum", url: "https://laravel.com/docs/master/sanctum" }],
+  },
+  {
+    id: "papi-010",
+    slug: "laravel-content-security-and-cors-in-apis",
+    topicId: "papi-010",
+    difficulty: "Junior",
+    question: "كيف تضبط إعدادات CORS في ملف config/cors.php وتتجنب الأخطاء الشائعة مع تطبيقات SPA؟",
+    shortAnswer: "بتحديد النطاقات المسموحة بدقة في allowed_origins، وتفعيل supports_credentials إذا كان التطبيق يستخدم الكوكيز مع ترويسة Sanctum.",
+    explanation: "عندما يتواصل تطبيق React/Vue على نطاق منفصل مع خادم Laravel، تمنع المتصفحات إرسال الكوكيز وقراءة الردود دون موافقة صريحة. ملف config/cors.php يسمح بتحديد المسارات الخاضعة للسياسة، والنطاقات المعتمدة، والسماح بالترويسات الحساسة، وتفعيل supports_credentials: true للمصادقة عبر الجلسات.",
+    codeExample: `// config/cors.php
+'paths' => ['api/*', 'sanctum/csrf-cookie'],
+'allowed_origins' => ['https://my-frontend.com'],
+'supports_credentials' => true,`,
+    commonMistakes: ["وضع allowed_origins: ['*'] مع supports_credentials: true وهو أمر تحظره المتصفحات أمنياً."],
+    followUpQuestions: ["لماذا يجب تضمين مسار 'sanctum/csrf-cookie' في مصفوفة paths الخاصة بـ CORS؟"],
+    sources: [{ title: "Laravel docs — CORS configuration", url: "https://laravel.com/docs/master/routing#cors" }],
+  },
+
+  // Topic: php-security (10 questions: psec-001 to psec-010)
+  {
+    id: "psec-001",
+    slug: "laravel-csrf-protection-and-token-mismatch",
+    topicId: "psec-001",
+    difficulty: "Junior",
+    question: "كيف تعمل حماية CSRF في Laravel وما سبب خطأ 419 Page Expired وكيف تعالجه؟",
+    shortAnswer: "تولد رمز CSRF فريداً لكل جلسة وتتحقق من وجوده في كل طلب POST/PUT/DELETE؛ وسبب 419 هو انتهاء صلاحية الجلسة أو غياب الرمز في النموذج.",
+    explanation: "تقوم الـ Middleware المسماة VerifyCsrfToken بتوليد رمز مشفر وحفظه في الجلسة. في قوالب Blade يُدرج الرمز بـ @csrf. عند إرسال طلب تعديلي، يقارن Laravel الرمز المرسل برمز الجلسة؛ فإن اختلفا أو انتهت الجلسة يرجع خطأ 419. في واجهات الـ API المعتمدة على Bearer Tokens، يتم استثناء المسارات بنقلها لمسارات routes/api.php التي لا تطبق الـ middleware أصلاً.",
+    codeExample: `<form method="POST" action="/profile">
+    @csrf
+    <input type="text" name="name">
+</form>`,
+    commonMistakes: ["إضافة مسارات الـ Web الحساسة إلى مصفوفة $except لتعطيل فحص الـ CSRF بدلاً من حل مشكلة تجديد الجلسة."],
+    followUpQuestions: ["كيف يقرأ عميل جافاسكريبت رمز الـ CSRF تلقائياً من كوكي XSRF-TOKEN؟"],
+    sources: [{ title: "Laravel docs — CSRF Protection", url: "https://laravel.com/docs/master/csrf" }],
+  },
+  {
+    id: "psec-002",
+    slug: "laravel-mass-assignment-fillable-vs-guarded",
+    topicId: "psec-002",
+    difficulty: "Junior",
+    question: "ما هي ثغرة الإسناد الشامل (Mass Assignment) وما الفرق بين $fillable و $guarded في Eloquent؟",
+    shortAnswer: "تحدث عندما يمرر المطور $request->all() مباشرة لـ create() مما يتيح للمستخدم تعديل حقول حساسة مثل is_admin؛ وتمنعها $fillable بقصر التعديل على الحقول البيضاء المسموحة.",
+    explanation: "الإسناد الشامل ميزة مريحة تتيح كتابة User::create($request->all()). إذا لم تكن الفئة محمية، يمكن للمهاجم إرفاق حقل 'is_admin': 1 في الطلب ليصبح مديراً للنظام فوراً. استخدام $fillable يفرض القائمة البيضاء (White-listing)؛ فلا يُسمح إلا للحقول المذكورة صراحة بالمرور، بينما $guarded تفرض قائمة سوداء للحقول الممنوعة.",
+    codeExample: `class User extends Model {
+    protected $fillable = ['name', 'email', 'password'];
+    // أي حقل آخر مثل is_admin سيتم تجاهله تماماً
+}`,
+    commonMistakes: ["تعيين protected $guarded = [] في كل النماذج كحل سريع لتسهيل العمل دون إدراك فتح التطبيق لكوارث أمنية."],
+    followUpQuestions: ["كيف تحذر بيئة التطوير المطور من تجاوز الحماية عبر Model::preventSilentlyDiscardingAttributes()؟"],
+    sources: [{ title: "Laravel docs — Mass Assignment", url: "https://laravel.com/docs/master/eloquent#mass-assignment" }],
+  },
+  {
+    id: "psec-003",
+    slug: "laravel-authentication-and-password-hashing",
+    topicId: "psec-003",
+    difficulty: "Junior",
+    question: "كيف يدير Laravel تشفير كلمات المرور باستخدام واجهة Hash Facade؟",
+    shortAnswer: "تستخدم خوارزمية bcrypt افتراضياً (أو Argon2) مع إضافة Salt وتوليد بصمات بطيئة آمنة عبر Hash::make() والتحقق بـ Hash::check().",
+    explanation: "تعتمد Hash Facade على محركات تشفير قوية بطيئة عن قصد. يتم التحقق من صحة كلمة المرور المدخلة بمقارنتها مع البصمة المسجلة دون فك تشفيرها عبر Hash::check($plain, $hashed). كما تدعم دالة Hash::needsRehash() فحص ما إذا كانت البصمة قديمة وتتطلب ترقية عامل الصعوبة تلقائياً عند تسجيل الدخول.",
+    codeExample: `$hashed = Hash::make($password);
+if (Hash::check($inputPassword, $user->password)) {
+    // كلمة المرور صحيحة
+}`,
+    commonMistakes: ["استخدام دوال التجزئة البسيطة مثل md5 أو sha1 لحفظ كلمات المرور."],
+    followUpQuestions: ["كيف تغير محرك التجزئة إلى Argon2id عبر ملف config/hashing.php؟"],
+    sources: [{ title: "Laravel docs — Hashing", url: "https://laravel.com/docs/master/hashing" }],
+  },
+  {
+    id: "psec-004",
+    slug: "laravel-authorization-gates-vs-policies",
+    topicId: "psec-004",
+    difficulty: "Mid",
+    question: "ما الفرق بين البوابات (Gates) والسياسات (Policies) في إدارة الصلاحيات بـ Laravel؟",
+    shortAnswer: "الـ Gates تُعرف لإجراءات عامة غير مرتبطة بنموذج محدد (مثل الدخول للوحة التحكم)، بينما الـ Policies تنظم الصلاحيات حول نموذج معين (مثل PostPolicy).",
+    explanation: "الـ Gates ممتازة للمهام السريعة: Gate::define('access-admin', fn($user) => $user->isAdmin). أما عند الحاجة لإدارة صلاحيات متكاملة لنموذج (عرض، تعديل، حذف، استعادة)، توفر الـ Policies فئة مستقلة تحتوي على دوال view وcreate وupdate وdelete ويتم فحصها بأناقة عبر $user->can('update', $post) أو في Blade بـ @can.",
+    codeExample: `class PostPolicy {
+    public function update(User $user, Post $post): bool {
+        return $user->id === $post->user_id;
+    }
+}
+// استخدام: $this->authorize('update', $post);`,
+    commonMistakes: ["كتابة شروط الصلاحيات يدوياً داخل كود المتحكمات (Controllers) وتكرارها في كل مسار."],
+    followUpQuestions: ["كيف تسمح للمدير الفائق (Super Admin) بتجاوز كل السياسات تلقائياً عبر Gate::before()؟"],
+    sources: [{ title: "Laravel docs — Authorization", url: "https://laravel.com/docs/master/authorization" }],
+  },
+  {
+    id: "psec-005",
+    slug: "laravel-sql-injection-and-raw-bindings",
+    topicId: "psec-005",
+    difficulty: "Mid",
+    question: "كيف تحمي Eloquent و Query Builder تطبيقات Laravel من ثغرات SQL Injection؟",
+    shortAnswer: "باستخدام PDO Prepared Statements تلقائياً في كل الدوال القياسية مثل where و find؛ مما يعامل مدخلات المستخدم كقيم مجردة لا تعليمات برمجية.",
+    explanation: "جميع دوال استعلامات Laravel تستخدم الاستعلامات المجهزة تحت الغطاء. الخطر يظهر فقط عند استخدام دوال الـ Raw مثل whereRaw و orderByRaw عند دمج مدخلات المستخدم يدوياً. الحماية الكاملة تقتضي عدم دمج متغيرات الطلب في نصوص الاستعلامات مطلقاً وتمريرها في مصفوفات الـ Bindings.",
+    codeExample: `// آمن دائماً
+User::where('email', $request->email)->first();`,
+    commonMistakes: ["كتابة DB::raw(\"WHERE email = '\" . $request->email . \"'\") مما يخلق ثغرة حقن SQL مباشرة."],
+    followUpQuestions: ["كيف تفحص وتتحقق من أسماء الأعمدة الديناميكية في جمل الـ orderBy لمنع حقن الأوامر؟"],
+    sources: [{ title: "Laravel docs — Database Security and Prepared Statements", url: "https://laravel.com/docs/master/queries" }],
+  },
+  {
+    id: "psec-006",
+    slug: "laravel-xss-protection-and-blade-escaping",
+    topicId: "psec-006",
+    difficulty: "Junior",
+    question: "كيف يحمي محرك Blade من هجمات XSS وما الفرق بين {{ $data }} و {!! $data !!}؟",
+    shortAnswer: "يقوم {{ $data }} بتمرير النص عبر htmlspecialchars() تلقائياً لمنع تشغيل السكريبتات الخبيثة، بينما {!! $data !!} يخرج النص الخام دون أي حماية.",
+    explanation: "هجمات البرمجة عبر المواقع (Cross-Site Scripting) تحدث عندما يتمكن المهاجم من حقن سكريبت جافاسكريبت يتم تنفيذه في متصفح مستخدم آخر. يحمي محرك Blade التطبيق افتراضياً بتحويل الرموز الخاصة مثل < و > إلى كيانات نصية آمنة &lt; و &gt;. لا يجب استخدام علامة التعجب {!! !!} إلا لمحتوى HTML نظيف وموثوق تماماً تم تطهيره بمكتبات مثل HTMLPurifier.",
+    codeExample: `{{ "<script>alert(1)</script>" }} 
+{{-- يطبع كنص آمن ولا ينفذ --}}`,
+    commonMistakes: ["استخدام {!! !!} لعرض مدخلات المستخدمين المباشرة كتعليقات أو أسماء في الصفحة."],
+    followUpQuestions: ["كيف تطهر مدخلات محررات النصوص الغنية (WYSIWYG Editors) قبل حفظها أو عرضها بـ {!! !!}؟"],
+    sources: [{ title: "Laravel docs — Blade Templates: Displaying Data", url: "https://laravel.com/docs/master/blade#displaying-data" }],
+  },
+  {
+    id: "psec-007",
+    slug: "laravel-file-upload-validation-and-storage",
+    topicId: "psec-007",
+    difficulty: "Mid",
+    question: "ما هي القواعد الأمنية الصارمة لرفع وتخزين الملفات في Laravel؟",
+    shortAnswer: "التحقق من نوع الـ MIME الحقيقي، وحظر الامتدادات القابلة للتنفيذ (.php, .sh)، وتوليد أسماء عشوائية للملفات، وتخزينها خارج المجلد العام أو في S3.",
+    explanation: "السماح برفع ملف PHP تنفيذي إلى المجلد العام للموقع يمنح المهاجم سيطرة كاملة على السيرفر (Remote Code Execution). قواعد الأمان تشمل: استخدام قاعدة التحقق File::types(['jpg', 'png'])->max(5120)، وتوليد اسم عشوائي آمن بواسطة $file->hashName()، وتخزين الملف في مجلد storage الداخلي وربطه برابط رمزي، أو رفعه مباشرة لخادم تخزين سحابي.",
+    codeExample: `$request->validate([
+    'avatar' => ['required', 'file', 'image', 'max:2048']
+]);
+$path = $request->file('avatar')->store('avatars', 'private');`,
+    commonMistakes: ["الاعتماد على امتداد الملف الأصلي $file->getClientOriginalName() عند حفظ الملف على السيرفر."],
+    followUpQuestions: ["كيف تمنع خادم Nginx من تنفيذ ملفات PHP الموجودة داخل مجلدات رفع الملفات (Uploads directory)؟"],
+    sources: [{ title: "Laravel docs — File Storage", url: "https://laravel.com/docs/master/filesystem" }],
+  },
+  {
+    id: "psec-008",
+    slug: "laravel-encryption-and-app-key",
+    topicId: "psec-008",
+    difficulty: "Mid",
+    question: "ما هو دور مفتاح APP_KEY في Laravel وما خطورة تغييره أو كشفه في الإنتاج؟",
+    shortAnswer: "هو مفتاح التشفير الأساسي (AES-256) لتأمين الكوكيز، والجلسات، والحقول المشفرة؛ وكشفه يتيح فك وتزوير البيانات، بينما تغييره يعطل فك تشفير البيانات السابقة.",
+    explanation: "يستخدم Laravel مفتاح APP_KEY عبر فئة Crypt لتشفير جميع الكوكيز والرموز والبيانات المخزنة بحقول Encrypted في قاعدة البيانات. إذا تم تسريب المفتاح، يمكن للمهاجم تزوير كوكيز الجلسات والتلاعب بالصلاحيات. وإذا تم تغيير المفتاح في تطبيق قائم، فلن يتمكن الخادم من فك تشفير أي بيانات أو كلمات مرور مشفرة سابقة وسيفقد المستخدمون جلساتهم فوراً.",
+    codeExample: `use Illuminate\\Support\\Facades\\Crypt;
+$encrypted = Crypt::encryptString("Sensitive Data");
+$decrypted = Crypt::decryptString($encrypted);`,
+    commonMistakes: ["تشغيل أمر php artisan key:generate على تطبيق إنتاجي حي يحتوي على بيانات مشفرة بالفعل في قاعدة البيانات."],
+    followUpQuestions: ["كيف تنفذ عملية تدوير المفاتيح (Key Rotation) بأمان للبيانات المشفرة في Laravel؟"],
+    sources: [{ title: "Laravel docs — Encryption", url: "https://laravel.com/docs/master/encryption" }],
+  },
+  {
+    id: "psec-009",
+    slug: "laravel-signed-urls-and-tamper-proofing",
+    topicId: "psec-009",
+    difficulty: "Mid",
+    question: "ما هي الروابط الموقعة (Signed URLs) في Laravel ومتى تستخدم لحماية العمليات الحساسة؟",
+    shortAnswer: "روابط تحتوي على توقيع رقمي (HMAC Hash) يمنع التلاعب بالمعاملات وتدعم مهلة انتهاء زمنية، وتستخدم لتأكيد البريد الإلكتروني وإعادة تعيين الحسابات.",
+    explanation: "تمنع الروابط الموقعة المستخدم من تغيير معاملات الرابط؛ فإذا كان الرابط لتفعيل حساب /verify/123 وقام بتغيير الرقم إلى 124، تسقط صلاحية التوقيع ويرمي الخادم خطأ 403 Invalid Signature. تدعم الدالة URL::temporarySignedRoute() وضع مهلة انتهاء محددة (مثل 30 دقيقة)، ويتم التحقق من سلامتها في المسار بواسطة الـ Middleware المسماة signed.",
+    codeExample: `$url = URL::temporarySignedRoute(
+    'unsubscribe', now()->addMinutes(30), ['user' => $user->id]
+);`,
+    commonMistakes: ["الاعتماد على مسارات التفعيل العادية دون توقيع مما يسمح بتفعيل حسابات مستخدمين آخرين بتخمين المعرفات."],
+    followUpQuestions: ["كيف تتحقق دالة $request->hasValidSignature() من عدم انقضاء المهلة الزمنية للرابط؟"],
+    sources: [{ title: "Laravel docs — Signed URLs", url: "https://laravel.com/docs/master/urls#signed-urls" }],
+  },
+  {
+    id: "psec-010",
+    slug: "laravel-content-security-policy-and-security-headers",
+    topicId: "psec-010",
+    difficulty: "Senior",
+    question: "كيف تطبق سياسة أمان المحتوى (Content Security Policy) مع الـ Nonce في تطبيقات Laravel؟",
+    shortAnswer: "بتوليد رمز عشوائي (Nonce) فريد لكل طلب HTTP وتمريره في ترويسة CSP وإدراجه في وسوم <script nonce=\"...\"> لحظر تنفيذ أي سكريبتات محقونة.",
+    explanation: "تعد CSP أقوى دفاع ضد هجمات XSS المتقدمة. عند استخدام الـ Nonce، يرفض المتصفح تنفيذ أي سكريبت لا يحمل نفس الرمز العشوائي للترويسة، حتى لو نجح المهاجم في حقن وسم <script> في الصفحة. توفر مكتبات مثل spatie/laravel-csp دعماً متكاملاً لإدارة الترويسات وتوليد الـ Nonce ومشاركته تلقائياً مع قوالب Blade.",
+    codeExample: `// في ترويسة الاستجابة
+Content-Security-Policy: script-src 'nonce-random123' 'strict-dynamic';
+// في قالب Blade
+<script nonce="{{ csp_nonce() }}">
+    console.log("Allowed script");
+</script>`,
+    commonMistakes: ["استخدام 'unsafe-inline' في ترويسة CSP مما يلغي الحماية ضد هجمات XSS تماماً."],
+    followUpQuestions: ["كيف تساعد تقارير report-uri أو report-to في مراقبة انتهاكات CSP قبل تفعيل الحظر الصارم؟"],
+    sources: [{ title: "Laravel docs — Security Best Practices", url: "https://laravel.com/docs/master/csrf" }],
+  },
+
+  // Topic: php-queues (10 questions: pqueue-001 to pqueue-010)
+  {
+    id: "pqueue-001",
+    slug: "laravel-queues-architecture-and-dispatching",
+    topicId: "pqueue-001",
+    difficulty: "Junior",
+    question: "كيف تعمل طوابير المهام (Queues) في Laravel وما فائدة واجهة ShouldQueue؟",
+    shortAnswer: "تفصل المهام الثقيلة عن مسار الـ HTTP، حيث يُسلسل الكائن في وسيط تخزين (Redis/DB) وترد الصفحة فوراً للمستخدم، بينما يعالج الـ Worker المهمة في الخلفية.",
+    explanation: "في العمليات التي تستغرق وقتاً مثل إرسال الإيميلات أو معالجة الصور، لا يجوز جعل المستخدم ينتظر لعدة ثوانٍ. عند إضافة واجهة ShouldQueue إلى فئة الـ Job أو الـ Mailable أو الـ Notification، يقوم Laravel بتسلسل المعاملات وحفظ المهمة في طابور انتظار وتفويض تنفيذ دالة handle() إلى عامل المعالجة (Queue Worker).",
+    codeExample: `class SendWelcomeEmail implements ShouldQueue {
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    public function __construct(public User $user) {}
+    public function handle(): void {
+        Mail::to($this->user)->send(new WelcomeMail());
+    }
+}
+SendWelcomeEmail::dispatch($user);`,
+    commonMistakes: ["تمرير كائنات ضخمة غير قابلة للـ Serialization في باني الـ Job بدلاً من الاعتماد على SerializesModels التي تحفظ المعرف فقط."],
+    followUpQuestions: ["ما الذي تفعله سمة SerializesModels بالضبط عند حفظ واسترجاع النماذج من الطابور؟"],
+    sources: [{ title: "Laravel docs — Queues: Getting Started", url: "https://laravel.com/docs/master/queues" }],
+  },
+  {
+    id: "pqueue-002",
+    slug: "laravel-queue-workers-queue-work-vs-queue-listen",
+    topicId: "pqueue-002",
+    difficulty: "Mid",
+    question: "ما الفرق الجوهري بين أمر php artisan queue:work وأمر queue:listen؟",
+    shortAnswer: "queue:work يبقي إطار العمل محملاً في الذاكرة لأقصى أداء ويتطلب إعادة تشغيل عند تعديل الكود، بينما queue:listen يعيد تشغيل التطبيق مع كل مهمة وهو مخصص للتطوير.",
+    explanation: "في بيئة الإنتاج، يتم دائماً استخدام php artisan queue:work تحت إشراف Supervisor، لأنه يقلل استهلاك المعالج بتشغيل إطار العمل لمرة واحدة في الذاكرة وخدمة آلاف المهام المتتالية. على العكس، فإن queue:listen ينشئ عملية جديدة لكل مهمة، مما يجعله بطيئاً جداً في الإنتاج ومناسباً فقط لبيئة التطوير لمشاهدة التعديلات دون إعادة تشغيل الـ worker.",
+    codeExample: `// للإنتاج مع المشرف Supervisor:
+// php artisan queue:work redis --tries=3 --timeout=90
+// للتطوير فقط:
+// php artisan queue:listen`,
+    commonMistakes: ["استخدام queue:listen في خوادم الإنتاج مما يضاعف استهلاك الـ CPU والذاكرة."],
+    followUpQuestions: ["لماذا يجب تشغيل أمر php artisan queue:restart في كل سكريبت نشر (Deployment Script) للإنتاج؟"],
+    sources: [{ title: "Laravel docs — Running The Queue Worker", url: "https://laravel.com/docs/master/queues#running-the-queue-worker" }],
+  },
+  {
+    id: "pqueue-003",
+    slug: "laravel-queue-failed-jobs-and-retries",
+    topicId: "pqueue-003",
+    difficulty: "Mid",
+    question: "كيف يتعامل Laravel مع المهام الفاشلة وما هو دور دالة failed() وسياسة Exponential Backoff؟",
+    shortAnswer: "يعيد محاولة تنفيذ المهمة بحسب $tries؛ وإذا استمر الفشل تُسجل في جدول failed_jobs وتستدعى دالة failed() لإجراء عمليات التنظيف أو التنبيه.",
+    explanation: "عند حدوث استثناء داخل دالة handle()، يفشل التشغيل. إذا تم تعيين public int $tries = 3، سيعيد العامل المحاولة. باستخدام public array $backoff = [10, 30, 60]، يتم تأخير كل محاولة تالية بفارق تصاعدي لتخفيف الضغط على الخدمات المتعطلة. وإذا استنفدت كل المحاولات، تنقل المهمة لجدول failed_jobs وتستدعى دالة failed(Throwable $e) لإشعار الفريق أو التراجع عن العمليات.",
+    codeExample: `class ProcessPayment implements ShouldQueue {
+    public int $tries = 3;
+    public array $backoff = [30, 60, 120];
+
+    public function failed(Throwable $exception): void {
+        Log::critical("Payment job failed permanently: " . $exception->getMessage());
+    }
+}`,
+    commonMistakes: ["تحديد عدد محاولات لانهائي لمهمة تفشل بسبب أخطاء منطقية ثابتة (Logic Errors) مما يجمد الـ Queue Workers."],
+    followUpQuestions: ["كيف تعيد تشغيل كل المهام الفاشلة دفعة واحدة باستخدام php artisan queue:retry all؟"],
+    sources: [{ title: "Laravel docs — Dealing With Failed Jobs", url: "https://laravel.com/docs/master/queues#dealing-with-failed-jobs" }],
+  },
+  {
+    id: "pqueue-004",
+    slug: "laravel-queue-job-batches-and-chaining",
+    topicId: "pqueue-004",
+    difficulty: "Senior",
+    question: "ما الفرق بين تسلسل المهام (Job Chaining) وحزم المهام (Job Batching) في Laravel؟",
+    shortAnswer: "الـ Chaining ينفذ المهام متسلسلة بالتتابع (إذا فشلت واحدة تتوقف البقية)، بينما الـ Batching ينفذ مجموعة مهام متوازية ويراقب نسبة إنجازها ويوفر callbacks للنجاح والفشل.",
+    explanation: "استخدم Bus::chain([new TaskA, new TaskB]) عندما تعتمد الخطوة التالية حتماً على اكتمال سابقتها. أما Bus::batch([new ImportCsvPart1, new ImportCsvPart2]) فيستخدم لتوزيع عمل ضخم عبر عدة عمال بالتوازي؛ حيث يوفر كائن Batch نسبة الإنجاز المئوية ويدعم دوال then(callback) عند اكتمال الجميع بنجاح، وcatch() عند فشل أي مهمة، وfinally() عند انتهاء الحزمة.",
+    codeExample: `Bus::batch([
+    new ProcessImage($img1),
+    new ProcessImage($img2),
+])->then(function (Batch $batch) {
+    // اكتملت كل الصور بنجاح
+})->catch(function (Batch $batch, Throwable $e) {
+    // فشل جزء
+})->dispatch();`,
+    commonMistakes: ["نسيان إضافة سمة Illuminate\\Bus\\Batchable إلى الفئات المراد استخدامها داخل الـ Batches."],
+    followUpQuestions: ["كيف تسمح ميزة allowFailures() للـ Batch بمواصلة معالجة باقي المهام حتى لو فشلت إحداها؟"],
+    sources: [{ title: "Laravel docs — Job Batching", url: "https://laravel.com/docs/master/queues#job-batching" }],
+  },
+  {
+    id: "pqueue-005",
+    slug: "laravel-horizon-and-redis-queue-monitoring",
+    topicId: "pqueue-005",
+    difficulty: "Senior",
+    question: "ما هي حزمة Laravel Horizon وما المزايا التي تقدمها لمراقبة طوابير Redis وإدارتها؟",
+    shortAnswer: "لوحة تحكم حية ومراقبة فورية لطوابير Redis، تدعم موازنة الحمل الذكية والتحجيم التلقائي لعدد العمال (Auto-scaling) ومراقبة أزمنة الانتظار والمهام الفاشلة.",
+    explanation: "توفر Horizon واجهة رسومية ومحرك إدارة فائق الكفاءة لخوادم الإنتاج المعتمدة على Redis. تتيح مراقبة معدل معالجة المهام في الثانية (Throughput)، وزمن انتظار المهمة في الطابور (Wait Time). أهم ميزاتها هي Auto-balancing؛ حيث تقوم بزيادة عدد خيوط العمال تلقائياً على الطوابير المزدحمة وخفضها عند انتهاء الذروة وفق إعدادات config/horizon.php.",
+    codeExample: `// config/horizon.php
+'production' => [
+    'supervisor-1' => [
+        'connection' => 'redis',
+        'queue' => ['default', 'high'],
+        'balance' => 'auto',
+        'minProcesses' => 5,
+        'maxProcesses' => 30,
+    ],
+]`,
+    commonMistakes: ["محاولة استخدام Laravel Horizon مع طوابير قواعد البيانات العادية (Database Driver)؛ هي مخصصة حصراً لـ Redis."],
+    followUpQuestions: ["كيف تفعل التنبيهات التلقائية لـ Horizon عبر Slack أو الإيميل عند تجاوز زمن انتظار الطابور حداً خطيراً؟"],
+    sources: [{ title: "Laravel docs — Laravel Horizon", url: "https://laravel.com/docs/master/horizon" }],
+  },
+  {
+    id: "pqueue-006",
+    slug: "laravel-queue-timeouts-and-stuck-jobs",
+    topicId: "pqueue-006",
+    difficulty: "Mid",
+    question: "كيف تعالج مشكلة تعليق المهام (Stuck Jobs) وما الفرق بين مهلة $timeout في المهمة و --timeout في العامل؟",
+    shortAnswer: "تحدد المهلة الحد الأقصى بالثواني قبل قتل العملية؛ وخيار --timeout للعامل يجب أن يكون دائماً أكبر من $timeout للمهمة لتفادي إيقاف العمال بشكل غير منضبط.",
+    explanation: "إذا قامت مهمة باستدعاء خدمة خارجية بطيئة وعلق الاتصال، سيحتجز العامل للأبد ويحرم باقي المهام. يحدد public int $timeout = 60 زمناً أقصى للمهمة قبل رمي MaxAttemptsExceededException أو إنهاء العملية. يجب أن تكون مهلة retry_after في إعدادات config/queue.php أطول من المهلة المحددة للمهمة، وإلا سيعيد Laravel إطلاق نفس المهمة في الخفاء بينما النسخة الأولى لا تزال قيد التنفيذ.",
+    codeExample: `class LongRunningTask implements ShouldQueue {
+    public int $timeout = 120; // دقيقتان كحد أقصى
+}`,
+    commonMistakes: ["تحديد retry_after بقيمة أصغر من مهلة تنفيذ المهمة مما يتسبب في تكرار تنفيذ المهمة مئات المرات بالتوازي."],
+    followUpQuestions: ["ما هي مكتبة pcntl ولماذا يشترط وجودها لتفعيل ميزة timeouts في الـ Queue Workers على خوادم Linux؟"],
+    sources: [{ title: "Laravel docs — Queue Worker Timeouts", url: "https://laravel.com/docs/master/queues#timeout" }],
+  },
+  {
+    id: "pqueue-007",
+    slug: "laravel-queue-prioritization-and-multiple-queues",
+    topicId: "pqueue-007",
+    difficulty: "Junior",
+    question: "كيف تصمم طوابير متعددة ذات أولويات مختلفة (High, Default, Low) في Laravel؟",
+    shortAnswer: "بتمرير أسماء الطوابير بالترتيب لأمر تشغيل العامل php artisan queue:work --queue=high,default,low؛ حيث يُفرغ الطابور الأول بالكامل قبل الانتقال للتالي.",
+    explanation: "إذا كانت كل المهام في طابور واحد، فإن رفع 10 آلاف تقرير ثقيل سيؤخر إرسال رمز تسجيل الدخول للمستخدم لعدة ساعات. الحل هو توجيه المهام الحساسة لطابور خاص عبر onQueue('high') وتشغيل العامل مع تحديد ترتيب الأولوية. يضمن ذلك خدمة طلبات الـ high فوراً في ثوانٍ حتى لو كان طابور الـ low يحتوي ملايين العمليات المؤجلة.",
+    codeExample: `SendOtpCode::dispatch($code)->onQueue('high');
+GenerateMonthlyPdf::dispatch($report)->onQueue('low');`,
+    commonMistakes: ["توجيه جميع المهام لنفس الطابور الافتراضي 'default' في المشاريع الكبيرة."],
+    followUpQuestions: ["كيف تخصص عمالاً مستقلين ومخصصين حصراً لطابور الـ high لضمان عدم مشاركة الموارد مع المهام البطيئة؟"],
+    sources: [{ title: "Laravel docs — Queue Priorities", url: "https://laravel.com/docs/master/queues#queue-priorities" }],
+  },
+  {
+    id: "pqueue-008",
+    slug: "laravel-queue-unique-jobs-and-locks",
+    topicId: "pqueue-008",
+    difficulty: "Senior",
+    question: "كيف تمنع تكرار تنفيذ نفس المهمة في الطابور باستخدام واجهة ShouldBeUnique في Laravel؟",
+    shortAnswer: "بتطبيق واجهة ShouldBeUnique وتحديد دالة uniqueId()؛ حيث يحجز Laravel قفلاً في الكاش ويمنع إدخال أي مهمة مطابقة حتى تنتهي المهمة الحالية.",
+    explanation: "في سيناريوهات معينة مثل تصدير تقرير لنفس المستخدم، قد يضغط المستخدم الزر عدة مرات. بتطبيق واجهة ShouldBeUnique، يقوم Laravel بالتحقق من مفتاح القفل قبل إرسال المهمة للطابور؛ فإذا وجد نسخة مطابقة قيد الانتظار أو المعالجة، يتجاهل الإرسال الإضافي فوراً دون استهلاك أي موارد.",
+    codeExample: `class ExportUserData implements ShouldQueue, ShouldBeUnique {
+    public function __construct(public User $user) {}
+
+    public function uniqueId(): string {
+        return (string) $this->user->id;
+    }
+}`,
+    commonMistakes: ["نسيان تحديد مدة صلاحية القفل عبر $uniqueFor مما قد يعلق القفل للأبد في حال تعطل الخادم فجأة."],
+    followUpQuestions: ["ما الفرق بين ShouldBeUnique و ShouldBeUniqueUntilProcessing في توقيت تحرير القفل؟"],
+    sources: [{ title: "Laravel docs — Unique Jobs", url: "https://laravel.com/docs/master/queues#unique-jobs" }],
+  },
+  {
+    id: "pqueue-009",
+    slug: "laravel-queue-middleware-and-throttling",
+    topicId: "pqueue-009",
+    difficulty: "Senior",
+    question: "كيف تستخدم وسائط المهام (Job Middleware) لتنظيم استدعاء الـ APIs الخارجية ومعدل الاستهلاك؟",
+    shortAnswer: "بتعريف دالة middleware() داخل فئة الـ Job واستخدام أدوات مثل WithoutOverlapping أو ThrottlesExceptions لمنع تجميد الحسابات الخارجية.",
+    explanation: "عند استدعاء واجهات خارجية تفرض قيود معدل صارمة (Rate Limits مثل Twitter API)، فإن تشغيل 50 عاملاً متزامناً سيؤدي لحظر حسابك فوراً. تتيح الـ Job Middleware اعتراض المهمة قبل استدعاء handle() وتأخيرها أو إرجاعها للطابور تلقائياً إذا تجاوزت السقف المسموح، أو منع مهمتين من تعديل نفس السجل بالـ WithoutOverlapping.",
+    codeExample: `public function middleware(): array {
+    return [
+        (new WithoutOverlapping($this->user->id))->releaseAfter(60),
+        new RateLimited('external-api'),
+    ];
+}`,
+    commonMistakes: ["كتابة كود الـ Throttling يدوياً داخل دالة handle() مع استخدام sleep() مما يجمد الـ Worker process بالكامل."],
+    followUpQuestions: ["كيف تدمج RateLimiter الموزع مع RateLimited Job Middleware؟"],
+    sources: [{ title: "Laravel docs — Job Middleware", url: "https://laravel.com/docs/master/queues#job-middleware" }],
+  },
+  {
+    id: "pqueue-010",
+    slug: "laravel-supervisor-configuration-and-process-control",
+    topicId: "pqueue-010",
+    difficulty: "Mid",
+    question: "كيف تعد أداة إدارة العمليات Supervisor على خوادم Linux لضمان استمرار عمل عمال Laravel؟",
+    shortAnswer: "بإنشاء ملف تكوين في /etc/supervisor/conf.d يحدد أمر queue:work، وعدد العمليات، والتشغيل التلقائي مع النظام وإعادة التشغيل الفوري عند الانهيار.",
+    explanation: "لا يجوز تشغيل php artisan queue:work مباشرة في سطر الأوامر لأنه سيتوقف فور إغلاق الـ SSH. تقوم أداة Supervisor بإدارة العمليات كخدمة خلفية نظامية (Daemon)؛ تراقب العمال على مدار الساعة، وتعيد تشغيل أي عامل ينتهي بسبب timeout أو خطأ في الذاكرة فوراً، وتعيد تشغيلهم تلقائياً عند إعادة تشغيل السيرفر.",
+    codeExample: `[program:laravel-worker]
+process_name=%(program_name)s_%(process_num)02d
+command=php /var/www/app/artisan queue:work redis --sleep=3 --tries=3
+autostart=true
+autorestart=true
+user=www-data
+numprocs=8
+redirect_stderr=true
+stdout_logfile=/var/www/app/storage/logs/worker.log`,
+    commonMistakes: ["تشغيل عمال الـ Supervisor بحساب المستخدم root بدلاً من مستخدم خادم الويب www-data."],
+    followUpQuestions: ["كيف تحدث إعدادات المشرف بعد تعديل الملف عبر supervisorctl reread و supervisorctl update؟"],
+    sources: [{ title: "Laravel docs — Supervisor Configuration", url: "https://laravel.com/docs/master/queues#supervisor-configuration" }],
+  },
+
+  // Topic: php-caching (10 questions: pcache-001 to pcache-010)
+  {
+    id: "pcache-001",
+    slug: "laravel-cache-drivers-and-store-selection",
+    topicId: "pcache-001",
+    difficulty: "Junior",
+    question: "قارن بين مشغلات التخزين المؤقت (Cache Drivers) في Laravel: file و database و redis و memcached.",
+    shortAnswer: "file و database مخصصان للتطوير والمشاريع الصغيرة، بينما redis و memcached مخازن ذاكرة فائقة السرعة للإنتاج تدعم المشاركة بين خوادم متعددة والأقفال الذرية.",
+    explanation: "في بيئات الإنتاج وخوادم الحمل العالي، تسبب مشغلات file وdatabase اختناقات حادة في استدعاءات القرص (Disk I/O) وقفل الجداول. مشغل Redis هو الخيار المعياري الذهبي في Laravel؛ فهو يحتفظ بالبيانات في الـ RAM الفائقة السرعة، ويدعم أنواع البيانات المعقدة، والوسوم (Cache Tags)، والأقفال الذرية الموزعة عبر خوادم متعددة.",
+    codeExample: `// config/cache.php
+'default' => env('CACHE_STORE', 'redis'),`,
+    commonMistakes: ["استخدام مشغل 'file' في بيئات الاستضافة السحابية متعددة الخوادم (Load Balanced) مما يؤدي لتشتت الكاش وعدم تناسقه."],
+    followUpQuestions: ["ما الفارق الجوهري بين Memcached و Redis في دعم الـ Cache Tags واسترجاع البيانات بعد إعادة التشغيل؟"],
+    sources: [{ title: "Laravel docs — Cache: Configuration", url: "https://laravel.com/docs/master/cache#configuration" }],
+  },
+  {
+    id: "pcache-002",
+    slug: "laravel-cache-remember-and-atomic-locks",
+    topicId: "pcache-002",
+    difficulty: "Mid",
+    question: "كيف تعمل دالة Cache::remember وما فائدة الأقفال الذرية (Atomic Locks) في حماية السيرفر؟",
+    shortAnswer: "تفحص Cache::remember وجود المفتاح؛ فإن وجدته أعادته، وإلا نفذت دالة الـ Closure وحفظت الناتج بالمدة المحددة، بينما تضمن الأقفال الذرية عدم تنفيذ عملية ثقيلة إلا بواسطة طلب واحد فقط.",
+    explanation: "تعد Cache::remember النمط الأكثر شيوعاً لتخزين نتائج الاستعلامات البطيئة. ومع ذلك، عند انتهاء مدة المفتاح في موقع يستقبل آلاف الزيارات، قد تحاول مئات الطلبات في نفس اللحظة إعادة حساب نفس النتيجة والتواصل مع قاعدة البيانات معاً (ظاهرة Cache Stampede). استخدام Cache::lock()->get() يضمن أن طلباً واحداً فقط هو من يقوم بالتحديث بينما تنتظر باقي الطلبات النتيجة الجاهزة.",
+    codeExample: `$users = Cache::remember('users.active', now()->addHours(1), function () {
+    return User::where('active', true)->get();
+});`,
+    commonMistakes: ["تخزين كائنات نماذج Eloquent ضخمة بعلاقات غير محملة في الكاش مما يسبب أخطاء Serialization."],
+    followUpQuestions: ["كيف تستخدم Cache::lock()->block(10) لانتظار إفراج الخادم الآخر عن القفل بأمان؟"],
+    sources: [{ title: "Laravel docs — Cache: Retrieve & Store", url: "https://laravel.com/docs/master/cache#retrieve-store" }],
+  },
+  {
+    id: "pcache-003",
+    slug: "laravel-cache-tags-and-invalidation",
+    topicId: "pcache-003",
+    difficulty: "Senior",
+    question: "كيف تستخدم وسوم التخزين المؤقت (Cache Tags) وما هي المشغلات التي تدعمها؟",
+    shortAnswer: "تسمح بربط عدة مفاتيح كاش مختلفة بوسوم موحدة (Tags) لإبطالها وتفريغها دفعة واحدة بـ flush()؛ وتدعمها مشغلات Redis و Memcached حصراً.",
+    explanation: "إبطال الكاش هو أحد أصعب معضلات هندسة البرمجيات. إذا كان لديك كاش لكل مقال وكاش لقائمة المقالات، فإن تعديل مقال واحد يتطلب مسح مفتاحه ومفتاح القائمة. باستخدام الوسوم: Cache::tags(['posts'])->put(...)، يمكنك فور تعديل أي مقال استدعاء Cache::tags(['posts'])->flush() لمسح كل البيانات المرتبطة بهذا الوسم بلمح البصر دون المساس بكاش المستخدمين أو الإعدادات.",
+    codeExample: `Cache::tags(['posts', 'authors'])->put('post.1', $post, 3600);
+// مسح كل ما يرتبط بوسم posts
+Cache::tags(['posts'])->flush();`,
+    commonMistakes: ["محاولة استخدام Cache::tags() مع مشغلي file أو database حيث يرمي Laravel استثناء BadMethodCallException."],
+    followUpQuestions: ["كيف يؤثر استخدام Cache Tags في Redis على استهلاك الذاكرة وتوليد مفاتيح الفهارس الداخلية؟"],
+    sources: [{ title: "Laravel docs — Cache Tags", url: "https://laravel.com/docs/master/cache#cache-tags" }],
+  },
+  {
+    id: "pcache-004",
+    slug: "laravel-http-caching-etag-and-conditional-requests",
+    topicId: "pcache-004",
+    difficulty: "Mid",
+    question: "كيف تطبق التخزين المؤقت للاستجابات (HTTP Caching) وترويسات ETag و Last-Modified في Laravel؟",
+    shortAnswer: "بإرسال ترويسة ETag محسوبة من بصمة المحتوى وترويسة Cache-Control؛ فإذا أرسل العميل If-None-Match متطابقة، يرد الخادم فوراً بـ 304 Not Modified دون نقل محتوى البيانات.",
+    explanation: "تساعد ترويسات الـ HTTP Caching على توفير استهلاك الباندويث وسرعة استجابة المتصفح والتطبيقات. يقوم الخادم بحساب بصمة تشفيرية للمحتوى عبر md5($content) ووضعها في ترويسة ETag. في الطلب التالي، يرسل المتصفح ترويسة If-None-Match؛ يفحص وسيط Laravel البصمة، فإذا لم يتغير المحتوى، يقطع الاتصال ويرسل 304 Not Modified فارغاً، فيستخدم المتصفح نسخته المحلية فوراً.",
+    codeExample: `return response()->json($data)
+    ->setEtag(md5(json_encode($data)))
+    ->setPublic()
+    ->setMaxAge(3600);`,
+    commonMistakes: ["إرسال ترويسات Cache-Control عامة (public) لبيانات خاصة تحتوي معلومات حساسة للمستخدم."],
+    followUpQuestions: ["كيف تعمل حزمة spatie/laravel-responsecache لتخزين كامل صفحات HTML في الـ Cache تلقائياً؟"],
+    sources: [{ title: "Laravel docs — HTTP Responses and Headers", url: "https://laravel.com/docs/master/responses#attaching-headers-to-responses" }],
+  },
+  {
+    id: "pcache-005",
+    slug: "laravel-route-and-view-caching",
+    topicId: "pcache-005",
+    difficulty: "Junior",
+    question: "ما هي أوامر تحسين الأداء الأساسية (route:cache, view:cache, config:cache) في بيئة الإنتاج؟",
+    shortAnswer: "أوامر تجمع ملفات المسارات، وقوالب Blade، وملفات الإعدادات في ملفات مجمعة مسبقاً في الذاكرة والقرص لتقليل زمن معالجة الطلبات إلى الصفر تقريباً.",
+    explanation: "في بيئة التطوير، يقوم Laravel بقراءة مئات ملفات الإعدادات والمسارات وتحليل قوالب Blade مع كل طلب. أوامر التحسين تجمع كل المسارات في ملف شجرة واحد بـ route:cache، وتجمع كل الإعدادات بـ config:cache، وتترجم قوالب Blade إلى كود PHP خام بـ view:cache. تشغيل هذه الحزمة الموحدة عبر php artisan optimize في سكريبتات النشر يرفع سرعة التطبيق بعدة أضعاف.",
+    codeExample: `php artisan optimize
+// يعادل:
+// php artisan config:cache
+// php artisan route:cache
+// php artisan view:cache`,
+    commonMistakes: ["استخدام Closures مباشرة داخل ملفات routes/web.php في الإصدارات السابقة حيث كان يمنع تشغيل أمر route:cache."],
+    followUpQuestions: ["كيف تقوم بإلغاء كل التخزين المؤقت للأوامر في بيئة التطوير بـ php artisan optimize:clear؟"],
+    sources: [{ title: "Laravel docs — Deployment Optimization", url: "https://laravel.com/docs/master/deployment#optimization" }],
+  },
+  {
+    id: "pcache-006",
+    slug: "laravel-database-query-caching-strategies",
+    topicId: "pcache-006",
+    difficulty: "Mid",
+    question: "ما هي المخاطر المعمارية لتخزين نتائج استعلامات قواعد البيانات في الكاش وكيف تدير الـ Invalidation؟",
+    shortAnswer: "المخاطر هي تقديم بيانات قديمة متناقضة (Stale Data)؛ وتدار إما بربط مفاتيح الكاش بمعرف وتوقيت تحديث السجل (Cache-Busting عبر updated_at) أو بإبطالها في الـ Observers.",
+    explanation: "تخزين البيانات في الكاش يسرع القراءة ولكنه يعقد الكتابة. أفضل نمط هو الرشاقة المستندة للتاريخ (Russian Doll Caching): حيث يحتوي مفتاح الكاش على وقت التحديث: 'user.' . $user->id . '.' . $user->updated_at->timestamp. عند تحديث أي سجل، يتغير الـ timestamp تلقائياً ويصبح المفتاح القديم مهملاً دون الحاجة للبحث عنه وحذفه يدوياً.",
+    codeExample: `$key = "user:{$user->id}:{$user->updated_at->timestamp}";
+return Cache::remember($key, 86400, fn() => $user->load('profile'));`,
+    commonMistakes: ["الاعتماد على إبطال الكاش اليدوي المنتشر في عشرات الـ Controllers مما يؤدي لنسيان مسار معين وظهور بيانات متضاربة."],
+    followUpQuestions: ["كيف تستخدم أحداث النماذج saved و deleted لمسح مفاتيح الكاش تلقائياً؟"],
+    sources: [{ title: "Laravel docs — Cache Usage and Keys", url: "https://laravel.com/docs/master/cache" }],
+  },
+  {
+    id: "pcache-007",
+    slug: "laravel-session-drivers-and-performance",
+    topicId: "pcache-007",
+    difficulty: "Junior",
+    question: "كيف يؤثر مشغل الجلسات (Session Driver) على سرعة وأداء تطبيق Laravel؟",
+    shortAnswer: "مشغل file الافتراضي ينشئ قفل ملف على القرص مما يبطئ الطلبات المتزامنة، بينما مشغلي redis أو cookie ينقلان الجلسة للذاكرة الفائقة أو المتصفح.",
+    explanation: "في الخوادم الموزعة خلف Load Balancer، إذا كانت الجلسات مخزنة على القرص بمشغل file، سيفقد المستخدم جلسته بمجرد توجيهه لخادم آخر. التبديل لمشغل redis المركزي في config/session.php لا يحل مشكلة الـ Session Persistence عبر الخوادم فحسب، بل يرفع سرعة قراءة الجلسة لعشرات الآلاف في الثانية بفضل سرعة الـ RAM.",
+    codeExample: `// config/session.php
+'driver' => env('SESSION_DRIVER', 'redis'),`,
+    commonMistakes: ["استخدام مشغل database للجلسات في المواقع الضخمة مما يضاعف استعلامات القراءة والكتابة على جدول sessions في كل حركة للمستخدم."],
+    followUpQuestions: ["كيف تحمي بيانات الجلسة من التلاعب عند استخدام مشغل cookie؟"],
+    sources: [{ title: "Laravel docs — HTTP Session", url: "https://laravel.com/docs/master/session" }],
+  },
+  {
+    id: "pcache-008",
+    slug: "laravel-redis-pipeline-and-transactions",
+    topicId: "pcache-008",
+    difficulty: "Senior",
+    question: "ما هو الـ Pipelining في Redis وكيف يوفر زمن استجابة الشبكة عند تنفيذ مئات الأوامر بـ Laravel؟",
+    shortAnswer: "يرسل عشرات أو مئات أوامر Redis في حزمة شبكة واحدة دفعة واحدة بدلاً من إرسال كل أمر وانتظار استجابته على حدة، مما يلغي تكلفة الـ Round-Trip Time.",
+    explanation: "في الشبكات، يستغرق إرسال أمر واستقبال الرد وقتاً يسمى Round-Trip Time (RTT). إذا أردت إدخال 1,000 عنصر في Redis، فإن الطريقة العادية تستغرق 1,000 * 1ms = 1 ثانية. باستخدام Redis::pipeline()، يرسل Laravel الـ 1,000 أمر في تدفق شبكي واحد ويتلقى جميع النتائج دفعة واحدة في بضعة مللي ثوانٍ فقط.",
+    codeExample: `Redis::pipeline(function ($pipe) {
+    for ($i = 0; $i < 1000; $i++) {
+        $pipe->set("key:$i", $i);
+    }
+});`,
+    commonMistakes: ["الخلط بين Redis Pipeline (تجميع أوامر الشبكة) و Redis Transaction (الأمر الذري MULTI/EXEC)."],
+    followUpQuestions: ["متى يجب استخدام Redis::transaction() بدلاً من Redis::pipeline() لضمان الذرية؟"],
+    sources: [{ title: "Laravel docs — Redis Transactions and Pipeline", url: "https://laravel.com/docs/master/redis#transactions" }],
+  },
+  {
+    id: "pcache-009",
+    slug: "laravel-cache-stampede-and-probabilistic-early-expiration",
+    topicId: "pcache-009",
+    difficulty: "Senior",
+    question: "ما هي خوارزمية انتهاء الصلاحية المبكر الاحتمالي (Probabilistic Early Expiration) لمقاومة تدافع الكاش؟",
+    shortAnswer: "خوارزمية تعيد حساب وتحديث الكاش في الخلفية بنسبة احتمالية تتصاعد كلما اقترب المفتاح من انتهاء صلاحيته، لضمان عدم وصول الكاش للصفر مطلقاً.",
+    explanation: "عندما ينتهي كاش عنصر عالي الطلب (مثل الصفحة الرئيسية)، فإن مئات الطلبات ستجد الكاش مفقوداً وتنقض على قاعدة البيانات معاً (Cache Stampede / Dog-piling). بدلاً من القفل الصارم، تقوم هذه الخوارزمية (المعروفة بـ XFetch) بحساب قيمة عشوائية كلما قرأ طلب المفتاح في دقائقه الأخيرة؛ فإذا تحققت النسبة، يقوم هذا الطلب بتحديث الكاش بينما يحصل الجميع على نسخة سريعة دون أي توقف.",
+    codeExample: `// تطبيق منطق التحديث المبكر في الخلفية عند اقتراب TTL من الانتهاء`,
+    commonMistakes: ["الاعتماد على TTL ثابت فقط في المواقع الضخمة دون معالجة سيناريو لحظة الفناء المفاجئ للمفتاح."],
+    followUpQuestions: ["كيف يدعم مشغل Memcached ميزة Anti-Stampede التلقائية؟"],
+    sources: [{ title: "Laravel docs — Cache Atomic Locks and Stampede", url: "https://laravel.com/docs/master/cache#atomic-locks" }],
+  },
+  {
+    id: "pcache-010",
+    slug: "laravel-model-caching-libraries",
+    topicId: "pcache-010",
+    difficulty: "Mid",
+    question: "كيف تعمل حزم التخزين المؤقت التلقائي لنماذج Eloquent (مثل laravel-model-caching) وما سلبياتها؟",
+    shortAnswer: "تعترض استعلامات Eloquent وتحفظ النتائج في الكاش تلقائياً وتبطلها عبر أحداث النماذج؛ وسلبيتها هي تعقيد تعقب العلاقات المتداخلة واستهلاك الذاكرة المفرط.",
+    explanation: "توفر هذه الحزم كاش فوري بمجرد إضافة Trait إلى النموذج. تقوم باعتراض دالة get() وتوليد مفتاح بناءً على كود الـ SQL ومعاملاته. على الرغم من جاذبيتها في البداية، إلا أنها تعاني في المشاريع الكبيرة من صعوبة التنبؤ بما هو مخزن وما هو مبطل، وقد تسبب إبطالاً كلياً للكاش عند تحديث عمود غير ذي صلة، لذا يفضل معظم مهندسي البرمجيات التخزين المؤقت الصريح والمقصود (Explicit Caching).",
+    codeExample: `// التخزين الصريح المحدد أفضل وأسهل في التتبع دائماً من الحزم الآلية السحرية`,
+    commonMistakes: ["الاعتماد على حزم التخزين التلقائي كبديل عن كتابة استعلامات SQL مفهرسة ومحسنة في الأصل."],
+    followUpQuestions: ["لماذا تفشل حزم الكاش التلقائي للنماذج في اعتراض الاستعلامات المنفذة عبر DB::table المباشر؟"],
+    sources: [{ title: "Laravel docs — Eloquent Caching Considerations", url: "https://laravel.com/docs/master/cache" }],
+  },
+
+  // Topic: php-testing (10 questions: ptest-001 to ptest-010)
+  {
+    id: "ptest-001",
+    slug: "laravel-pest-php-vs-phpunit",
+    topicId: "ptest-001",
+    difficulty: "Junior",
+    question: "ما هو إطار عمل Pest PHP ولماذا أصبح الخيار المفضل لاختبارات Laravel الحديثة على حساب PHPUnit؟",
+    shortAnswer: "Pest هو إطار اختبارات أنيق مبني فوق PHPUnit يوفر صياغة وظيفية موجزة (Expectation API)، وقراءة بديهية جداً للأخطاء، مع الحفاظ على التوافق التام مع ميزات واختبارات PHPUnit.",
+    explanation: "بدلاً من كتابة فئات اختبارات كلاسيكية معقدة وطويلة في PHPUnit، يتيح Pest كتابة الاختبارات كدوال مباشرة مثل test('user can login', function () { ... }) واستخدام سلاسل توكيدات طبيعية مثل expect($user->name)->toBe('Ali')->not->toBeEmpty(). كما يوفر ميزات متقدمة مثل مراقبة البنية المعمارية (Arch Testing) وتوليد طفرات الاختبار بنقرة واحدة.",
+    codeExample: `// Pest PHP
+test('calculates total with tax', function () {
+    $order = new Order(price: 100);
+    expect($order->totalWithTax(0.15))->toBe(115.0);
+});`,
+    commonMistakes: ["الظن بأن الانتقال إلى Pest يتطلب إعادة كتابة اختبارات PHPUnit السابقة؛ Pest يدعم تشغيل كود واختبارات PHPUnit الكلاسيكية جنباً إلى جنب."],
+    followUpQuestions: ["كيف تختبر بنية الكود والمجلدات عبر ميزة Arch Testing في Pest (مثلاً التأكد من عدم استخدام dd() في الكود)؟"],
+    sources: [{ title: "Laravel docs — Testing: Getting Started", url: "https://laravel.com/docs/master/testing" }],
+  },
+  {
+    id: "ptest-002",
+    slug: "laravel-testing-http-endpoints-and-assertions",
+    topicId: "ptest-002",
+    difficulty: "Junior",
+    question: "كيف تكتب اختبارات Feature متكاملة لنقاط نهاية الـ API بـ Laravel وتتحقق من استجابة JSON؟",
+    shortAnswer: "تستخدم دوال مثل $this->getJson() أو postJson()، وتفحص النتيجة بتوكيدات مخصصة مثل assertStatus(200) و assertJsonPath() و assertJsonValidationErrors().",
+    explanation: "يوفر Laravel بيئة اختبار مدمجة تحاكي طلبات HTTP كاملة دون الحاجة لتشغيل خادم خارجي. تتيح توكيدات الـ JSON التحقق الدقيق من أجزاء الاستجابة، مثل التحقق من مطابقة الحقول، وعدم تسريب معلومات غير مطلوبة عبر assertJsonMissing()، والتأكد من إطلاق الأخطاء المناسبة عند إرسال بيانات مشوهة.",
+    codeExample: `public function test_can_create_user(): void {
+    $response = $this->postJson('/api/users', [
+        'name' => 'Sara',
+        'email' => 'sara@test.com'
+    ]);
+    $response->assertStatus(201)
+             ->assertJsonPath('data.name', 'Sara');
+}`,
+    commonMistakes: ["استخدام $this->post() بدلاً من $this->postJson() عند اختبار واجهات الـ API مما يمنع Laravel من معاملة الطلب كـ JSON."],
+    followUpQuestions: ["كيف تتحقق من هيكل استجابة الـ JSON بالكامل باستخدام assertJsonStructure()؟"],
+    sources: [{ title: "Laravel docs — HTTP Tests", url: "https://laravel.com/docs/master/http-tests" }],
+  },
+  {
+    id: "ptest-003",
+    slug: "laravel-refresh-database-vs-databasetransactions",
+    topicId: "ptest-003",
+    difficulty: "Mid",
+    question: "ما الفرق بين سمة RefreshDatabase و DatabaseTransactions في اختبارات Laravel؟",
+    shortAnswer: "RefreshDatabase تطبق كل الـ migrations مرة واحدة وتعزل كل اختبار في معاملة ذرية تُلغى عند النهاية، بينما DatabaseTransactions تلف الاختبار في معاملة فقط وتتطلب قاعدة بيانات جاهزة مسبقاً.",
+    explanation: "RefreshDatabase هي السمة القياسية الموصى بها؛ فهي تفحص ما إذا كانت الجداول قد تم ترحيلها، وتقوم بالترحيل الأولي مرة واحدة فقط في الذاكرة أو قاعدة الاختبار، ثم تبدأ معاملة (Transaction) قبل كل دالة اختبار وتقوم بعمل Rollback فوري عند نهايتها، مما يضمن بيئة اختبار نظيفة وحتمية وفائقة السرعة دون الحاجة لإعادة بناء الجداول في كل اختبار.",
+    codeExample: `class UserTest extends TestCase {
+    use RefreshDatabase; // إعادة تعيين نظيفة لكل اختبار
+}`,
+    commonMistakes: ["استخدام DatabaseMigrations القديمة التي تعيد بناء وحذف كل الجداول مع كل دالة اختبار فردية مما يجعل تنفيذ الاختبارات بطيئاً جداً."],
+    followUpQuestions: ["لماذا تفشل ميزة إلغاء المعاملات (Rollback) في تنظيف البيانات إذا كان الكود المختبر يستدعي أوامر DDL أو ينفذ معاملات متداخلة بـ Full Commit؟"],
+    sources: [{ title: "Laravel docs — Testing: Resetting The Database", url: "https://laravel.com/docs/master/database-testing#resetting-the-database" }],
+  },
+  {
+    id: "ptest-004",
+    slug: "laravel-model-factories-and-unittesting",
+    topicId: "ptest-004",
+    difficulty: "Junior",
+    question: "كيف تسهل مصانع النماذج (Model Factories) ومكتبة Faker تجهيز بيانات الاختبار؟",
+    shortAnswer: "تنشئ سجلات نماذج وهمية ولكنها متناسقة ومطابقة لقواعد البيانات عبر User::factory()->create() مع إمكانية تعديل خصائص محددة وتوليد حالات جاهزة (States).",
+    explanation: "بدلاً من كتابة مصفوفات يدوية ضخمة لكل مستخدم في كل اختبار، توفر الـ Factories قالباً موحداً يولد بيانات عشوائية منطقية بواسطة Faker. ميزة الـ States تسمح بتحديد تنويعات سريعة مثل User::factory()->admin()->unverified()->create()، مما يجعل كود الاختبار معبراً ومقروءاً بامتياز.",
+    codeExample: `// إنشاء مستخدم وتوليد 3 طلبات تابعة له في خطوة واحدة
+$user = User::factory()
+    ->has(Order::factory()->count(3))
+    ->create(['name' => 'Zaid']);`,
+    commonMistakes: ["استخدام create() في اختبارات الوحدة البحتة (Unit Tests) التي لا تحتاج لقاعدة بيانات بدلاً من make() التي تنشئ الكائن في الذاكرة فقط."],
+    followUpQuestions: ["ما الفرق بين $model->make() و $model->create() في Model Factories؟"],
+    sources: [{ title: "Laravel docs — Eloquent: Factories", url: "https://laravel.com/docs/master/eloquent-factories" }],
+  },
+  {
+    id: "ptest-005",
+    slug: "laravel-mocking-facades-and-services",
+    topicId: "ptest-005",
+    difficulty: "Mid",
+    question: "كيف تستبدل الخدمات والـ Facades بنسخ وهمية (Mocks) في اختبارات Laravel دون كسر النظام؟",
+    shortAnswer: "باستخدام دوال المحاكاة المدمجة مثل Event::fake() أو Queue::fake() أو Mail::fake()، وتوكيد الإرسال بـ Mail::assertSent().",
+    explanation: "في بيئة الاختبارات، لا تريد إرسال إيميل حقيقي لمستخدم أو خصم بطاقة ائتمان حقيقية. يوفر Laravel أدوات faking مدمجة للـ Facades الأساسية تعترض العمليات في الذاكرة وتسجل ما حدث، مما يسمح لك بالتأكد من أن الكود حاول إرسال الإيميل المطلوب بالبيانات الصحيحة دون أي تأثير خارجي فعلي.",
+    codeExample: `public function test_orders_trigger_mail(): void {
+    Mail::fake();
+    // تنفيذ عملية الشراء
+    $this->postJson('/api/orders', $data);
+    // التوكيد
+    Mail::assertSent(OrderConfirmationMail::class);
+}`,
+    commonMistakes: ["استدعاء Mail::fake() بعد تنفيذ الكود بدلاً من استدعائها قبله."],
+    followUpQuestions: ["كيف تحاكي ردود خادم HTTP خارجي في الاختبارات باستخدام Http::fake()؟"],
+    sources: [{ title: "Laravel docs — Mocking", url: "https://laravel.com/docs/master/mocking" }],
+  },
+  {
+    id: "ptest-006",
+    slug: "laravel-testing-time-manipulation",
+    topicId: "ptest-006",
+    difficulty: "Mid",
+    question: "كيف تتحكم في توقيت النظام وتجميد الوقت في اختبارات Laravel الحساسة للمهل الزمنية؟",
+    shortAnswer: "باستخدام دوال التلاعب بالزمن المدمجة مثل $this->travel(5)->days() أو $this->freezeTime() واختبار انتهاء الصلاحيات بدقة متناهية.",
+    explanation: "إذا كنت تختبر ميزة حظر الحساب لمدة 24 ساعة أو انتهاء اشتراك، لا يمكنك جعل الاختبار ينتظر وقتاً حقيقياً. تتيح ميزة Time Traveling في Laravel (المبنية فوق مكتبة Carbon) تجميد التوقيت، أو القفز للأمام بالساعات والأيام travelTo(now()->addDays(30))، والتحقق من أن النظام يلغي الصلاحيات بدقة ثم إعادة الوقت لطبيعته بـ travelBack().",
+    codeExample: `$this->freezeTime();
+$user->ban(hours: 2);
+$this->travel(3)->hours();
+$this->assertTrue($user->fresh()->isBanExpired());
+$this->travelBack();`,
+    commonMistakes: ["نسيان استدعاء $this->travelBack() في نهاية الاختبار مما قد يؤثر على توقيت الاختبارات اللاحقة."],
+    followUpQuestions: ["كيف تحاكي Carbon::setTestNow() الوقت يدوياً في كود الاختبار؟"],
+    sources: [{ title: "Laravel docs — Time Manipulation in Tests", url: "https://laravel.com/docs/master/mocking#interacting-with-time" }],
+  },
+  {
+    id: "ptest-007",
+    slug: "laravel-action-domain-responder-pattern",
+    topicId: "ptest-007",
+    difficulty: "Senior",
+    question: "ما هو نمط Action-Domain-Responder (ADR) وكيف يحل مشكلة المتحكمات المتضخمة (Fat Controllers)؟",
+    shortAnswer: "هو نمط يعوض MVC بتقسيم العمل إلى: Action (متحكم أحادي الاستخدام)، Domain (منطق الأعمال والنماذج)، وResponder (تنسيق الاستجابة والـ JSON).",
+    explanation: "في تطبيقات Laravel الكبيرة، تصبح فئات المتحكمات مثل UserController ضخمة وتحتوي آلاف الأسطر (Fat Controllers). يقترح نمط ADR استبدالها بـ Action Classes صغيرة ومحددة تنفذ دالة __invoke (مثل RegisterUserAction أو ExportInvoicesAction). هذا يعزل المنطق، ويسهل الاختبارات الأحادية، ويمنع تداخل المسؤوليات.",
+    codeExample: `// App/Actions/CreateOrderAction.php
+class CreateOrderAction {
+    public function __invoke(User $user, array $items): Order {
+        // منطق العمل النقي معزول وقابل للاختبار بشكل منفرد
+    }
+}`,
+    commonMistakes: ["نقل كل المنطق المتضخم إلى Services عامة تتحول هي الأخرى إلى God Objects متضخمة."],
+    followUpQuestions: ["كيف يتم استدعاء الـ Action Class مباشرة داخل مسار Route دون الحاجة لكتابة Controller تقليدي؟"],
+    sources: [{ title: "Laravel docs — Single Action Controllers", url: "https://laravel.com/docs/master/controllers#single-action-controllers" }],
+  },
+  {
+    id: "ptest-008",
+    slug: "laravel-repository-pattern-pros-and-cons",
+    topicId: "ptest-008",
+    difficulty: "Senior",
+    question: "ما هي إيجابيات وسلبيات تطبيق نمط المستودع (Repository Pattern) فوق Eloquent في Laravel؟",
+    shortAnswer: "إيجابيته عزل طبقة البيانات لتسهيل التبديل والاختبار، وسلبيته إضافة طبقة تجريد مفرطة ومجهدة (Boilerplate) نظراً لأن Eloquent يمثل بالفعل نمط Active Record متكامل.",
+    explanation: "صُمم نمط Repository لعزل منطق الاستعلامات خلف واجهة مجردة. في مشاريع Laravel، يعتبر الكثير من المهندسين أن تغليف Eloquent بـ Repository هو Over-engineering غير مبرر، لأن المطورين نادراً ما يستبدلون محرك قاعدة البيانات، كما أن تغليف استعلامات Eloquent يحرم المطور من ميزاته القوية كالـ Scopes والعلاقات المرنة. البديل الأفضل غالباً هو استخدام Query Scopes و Custom Query Builders.",
+    codeExample: `// بديل أحدث وأكثر رشاقة للـ Repository: Custom Query Builder
+class PostBuilder extends Builder {
+    public function published(): self {
+        return $this->whereNotNull('published_at');
+    }
+}`,
+    commonMistakes: ["كتابة Repository يعيد كائنات Eloquent Model بدلاً من DTOs نقية، مما يفرغ النمط من هدفه الأساسي في عزل الـ ORM."],
+    followUpQuestions: ["كيف تنشئ Custom Eloquent Query Builder وتربطه بالنموذج عبر newEloquentBuilder؟"],
+    sources: [{ title: "Laravel docs — Eloquent: Advanced Subqueries and Builders", url: "https://laravel.com/docs/master/eloquent" }],
+  },
+  {
+    id: "ptest-009",
+    slug: "laravel-database-notifications-and-testing",
+    topicId: "ptest-009",
+    difficulty: "Mid",
+    question: "كيف تعمل الإشعارات متعددة القنوات (Notifications) في Laravel وكيف تختبرها بـ Notification::fake()؟",
+    shortAnswer: "تسمح بإرسال إشعار موحد عبر قنوات متعددة (mail, database, sms, broadcast) عبر دالة via()، وتختبر باستخدام Notification::fake().",
+    explanation: "بدلاً من كتابة كود منفصل لإرسال بريد وتخزين إشعار في قاعدة البيانات وإرسال SMS، توفر فئة Notification مصفوفة via($notifiable) لتحديد القنوات النشطة. في الاختبارات، يتيح Notification::fake() التحقق من إرسال الإشعار للمستخدم المستهدف بالبيانات الصحيحة دون إرسال أي رسائل خارجية حقيقية.",
+    codeExample: `Notification::fake();
+$user->notify(new InvoicePaid($invoice));
+Notification::assertSentTo($user, InvoicePaid::class);`,
+    commonMistakes: ["عدم تفعيل ShouldQueue على الإشعارات التي ترسل عبر قنوات شبكية بطيئة مثل Mail أو Twilio."],
+    followUpQuestions: ["كيف ترسل إشعارات فورية للمتصفح عبر WebSockets باستخدام قناة 'broadcast' في Laravel؟"],
+    sources: [{ title: "Laravel docs — Notifications", url: "https://laravel.com/docs/master/notifications" }],
+  },
+  {
+    id: "ptest-010",
+    slug: "laravel-horizontal-scaling-and-statelessness",
+    topicId: "ptest-010",
+    difficulty: "Senior",
+    question: "ما هي المتطلبات المعمارية لجعل تطبيق Laravel عديم الحالة (Stateless) وقابلاً للتوسع الأفقي (Horizontal Scaling)؟",
+    shortAnswer: "ترحيل الجلسات والكاش إلى Redis مركزي، وتخزين الملفات المرفوعة في سحابة S3، وتشغيل الـ Cron على خادم واحد، ومزامنة مفاتيح التشفير وقواعد البيانات المشتركة.",
+    explanation: "للتوسع الأفقي عبر إضافة عشرات خوادم الويب خلف Load Balancer، يجب ألا يحتفظ أي خادم ويب بأي حالة محلية على قرصه. المتطلبات: 1) استخدام Redis مشترك للجلسات والكاش، 2) استخدام AWS S3 أو ما شابه للملفات المرفوعة، 3) تشغيل الـ Scheduler على خادم واحد بـ onOneServer()، 4) توحيد قيمة APP_KEY عبر جميع الخوادم لفك التشفير، 5) استخدام خوادم مخصصة لمعالجة طوابير المهام (Queue Workers).",
+    codeExample: `// سحابة التخزين S3 للملفات المشتركة
+'default' => env('FILESYSTEM_DISK', 's3'),`,
+    commonMistakes: ["حفظ صور المستخدمين في مجلد storage/app المحلي لخادم واحد ثم التساؤل عن اختفائها عند توجيه الطلب التالي لخادم آخر."],
+    followUpQuestions: ["كيف تحمي قاعدة البيانات من الاختناق عند توسع خوادم الويب أفقياً باستخدام أدوات الـ Connection Pooling مثل PgBouncer؟"],
+    sources: [{ title: "Laravel docs — Deployment Best Practices", url: "https://laravel.com/docs/master/deployment" }],
+  },
+];
+
+function getPhpTopicId(id: string): string {
+  if (id.startsWith("pcore-")) return "php-core";
+  if (id.startsWith("poop-")) return "php-oop";
+  if (id.startsWith("pmod-")) return "php-modern";
+  if (id.startsWith("plaracore-")) return "php-laravel-core";
+  if (id.startsWith("peloq-")) return "php-eloquent";
+  if (id.startsWith("papi-")) return "php-rest-api";
+  if (id.startsWith("psec-")) return "php-security";
+  if (id.startsWith("pqueue-")) return "php-queues";
+  if (id.startsWith("pcache-")) return "php-performance-cache";
+  if (id.startsWith("ptest-")) return "php-testing";
+  return "php-core";
+}
+
+const formattedQuestions = rawQuestions.map((q) => ({
+  id: q.id,
+  slug: q.slug,
+  trackId: "php",
+  topicIds: [getPhpTopicId(q.id)],
+  difficulty: q.difficulty,
+  question: q.question,
+  shortAnswer: q.shortAnswer,
+  explanation: q.explanation,
+  codeExample: q.codeExample,
+  commonMistakes: q.commonMistakes,
+  followUpQuestions: q.followUpQuestions,
+  sources: q.sources,
+  lastReviewedAt: "2026-09-07",
+}));
+
+console.log(`Generating PHP questions: ${formattedQuestions.length}`);
+
+// Write output to src/content/php-questions.ts
+const fileHeader = `// Generated by scripts/build-php-questions.ts
+import type { InterviewQuestion } from "./questions.ts";
+
+export const phpBaseQuestions: Omit<InterviewQuestion, "translations">[] = `;
+
+const content = `${fileHeader}${JSON.stringify(formattedQuestions, null, 2)};\n`;
+writeFileSync(resolve(process.cwd(), "src/content/php-questions.ts"), content, "utf8");
+console.log("Successfully generated src/content/php-questions.ts with 100 questions.");

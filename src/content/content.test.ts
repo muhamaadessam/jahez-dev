@@ -50,9 +50,9 @@ test("every question has complete Arabic and English translations", () => {
   }
 });
 
-test("production validation enforces the 206-question topic distribution", () => {
+test("production validation enforces the 706-question topic distribution", () => {
   assert.doesNotThrow(() => validateProductionCatalogue());
-  assert.throws(() => validateProductionCatalogue(questions.slice(0, -1)), /exactly 206 questions/);
+  assert.throws(() => validateProductionCatalogue(questions.slice(0, -1)), /exactly 706 questions/);
   const wrongDistribution = questions.map((question, index) => index === 0 ? { ...question, topicIds: ["oop"] } : question);
   assert.throws(() => validateProductionCatalogue(wrongDistribution), /Topic dart must contain exactly 12/);
   assert.throws(() => validateProductionCatalogue(questions.map((question, index) => index === 0 ? { ...question, difficulty: "Expert" as never } : question)), /invalid difficulty/);
@@ -247,12 +247,16 @@ test("the Performance and Async & Isolates topics contain their planned question
 });
 
 test("the catalogue keeps official HTTPS sources and real review dates", () => {
+  const approvedHosts = [
+    "dart.dev", "api.dart.dev", "docs.flutter.dev", "api.flutter.dev", "blog.cleancoder.com", "www.rfc-editor.org", "developer.android.com", "kotlinlang.org",
+    "nodejs.org", "php.net", "www.php.net", "laravel.com", "learn.microsoft.com", "dotnet.microsoft.com", "react.dev", "legacy.reactjs.org", "reactnative.dev", "docs.expo.dev", "expo.dev", "reactnavigation.org"
+  ];
   for (const question of questions) {
     assert.equal(new Date(`${question.lastReviewedAt}T00:00:00Z`).toISOString().slice(0, 10), question.lastReviewedAt);
     for (const source of question.sources) {
       const url = new URL(source.url);
       assert.equal(url.protocol, "https:");
-      assert.ok(["dart.dev", "api.dart.dev", "docs.flutter.dev", "api.flutter.dev", "blog.cleancoder.com", "www.rfc-editor.org", "developer.android.com", "kotlinlang.org"].includes(url.hostname));
+      assert.ok(approvedHosts.includes(url.hostname), `Unapproved host: ${url.hostname} in question ${question.id}`);
     }
   }
 });
@@ -268,5 +272,21 @@ test("the Android Native track contains its 100 planned questions across 14 topi
     assert.match(question.lastReviewedAt, /^\d{4}-\d{2}-\d{2}$/);
     assert.equal(new Date(`${question.lastReviewedAt}T00:00:00Z`).toISOString().slice(0, 10), question.lastReviewedAt);
     assert.ok(question.sources.length > 0);
+  }
+});
+
+test("the catalogue contains 100 questions for each of the 5 new tracks", () => {
+  for (const trackId of ["node", "php", "dotnet", "react", "react-native"]) {
+    const trackQuestions = questions.filter((q) => q.trackId === trackId);
+    assert.equal(trackQuestions.length, 100, `Track ${trackId} should have 100 questions`);
+    assert.deepEqual(new Set(trackQuestions.map((q) => q.difficulty)), new Set(["Junior", "Mid", "Senior"]));
+    for (const q of trackQuestions) {
+      assert.ok(q.question);
+      assert.ok(q.shortAnswer);
+      assert.ok(q.explanation);
+      assert.match(q.lastReviewedAt, /^\d{4}-\d{2}-\d{2}$/);
+      assert.equal(new Date(`${q.lastReviewedAt}T00:00:00Z`).toISOString().slice(0, 10), q.lastReviewedAt);
+      assert.ok(q.sources.length > 0);
+    }
   }
 });

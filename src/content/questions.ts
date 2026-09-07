@@ -3,6 +3,11 @@ export type Locale = "ar" | "en";
 
 import { staticFollowUpTargets } from "./follow-up-relations.ts";
 import { androidBaseQuestions } from "./android-questions.ts";
+import { nodeBaseQuestions } from "./node-questions.ts";
+import { phpBaseQuestions } from "./php-questions.ts";
+import { dotnetBaseQuestions } from "./dotnet-questions.ts";
+import { reactBaseQuestions } from "./react-questions.ts";
+import { reactNativeBaseQuestions } from "./react-native-questions.ts";
 
 export type FollowUpQuestionRef = {
   id: string;
@@ -55,7 +60,11 @@ export type InterviewQuestion = {
 export const tracks: Track[] = [
   { id: "flutter", slug: "flutter", name: "Flutter" },
   { id: "android-native", slug: "android-native", name: "Android Native" },
-  { id: "backend", slug: "backend", name: "Backend" },
+  { id: "node", slug: "node", name: "Node.js" },
+  { id: "php", slug: "php", name: "PHP & Laravel" },
+  { id: "dotnet", slug: "dotnet", name: ".NET" },
+  { id: "react", slug: "react", name: "React" },
+  { id: "react-native", slug: "react-native", name: "React Native" },
 ];
 
 export const topics: Topic[] = [
@@ -88,6 +97,66 @@ export const topics: Topic[] = [
   { id: "security-android", slug: "security-android", trackId: "android-native", name: "Security & Obfuscation" },
   { id: "testing-android", slug: "testing-android", trackId: "android-native", name: "Testing" },
   { id: "build-gradle", slug: "build-gradle", trackId: "android-native", name: "Build & Gradle" },
+
+  // Node.js Topics
+  { id: "node-core", slug: "node-core", trackId: "node", name: "Node.js Core & Event Loop" },
+  { id: "node-async", slug: "node-async", trackId: "node", name: "Async Programming & Timers" },
+  { id: "node-streams", slug: "node-streams", trackId: "node", name: "Buffers & Streams" },
+  { id: "node-modules", slug: "node-modules", trackId: "node", name: "Modules, ESM & Package Management" },
+  { id: "node-web", slug: "node-web", trackId: "node", name: "HTTP, Fastify & Web Frameworks" },
+  { id: "node-database", slug: "node-database", trackId: "node", name: "Databases, ORMs & Transactions" },
+  { id: "node-security", slug: "node-security", trackId: "node", name: "Security & Best Practices" },
+  { id: "node-perf", slug: "node-perf", trackId: "node", name: "Performance & Memory Profiling" },
+  { id: "node-testing", slug: "node-testing", trackId: "node", name: "Testing & Quality Assurance" },
+  { id: "node-arch", slug: "node-arch", trackId: "node", name: "Microservices & Distributed Systems" },
+
+  // PHP & Laravel Topics
+  { id: "php-core", slug: "php-core", trackId: "php", name: "PHP Core Fundamentals" },
+  { id: "php-oop", slug: "php-oop", trackId: "php", name: "OOP & Design Patterns in PHP" },
+  { id: "php-modern", slug: "php-modern", trackId: "php", name: "Modern PHP 8.x Features" },
+  { id: "php-laravel-core", slug: "php-laravel-core", trackId: "php", name: "Laravel Core Architecture & Lifecycle" },
+  { id: "php-eloquent", slug: "php-eloquent", trackId: "php", name: "Eloquent ORM & Database Design" },
+  { id: "php-rest-api", slug: "php-rest-api", trackId: "php", name: "RESTful APIs & Authentication" },
+  { id: "php-security", slug: "php-security", trackId: "php", name: "Security, OWASP & Hardening" },
+  { id: "php-queues", slug: "php-queues", trackId: "php", name: "Queues, Jobs & Background Workers" },
+  { id: "php-performance-cache", slug: "php-performance-cache", trackId: "php", name: "Caching & Performance Optimization" },
+  { id: "php-testing", slug: "php-testing", trackId: "php", name: "Testing & Quality Assurance" },
+
+  // .NET Topics
+  { id: "dotnet-csharp", slug: "dotnet-csharp", trackId: "dotnet", name: "C# Fundamentals & Modern Language Features" },
+  { id: "dotnet-runtime", slug: "dotnet-runtime", trackId: "dotnet", name: ".NET Runtime, CLR & Memory Management" },
+  { id: "dotnet-aspnet", slug: "dotnet-aspnet", trackId: "dotnet", name: "ASP.NET Core & Web APIs" },
+  { id: "dotnet-di", slug: "dotnet-di", trackId: "dotnet", name: "Dependency Injection & Configuration" },
+  { id: "dotnet-efcore", slug: "dotnet-efcore", trackId: "dotnet", name: "Entity Framework Core & Data Access" },
+  { id: "dotnet-async", slug: "dotnet-async", trackId: "dotnet", name: "Asynchronous & Multithreaded Programming" },
+  { id: "dotnet-security", slug: "dotnet-security", trackId: "dotnet", name: "Security, Identity & Authentication" },
+  { id: "dotnet-perf", slug: "dotnet-perf", trackId: "dotnet", name: "High Performance & Low Allocation Coding" },
+  { id: "dotnet-testing", slug: "dotnet-testing", trackId: "dotnet", name: "Unit & Integration Testing" },
+  { id: "dotnet-architecture", slug: "dotnet-architecture", trackId: "dotnet", name: "Clean Architecture & Microservices" },
+
+  // React Topics
+  { id: "react-core", slug: "react-core", trackId: "react", name: "React Core & Virtual DOM" },
+  { id: "react-hooks", slug: "react-hooks", trackId: "react", name: "Hooks Fundamentals" },
+  { id: "react-hooks-advanced", slug: "react-hooks-advanced", trackId: "react", name: "Advanced Hooks & Custom Hooks" },
+  { id: "react-state-management", slug: "react-state-management", trackId: "react", name: "State Management & Context" },
+  { id: "react-routing-navigation", slug: "react-routing-navigation", trackId: "react", name: "Routing & Single Page Apps" },
+  { id: "react-performance", slug: "react-performance", trackId: "react", name: "Performance Optimization & Profiling" },
+  { id: "react-rendering-ssr", slug: "react-rendering-ssr", trackId: "react", name: "SSR, SSG & Server Components" },
+  { id: "react-forms-validation", slug: "react-forms-validation", trackId: "react", name: "Forms & Data Handling" },
+  { id: "react-testing", slug: "react-testing", trackId: "react", name: "Testing React Components" },
+  { id: "react-architecture-patterns", slug: "react-architecture-patterns", trackId: "react", name: "Architecture, Component Patterns & Best Practices" },
+
+  // React Native Topics
+  { id: "react-native-core", slug: "react-native-core", trackId: "react-native", name: "React Native Architecture & Bridge / New Architecture" },
+  { id: "react-native-components", slug: "react-native-components", trackId: "react-native", name: "Core Components & Primitives" },
+  { id: "react-native-styling", slug: "react-native-styling", trackId: "react-native", name: "Styling, Layout & Flexbox" },
+  { id: "react-native-navigation", slug: "react-native-navigation", trackId: "react-native", name: "React Navigation & Screen Stacks" },
+  { id: "react-native-state-storage", slug: "react-native-state-storage", trackId: "react-native", name: "State & Local Storage (AsyncStorage, MMKV)" },
+  { id: "react-native-animations", slug: "react-native-animations", trackId: "react-native", name: "Animations & Gestures (Reanimated & RNGH)" },
+  { id: "react-native-device-native", slug: "react-native-device-native", trackId: "react-native", name: "Native Modules & Hardware APIs" },
+  { id: "react-native-performance", slug: "react-native-performance", trackId: "react-native", name: "Performance & Memory Optimization" },
+  { id: "react-native-expo", slug: "react-native-expo", trackId: "react-native", name: "Expo Ecosystem & EAS" },
+  { id: "react-native-deployment", slug: "react-native-deployment", trackId: "react-native", name: "Release, App Stores & CI/CD" },
 ];
 
 const baseQuestions: Omit<InterviewQuestion, "translations">[] = [
@@ -1796,9 +1865,36 @@ function englishLabel(slug: string): string {
 
 function createEnglishTranslation(question: Omit<InterviewQuestion, "translations">): QuestionTranslation {
   const label = englishLabel(question.slug);
-  const trackDev = question.trackId === "android-native" ? "an Android" : "a Flutter";
-  const trackTech = question.trackId === "android-native" ? "Kotlin and Android" : "Dart and Flutter";
-  const trackApp = question.trackId === "android-native" ? "Android" : "Flutter";
+  let trackDev = "a Flutter";
+  let trackTech = "Dart and Flutter";
+  let trackApp = "Flutter";
+
+  if (question.trackId === "android-native") {
+    trackDev = "an Android";
+    trackTech = "Kotlin and Android";
+    trackApp = "Android";
+  } else if (question.trackId === "node") {
+    trackDev = "a Node.js";
+    trackTech = "Node.js, TypeScript, and backend architectures";
+    trackApp = "Node.js";
+  } else if (question.trackId === "php") {
+    trackDev = "a PHP & Laravel";
+    trackTech = "PHP 8, Laravel, and web services";
+    trackApp = "PHP/Laravel";
+  } else if (question.trackId === "dotnet") {
+    trackDev = "a .NET";
+    trackTech = "C#, ASP.NET Core, and modern .NET runtime";
+    trackApp = ".NET";
+  } else if (question.trackId === "react") {
+    trackDev = "a React";
+    trackTech = "React, modern hooks, and frontend architecture";
+    trackApp = "React";
+  } else if (question.trackId === "react-native") {
+    trackDev = "a React Native";
+    trackTech = "React Native, mobile performance, and native integrations";
+    trackApp = "React Native";
+  }
+
   return {
     question: `What should ${trackDev} developer know about ${label}?`,
     shortAnswer: `This question checks the core ${label} concept and how to use it safely in ${trackTech}.`,
@@ -1822,7 +1918,15 @@ function arabicTranslation(question: Omit<InterviewQuestion, "translations">): Q
   };
 }
 
-export const questions: InterviewQuestion[] = [...baseQuestions, ...androidBaseQuestions].map((question) => ({
+export const questions: InterviewQuestion[] = [
+  ...baseQuestions,
+  ...androidBaseQuestions,
+  ...nodeBaseQuestions,
+  ...phpBaseQuestions,
+  ...dotnetBaseQuestions,
+  ...reactBaseQuestions,
+  ...reactNativeBaseQuestions,
+].map((question) => ({
   ...question,
   translations: {
     ar: arabicTranslation(question),
@@ -1839,6 +1943,66 @@ export const topicTranslations: Record<Locale, Record<string, string>> = {
     "architecture-components": "Architecture Components", "coroutines-concurrency": "Coroutines & Concurrency", "dependency-injection": "Dependency Injection",
     "networking-android": "Networking", "local-storage-android": "Local Storage", "background-processing": "Background Processing",
     "performance-memory": "Performance & Memory", "security-android": "Security & Obfuscation", "testing-android": "Testing", "build-gradle": "Build & Gradle",
+
+    // Node.js
+    "node-core": "أساسيات نود والـ Event Loop",
+    "node-async": "البرمجة غير المتزامنة والمؤقتات",
+    "node-streams": "الـ Streams والـ Buffers",
+    "node-modules": "نظام الحزم والموديولات",
+    "node-web": "خوادم الويب وأطر العمل",
+    "node-database": "قواعد البيانات والـ ORMs",
+    "node-security": "أمان وحماية تطبيقات نود",
+    "node-perf": "تحسين الأداء وإدارة الذاكرة",
+    "node-testing": "اختبار تطبيقات نود وجودتها",
+    "node-arch": "المعمارية والأنظمة الموزعة",
+
+    // PHP & Laravel
+    "php-core": "أساسيات لغة PHP ونظام الأنواع",
+    "php-oop": "البرمجة كائنية التوجه وأنماط التصميم",
+    "php-modern": "ميزات PHP الحديثة",
+    "php-laravel-core": "معمارية ودورة حياة لارافيل",
+    "php-eloquent": "Eloquent ORM وقواعد البيانات",
+    "php-rest-api": "بناء الـ APIs والمصادقة",
+    "php-security": "حماية وأمان تطبيقات الويب",
+    "php-queues": "طوابير العمليات والمهام الخلفية",
+    "php-performance-cache": "الكاش وتحسين الأداء",
+    "php-testing": "اختبار التطبيقات وضمان الجودة",
+
+    // .NET
+    "dotnet-csharp": "أساسيات وميزات C# الحديثة",
+    "dotnet-runtime": "محرك تشغيل دوت نت وإدارة الذاكرة",
+    "dotnet-aspnet": "ASP.NET Core والـ Web APIs",
+    "dotnet-di": "حقن الاعتماديات وإعدادات التطبيق",
+    "dotnet-efcore": "Entity Framework Core والتعامل مع البيانات",
+    "dotnet-async": "البرمجة غير المتزامنة وتعدد المسارات",
+    "dotnet-security": "الأمان والتحقق والتشفير",
+    "dotnet-perf": "الأداء العالي وتقليل التخصيص",
+    "dotnet-testing": "اختبار الوحدات والتكامل",
+    "dotnet-architecture": "الهندسة النظيفة والـ Microservices",
+
+    // React
+    "react-core": "أساسيات ريأكت وشجرة Virtual DOM",
+    "react-hooks": "أساسيات الـ Hooks",
+    "react-hooks-advanced": "الـ Hooks المتقدمة والـ Custom Hooks",
+    "react-state-management": "إدارة الحالة والـ Context",
+    "react-routing-navigation": "التوجيه وتطبيقات الصفحة الواحدة",
+    "react-performance": "تحسين الأداء والـ Profiler",
+    "react-rendering-ssr": "أنماط التصيير والـ Server Components",
+    "react-forms-validation": "النماذج والتحقق من المدخلات",
+    "react-testing": "اختبار مكونات ريأكت",
+    "react-architecture-patterns": "أنماط المعمارية والتصميم",
+
+    // React Native
+    "react-native-core": "معمارية ريأكت نيتف والمعمارية الجديدة",
+    "react-native-components": "المكونات الأساسية والقوائم",
+    "react-native-styling": "التنسيق وتخطيط الفليكس بوكس",
+    "react-native-navigation": "التنقل وإدارة الشاشات",
+    "react-native-state-storage": "إدارة الحالة والتخزين المحلي",
+    "react-native-animations": "التحريك والإيماءات",
+    "react-native-device-native": "الربط مع عتاد الهاتف والـ Native",
+    "react-native-performance": "تحسين الأداء والذاكرة",
+    "react-native-expo": "منظومة إكسبو وأدوات EAS",
+    "react-native-deployment": "النشر ومتاجر التطبيقات وأتمتة البناء",
   },
   en: {
     dart: "Dart", oop: "OOP", solid: "SOLID", "flutter-fundamentals": "Flutter Fundamentals", widgets: "Widgets",
@@ -1848,6 +2012,66 @@ export const topicTranslations: Record<Locale, Record<string, string>> = {
     "architecture-components": "Architecture Components", "coroutines-concurrency": "Coroutines & Concurrency", "dependency-injection": "Dependency Injection",
     "networking-android": "Networking", "local-storage-android": "Local Storage", "background-processing": "Background Processing",
     "performance-memory": "Performance & Memory", "security-android": "Security & Obfuscation", "testing-android": "Testing", "build-gradle": "Build & Gradle",
+
+    // Node.js
+    "node-core": "Node.js Core & Event Loop",
+    "node-async": "Async Programming & Timers",
+    "node-streams": "Buffers & Streams",
+    "node-modules": "Modules, ESM & Package Management",
+    "node-web": "HTTP, Fastify & Web Frameworks",
+    "node-database": "Databases, ORMs & Transactions",
+    "node-security": "Security & Best Practices",
+    "node-perf": "Performance & Memory Profiling",
+    "node-testing": "Testing & Quality Assurance",
+    "node-arch": "Microservices & Distributed Systems",
+
+    // PHP & Laravel
+    "php-core": "PHP Core Fundamentals",
+    "php-oop": "OOP & Design Patterns in PHP",
+    "php-modern": "Modern PHP 8.x Features",
+    "php-laravel-core": "Laravel Core Architecture & Lifecycle",
+    "php-eloquent": "Eloquent ORM & Database Design",
+    "php-rest-api": "RESTful APIs & Authentication",
+    "php-security": "Security, OWASP & Hardening",
+    "php-queues": "Queues, Jobs & Background Workers",
+    "php-performance-cache": "Caching & Performance Optimization",
+    "php-testing": "Testing & Quality Assurance",
+
+    // .NET
+    "dotnet-csharp": "C# Fundamentals & Modern Language Features",
+    "dotnet-runtime": ".NET Runtime, CLR & Memory Management",
+    "dotnet-aspnet": "ASP.NET Core & Web APIs",
+    "dotnet-di": "Dependency Injection & Configuration",
+    "dotnet-efcore": "Entity Framework Core & Data Access",
+    "dotnet-async": "Asynchronous & Multithreaded Programming",
+    "dotnet-security": "Security, Identity & Authentication",
+    "dotnet-perf": "High Performance & Low Allocation Coding",
+    "dotnet-testing": "Unit & Integration Testing",
+    "dotnet-architecture": "Clean Architecture & Microservices",
+
+    // React
+    "react-core": "React Core & Virtual DOM",
+    "react-hooks": "Hooks Fundamentals",
+    "react-hooks-advanced": "Advanced Hooks & Custom Hooks",
+    "react-state-management": "State Management & Context",
+    "react-routing-navigation": "Routing & Single Page Apps",
+    "react-performance": "Performance Optimization & Profiling",
+    "react-rendering-ssr": "SSR, SSG & Server Components",
+    "react-forms-validation": "Forms & Data Handling",
+    "react-testing": "Testing React Components",
+    "react-architecture-patterns": "Architecture, Component Patterns & Best Practices",
+
+    // React Native
+    "react-native-core": "React Native Architecture & Bridge / New Architecture",
+    "react-native-components": "Core Components & Primitives",
+    "react-native-styling": "Styling, Layout & Flexbox",
+    "react-native-navigation": "React Navigation & Screen Stacks",
+    "react-native-state-storage": "State & Local Storage (AsyncStorage, MMKV)",
+    "react-native-animations": "Animations & Gestures (Reanimated & RNGH)",
+    "react-native-device-native": "Native Modules & Hardware APIs",
+    "react-native-performance": "Performance & Memory Optimization",
+    "react-native-expo": "Expo Ecosystem & EAS",
+    "react-native-deployment": "Release, App Stores & CI/CD",
   },
 };
 
@@ -1910,9 +2134,90 @@ export const productionTopicCounts = {
   "security-android": 4,
   "testing-android": 5,
   "build-gradle": 4,
+
+  // Node.js (100)
+  "node-core": 10,
+  "node-async": 10,
+  "node-streams": 10,
+  "node-modules": 10,
+  "node-web": 10,
+  "node-database": 10,
+  "node-security": 10,
+  "node-perf": 10,
+  "node-testing": 10,
+  "node-arch": 10,
+
+  // PHP & Laravel (100)
+  "php-core": 10,
+  "php-oop": 10,
+  "php-modern": 10,
+  "php-laravel-core": 10,
+  "php-eloquent": 10,
+  "php-rest-api": 10,
+  "php-security": 10,
+  "php-queues": 10,
+  "php-performance-cache": 10,
+  "php-testing": 10,
+
+  // .NET (100)
+  "dotnet-csharp": 10,
+  "dotnet-runtime": 10,
+  "dotnet-aspnet": 10,
+  "dotnet-di": 10,
+  "dotnet-efcore": 10,
+  "dotnet-async": 10,
+  "dotnet-security": 10,
+  "dotnet-perf": 10,
+  "dotnet-testing": 10,
+  "dotnet-architecture": 10,
+
+  // React (100)
+  "react-core": 10,
+  "react-hooks": 10,
+  "react-hooks-advanced": 10,
+  "react-state-management": 10,
+  "react-routing-navigation": 10,
+  "react-performance": 10,
+  "react-rendering-ssr": 10,
+  "react-forms-validation": 10,
+  "react-testing": 10,
+  "react-architecture-patterns": 10,
+
+  // React Native (100)
+  "react-native-core": 10,
+  "react-native-components": 10,
+  "react-native-styling": 10,
+  "react-native-navigation": 10,
+  "react-native-state-storage": 10,
+  "react-native-animations": 10,
+  "react-native-device-native": 10,
+  "react-native-performance": 10,
+  "react-native-expo": 10,
+  "react-native-deployment": 10,
 } as const;
 
-const approvedSourceHosts = new Set(["dart.dev", "api.dart.dev", "docs.flutter.dev", "api.flutter.dev", "blog.cleancoder.com", "www.rfc-editor.org", "developer.android.com", "kotlinlang.org"]);
+const approvedSourceHosts = new Set([
+  "dart.dev",
+  "api.dart.dev",
+  "docs.flutter.dev",
+  "api.flutter.dev",
+  "blog.cleancoder.com",
+  "www.rfc-editor.org",
+  "developer.android.com",
+  "kotlinlang.org",
+  "nodejs.org",
+  "php.net",
+  "www.php.net",
+  "laravel.com",
+  "learn.microsoft.com",
+  "dotnet.microsoft.com",
+  "react.dev",
+  "legacy.reactjs.org",
+  "reactnative.dev",
+  "docs.expo.dev",
+  "expo.dev",
+  "reactnavigation.org",
+]);
 
 export function validateQuestions(interviewQuestions: InterviewQuestion[]): void {
   const ids = new Set<string>();
@@ -1946,7 +2251,7 @@ export function validateQuestions(interviewQuestions: InterviewQuestion[]): void
 export function validateProductionCatalogue(interviewQuestions: InterviewQuestion[] = questions): void {
   validateQuestions(interviewQuestions);
   validateBilingualCatalogue(interviewQuestions);
-  if (interviewQuestions.length !== 206) throw new Error(`Production catalogue must contain exactly 206 questions; found ${interviewQuestions.length}`);
+  if (interviewQuestions.length !== 706) throw new Error(`Production catalogue must contain exactly 706 questions; found ${interviewQuestions.length}`);
   for (const [topicId, expectedCount] of Object.entries(productionTopicCounts)) {
     const actualCount = interviewQuestions.filter((question) => question.topicIds.includes(topicId)).length;
     if (actualCount !== expectedCount) throw new Error(`Topic ${topicId} must contain exactly ${expectedCount} questions; found ${actualCount}`);
