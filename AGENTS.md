@@ -12,11 +12,13 @@ The default five-role triage vocabulary is used. See `docs/agents/triage-labels.
 
 This is a single-context repository. See `docs/agents/domain.md`.
 
-### Git Workflow & Branching Strategy
+### Git Workflow & Branching Strategy (Codex / AGY Style)
 
-- **Base Branch**: `agy` is the default target branch on GitHub.
-- **Task Branches**: Every task must be performed on a dedicated task branch named after the task (e.g. `feat/<task-name>`, `fix/<task-name>`).
-- **Merge & Push**: After finishing the task and verifying all checks pass, merge the task branch into `agy` and push `agy` to `origin/agy`.
+- **Base Branch**: `main` is the primary production branch.
+- **Task Branches**: Like Codex (`codex/<task-name>`), every Antigravity task uses a dedicated branch prefixed with `agy/`: `agy/<task-name>` (e.g. `agy/flutter-expansion`).
+- **Sync with Main**: Always branch off the latest `origin/main` (`git checkout main && git pull origin main`).
+- **Verification & Push**: Run all checks (`npm run release:check`), commit changes cleanly, and push the branch to GitHub (`git push -u origin agy/<task-name>`).
+- **Merge**: Target PRs to `main`. After merging on GitHub, update local `main` to prevent squash-merge divergence.
 
 
 <!-- BEGIN:nextjs-agent-rules -->

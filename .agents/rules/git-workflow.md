@@ -1,24 +1,34 @@
-# Git Workflow and Branching Strategy
+# Git Workflow and Branching Strategy (Codex / AGY Style)
 
-## Core Rules
+## Core Principles
 1. **Base Branch**:
-   - The primary branch for all ongoing development is `agy`.
-   - All tasks must branch off `agy` and merge back into `agy`.
+   - `main` is the primary production branch and integration target on GitHub.
+   - All tasks must branch off `origin/main` and open PRs targeting `main`.
 
-2. **Task Workflow**:
-   - **Step 1 - Create Task Branch**: Before starting any task, checkout a new branch named after the task from `agy`:
+2. **Branch Naming Pattern (Codex / AGY Style)**:
+   - Just like Codex uses `codex/<task-name>`, Antigravity tasks must use `agy/<task-name>`:
+     - Example: `agy/fundamentals-track`
+     - Example: `agy/flutter-internals`
+     - Example: `agy/fix-seed-check`
+
+3. **Step-by-Step Task Lifecycle**:
+   - **Step 1 - Sync with Main**:
      ```bash
-     git checkout agy
-     git pull origin agy
-     git checkout -b <task-type>/<task-name>
+     git checkout main
+     git pull origin main
+     git checkout -b agy/<task-name>
      ```
-     Examples: `feat/fundamentals-track`, `fix/login-flow`, `docs/update-readme`.
-   - **Step 2 - Execute and Verify**: Complete the task implementation and run all verification checks (unit tests, types, seed check, build).
-   - **Step 3 - Commit**: Commit changes with descriptive conventional commit messages.
-   - **Step 4 - Merge into `agy`**: Switch back to `agy`, merge the task branch, and push `agy` to origin:
+   - **Step 2 - Implement & Verify**:
+     Run all tests, type checks, seed checks, and release checks:
      ```bash
-     git checkout agy
-     git merge <task-type>/<task-name>
-     git push origin agy
+     npm run release:check
      ```
-   - **Step 5 - Cleanup**: Delete the local/remote task branch if no longer needed.
+   - **Step 3 - Commit**:
+     Use conventional commit messages (`feat(...)`, `fix(...)`, etc.).
+   - **Step 4 - Push to GitHub**:
+     ```bash
+     git push -u origin agy/<task-name>
+     ```
+   - **Step 5 - Merge & Clean**:
+     - Create a PR from `agy/<task-name>` into `main`.
+     - After merging on GitHub (especially if using Squash & Merge), always update local `main` (`git checkout main && git pull origin main`) to avoid ancestor conflict issues.
