@@ -44,6 +44,235 @@
   --shadow: 0 18px 45px rgb(0 0 0 / 24%);
 }
 
+/* ==========================================================================
+   Dynamic Track Themes (Per-Language Colors & Accents)
+   ========================================================================== */
+
+/* 1. Flutter (Signature Sky Blue) */
+:root[data-track="flutter"] {
+  --brand: #02569b;
+  --brand-strong: #014275;
+  --surface-soft: #eaf4fb;
+  --on-brand: #ffffff;
+  --track-glow: rgb(2 86 155 / 15%);
+}
+:root[data-theme="dark"][data-track="flutter"] {
+  --brand: #47c5fb;
+  --brand-strong: #7dd7fc;
+  --surface-soft: #0c263b;
+  --on-brand: #061926;
+  --track-glow: rgb(71 197 251 / 18%);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme])[data-track="flutter"] {
+    --brand: #47c5fb;
+    --brand-strong: #7dd7fc;
+    --surface-soft: #0c263b;
+    --on-brand: #061926;
+    --track-glow: rgb(71 197 251 / 18%);
+  }
+}
+
+/* 2. Android Native (Signature Android Green) */
+:root[data-track="android-native"] {
+  --brand: #1a8738;
+  --brand-strong: #105e26;
+  --surface-soft: #e8f7ee;
+  --on-brand: #ffffff;
+  --track-glow: rgb(26 135 56 / 15%);
+}
+:root[data-theme="dark"][data-track="android-native"] {
+  --brand: #3ddc84;
+  --brand-strong: #7ce6aa;
+  --surface-soft: #0a2d1a;
+  --on-brand: #052110;
+  --track-glow: rgb(61 220 132 / 18%);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme])[data-track="android-native"] {
+    --brand: #3ddc84;
+    --brand-strong: #7ce6aa;
+    --surface-soft: #0a2d1a;
+    --on-brand: #052110;
+    --track-glow: rgb(61 220 132 / 18%);
+  }
+}
+
+/* 3. Node.js (Signature Node Green) */
+:root[data-track="node"] {
+  --brand: #3c873a;
+  --brand-strong: #2a6128;
+  --surface-soft: #ecf6eb;
+  --on-brand: #ffffff;
+  --track-glow: rgb(60 135 58 / 15%);
+}
+:root[data-theme="dark"][data-track="node"] {
+  --brand: #68bd45;
+  --brand-strong: #8ed372;
+  --surface-soft: #122b10;
+  --on-brand: #081d06;
+  --track-glow: rgb(104 189 69 / 18%);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme])[data-track="node"] {
+    --brand: #68bd45;
+    --brand-strong: #8ed372;
+    --surface-soft: #122b10;
+    --on-brand: #081d06;
+    --track-glow: rgb(104 189 69 / 18%);
+  }
+}
+
+/* 4. PHP & Laravel (Signature Laravel Coral Red) */
+:root[data-track="php"] {
+  --brand: #dc2626;
+  --brand-strong: #b91c1c;
+  --surface-soft: #fef2f2;
+  --on-brand: #ffffff;
+  --track-glow: rgb(220 38 38 / 15%);
+}
+:root[data-theme="dark"][data-track="php"] {
+  --brand: #f87171;
+  --brand-strong: #fca5a5;
+  --surface-soft: #381010;
+  --on-brand: #2b0808;
+  --track-glow: rgb(248 113 113 / 18%);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme])[data-track="php"] {
+    --brand: #f87171;
+    --brand-strong: #fca5a5;
+    --surface-soft: #381010;
+    --on-brand: #2b0808;
+    --track-glow: rgb(248 113 113 / 18%);
+  }
+}
+
+/* 5. .NET (Signature .NET Purple) */
+:root[data-track="dotnet"] {
+  --brand: #512bd4;
+  --brand-strong: #3a1b9f;
+  --surface-soft: #f2eefa;
+  --on-brand: #ffffff;
+  --track-glow: rgb(81 43 212 / 15%);
+}
+:root[data-theme="dark"][data-track="dotnet"] {
+  --brand: #a78bfa;
+  --brand-strong: #c4b5fd;
+  --surface-soft: #231248;
+  --on-brand: #180836;
+  --track-glow: rgb(167 139 250 / 18%);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme])[data-track="dotnet"] {
+    --brand: #a78bfa;
+    --brand-strong: #c4b5fd;
+    --surface-soft: #231248;
+    --on-brand: #180836;
+    --track-glow: rgb(167 139 250 / 18%);
+  }
+}
+
+/* 6. React (Signature React Cyan) */
+:root[data-track="react"] {
+  --brand: #087ea4;
+  --brand-strong: #055e7a;
+  --surface-soft: #eaf6fc;
+  --on-brand: #ffffff;
+  --track-glow: rgb(8 126 164 / 15%);
+}
+:root[data-theme="dark"][data-track="react"] {
+  --brand: #58c4dc;
+  --brand-strong: #85d6e7;
+  --surface-soft: #0b2a38;
+  --on-brand: #051d26;
+  --track-glow: rgb(88 196 220 / 18%);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme])[data-track="react"] {
+    --brand: #58c4dc;
+    --brand-strong: #85d6e7;
+    --surface-soft: #0b2a38;
+    --on-brand: #051d26;
+    --track-glow: rgb(88 196 220 / 18%);
+  }
+}
+
+/* 7. React Native (Signature Deep Blue / Cyan) */
+:root[data-track="react-native"] {
+  --brand: #0284c7;
+  --brand-strong: #0369a1;
+  --surface-soft: #e0f2fe;
+  --on-brand: #ffffff;
+  --track-glow: rgb(2 132 199 / 15%);
+}
+:root[data-theme="dark"][data-track="react-native"] {
+  --brand: #38bdf8;
+  --brand-strong: #7dd3fc;
+  --surface-soft: #082d47;
+  --on-brand: #051f33;
+  --track-glow: rgb(56 189 248 / 18%);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme])[data-track="react-native"] {
+    --brand: #38bdf8;
+    --brand-strong: #7dd3fc;
+    --surface-soft: #082d47;
+    --on-brand: #051f33;
+    --track-glow: rgb(56 189 248 / 18%);
+  }
+}
+
+/* 8. Software Fundamentals (Signature Tech Indigo) */
+:root[data-track="fundamentals"] {
+  --brand: #4f46e5;
+  --brand-strong: #3730a3;
+  --surface-soft: #eef2ff;
+  --on-brand: #ffffff;
+  --track-glow: rgb(79 70 229 / 15%);
+}
+:root[data-theme="dark"][data-track="fundamentals"] {
+  --brand: #818cf8;
+  --brand-strong: #a5b4fc;
+  --surface-soft: #1d1a4a;
+  --on-brand: #0e0c29;
+  --track-glow: rgb(129 140 248 / 18%);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme])[data-track="fundamentals"] {
+    --brand: #818cf8;
+    --brand-strong: #a5b4fc;
+    --surface-soft: #1d1a4a;
+    --on-brand: #0e0c29;
+    --track-glow: rgb(129 140 248 / 18%);
+  }
+}
+
+/* 9. UI / UX Design (Signature Figma Fuchsia) */
+:root[data-track="ui-ux"] {
+  --brand: #9333ea;
+  --brand-strong: #7e22ce;
+  --surface-soft: #faf5ff;
+  --on-brand: #ffffff;
+  --track-glow: rgb(147 51 234 / 15%);
+}
+:root[data-theme="dark"][data-track="ui-ux"] {
+  --brand: #c084fc;
+  --brand-strong: #d8b4fe;
+  --surface-soft: #2e0f47;
+  --on-brand: #1f0430;
+  --track-glow: rgb(192 132 252 / 18%);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme])[data-track="ui-ux"] {
+    --brand: #c084fc;
+    --brand-strong: #d8b4fe;
+    --surface-soft: #2e0f47;
+    --on-brand: #1f0430;
+    --track-glow: rgb(192 132 252 / 18%);
+  }
+}
+
 * { box-sizing: border-box; }
 
 html { scroll-behavior: smooth; }
@@ -130,7 +359,8 @@ a { color: inherit; }
 }
 
 .brand-logo { display: grid; width: 38px; aspect-ratio: 1; flex: 0 0 auto; }
-.brand-logo svg { display: block; width: 100%; height: 100%; }
+.brand-logo svg { display: block; width: 100%; height: 100%; border-radius: 10px; }
+.brand-track-badge { display: inline-flex; align-items: center; padding: 2px 9px; border-radius: 999px; border: 1px solid color-mix(in srgb, var(--brand) 36%, var(--border)); background: var(--surface-soft); color: var(--brand-strong); font-size: .78rem; font-weight: 700; line-height: 1.35; transition: all 200ms ease; }
 
 .nav-links { display: flex; align-items: center; gap: 16px; }
 .nav-links a { color: var(--muted); text-decoration: none; font-weight: 700; transition: color 180ms ease; }
@@ -268,11 +498,14 @@ h3 { line-height: 1.45; }
 .home-track-selector label { display: inline-flex; align-items: center; gap: 12px; padding: 8px 16px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface-soft); color: var(--muted); font-weight: 800; font-size: .95rem; }
 .home-track-selector select { min-width: 180px; min-height: 38px; padding-inline: 10px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--text); font: inherit; font-weight: 700; }
 
-.home-track-card { display: flex; flex-direction: column; justify-content: space-between; gap: 16px; transition: transform 200ms ease, border-color 200ms ease, box-shadow 200ms ease; }
+.home-track-card { display: flex; flex-direction: column; justify-content: space-between; gap: 16px; transition: transform 200ms ease, border-color 200ms ease, box-shadow 200ms ease, background-color 200ms ease; }
 .home-track-card:hover { border-color: var(--brand); transform: translateY(-2px); box-shadow: var(--shadow); }
-.home-track-card.active { border-color: var(--brand); background: color-mix(in srgb, var(--brand) 6%, var(--surface)); }
+.home-track-card.active { border-color: var(--brand); background: color-mix(in srgb, var(--brand) 7%, var(--surface)); box-shadow: 0 14px 34px var(--track-glow, rgb(30 74 105 / 10%)); }
 .home-track-header { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-.home-track-title { margin: 0; font-size: 1.25rem; }
+.home-track-identity { display: flex; align-items: center; gap: 12px; }
+.home-track-logo { flex: 0 0 auto; border-radius: 10px; filter: drop-shadow(0 3px 6px rgb(0 0 0 / 10%)); transition: transform 200ms ease; }
+.home-track-card:hover .home-track-logo { transform: scale(1.08); }
+.home-track-title { margin: 0; font-size: 1.22rem; font-weight: 800; }
 .home-track-stats { margin: 0; color: var(--muted); font-size: .92rem; font-weight: 600; }
 .home-track-actions { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 12px; border-top: 1px solid var(--border); }
 .home-track-actions .button { min-height: 38px; padding-inline: 14px; font-size: .88rem; }
@@ -504,9 +737,11 @@ h3 { line-height: 1.45; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
 }
-.active-track-selector { display: flex; min-width: 0; align-items: center; justify-content: space-between; gap: 16px; margin-block-end: 24px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 14px; background: var(--surface-soft); }
+.active-track-selector { display: flex; min-width: 0; align-items: center; justify-content: space-between; gap: 16px; margin-block-end: 24px; padding: 10px 14px; border: 1px solid var(--border); border-radius: 14px; background: var(--surface-soft); transition: background-color 200ms ease, border-color 200ms ease; }
+.active-track-selector-control { display: flex; min-width: 0; align-items: center; gap: 12px; }
+.active-track-selector-logo { flex: 0 0 auto; border-radius: 8px; }
 .active-track-selector label { display: flex; min-width: 0; align-items: center; gap: 10px; color: var(--muted); font-weight: 800; }
-.active-track-selector select { min-width: 160px; max-width: 100%; min-height: 40px; padding-inline: 10px; border: 1px solid var(--border); border-radius: 9px; background: var(--surface); color: var(--text); font: inherit; }
+.active-track-selector select { min-width: 160px; max-width: 100%; min-height: 40px; padding-inline: 10px; border: 1px solid var(--border); border-radius: 9px; background: var(--surface); color: var(--text); font: inherit; font-weight: 700; }
 
 :where(a, button, input, select):focus-visible { outline: 3px solid var(--brand); outline-offset: 3px; }
 

@@ -26,7 +26,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const menu = useRef<HTMLDialogElement>(null);
   const menuButton = useRef<HTMLButtonElement>(null);
-  const { trackHref } = useActiveTrack();
+  const { activeTrack, trackHref } = useActiveTrack();
 
   useEffect(() => {
     const sync = () => {
@@ -87,8 +87,13 @@ export function SiteShell({ children }: { children: ReactNode }) {
         <header className="site-header">
           <nav className="shell nav" aria-label={locale === "ar" ? "التنقل الرئيسي" : "Main navigation"}>
           <Link className="brand" href={href("/")} prefetch={false} aria-label={`${copy.brandName} — ${copy.home}`}>
-            <BrandLogo />
+            <BrandLogo trackId={activeTrack?.id} />
             <span dir={locale === "ar" ? "rtl" : "ltr"}>{copy.brandName}</span>
+            {activeTrack && (
+              <span className="brand-track-badge" title={activeTrack.name}>
+                {activeTrack.name}
+              </span>
+            )}
           </Link>
           <div className="desktop-navigation">
             <div className="nav-links">{links}</div>

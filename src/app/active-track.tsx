@@ -10,6 +10,7 @@ import { localeFromPathname, localizedHref, messages, type Locale } from "../i18
 import { resolveActiveTrack, withQueryContext } from "../tracks/active-track";
 import { loadPublicTracks, loadTrackPreferences, type TrackPreferenceState } from "../tracks/preferences";
 import { LoadingPlaceholder } from "./loading-placeholder";
+import { TrackLogo } from "./track-logos";
 
 type Phase = "loading" | "ready" | "error";
 type ActiveTrackValue = {
@@ -103,6 +104,20 @@ function ActiveTrackProvider({ children, authenticated, loading = false, userId,
     defaultTrackId: preferences?.preferences.find(({ isDefault }) => isDefault)?.trackId ?? null,
     authenticated,
   });
+  useEffect(() => {
+    const slug = resolution.activeTrack?.slug ?? resolution.activeTrack?.id;
+    if (slug) {
+      document.documentElement.dataset.track = slug;
+      try {
+        localStorage.setItem("selected-track", slug);
+      } catch {
+        // Storage unavailable
+      }
+    } else {
+      delete document.documentElement.dataset.track;
+    }
+  }, [resolution.activeTrack]);
+
   const setActiveTrack = useCallback((trackId: string) => {
     const track = resolution.selectableTracks.find(({ id, slug }) => id === trackId || slug === trackId);
     if (!track) return;
@@ -139,7 +154,10 @@ export function ActiveTrackSelector({ locale }: { locale: Locale }) {
   if (invalidTrack) return <ActiveTrackRecovery locale={locale} />;
   if (!activeTrack) return <div className="empty-state"><h2>{copy.emptyTrackTitle}</h2><p>{copy.emptyTrackDescription}</p>{authenticated && <Link className="button" href={localizedHref(locale, "/my-tracks")}>{copy.manageTrackPreferences}</Link>}</div>;
   return <div className="active-track-selector">
-    <label>{copy.activeTrack}<select value={activeTrack.id} onChange={(event) => setActiveTrack(event.target.value)}>{selectableTracks.map((track) => <option key={track.id} value={track.id}>{track.name}</option>)}</select></label>
+    <div className="active-track-selector-control">
+      <TrackLogo trackId={activeTrack.id} size={28} className="active-track-selector-logo" />
+      <label>{copy.activeTrack}<select value={activeTrack.id} onChange={(event) => setActiveTrack(event.target.value)}>{selectableTracks.map((track) => <option key={track.id} value={track.id}>{track.name}</option>)}</select></label>
+    </div>
     {authenticated && <Link className="text-link" href={localizedHref(locale, "/my-tracks")}>{copy.manageTrackPreferences}</Link>}
   </div>;
 }

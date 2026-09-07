@@ -7,6 +7,7 @@ import { getQuestionTopics, getQuestionTranslation, questions, topics } from "..
 import { localizedHref, messages, topicName, type Locale } from "../i18n";
 import { scopeCatalogue } from "../tracks/active-track";
 import { useActiveTrack } from "./active-track";
+import { TrackLogo } from "./track-logos";
 
 export function HomeHub({ locale = "ar" }: { locale?: Locale }) {
   const copy = messages[locale];
@@ -142,9 +143,12 @@ export function HomeHub({ locale = "ar" }: { locale?: Locale }) {
           {trackStats.map((track) => {
             const isActive = track.id === activeTrack?.id;
             return (
-              <div key={track.id} className={`card home-track-card ${isActive ? "active" : ""}`}>
+              <div key={track.id} data-track-card={track.id} className={`card home-track-card ${isActive ? "active" : ""}`}>
                 <div className="home-track-header">
-                  <h3 className="home-track-title">{track.name}</h3>
+                  <div className="home-track-identity">
+                    <TrackLogo trackId={track.id} size={36} className="home-track-logo" />
+                    <h3 className="home-track-title">{track.name}</h3>
+                  </div>
                   {isActive && <span className="chip chip-accent">{copy.currentTrack}</span>}
                 </div>
                 <p className="home-track-stats">
