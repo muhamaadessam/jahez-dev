@@ -152,26 +152,166 @@ export async function handleModerator(request: Request, fetchImpl: FetchLike = f
     }
     if (action === "publish_submission") {
       const submissionId = text(body.submissionId, 80);
-      const questionId = text(body.questionId, 120);
-      if (!submissionId || !questionId) return response({ error: "payload_invalid" }, 400);
+      let questionId = text(body.questionId, 120);
+      if (!submissionId) return response({ error: "payload_invalid" }, 400);
       const submissions = await (await query(`/rest/v1/submissions?select=id,status,track_id,submitted_by,display_name,published_question_id&id=eq.${encodeURIComponent(submissionId)}&limit=1`, key)).json() as Array<{ id: string; status: string; track_id: string; submitted_by: string; display_name: string | null; published_question_id: string | null }>;
       const submission = submissions[0];
       if (!submission) return response({ error: "not_found" }, 404);
       if (submission.status === "published") {
-        if (submission.published_question_id === questionId) return response({ ok: true, status: "published", questionId });
+        if (!questionId || submission.published_question_id === questionId) return response({ ok: true, status: "published", questionId: submission.published_question_id });
         return response({ error: "submission_already_published" }, 409);
       }
       if (submission.status !== "approved") return response({ error: "submission_not_approved" }, 409);
-      const questions = await (await query(`/rest/v1/interview_questions?select=id,track_id,published_revision_id,visibility,source_submission_id&id=eq.${encodeURIComponent(questionId)}&limit=1`, key)).json() as Array<{ id: string; track_id: string; published_revision_id: string | null; visibility: string; source_submission_id: string | null }>;
+
+      const questions = questionId ? await (await query(`/rest/v1/interview_questions?select=id,track_id,published_revision_id,visibility,source_submission_id&id=eq.${encodeURIComponent(questionId)}&limit=1`, key)).json() as Array<{ id: string; track_id: string; published_revision_id: string | null; visibility: string; source_submission_id: string | null }> : [];
       const question = questions[0];
-      if (!question) return response({ error: "question_not_found" }, 404);
-      if (question.track_id !== submission.track_id) return response({ error: "track_mismatch" }, 409);
-      if (!question.published_revision_id) return response({ error: "question_revision_required" }, 409);
-      if (question.source_submission_id && question.source_submission_id !== submissionId) return response({ error: "question_already_linked" }, 409);
-      await query(`/rest/v1/interview_questions?id=eq.${encodeURIComponent(questionId)}`, key, { method: "PATCH", headers: { Prefer: "return=minimal" }, body: JSON.stringify({ visibility: "community", source_submission_id: submissionId, community_contributor_user_id: submission.submitted_by, community_contributor_username: submission.display_name || "Community contributor", community_published_at: new Date().toISOString() }) });
-      await query(`/rest/v1/submissions?id=eq.${encodeURIComponent(submissionId)}`, key, { method: "PATCH", headers: { Prefer: "return=minimal" }, body: JSON.stringify({ status: "published", published_question_id: questionId, reviewed_by: actor, reviewed_at: new Date().toISOString(), last_error: null }) });
-      await audit(key, actor, action, "question", questionId, null, { submission_id: submissionId }, fetchImpl);
-      return response({ ok: true, status: "published", questionId });
+
+      if (question) {
+        if (question.track_id !== submission.track_id) return response({ error: "track_mismatch" }, 409);
+        if (!question.published_revision_id) return response({ error: "question_revision_required" }, 409);
+        if (question.source_submission_id && question.source_submission_id !== submissionId) return response({ error: "question_already_linked" }, 409);
+        await query(`/rest/v1/interview_questions?id=eq.${encodeURIComponent(questionId!)}`, key, { method: "PATCH", headers: { Prefer: "return=minimal" }, body: JSON.stringify({ visibility: "community", source_submission_id: submissionId, community_contributor_user_id: submission.submitted_by, community_contributor_username: submission.display_name || "Community contributor", community_published_at: new Date().toISOString() }) });
+        await query(`/rest/v1/submissions?id=eq.${encodeURIComponent(submissionId)}`, key, { method: "PATCH", headers: { Prefer: "return=minimal" }, body: JSON.stringify({ status: "published", published_question_id: questionId, reviewed_by: actor, reviewed_at: new Date().toISOString(), last_error: null }) });
+        await audit(key, actor, action, "question", questionId, null, { submission_id: submissionId }, fetchImpl);
+        return response({ ok: true, status: "published", questionId });
+      }
+
+      // If question does not exist, provision it directly from the approved submission revision
+      const revisions = await (await query(`/rest/v1/submission_revisions?select=id,revision_number,payload,difficulty,topic_ids,track_id&submission_id=eq.${encodeURIComponent(submissionId)}&order=revision_number.desc&limit=1`, key)).json() as Array<{ id: string; revision_number: number; payload: unknown; difficulty: string; topic_ids: string[]; track_id: string }>;
+      const latestRevision = revisions[0];
+      if (!latestRevision?.payload || typeof latestRevision.payload !== "object") return response({ error: "submission_revision_invalid" }, 409);
+
+      let imported: ImportedQuestion;
+      try {
+        imported = validateImportedQuestion(latestRevision.payload);
+      } catch {
+        return response({ error: "submission_payload_invalid" }, 409);
+      }
+
+      const idFormat = /^[a-z0-9]+-[0-9]{3}$/;
+      if (!questionId || !idFormat.test(questionId)) {
+        const existingTrackQuestions = await (await query(`/rest/v1/interview_questions?select=id&track_id=eq.${encodeURIComponent(submission.track_id)}&order=id.desc&limit=1000`, key)).json() as Array<{ id: string }>;
+        const trackPrefix = submission.track_id.replace(/[^a-z0-9]/g, "");
+        const numbers = existingTrackQuestions.map((q) => {
+          const match = q.id.match(/-([0-9]{3})$/);
+          return match ? parseInt(match[1], 10) : 0;
+        });
+        const maxNum = numbers.length ? Math.max(...numbers) : 0;
+        const nextNum = String(maxNum + 1).padStart(3, "0");
+        questionId = `${trackPrefix}-${nextNum}`;
+      }
+
+      const englishTitle = imported.translations.en.question;
+      let slug = englishTitle.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+      if (!slug || slug.length < 3) slug = `${submission.track_id}-${questionId}`;
+
+      const existingSlug = await (await query(`/rest/v1/interview_questions?select=id&slug=eq.${encodeURIComponent(slug)}&limit=1`, key)).json() as Array<{ id: string }>;
+      if (existingSlug.length > 0) {
+        slug = `${slug}-${questionId}`;
+      }
+
+      // 1. Insert into interview_questions
+      await query("/rest/v1/interview_questions", key, {
+        method: "POST",
+        headers: { Prefer: "return=minimal" },
+        body: JSON.stringify([{
+          id: questionId,
+          slug,
+          track_id: submission.track_id,
+          difficulty: imported.difficulty,
+        }]),
+      });
+
+      // 2. Insert into question_revisions
+      const revRows = await (await query("/rest/v1/question_revisions", key, {
+        method: "POST",
+        headers: { Prefer: "return=representation" },
+        body: JSON.stringify([{
+          question_id: questionId,
+          revision_number: 1,
+          status: "draft",
+          reviewed_at: new Date().toISOString().slice(0, 10),
+          created_by: actor,
+        }]),
+      })).json() as Array<{ id: string }>;
+      const revisionId = revRows[0]?.id;
+      if (!revisionId) return response({ error: "revision_create_failed" }, 503);
+
+      // 3. Insert question_revision_locales
+      await query("/rest/v1/question_revision_locales", key, {
+        method: "POST",
+        headers: { Prefer: "return=minimal" },
+        body: JSON.stringify([
+          {
+            revision_id: revisionId,
+            locale: "ar",
+            question: imported.translations.ar.question,
+            short_answer: imported.translations.ar.shortAnswer,
+            explanation: imported.translations.ar.explanation,
+            code_example: imported.translations.ar.codeExample,
+            common_mistakes: imported.translations.ar.commonMistakes,
+            follow_up_questions: imported.translations.ar.followUpQuestions,
+            sources: imported.translations.ar.sources,
+          },
+          {
+            revision_id: revisionId,
+            locale: "en",
+            question: imported.translations.en.question,
+            short_answer: imported.translations.en.shortAnswer,
+            explanation: imported.translations.en.explanation,
+            code_example: imported.translations.en.codeExample,
+            common_mistakes: imported.translations.en.commonMistakes,
+            follow_up_questions: imported.translations.en.followUpQuestions,
+            sources: imported.translations.en.sources,
+          },
+        ]),
+      });
+
+      // 4. Insert question_topics
+      if (imported.topicIds.length) {
+        await query("/rest/v1/question_topics", key, {
+          method: "POST",
+          headers: { Prefer: "return=minimal" },
+          body: JSON.stringify(imported.topicIds.map((topicId) => ({ question_id: questionId, topic_id: topicId }))),
+        });
+      }
+
+      // 5. Update revision status to published
+      await query(`/rest/v1/question_revisions?id=eq.${encodeURIComponent(revisionId)}`, key, {
+        method: "PATCH",
+        headers: { Prefer: "return=minimal" },
+        body: JSON.stringify({ status: "published", published_at: new Date().toISOString() }),
+      });
+
+      // 6. Update interview_questions to point to published_revision_id and set community visibility
+      await query(`/rest/v1/interview_questions?id=eq.${encodeURIComponent(questionId)}`, key, {
+        method: "PATCH",
+        headers: { Prefer: "return=minimal" },
+        body: JSON.stringify({
+          published_revision_id: revisionId,
+          visibility: "community",
+          source_submission_id: submissionId,
+          community_contributor_user_id: submission.submitted_by,
+          community_contributor_username: submission.display_name || "Community contributor",
+          community_published_at: new Date().toISOString(),
+        }),
+      });
+
+      // 7. Update submission
+      await query(`/rest/v1/submissions?id=eq.${encodeURIComponent(submissionId)}`, key, {
+        method: "PATCH",
+        headers: { Prefer: "return=minimal" },
+        body: JSON.stringify({
+          status: "published",
+          published_question_id: questionId,
+          reviewed_by: actor,
+          reviewed_at: new Date().toISOString(),
+          last_error: null,
+        }),
+      });
+
+      await audit(key, actor, action, "question", questionId, null, { submission_id: submissionId, newly_created: true }, fetchImpl);
+      return response({ ok: true, status: "published", questionId, slug });
     }
     if (action === "unpublish_question") {
       const questionId = text(body.questionId, 120);
