@@ -1,35 +1,5 @@
 -- Keep every Submission state change and publication graph in one transaction.
 
-alter table public.account_roles
-  add column if not exists username text;
-
-alter table public.account_roles
-  drop constraint if exists account_roles_username_format,
-  add constraint account_roles_username_format check (username is null or username ~ '^[a-z0-9_]{3,30}$');
-
-create unique index if not exists account_roles_username_unique
-  on public.account_roles (lower(username)) where username is not null;
-
-create or replace function public.set_account_username(p_user_id text, p_username text)
-returns text
-language plpgsql
-security definer
-set search_path = public, pg_temp
-as $$
-declare
-  normalized text := nullif(lower(btrim(p_username)), '');
-begin
-  if nullif(btrim(p_user_id), '') is null then raise exception 'unauthenticated'; end if;
-  if normalized is not null and normalized !~ '^[a-z0-9_]{3,30}$' then raise exception 'username_invalid'; end if;
-  insert into public.account_roles (user_id, username)
-  values (p_user_id, normalized)
-  on conflict (user_id) do update set username = excluded.username, updated_at = now();
-  return normalized;
-exception when unique_violation then
-  raise exception 'username_taken';
-end;
-$$;
-
 create or replace function public.create_submission_for_account(
   p_account_id text,
   p_track_id text,
@@ -37,7 +7,8 @@ create or replace function public.create_submission_for_account(
   p_difficulty public.difficulty_level,
   p_payload jsonb,
   p_idempotency_key text,
-  p_duplicate_of uuid
+  p_duplicate_of uuid,
+  p_display_name text
 )
 returns table (submission_id uuid, submission_status text, duplicate_advisory boolean)
 language plpgsql
@@ -85,8 +56,7 @@ begin
     idempotency_key, duplicate_advisory, duplicate_of, display_name, license_consent
   ) values (
     p_account_id, 'pending', p_track_id, p_topic_ids, p_difficulty, p_payload,
-    p_idempotency_key, p_duplicate_of is not null, p_duplicate_of,
-    (select role.username from public.account_roles role where role.user_id = p_account_id), true
+    p_idempotency_key, p_duplicate_of is not null, p_duplicate_of, p_display_name, true
   ) returning id into created_id;
 
   insert into public.submission_revisions (
@@ -234,9 +204,7 @@ begin
 end;
 $$;
 
-revoke all on function public.set_account_username(text, text) from public, anon, authenticated;
-revoke all on function public.create_submission_for_account(text, text, jsonb, public.difficulty_level, jsonb, text, uuid) from public, anon, authenticated;
+revoke all on function public.create_submission_for_account(text, text, jsonb, public.difficulty_level, jsonb, text, uuid, text) from public, anon, authenticated;
 revoke all on function public.publish_submission_for_moderator(text, uuid, jsonb) from public, anon, authenticated;
-grant execute on function public.set_account_username(text, text) to service_role;
-grant execute on function public.create_submission_for_account(text, text, jsonb, public.difficulty_level, jsonb, text, uuid) to service_role;
+grant execute on function public.create_submission_for_account(text, text, jsonb, public.difficulty_level, jsonb, text, uuid, text) to service_role;
 grant execute on function public.publish_submission_for_moderator(text, uuid, jsonb) to service_role;

@@ -94,7 +94,7 @@ export async function handleSubmit(request: Request, fetchImpl: FetchLike = fetc
     };
     const created = await (await db("/rest/v1/rpc/create_submission_for_account", key, {
       method: "POST",
-      body: JSON.stringify({ p_account_id: userId, p_track_id: draft.trackId, p_topic_ids: draft.topicIds, p_difficulty: draft.difficulty, p_payload: payload, p_idempotency_key: draft.idempotencyKey, p_duplicate_of: duplicateOf }),
+      body: JSON.stringify({ p_account_id: userId, p_track_id: draft.trackId, p_topic_ids: draft.topicIds, p_difficulty: draft.difficulty, p_payload: payload, p_idempotency_key: draft.idempotencyKey, p_duplicate_of: duplicateOf, p_display_name: draft.displayName }),
     })).json() as Array<{ submission_id?: string; submission_status?: string; duplicate_advisory?: boolean }>;
     const result = created[0];
     if (!result?.submission_id || !result.submission_status) throw new Error("database_error");
