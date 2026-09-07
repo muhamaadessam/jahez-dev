@@ -119,7 +119,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
           <div className="shell footer-inner">
             <div className="footer-grid">
               <div className="footer-brand">
-                <strong dir="ltr">Tech Interview Prep</strong>
+                <strong dir="ltr">JahezDev</strong>
                 <p>{copy.footer}</p>
               </div>
               <nav className="footer-links" aria-label={locale === "ar" ? "روابط الموقع" : "Site links"}>
