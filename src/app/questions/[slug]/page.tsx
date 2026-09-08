@@ -7,6 +7,8 @@ import { AnswerDisclosure, QuestionControls } from "../../question-controls";
 import { formatDate, messages, topicName, type Locale } from "../../../i18n";
 import { localizedMetadata } from "../../metadata";
 import { ActiveTrackLink, TrackContextGuard } from "../../active-track";
+import { ogImagePath, siteName, siteUrl } from "../../site-config";
+import { StructuredData } from "../../structured-data";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -26,13 +28,50 @@ export default async function QuestionDetailsPage({ params, locale = "ar" }: Pro
   if (!question) notFound();
   const copy = messages[locale];
   const translation = getQuestionTranslation(question, locale);
+  const questionUrl = `${siteUrl}/${locale}/questions/${question.slug}`;
+  const questionTopics = getQuestionTopics(question);
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "TechArticle",
+        "@id": `${questionUrl}#article`,
+        url: questionUrl,
+        headline: translation.question,
+        description: translation.shortAnswer,
+        image: `${siteUrl}${ogImagePath}`,
+        dateModified: question.lastReviewedAt,
+        inLanguage: locale,
+        educationalLevel: question.difficulty,
+        about: questionTopics.map((topic) => topicName(locale, topic.id)),
+        author: { "@type": "Organization", "@id": `${siteUrl}/#organization`, name: siteName, url: siteUrl },
+        publisher: { "@id": `${siteUrl}/#organization` },
+        isPartOf: { "@id": `${siteUrl}/#website` },
+        citation: translation.sources.map((source) => source.url),
+        mainEntity: {
+          "@type": "Question",
+          name: translation.question,
+          acceptedAnswer: { "@type": "Answer", text: `${translation.shortAnswer}\n\n${translation.explanation}` },
+        },
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: siteName, item: `${siteUrl}/${locale}` },
+          { "@type": "ListItem", position: 2, name: copy.libraryTitle, item: `${siteUrl}/${locale}/questions` },
+          { "@type": "ListItem", position: 3, name: translation.question, item: questionUrl },
+        ],
+      },
+    ],
+  };
 
   return <TrackContextGuard locale={locale} trackId={question.trackId}>
+    <StructuredData data={jsonLd} />
     <section className="shell section">
       <header className="page-header">
         <ActiveTrackLink className="text-link" locale={locale} path="/questions">{copy.backLibrary}</ActiveTrackLink>
         <div className="meta">
-          {getQuestionTopics(question).map((topic) => (
+          {questionTopics.map((topic) => (
             <span className="chip" key={topic.id} dir="ltr">{topicName(locale, topic.id)}</span>
           ))}
           <span className="chip">{question.difficulty}</span>
