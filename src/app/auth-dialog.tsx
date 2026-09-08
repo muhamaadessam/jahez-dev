@@ -7,6 +7,7 @@ import { createPortal } from "react-dom";
 
 import { messages, type Locale } from "../i18n";
 import { nodeRequest } from "../backend/api.ts";
+import { GoogleIcon, PENDING_USERNAME_KEY, validateUsername } from "./auth/auth-screen";
 
 type AuthMode = "signIn" | "signUp" | "verify";
 
@@ -30,6 +31,7 @@ function AuthDialog({ locale, initialMode, onClose }: { locale: Locale; initialM
   const { signIn } = useSignIn();
   const { signUp } = useSignUp();
   const [mode, setMode] = useState<AuthMode>(initialMode);
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [code, setCode] = useState("");
@@ -45,15 +47,28 @@ function AuthDialog({ locale, initialMode, onClose }: { locale: Locale; initialM
   }, [onClose]);
 
   const text = locale === "ar"
-    ? { signIn: "تسجيل الدخول", signUp: "إنشاء حساب", email: "البريد الإلكتروني", password: "كلمة المرور", google: "المتابعة باستخدام Google", submitIn: "دخول", submitUp: "إنشاء الحساب", verify: "تأكيد البريد الإلكتروني", verifyHint: "اكتب الرمز الذي وصلك على بريدك الإلكتروني.", code: "رمز التحقق", confirm: "تأكيد", switchUp: "ليس لديك حساب؟ إنشاء حساب", switchIn: "لديك حساب بالفعل؟ تسجيل الدخول", loading: "جاري التحميل…", failed: "تعذر إكمال العملية. حاول مرة أخرى." }
-    : { signIn: "Sign in", signUp: "Create account", email: "Email address", password: "Password", google: "Continue with Google", submitIn: "Sign in", submitUp: "Create account", verify: "Confirm your email", verifyHint: "Enter the code sent to your email.", code: "Verification code", confirm: "Confirm", switchUp: "New here? Create an account", switchIn: "Already have an account? Sign in", loading: "Loading…", failed: "We couldn't complete that. Try again." };
+    ? { signIn: "تسجيل الدخول", signUp: "إنشاء حساب", username: "اسم المستخدم", usernamePlaceholder: "مثال: ahmed_dev", usernameHint: "٣ أحرف على الأقل، أحرف إنجليزية وأرقام وشرطة سفلية فقط.", usernameNeeded: "اكتب اسم المستخدم أولًا ثم تابع باستخدام Google.", email: "البريد الإلكتروني", password: "كلمة المرور", google: "المتابعة باستخدام Google", submitIn: "دخول", submitUp: "إنشاء الحساب", verify: "تأكيد البريد الإلكتروني", verifyHint: "اكتب الرمز الذي وصلك على بريدك الإلكتروني.", code: "رمز التحقق", confirm: "تأكيد", switchUp: "ليس لديك حساب؟ إنشاء حساب", switchIn: "لديك حساب بالفعل؟ تسجيل الدخول", loading: "جاري التحميل…", failed: "تعذر إكمال العملية. حاول مرة أخرى." }
+    : { signIn: "Sign in", signUp: "Create account", username: "Username", usernamePlaceholder: "e.g. ahmed_dev", usernameHint: "At least 3 characters, Latin letters, numbers and underscores only.", usernameNeeded: "Type your username first, then continue with Google.", email: "Email address", password: "Password", google: "Continue with Google", submitIn: "Sign in", submitUp: "Create account", verify: "Confirm your email", verifyHint: "Enter the code sent to your email.", code: "Verification code", confirm: "Confirm", switchUp: "New here? Create an account", switchIn: "Already have an account? Sign in", loading: "Loading…", failed: "We couldn't complete that. Try again." };
+
+  function usernameProblem(): string {
+    const problem = validateUsername(username);
+    if (problem === "short") return locale === "ar" ? "اسم المستخدم قصير. استخدم ٣ أحرف على الأقل." : "Username is too short. Use at least 3 characters.";
+    if (problem === "long") return locale === "ar" ? "اسم المستخدم طويل. الحد الأقصى ٣٢ حرفًا." : "Username is too long. Maximum 32 characters.";
+    if (problem === "charset") return locale === "ar" ? "استخدم أحرفًا إنجليزية وأرقامًا وشرطة سفلية فقط." : "Use Latin letters, numbers and underscores only.";
+    return "";
+  }
 
   async function google() {
     if (!isLoaded) return;
+    if (mode === "signUp") {
+      const problem = usernameProblem();
+      if (problem) { setError(problem); return; }
+      try { sessionStorage.setItem(PENDING_USERNAME_KEY, username.trim()); } catch { /* ignore */ }
+    }
     setBusy(true); setError("");
     try {
       const callback = `${window.location.origin}/auth/callback`;
-      const complete = `${window.location.origin}${window.location.pathname}${window.location.search}`;
+      const complete = mode === "signUp" ? `${window.location.origin}/auth/sign-up` : `${window.location.origin}${window.location.pathname}${window.location.search}`;
       const flow = mode === "signUp" ? signUp : signIn;
       const { error: resultError } = await flow.sso({ strategy: "oauth_google", redirectUrl: complete, redirectCallbackUrl: callback });
       if (resultError) throw resultError;
@@ -71,7 +86,9 @@ function AuthDialog({ locale, initialMode, onClose }: { locale: Locale; initialM
         if (signIn.status === "complete") await signIn.finalize({ navigate: ({ decorateUrl }) => { window.location.href = decorateUrl(window.location.pathname + window.location.search); } });
         else setError(text.failed);
       } else if (mode === "signUp") {
-        const { error: resultError } = await signUp.password({ emailAddress: email, password });
+        const problem = usernameProblem();
+        if (problem) { setError(problem); setBusy(false); return; }
+        const { error: resultError } = await signUp.password({ emailAddress: email, password, username: username.trim() });
         if (resultError) throw resultError;
         if (signUp.status === "missing_requirements" && signUp.unverifiedFields.includes("email_address")) {
           const { error: verificationError } = await signUp.verifications.sendEmailCode();
@@ -96,17 +113,19 @@ function AuthDialog({ locale, initialMode, onClose }: { locale: Locale; initialM
         <span className="eyebrow">{copy.brandName}</span>
         <h2 id="auth-dialog-title" ref={heading} tabIndex={-1}>{title}</h2>
         {mode !== "verify" && <>
-          <button className="auth-google-button" type="button" onClick={() => void google()} disabled={busy}><span aria-hidden="true">G</span>{text.google}</button>
+          <button className="auth-google-button" type="button" onClick={() => void google()} disabled={busy}><GoogleIcon />{text.google}</button>
           <div className="auth-separator" aria-hidden="true"><span>{locale === "ar" ? "أو" : "or"}</span></div>
         </>}
         <form onSubmit={(event) => void submit(event)}>
           {mode !== "verify" ? <>
+            {mode === "signUp" && <><label>{text.username}<input dir="ltr" autoComplete="username" value={username} onChange={(event) => setUsername(event.target.value)} placeholder={text.usernamePlaceholder} minLength={3} maxLength={32} required /></label><p className="field-hint">{text.usernameHint}</p></>}
             <label>{text.email}<input type="email" autoComplete="email" value={email} onChange={(event) => setEmail(event.target.value)} required /></label>
             <label>{text.password}<input type="password" autoComplete={mode === "signIn" ? "current-password" : "new-password"} value={password} onChange={(event) => setPassword(event.target.value)} minLength={8} required /></label>
           </> : <><p className="field-hint">{text.verifyHint}</p><label>{text.code}<input inputMode="numeric" autoComplete="one-time-code" value={code} onChange={(event) => setCode(event.target.value)} required /></label></>}
           {error && <p className="form-error" role="alert">{error}</p>}
           <button className="button primary auth-submit" type="submit" disabled={busy || !isLoaded}>{busy ? text.loading : mode === "verify" ? text.confirm : mode === "signIn" ? text.submitIn : text.submitUp}</button>
         </form>
+        <div id="clerk-captcha" />
         {mode !== "verify" && <button className="auth-switch" type="button" onClick={() => { setError(""); setMode((current) => current === "signIn" ? "signUp" : "signIn"); }}>{mode === "signIn" ? text.switchUp : text.switchIn}</button>}
       </section>
     </div>
