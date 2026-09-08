@@ -141,7 +141,27 @@ export function GoogleIcon() {
   );
 }
 
+function AuthUnavailableScreen({ initialLocale = "ar", mode }: { initialLocale?: Locale; mode: "signIn" | "signUp" }) {
+  const [locale, setLocale] = usePageLocale(initialLocale);
+  const t = copy[locale];
+  return (
+    <Shell locale={locale} setLocale={setLocale} eyebrow={t.brand} title={mode === "signIn" ? t.signInTitle : t.signUpTitle} lead={t.loading}>
+      <div className="loading-placeholder" aria-hidden="true">
+        <span className="loading-skeleton loading-skeleton-wide" />
+        <span className="loading-skeleton loading-skeleton-medium" />
+      </div>
+    </Shell>
+  );
+}
+
 export function SignUpScreen({ initialLocale = "ar" }: { initialLocale?: Locale }) {
+  if (!process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY) {
+    return <AuthUnavailableScreen initialLocale={initialLocale} mode="signUp" />;
+  }
+  return <EnabledSignUpScreen initialLocale={initialLocale} />;
+}
+
+function EnabledSignUpScreen({ initialLocale = "ar" }: { initialLocale?: Locale }) {
   const [locale, setLocale] = usePageLocale(initialLocale);
   const t = copy[locale];
   const { isLoaded, isSignedIn } = useAuth();
@@ -396,6 +416,13 @@ export function SignUpScreen({ initialLocale = "ar" }: { initialLocale?: Locale 
 }
 
 export function SignInScreen({ initialLocale = "ar" }: { initialLocale?: Locale }) {
+  if (!process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY) {
+    return <AuthUnavailableScreen initialLocale={initialLocale} mode="signIn" />;
+  }
+  return <EnabledSignInScreen initialLocale={initialLocale} />;
+}
+
+function EnabledSignInScreen({ initialLocale = "ar" }: { initialLocale?: Locale }) {
   const [locale, setLocale] = usePageLocale(initialLocale);
   const t = copy[locale];
   const { isLoaded, isSignedIn } = useAuth();
