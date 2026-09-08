@@ -27,7 +27,7 @@ Options:
   --help                  Show this help
 
 Example:
-  npm run load:test -- --url https://tech-interview-prep-1ux.pages.dev/ --users 10,25,50,100 --duration 15
+  npm run load:test -- --url https://jahez-dev.pages.dev/ --users 10,25,50,100 --duration 15
 `);
 }
 
