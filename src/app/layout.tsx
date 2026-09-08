@@ -9,24 +9,24 @@ import { ClerkRoot } from "./clerk-provider";
 export const metadata: Metadata = {
   metadataBase: new URL(`${siteUrl}/`),
   title: {
-    default: "Tech Interview Prep",
-    template: "%s | Tech Interview Prep",
+    default: "JahezDev",
+    template: "%s | JahezDev",
   },
-  description: "تجهيز منظم لأسئلة مقابلات Flutter التقنية باللغة العربية.",
+  description: "المنصة العربية الرائدة للتحضير لمقابلات العمل التقنية في أشهر مسارات البرمجة.",
   alternates: {
     canonical: "/ar/",
     languages: { ar: "/ar/", en: "/en/", "x-default": "/ar/" },
   },
   openGraph: {
-    title: "Tech Interview Prep",
-    description: "تجهيز منظم لأسئلة مقابلات Flutter التقنية باللغة العربية.",
+    title: "JahezDev",
+    description: "المنصة العربية الرائدة للتحضير لمقابلات العمل التقنية في أشهر مسارات البرمجة.",
     type: "website",
     locale: "ar_EG",
   },
   twitter: {
     card: "summary",
-    title: "Tech Interview Prep",
-    description: "تجهيز منظم لأسئلة مقابلات Flutter التقنية باللغة العربية.",
+    title: "JahezDev",
+    description: "المنصة العربية الرائدة للتحضير لمقابلات العمل التقنية في أشهر مسارات البرمجة.",
   },
 };
 
