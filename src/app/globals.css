@@ -18,6 +18,8 @@
   --brand: #0284c7;
   --brand-strong: #0369a1;
   --on-brand: #ffffff;
+  --logo-chevron: #0284c7;
+  --logo-check: #059669;
   --track-glow: rgb(2 132 199 / 14%);
   --shadow-sm: 0 1px 3px 0 rgb(15 23 42 / 0.06);
   --shadow: 0 10px 30px -5px rgb(15 23 42 / 0.08), 0 4px 10px -2px rgb(15 23 42 / 0.03);
@@ -39,6 +41,8 @@
     --brand: #38bdf8;
     --brand-strong: #7dd3fc;
     --on-brand: #041424;
+    --logo-chevron: #38bdf8;
+    --logo-check: #10b981;
     --track-glow: rgb(56 189 248 / 20%);
     --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.6);
     --shadow: 0 14px 38px -8px rgb(0 0 0 / 0.65), 0 0 0 1px rgba(255, 255, 255, 0.05);
@@ -60,6 +64,8 @@
   --brand: #38bdf8;
   --brand-strong: #7dd3fc;
   --on-brand: #041424;
+  --logo-chevron: #38bdf8;
+  --logo-check: #10b981;
   --track-glow: rgb(56 189 248 / 20%);
   --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.6);
   --shadow: 0 14px 38px -8px rgb(0 0 0 / 0.65), 0 0 0 1px rgba(255, 255, 255, 0.05);

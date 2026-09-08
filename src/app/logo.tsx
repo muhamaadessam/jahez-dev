@@ -23,34 +23,35 @@ export function BrandLogo({ size = 36, className = "" }: BrandLogoProps = {}): R
             <feGaussianBlur stdDeviation="5.5" result="blur" />
           </filter>
           <radialGradient id="jahez-glow-grad" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#34D399" stopOpacity="0.38" />
-            <stop offset="50%" stopColor="#10B981" stopOpacity="0.14" />
-            <stop offset="100%" stopColor="#10B981" stopOpacity="0" />
+            <stop offset="0%" stopColor="var(--logo-check, #10B981)" stopOpacity="0.32" />
+            <stop offset="60%" stopColor="var(--logo-check, #10B981)" stopOpacity="0.08" />
+            <stop offset="100%" stopColor="var(--logo-check, #10B981)" stopOpacity="0" />
           </radialGradient>
           <linearGradient id="jahez-border" x1="1" y1="1" x2="47" y2="47" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#60A5FA" stopOpacity="0.75" />
-            <stop offset="1" stopColor="#34D399" stopOpacity="0.75" />
+            <stop stopColor="var(--logo-chevron, #38BDF8)" stopOpacity="0.85" />
+            <stop offset="1" stopColor="var(--logo-check, #10B981)" stopOpacity="0.85" />
           </linearGradient>
         </defs>
 
+        {/* Transparent squircle frame without solid background */}
         <rect
           x="1"
           y="1"
           width="46"
           height="46"
           rx="12"
-          fill="#0F172A"
+          fill="none"
           stroke="url(#jahez-border)"
-          strokeWidth="1.5"
+          strokeWidth="1.6"
         />
 
-        {/* Ambient blurry glow */}
+        {/* Ambient blurry glow fading to transparent */}
         <circle cx="24" cy="24" r="14" fill="url(#jahez-glow-grad)" filter="url(#jahez-glow)" />
 
         {/* Left chevron `<` */}
         <path
           d="M15.5 17.5L10 24L15.5 30.5"
-          stroke="#60A5FA"
+          stroke="var(--logo-chevron, #38BDF8)"
           strokeWidth="2.8"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -59,7 +60,7 @@ export function BrandLogo({ size = 36, className = "" }: BrandLogoProps = {}): R
         {/* Centered checkmark `✓` */}
         <path
           d="M19 23.5L23 28L29 17"
-          stroke="#34D399"
+          stroke="var(--logo-check, #10B981)"
           strokeWidth="3.2"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -68,7 +69,7 @@ export function BrandLogo({ size = 36, className = "" }: BrandLogoProps = {}): R
         {/* Right chevron `>` */}
         <path
           d="M32.5 17.5L38 24L32.5 30.5"
-          stroke="#60A5FA"
+          stroke="var(--logo-chevron, #38BDF8)"
           strokeWidth="2.8"
           strokeLinecap="round"
           strokeLinejoin="round"
