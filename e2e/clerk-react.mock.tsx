@@ -14,7 +14,7 @@ export function useAuth() {
 }
 export function useUser() {
   const verified = typeof window === "undefined" || localStorage.getItem("playwright-email-verified") !== "false";
-  return { user: { primaryEmailAddress: { verification: { status: verified ? "verified" : "unverified" } } } };
+  return { user: { username: null, update: async () => ({}), primaryEmailAddress: { emailAddress: "playwright@example.com", verification: { status: verified ? "verified" : "unverified" } } } };
 }
 export function Show({ when, children }: { when: "signed-in" | "signed-out"; children: ReactNode }) {
   const isSignedIn = useSignedIn();
@@ -28,7 +28,7 @@ export function useSignIn() {
   return { fetchStatus: "idle", signIn: { status: "complete", password: async () => ({ error: null }), sso: async () => ({ error: null }), finalize: async () => {} } };
 }
 export function useSignUp() {
-  return { fetchStatus: "idle", signUp: { status: "missing_requirements", unverifiedFields: ["email_address"], password: async () => ({ error: null }), sso: async () => ({ error: null }), verifications: { sendEmailCode: async () => ({ error: null }), verifyEmailCode: async () => ({ error: null }) }, finalize: async () => {} } };
+  return { fetchStatus: "idle", signUp: { status: "needs_requirements", missingFields: [], unverifiedFields: [], username: null, password: async () => ({ error: null }), sso: async () => ({ error: null }), update: async () => ({ error: null }), verifications: { sendEmailCode: async () => ({ error: null }), verifyEmailCode: async () => ({ error: null }) }, finalize: async () => {} } };
 }
 export function AuthenticateWithRedirectCallback(props: Record<string, unknown>) { return <output data-testid="oauth-callback">{JSON.stringify(props)}</output>; }
 export function SignUp(props: Record<string, unknown>) { return <output data-testid="signup-component">{JSON.stringify(props)}</output>; }
