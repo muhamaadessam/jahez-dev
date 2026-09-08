@@ -18,7 +18,7 @@ const copy: Record<Locale, Copy> = {
     signUpLead: "اختر اسم مستخدم، ثم أكمل بأي طريقة تناسبك. كل التصميم هنا من الموقع نفسه.",
     username: "اسم المستخدم",
     usernamePlaceholder: "مثال: ahmed_dev",
-    usernameHint: "من ٣ إلى ٣٢ حرفًا، أحرف إنجليزية وأرقام وشرطة سفلية فقط. سيظهر بجانب مساهماتك.",
+    usernameHint: "من ٤ إلى ٦٤ حرفًا، أحرف إنجليزية وأرقام وشرطة سفلية فقط. سيظهر بجانب مساهماتك.",
     email: "البريد الإلكتروني",
     password: "كلمة المرور",
     passwordHint: "٨ أحرف على الأقل.",
@@ -41,8 +41,8 @@ const copy: Record<Locale, Copy> = {
     signInLead: "مرحبًا بعودتك. سجل الدخول بأي طريقة.",
     signInSubmit: "دخول",
     failed: "تعذر إكمال العملية. حاول مرة أخرى.",
-    usernameShort: "اسم المستخدم قصير. استخدم ٣ أحرف على الأقل.",
-    usernameLong: "اسم المستخدم طويل. الحد الأقصى ٣٢ حرفًا.",
+    usernameShort: "اسم المستخدم قصير. استخدم ٤ أحرف على الأقل.",
+    usernameLong: "اسم المستخدم طويل. الحد الأقصى ٦٤ حرفًا.",
     usernameCharset: "استخدم أحرفًا إنجليزية وأرقامًا وشرطة سفلية فقط.",
     backHome: "العودة إلى الرئيسية",
   },
@@ -53,7 +53,7 @@ const copy: Record<Locale, Copy> = {
     signUpLead: "Pick a username first, then finish with any method. All styling here is JahezDev's own.",
     username: "Username",
     usernamePlaceholder: "e.g. ahmed_dev",
-    usernameHint: "3–32 characters, Latin letters, numbers and underscores only. Shown next to your contributions.",
+    usernameHint: "4–64 characters, Latin letters, numbers and underscores only. Shown next to your contributions.",
     email: "Email address",
     password: "Password",
     passwordHint: "At least 8 characters.",
@@ -76,8 +76,8 @@ const copy: Record<Locale, Copy> = {
     signInLead: "Welcome back. Sign in with any method.",
     signInSubmit: "Sign in",
     failed: "We couldn't complete that. Try again.",
-    usernameShort: "Username is too short. Use at least 3 characters.",
-    usernameLong: "Username is too long. Maximum 32 characters.",
+    usernameShort: "Username is too short. Use at least 4 characters.",
+    usernameLong: "Username is too long. Maximum 64 characters.",
     usernameCharset: "Use Latin letters, numbers and underscores only.",
     backHome: "Back to home",
   },
@@ -177,7 +177,7 @@ function EnabledSignUpScreen({ initialLocale = "ar" }: { initialLocale?: Locale 
       <Shell locale={locale} setLocale={setLocale} eyebrow={t.brand} title={t.completeProfileTitle} lead={t.completeProfileHint}>
         <form className="auth-page-form" onSubmit={(event) => void saveMissingUsername(event)}>
           <label>{t.username}
-            <input dir="ltr" value={username} onChange={(event) => setUsername(event.target.value)} placeholder={t.usernamePlaceholder} autoComplete="username" required minLength={3} maxLength={32} />
+            <input dir="ltr" value={username} onChange={(event) => setUsername(event.target.value)} placeholder={t.usernamePlaceholder} autoComplete="username" required minLength={4} maxLength={64} />
           </label>
           <p className="field-hint">{t.usernameHint}</p>
           {error && <p className="form-error" role="alert">{error}</p>}
@@ -193,7 +193,7 @@ function EnabledSignUpScreen({ initialLocale = "ar" }: { initialLocale?: Locale 
       <Shell locale={locale} setLocale={setLocale} eyebrow={t.brand} title={t.completeProfileTitle} lead={t.completeProfileHint}>
         <form className="auth-page-form" onSubmit={(event) => void savePostOAuthUsername(event)}>
           <label>{t.username}
-            <input dir="ltr" value={username} onChange={(event) => setUsername(event.target.value)} placeholder={t.usernamePlaceholder} autoComplete="username" required minLength={3} maxLength={32} />
+            <input dir="ltr" value={username} onChange={(event) => setUsername(event.target.value)} placeholder={t.usernamePlaceholder} autoComplete="username" required minLength={4} maxLength={64} />
           </label>
           <p className="field-hint">{t.usernameHint}</p>
           {error && <p className="form-error" role="alert">{error}</p>}
@@ -225,7 +225,7 @@ function EnabledSignUpScreen({ initialLocale = "ar" }: { initialLocale?: Locale 
         {mode === "signUp" ? (
           <>
             <label>{t.username}
-              <input dir="ltr" value={username} onChange={(event) => setUsername(event.target.value)} placeholder={t.usernamePlaceholder} autoComplete="username" required minLength={3} maxLength={32} />
+              <input dir="ltr" value={username} onChange={(event) => setUsername(event.target.value)} placeholder={t.usernamePlaceholder} autoComplete="username" required minLength={4} maxLength={64} />
             </label>
             <p className="field-hint">{t.usernameHint}</p>
             <label>{t.email}<input dir="ltr" type="email" autoComplete="email" value={email} onChange={(event) => setEmail(event.target.value)} required /></label>
