@@ -13,10 +13,14 @@ URLs and credentials are backend-only.
    custom domain is available and verified in Clerk Production.
 2. Configure Google and email/password providers in Clerk. Allow these exact
    origins: `http://localhost:3000` and
-   `https://tech-interview-prep-1ux.pages.dev`.
-3. Configure the backend Clerk JWKS URL and issuer. Node verifies the ordinary
+   `https://jahez-dev.pages.dev` (keep the old Pages origin only while it is
+   still used for rollback).
+3. In the Vercel backend Production environment, set
+   `CORS_ALLOWED_ORIGINS` to the same trusted origins, then redeploy the
+   backend. The frontend must use the backend URL through `NEXT_PUBLIC_API_URL`.
+4. Configure the backend Clerk JWKS URL and issuer. Node verifies the ordinary
    Clerk session token and passes the trusted Account ID to server-only database RPCs.
-4. Store `CLERK_SECRET_KEY` and the Supabase service-role credentials only in
+5. Store `CLERK_SECRET_KEY` and the Supabase service-role credentials only in
    the Node backend. No GitHub App or AI provider credentials are required.
 
 ## Local configuration
