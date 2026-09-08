@@ -10,6 +10,6 @@ const publishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
 export function ClerkRoot({ children }: { children: ReactNode }) {
   return publishableKey
-    ? <ClerkProvider publishableKey={publishableKey}><AuthenticatedActiveTrackProvider><StudySync /><TrackPreferencesGate />{children}</AuthenticatedActiveTrackProvider></ClerkProvider>
+    ? <ClerkProvider publishableKey={publishableKey} signInUrl="/auth/sign-in" signUpUrl="/auth/sign-up" signInFallbackRedirectUrl="/" signUpFallbackRedirectUrl="/"><AuthenticatedActiveTrackProvider><StudySync /><TrackPreferencesGate />{children}</AuthenticatedActiveTrackProvider></ClerkProvider>
     : <AnonymousActiveTrackProvider>{children}</AnonymousActiveTrackProvider>;
 }
