@@ -7,7 +7,7 @@ import { createPortal } from "react-dom";
 
 import { messages, type Locale } from "../i18n";
 import { nodeRequest } from "../backend/api.ts";
-import { PENDING_USERNAME_KEY, validateUsername } from "./auth/auth-screen";
+import { GoogleIcon, PENDING_USERNAME_KEY, validateUsername } from "./auth/auth-screen";
 
 type AuthMode = "signIn" | "signUp" | "verify";
 
@@ -113,7 +113,7 @@ function AuthDialog({ locale, initialMode, onClose }: { locale: Locale; initialM
         <span className="eyebrow">{copy.brandName}</span>
         <h2 id="auth-dialog-title" ref={heading} tabIndex={-1}>{title}</h2>
         {mode !== "verify" && <>
-          <button className="auth-google-button" type="button" onClick={() => void google()} disabled={busy}><span aria-hidden="true">G</span>{text.google}</button>
+          <button className="auth-google-button" type="button" onClick={() => void google()} disabled={busy}><GoogleIcon />{text.google}</button>
           <div className="auth-separator" aria-hidden="true"><span>{locale === "ar" ? "أو" : "or"}</span></div>
         </>}
         <form onSubmit={(event) => void submit(event)}>
