@@ -211,6 +211,38 @@ export function HomeHub({ locale = "ar" }: { locale?: Locale }) {
         </section>
       )}
 
+      <section className="shell section" aria-labelledby="features-title">
+        <div className="section-header">
+          <div>
+            <h2 id="features-title">{copy.whyPrepareHere}</h2>
+            <p>{copy.whyPrepareHereLead}</p>
+          </div>
+        </div>
+
+        <div className="grid home-features-grid">
+          <div className="card feature-card">
+            <div className="feature-icon" aria-hidden="true">📖</div>
+            <h3>{copy.feature1Title}</h3>
+            <p>{copy.feature1Lead}</p>
+          </div>
+          <div className="card feature-card">
+            <div className="feature-icon" aria-hidden="true">🎯</div>
+            <h3>{copy.feature2Title}</h3>
+            <p>{copy.feature2Lead}</p>
+          </div>
+          <div className="card feature-card">
+            <div className="feature-icon" aria-hidden="true">🧠</div>
+            <h3>{copy.feature3Title}</h3>
+            <p>{copy.feature3Lead}</p>
+          </div>
+          <div className="card feature-card">
+            <div className="feature-icon" aria-hidden="true">🔒</div>
+            <h3>{copy.feature4Title}</h3>
+            <p>{copy.feature4Lead}</p>
+          </div>
+        </div>
+      </section>
+
       <section className="shell section" aria-labelledby="all-tracks-title">
         <div className="section-header">
           <div>
@@ -251,38 +283,6 @@ export function HomeHub({ locale = "ar" }: { locale?: Locale }) {
               </div>
             );
           })}
-        </div>
-      </section>
-
-      <section className="shell section" aria-labelledby="features-title">
-        <div className="section-header">
-          <div>
-            <h2 id="features-title">{copy.whyPrepareHere}</h2>
-            <p>{copy.whyPrepareHereLead}</p>
-          </div>
-        </div>
-
-        <div className="grid home-features-grid">
-          <div className="card feature-card">
-            <div className="feature-icon" aria-hidden="true">📖</div>
-            <h3>{copy.feature1Title}</h3>
-            <p>{copy.feature1Lead}</p>
-          </div>
-          <div className="card feature-card">
-            <div className="feature-icon" aria-hidden="true">🎯</div>
-            <h3>{copy.feature2Title}</h3>
-            <p>{copy.feature2Lead}</p>
-          </div>
-          <div className="card feature-card">
-            <div className="feature-icon" aria-hidden="true">🧠</div>
-            <h3>{copy.feature3Title}</h3>
-            <p>{copy.feature3Lead}</p>
-          </div>
-          <div className="card feature-card">
-            <div className="feature-icon" aria-hidden="true">🔒</div>
-            <h3>{copy.feature4Title}</h3>
-            <p>{copy.feature4Lead}</p>
-          </div>
         </div>
       </section>
     </>
