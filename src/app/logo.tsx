@@ -12,35 +12,51 @@ export function BrandLogo({ size = 36, className = "" }: BrandLogoProps = {}): R
       <svg
         width={size}
         height={size}
-        viewBox="0 0 44 44"
+        viewBox="0 0 48 48"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         role="img"
         aria-label="JahezDev"
       >
+        <defs>
+          <filter id="jahez-glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="5.5" result="blur" />
+          </filter>
+          <radialGradient id="jahez-glow-grad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#34D399" stopOpacity="0.38" />
+            <stop offset="50%" stopColor="#10B981" stopOpacity="0.14" />
+            <stop offset="100%" stopColor="#10B981" stopOpacity="0" />
+          </radialGradient>
+          <linearGradient id="jahez-border" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+            <stop stopColor="#60A5FA" stopOpacity="0.75" />
+            <stop offset="1" stopColor="#34D399" stopOpacity="0.75" />
+          </linearGradient>
+        </defs>
+
         <rect
-          width="44"
-          height="44"
-          rx="12"
+          width="48"
+          height="48"
+          rx="13"
           fill="#0F172A"
           stroke="url(#jahez-border)"
           strokeWidth="1.5"
         />
-        {/* Center circle disc */}
-        <circle cx="22" cy="22" r="14" fill="#10B981" fillOpacity={0.14} />
+
+        {/* Ambient blurry glow without hard circle edges */}
+        <circle cx="24" cy="24" r="14" fill="url(#jahez-glow-grad)" filter="url(#jahez-glow)" />
 
         {/* Left chevron `<` */}
         <path
-          d="M11 16L5 22L11 28"
+          d="M15.5 17.5L10 24L15.5 30.5"
           stroke="#60A5FA"
           strokeWidth="2.8"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
 
-        {/* Bold checkmark `✓` */}
+        {/* Centered checkmark `✓` */}
         <path
-          d="M16 22.5L21 27.5L31 14.5"
+          d="M19 23.5L23 28L29 17"
           stroke="#34D399"
           strokeWidth="3.2"
           strokeLinecap="round"
@@ -49,19 +65,12 @@ export function BrandLogo({ size = 36, className = "" }: BrandLogoProps = {}): R
 
         {/* Right chevron `>` */}
         <path
-          d="M33 16L39 22L33 28"
+          d="M32.5 17.5L38 24L32.5 30.5"
           stroke="#60A5FA"
           strokeWidth="2.8"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
-
-        <defs>
-          <linearGradient id="jahez-border" x1="0" y1="0" x2="44" y2="44" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#60A5FA" stopOpacity="0.6" />
-            <stop offset="1" stopColor="#34D399" stopOpacity="0.6" />
-          </linearGradient>
-        </defs>
       </svg>
     </span>
   );

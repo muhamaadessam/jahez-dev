@@ -9,7 +9,7 @@ import { ClerkRoot } from "./clerk-provider";
 export const metadata: Metadata = {
   metadataBase: new URL(`${siteUrl}/`),
   title: {
-    default: "جاهز ديف | JahezDev",
+    default: "JahezDev",
     template: "%s | JahezDev",
   },
   description: "المنصة العربية الرائدة للتحضير لمقابلات العمل التقنية في أشهر مسارات البرمجة.",
@@ -18,14 +18,14 @@ export const metadata: Metadata = {
     languages: { ar: "/ar/", en: "/en/", "x-default": "/ar/" },
   },
   openGraph: {
-    title: "جاهز ديف | JahezDev",
+    title: "JahezDev",
     description: "المنصة العربية الرائدة للتحضير لمقابلات العمل التقنية في أشهر مسارات البرمجة.",
     type: "website",
     locale: "ar_EG",
   },
   twitter: {
     card: "summary",
-    title: "جاهز ديف | JahezDev",
+    title: "JahezDev",
     description: "المنصة العربية الرائدة للتحضير لمقابلات العمل التقنية في أشهر مسارات البرمجة.",
   },
 };

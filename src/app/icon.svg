@@ -1,17 +1,30 @@
-<svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="44" height="44" rx="12" fill="#0F172A" stroke="url(#jahez-border)" stroke-width="1.5" />
-  <!-- Center circle disc -->
-  <circle cx="22" cy="22" r="14" fill="#10B981" fill-opacity="0.14" />
-  <!-- Left chevron -->
-  <path d="M11 16L5 22L11 28" stroke="#60A5FA" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" />
-  <!-- Bold checkmark -->
-  <path d="M16 22.5L21 27.5L31 14.5" stroke="#34D399" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" />
-  <!-- Right chevron -->
-  <path d="M33 16L39 22L33 28" stroke="#60A5FA" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" />
+<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="jahez-border" x1="0" y1="0" x2="44" y2="44" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#60A5FA" stop-opacity="0.6" />
-      <stop offset="1" stop-color="#34D399" stop-opacity="0.6" />
+    <filter id="jahez-glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="5.5" result="blur" />
+    </filter>
+    <radialGradient id="jahez-glow-grad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#34D399" stop-opacity="0.38" />
+      <stop offset="50%" stop-color="#10B981" stop-opacity="0.14" />
+      <stop offset="100%" stop-color="#10B981" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="jahez-border" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#60A5FA" stop-opacity="0.75" />
+      <stop offset="1" stop-color="#34D399" stop-opacity="0.75" />
     </linearGradient>
   </defs>
+
+  <rect width="48" height="48" rx="13" fill="#0F172A" stroke="url(#jahez-border)" stroke-width="1.5" />
+
+  <!-- Ambient blurry glow -->
+  <circle cx="24" cy="24" r="14" fill="url(#jahez-glow-grad)" filter="url(#jahez-glow)" />
+
+  <!-- Left chevron `<` -->
+  <path d="M15.5 17.5L10 24L15.5 30.5" stroke="#60A5FA" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" />
+
+  <!-- Centered checkmark `✓` -->
+  <path d="M19 23.5L23 28L29 17" stroke="#34D399" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" />
+
+  <!-- Right chevron `>` -->
+  <path d="M32.5 17.5L38 24L32.5 30.5" stroke="#60A5FA" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" />
 </svg>
