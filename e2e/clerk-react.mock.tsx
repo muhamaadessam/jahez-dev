@@ -30,4 +30,6 @@ export function useSignIn() {
 export function useSignUp() {
   return { fetchStatus: "idle", signUp: { status: "missing_requirements", unverifiedFields: ["email_address"], password: async () => ({ error: null }), sso: async () => ({ error: null }), verifications: { sendEmailCode: async () => ({ error: null }), verifyEmailCode: async () => ({ error: null }) }, finalize: async () => {} } };
 }
-export function AuthenticateWithRedirectCallback() { return null; }
+export function AuthenticateWithRedirectCallback(props: Record<string, unknown>) { return <output data-testid="oauth-callback">{JSON.stringify(props)}</output>; }
+export function SignUp(props: Record<string, unknown>) { return <output data-testid="signup-component">{JSON.stringify(props)}</output>; }
+export function SignIn(props: Record<string, unknown>) { return <output data-testid="signin-component">{JSON.stringify(props)}</output>; }
