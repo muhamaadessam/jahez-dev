@@ -14,8 +14,8 @@ export type AuthFlowCopy = {
 
 export function validateUsername(value: string): string | null {
   const trimmed = value.trim();
-  if (trimmed.length < 3) return "short";
-  if (trimmed.length > 32) return "long";
+  if (trimmed.length < 4) return "short";
+  if (trimmed.length > 64) return "long";
   if (!/^[a-zA-Z0-9_]+$/.test(trimmed)) return "charset";
   return null;
 }
@@ -30,7 +30,9 @@ export function usernameError(value: string, copy: AuthFlowCopy): string {
 
 export function errorMessage(error: unknown, fallback: string): string {
   const first = (error as { errors?: Array<{ longMessage?: string; message?: string }> } | null)?.errors?.[0];
-  return first?.longMessage || first?.message || fallback;
+  if (first?.longMessage || first?.message) return first.longMessage || first.message || fallback;
+  const message = (error as { message?: unknown } | null)?.message;
+  return typeof message === "string" && message.trim() ? message : fallback;
 }
 
 export function useAuthFlow({ initialMode, redirectPath, copy }: { initialMode: AuthFlowMode; redirectPath: string; copy: AuthFlowCopy }) {
