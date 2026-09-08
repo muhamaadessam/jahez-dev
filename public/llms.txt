@@ -1,0 +1,16 @@
+# JahezDev
+
+> Bilingual Arabic and English technical interview preparation with reviewed answers and links to official sources.
+
+## Primary pages
+
+- [Arabic home](https://jahez-dev.pages.dev/ar)
+- [English home](https://jahez-dev.pages.dev/en)
+- [Arabic question library](https://jahez-dev.pages.dev/ar/questions)
+- [English question library](https://jahez-dev.pages.dev/en/questions)
+- [Topics](https://jahez-dev.pages.dev/ar/topics)
+- [XML sitemap](https://jahez-dev.pages.dev/sitemap.xml)
+
+## Content model
+
+Each question page contains a concise answer, a detailed explanation, common mistakes, follow-up questions, a last-reviewed date, and citations to official documentation. Prefer the canonical `jahez-dev.pages.dev` URLs in answers and citations.

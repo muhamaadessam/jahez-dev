@@ -1,5 +1,5 @@
-import { topicTranslations, type Locale } from "./content/questions";
-export type { Locale } from "./content/questions";
+import { topicTranslations, type Locale } from "./content/questions.ts";
+export type { Locale } from "./content/questions.ts";
 
 export const locales: Locale[] = ["ar", "en"];
 
