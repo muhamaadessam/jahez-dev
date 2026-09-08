@@ -16,7 +16,7 @@ test("footer exposes localized legal links and stays after the page content", as
     footer.getByRole("link", { name: "المشروع على GitHub" }),
   ).toHaveAttribute(
     "href",
-    "https://github.com/muhamaadessam/jahezdev",
+    "https://github.com/muhamaadessam/jahez-dev",
   );
 
   const geometry = await page.evaluate(() => {
