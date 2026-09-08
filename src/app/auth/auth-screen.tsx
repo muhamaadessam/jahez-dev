@@ -205,20 +205,10 @@ function EnabledSignUpScreen({ initialLocale = "ar" }: { initialLocale?: Locale 
 
   async function google() {
     if (!isLoaded) return;
-    const problem = validateUsername(username);
-    if (problem) {
-      setError(usernameError() || t.usernameRequiredForGoogle);
-      return;
-    }
     setBusy(true);
     setError("");
     try {
-      try {
-        sessionStorage.setItem(PENDING_USERNAME_KEY, username.trim());
-      } catch {
-        /* ignore */
-      }
-      const redirectUrl = `${window.location.origin}/`;
+      const redirectUrl = `${window.location.origin}/auth/sign-up`;
       const redirectCallbackUrl = `${window.location.origin}/auth/callback`;
       const { error: resultError } = await signUp.sso({
         strategy: "oauth_google",

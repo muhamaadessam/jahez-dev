@@ -60,11 +60,6 @@ function AuthDialog({ locale, initialMode, onClose }: { locale: Locale; initialM
 
   async function google() {
     if (!isLoaded) return;
-    if (mode === "signUp") {
-      const problem = usernameProblem();
-      if (problem) { setError(problem); return; }
-      try { sessionStorage.setItem(PENDING_USERNAME_KEY, username.trim()); } catch { /* ignore */ }
-    }
     setBusy(true); setError("");
     try {
       const callback = `${window.location.origin}/auth/callback`;
