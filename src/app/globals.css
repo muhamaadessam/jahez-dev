@@ -3711,18 +3711,6 @@ h3 {
   outline-offset: 1px;
 }
 
-.auth-google-mark {
-  display: grid;
-  width: 24px;
-  height: 24px;
-  place-items: center;
-  border-radius: 50%;
-  background: #fff;
-  color: #4285f4;
-  font-family: system-ui, sans-serif;
-  font-weight: 800;
-}
-
 .auth-page-links {
   display: flex;
   flex-wrap: wrap;

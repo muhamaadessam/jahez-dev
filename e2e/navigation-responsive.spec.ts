@@ -18,7 +18,7 @@ test("desktop navigation groups catalogue and account actions without exposing M
   await authenticate(page, "learner");
   await page.goto("/en/topics?track=flutter");
 
-  await expect(page.getByRole("link", { name: "Tech Interview Prep — Home" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "JahezDev — Home" })).toBeVisible();
   await expect(page.locator(".desktop-navigation").getByRole("link", { name: "Question Library" })).toBeVisible();
   await page.locator(".desktop-navigation .auth-profile-trigger").click();
   await expect(page.getByRole("dialog").getByRole("link", { name: "My Tracks" })).toBeVisible();
