@@ -1,16 +1,50 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { getQuestionTopics, getQuestionTranslation, questions, topics } from "../content/questions";
-import { localizedHref, messages, topicName, type Locale } from "../i18n";
+import { formatNumber, localizedHref, messages, topicName, type Locale } from "../i18n";
+import { nodeRequest } from "../backend/api";
 import { scopeCatalogue } from "../tracks/active-track";
 import { useActiveTrack } from "./active-track";
 import { TrackLogo } from "./track-logos";
 
+const visitorIdKey = "jahezdev-visitor-id";
+type SiteStats = { users: number; visitors: number };
+
+function getVisitorId(): string {
+  try {
+    const saved = window.localStorage.getItem(visitorIdKey);
+    if (saved) return saved;
+    const value = window.crypto.randomUUID();
+    window.localStorage.setItem(visitorIdKey, value);
+    return value;
+  } catch {
+    return window.crypto.randomUUID();
+  }
+}
+
+function useSiteStats(): SiteStats | null {
+  const [stats, setStats] = useState<SiteStats | null>(null);
+
+  useEffect(() => {
+    let active = true;
+    nodeRequest<SiteStats>({
+      path: "/site-stats/visit",
+      init: { method: "POST", body: JSON.stringify({ visitorId: getVisitorId() }) },
+    }).then((value) => {
+      if (active) setStats(value);
+    }).catch(() => undefined);
+    return () => { active = false; };
+  }, []);
+
+  return stats;
+}
+
 export function HomeHub({ locale = "ar" }: { locale?: Locale }) {
   const copy = messages[locale];
+  const siteStats = useSiteStats();
   const { activeTrack, selectableTracks, setActiveTrack, trackHref } = useActiveTrack();
 
   const scoped = useMemo(
@@ -71,6 +105,18 @@ export function HomeHub({ locale = "ar" }: { locale?: Locale }) {
             <Link className="button" href={localizedHref(locale, trackHref("/interview"))}>
               {copy.interview}
             </Link>
+          </div>
+
+          <div className="home-community-stats" aria-label={locale === "ar" ? "إحصاءات المجتمع" : "Community statistics"} aria-live="polite" aria-busy={siteStats === null}>
+            <div className="home-community-stat">
+              <strong>{siteStats ? formatNumber(siteStats.users, locale) : "—"}</strong>
+              <span>{copy.usersCount}</span>
+            </div>
+            <span className="home-community-stat-divider" aria-hidden="true" />
+            <div className="home-community-stat">
+              <strong>{siteStats ? formatNumber(siteStats.visitors, locale) : "—"}</strong>
+              <span>{copy.visitorsCount}</span>
+            </div>
           </div>
         </div>
 
@@ -165,6 +211,38 @@ export function HomeHub({ locale = "ar" }: { locale?: Locale }) {
         </section>
       )}
 
+      <section className="shell section" aria-labelledby="features-title">
+        <div className="section-header">
+          <div>
+            <h2 id="features-title">{copy.whyPrepareHere}</h2>
+            <p>{copy.whyPrepareHereLead}</p>
+          </div>
+        </div>
+
+        <div className="grid home-features-grid">
+          <div className="card feature-card">
+            <div className="feature-icon" aria-hidden="true">📖</div>
+            <h3>{copy.feature1Title}</h3>
+            <p>{copy.feature1Lead}</p>
+          </div>
+          <div className="card feature-card">
+            <div className="feature-icon" aria-hidden="true">🎯</div>
+            <h3>{copy.feature2Title}</h3>
+            <p>{copy.feature2Lead}</p>
+          </div>
+          <div className="card feature-card">
+            <div className="feature-icon" aria-hidden="true">🧠</div>
+            <h3>{copy.feature3Title}</h3>
+            <p>{copy.feature3Lead}</p>
+          </div>
+          <div className="card feature-card">
+            <div className="feature-icon" aria-hidden="true">🔒</div>
+            <h3>{copy.feature4Title}</h3>
+            <p>{copy.feature4Lead}</p>
+          </div>
+        </div>
+      </section>
+
       <section className="shell section" aria-labelledby="all-tracks-title">
         <div className="section-header">
           <div>
@@ -205,38 +283,6 @@ export function HomeHub({ locale = "ar" }: { locale?: Locale }) {
               </div>
             );
           })}
-        </div>
-      </section>
-
-      <section className="shell section" aria-labelledby="features-title">
-        <div className="section-header">
-          <div>
-            <h2 id="features-title">{copy.whyPrepareHere}</h2>
-            <p>{copy.whyPrepareHereLead}</p>
-          </div>
-        </div>
-
-        <div className="grid home-features-grid">
-          <div className="card feature-card">
-            <div className="feature-icon" aria-hidden="true">📖</div>
-            <h3>{copy.feature1Title}</h3>
-            <p>{copy.feature1Lead}</p>
-          </div>
-          <div className="card feature-card">
-            <div className="feature-icon" aria-hidden="true">🎯</div>
-            <h3>{copy.feature2Title}</h3>
-            <p>{copy.feature2Lead}</p>
-          </div>
-          <div className="card feature-card">
-            <div className="feature-icon" aria-hidden="true">🧠</div>
-            <h3>{copy.feature3Title}</h3>
-            <p>{copy.feature3Lead}</p>
-          </div>
-          <div className="card feature-card">
-            <div className="feature-icon" aria-hidden="true">🔒</div>
-            <h3>{copy.feature4Title}</h3>
-            <p>{copy.feature4Lead}</p>
-          </div>
         </div>
       </section>
     </>

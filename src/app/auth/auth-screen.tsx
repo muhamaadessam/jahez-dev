@@ -1,27 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState, type FormEvent } from "react";
-import { useAuth, useSignIn, useSignUp, useUser } from "@clerk/react";
+import { useEffect, useState } from "react";
 
 import { localeFromPathname, type Locale } from "../../i18n";
+import { useAuthFlow, type AuthFlowCopy } from "./auth-flow";
 
-export const PENDING_USERNAME_KEY = "jahezdev-pending-username";
+export { validateUsername } from "./auth-flow";
 
-export function validateUsername(value: string): string | null {
-  const trimmed = value.trim();
-  if (trimmed.length < 3) return "short";
-  if (trimmed.length > 32) return "long";
-  if (!/^[a-zA-Z0-9_]+$/.test(trimmed)) return "charset";
-  return null;
-}
-
-function errorMessage(error: unknown, fallback: string): string {
-  const first = (error as { errors?: Array<{ longMessage?: string; message?: string }> } | null)?.errors?.[0];
-  return first?.longMessage || first?.message || fallback;
-}
-
-type Copy = Record<string, string>;
+type Copy = Record<string, string> & AuthFlowCopy;
 
 const copy: Record<Locale, Copy> = {
   ar: {
@@ -32,7 +19,6 @@ const copy: Record<Locale, Copy> = {
     username: "اسم المستخدم",
     usernamePlaceholder: "مثال: ahmed_dev",
     usernameHint: "من ٣ إلى ٣٢ حرفًا، أحرف إنجليزية وأرقام وشرطة سفلية فقط. سيظهر بجانب مساهماتك.",
-    usernameRequiredForGoogle: "اكتب اسم المستخدم أولًا، ثم اضغط المتابعة باستخدام Google.",
     email: "البريد الإلكتروني",
     password: "كلمة المرور",
     passwordHint: "٨ أحرف على الأقل.",
@@ -68,7 +54,6 @@ const copy: Record<Locale, Copy> = {
     username: "Username",
     usernamePlaceholder: "e.g. ahmed_dev",
     usernameHint: "3–32 characters, Latin letters, numbers and underscores only. Shown next to your contributions.",
-    usernameRequiredForGoogle: "Type your username first, then continue with Google.",
     email: "Email address",
     password: "Password",
     passwordHint: "At least 8 characters.",
@@ -164,188 +149,36 @@ export function SignUpScreen({ initialLocale = "ar" }: { initialLocale?: Locale 
 function EnabledSignUpScreen({ initialLocale = "ar" }: { initialLocale?: Locale }) {
   const [locale, setLocale] = usePageLocale(initialLocale);
   const t = copy[locale];
-  const { isLoaded, isSignedIn } = useAuth();
-  const { signUp } = useSignUp();
-  const { user } = useUser();
+  const {
+    isLoaded,
+    isSignedIn,
+    user,
+    signUp,
+    mode,
+    username,
+    setUsername,
+    email,
+    setEmail,
+    password,
+    setPassword,
+    code,
+    setCode,
+    error,
+    busy,
+    google,
+    submit,
+    saveMissingUsername,
+    savePostOAuthUsername,
+  } = useAuthFlow({ initialMode: "signUp", redirectPath: "/", copy: t });
 
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [code, setCode] = useState("");
-  const [mode, setMode] = useState<"form" | "verify">("form");
-  const [error, setError] = useState("");
-  const [busy, setBusy] = useState(false);
-
-  useEffect(() => {
-    try {
-      const pending = sessionStorage.getItem(PENDING_USERNAME_KEY);
-      if (pending && !username) setUsername(pending);
-    } catch {
-      /* ignore */
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  function usernameError(): string {
-    const problem = validateUsername(username);
-    if (problem === "short") return t.usernameShort;
-    if (problem === "long") return t.usernameLong;
-    if (problem === "charset") return t.usernameCharset;
-    return "";
-  }
-
-  async function finalizeAndGoHome() {
-    try {
-      sessionStorage.removeItem(PENDING_USERNAME_KEY);
-    } catch {
-      /* ignore */
-    }
-    window.location.href = "/";
-  }
-
-  async function google() {
-    if (!isLoaded) return;
-    const problem = validateUsername(username);
-    if (problem) {
-      setError(usernameError() || t.usernameRequiredForGoogle);
-      return;
-    }
-    setBusy(true);
-    setError("");
-    try {
-      try {
-        sessionStorage.setItem(PENDING_USERNAME_KEY, username.trim());
-      } catch {
-        /* ignore */
-      }
-      const redirectUrl = `${window.location.origin}/`;
-      const redirectCallbackUrl = `${window.location.origin}/auth/callback`;
-      const { error: resultError } = await signUp.sso({
-        strategy: "oauth_google",
-        redirectUrl,
-        redirectCallbackUrl,
-      });
-      if (resultError) throw resultError;
-    } catch (caught) {
-      setBusy(false);
-      setError(errorMessage(caught, t.failed));
-    }
-  }
-
-  async function submit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    if (!isLoaded) return;
-    const problem = validateUsername(username);
-    if (mode === "form" && problem) {
-      setError(usernameError());
-      return;
-    }
-    setBusy(true);
-    setError("");
-    try {
-      if (mode === "form") {
-        const { error: resultError } = await signUp.password({
-          emailAddress: email,
-          password,
-          username: username.trim(),
-        });
-        if (resultError) throw resultError;
-        if (signUp.status === "missing_requirements" && signUp.unverifiedFields.includes("email_address")) {
-          const { error: verificationError } = await signUp.verifications.sendEmailCode();
-          if (verificationError) throw verificationError;
-          setMode("verify");
-        } else if (signUp.status === "complete") {
-          await signUp.finalize({
-            navigate: ({ decorateUrl }) => {
-              window.location.href = decorateUrl("/");
-            },
-          });
-          await finalizeAndGoHome();
-        } else {
-          setError(t.failed);
-        }
-      } else {
-        const { error: verificationError } = await signUp.verifications.verifyEmailCode({ code });
-        if (verificationError) throw verificationError;
-        if (signUp.status === "complete") {
-          await signUp.finalize({
-            navigate: ({ decorateUrl }) => {
-              window.location.href = decorateUrl("/");
-            },
-          });
-          await finalizeAndGoHome();
-        } else {
-          setError(t.failed);
-        }
-      }
-    } catch (caught) {
-      setError(errorMessage(caught, t.failed));
-    } finally {
-      setBusy(false);
-    }
-  }
-
-  async function saveMissingUsername(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    if (!isLoaded) return;
-    const problem = validateUsername(username);
-    if (problem) {
-      setError(usernameError());
-      return;
-    }
-    setBusy(true);
-    setError("");
-    try {
-      const { error: resultError } = await signUp.update({ username: username.trim() });
-      if (resultError) throw resultError;
-      if (signUp.status === "complete") {
-        await signUp.finalize({
-          navigate: ({ decorateUrl }) => {
-            window.location.href = decorateUrl("/");
-          },
-        });
-        await finalizeAndGoHome();
-      } else {
-        setError(t.failed);
-      }
-    } catch (caught) {
-      setError(errorMessage(caught, t.failed));
-    } finally {
-      setBusy(false);
-    }
-  }
-
-  async function savePostOAuthUsername(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    if (!user) return;
-    const problem = validateUsername(username);
-    if (problem) {
-      setError(usernameError());
-      return;
-    }
-    setBusy(true);
-    setError("");
-    try {
-      await user.update({ username: username.trim() });
-      await finalizeAndGoHome();
-    } catch (caught) {
-      setError(errorMessage(caught, t.failed));
-    } finally {
-      setBusy(false);
-    }
-  }
-
-  // Case 1: Clerk redirected back with missing requirements (e.g. username required for Google sign-up)
-  if (isLoaded && signUp && signUp.status === "missing_requirements") {
-    const needsUsername = signUp.missingFields.includes("username");
+  // Clerk redirected back with missing requirements (for example, a username required by the instance).
+  if (isLoaded && signUp.status === "missing_requirements") {
     return (
       <Shell locale={locale} setLocale={setLocale} eyebrow={t.brand} title={t.completeProfileTitle} lead={t.completeProfileHint}>
         <form className="auth-page-form" onSubmit={(event) => void saveMissingUsername(event)}>
-          {needsUsername || true ? (
-            <label>{t.username}
-              <input dir="ltr" value={username} onChange={(event) => setUsername(event.target.value)} placeholder={t.usernamePlaceholder} autoComplete="username" required minLength={3} maxLength={32} />
-            </label>
-          ) : null}
+          <label>{t.username}
+            <input dir="ltr" value={username} onChange={(event) => setUsername(event.target.value)} placeholder={t.usernamePlaceholder} autoComplete="username" required minLength={3} maxLength={32} />
+          </label>
           <p className="field-hint">{t.usernameHint}</p>
           {error && <p className="form-error" role="alert">{error}</p>}
           <button className="button primary auth-submit" type="submit" disabled={busy || !isLoaded}>{busy ? t.loading : t.saveUsername}</button>
@@ -380,7 +213,7 @@ function EnabledSignUpScreen({ initialLocale = "ar" }: { initialLocale?: Locale 
 
   return (
     <Shell locale={locale} setLocale={setLocale} eyebrow={t.signUpEyebrow} title={mode === "verify" ? t.verifyTitle : t.signUpTitle} lead={mode === "verify" ? t.verifyHint : t.signUpLead}>
-      {mode === "form" && (
+      {mode === "signUp" && (
         <>
           <button className="auth-google-button" type="button" onClick={() => void google()} disabled={busy || !isLoaded}>
             <GoogleIcon />{t.google}
@@ -389,7 +222,7 @@ function EnabledSignUpScreen({ initialLocale = "ar" }: { initialLocale?: Locale 
         </>
       )}
       <form className="auth-page-form" onSubmit={(event) => void submit(event)}>
-        {mode === "form" ? (
+        {mode === "signUp" ? (
           <>
             <label>{t.username}
               <input dir="ltr" value={username} onChange={(event) => setUsername(event.target.value)} placeholder={t.usernamePlaceholder} autoComplete="username" required minLength={3} maxLength={32} />
@@ -425,52 +258,11 @@ export function SignInScreen({ initialLocale = "ar" }: { initialLocale?: Locale 
 function EnabledSignInScreen({ initialLocale = "ar" }: { initialLocale?: Locale }) {
   const [locale, setLocale] = usePageLocale(initialLocale);
   const t = copy[locale];
-  const { isLoaded, isSignedIn } = useAuth();
-  const { signIn } = useSignIn();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [busy, setBusy] = useState(false);
-
-  async function google() {
-    if (!isLoaded) return;
-    setBusy(true);
-    setError("");
-    try {
-      const redirectUrl = `${window.location.origin}/`;
-      const redirectCallbackUrl = `${window.location.origin}/auth/callback`;
-      const { error: resultError } = await signIn.sso({ strategy: "oauth_google", redirectUrl, redirectCallbackUrl });
-      if (resultError) throw resultError;
-    } catch (caught) {
-      setBusy(false);
-      setError(errorMessage(caught, t.failed));
-    }
-  }
-
-  async function submit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    if (!isLoaded) return;
-    setBusy(true);
-    setError("");
-    try {
-      const { error: resultError } = await signIn.password({ identifier: email, password });
-      if (resultError) throw resultError;
-      if (signIn.status === "complete") {
-        await signIn.finalize({
-          navigate: ({ decorateUrl }) => {
-            window.location.href = decorateUrl("/");
-          },
-        });
-        window.location.href = "/";
-      } else {
-        setError(t.failed);
-      }
-    } catch (caught) {
-      setError(errorMessage(caught, t.failed));
-    } finally {
-      setBusy(false);
-    }
-  }
+  const { isLoaded, isSignedIn, email, setEmail, password, setPassword, error, busy, google, submit } = useAuthFlow({
+    initialMode: "signIn",
+    redirectPath: "/",
+    copy: t,
+  });
 
   if (isLoaded && isSignedIn) {
     return (

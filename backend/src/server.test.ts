@@ -21,6 +21,21 @@ test("versioned health and readiness routes are available", async () => {
   await app.close();
 });
 
+test("public site stats route records a visitor", async () => {
+  const calls: string[] = [];
+  const app = await buildServer({
+    allowedOrigins: [],
+    siteStats: { recordVisitor: async (visitorId) => { calls.push(visitorId); return { users: 4, visitors: 9 }; } },
+  });
+
+  const response = await app.inject({ method: "POST", url: "/v1/site-stats/visit", payload: { visitorId: "visitor-123456789" } });
+  assert.equal(response.statusCode, 200);
+  assert.deepEqual(response.json(), { users: 4, visitors: 9 });
+  assert.deepEqual(calls, ["visitor-123456789"]);
+  assert.equal((await app.inject({ method: "POST", url: "/v1/site-stats/visit", payload: {} })).statusCode, 400);
+  await app.close();
+});
+
 test("public Track route delegates to the configured store", async () => {
   let locale = "";
   const app = await buildServer({ allowedOrigins: [], tracks: { listTracks: async (value) => { locale = value; return [{ id: "flutter", slug: "flutter", name: "Flutter" }]; }, getPreferences: async () => ({ tracks: [], preferences: [], unavailableTracks: [] }), savePreferences: async () => undefined } });

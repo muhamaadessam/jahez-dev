@@ -1,20 +1,14 @@
 "use client";
 
-import { useAuth, useClerk, useSignIn, useSignUp, useUser } from "@clerk/react";
+import { useAuth, useClerk, useUser } from "@clerk/react";
 import Link from "next/link";
 import { useEffect, useRef, useState, type FormEvent, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 
 import { messages, type Locale } from "../i18n";
 import { nodeRequest } from "../backend/api.ts";
-import { GoogleIcon, PENDING_USERNAME_KEY, validateUsername } from "./auth/auth-screen";
-
-type AuthMode = "signIn" | "signUp" | "verify";
-
-function errorMessage(error: unknown, fallback: string): string {
-  const first = (error as { errors?: Array<{ longMessage?: string; message?: string }> } | null)?.errors?.[0];
-  return first?.longMessage || first?.message || fallback;
-}
+import { errorMessage, useAuthFlow } from "./auth/auth-flow";
+import { GoogleIcon } from "./auth/auth-screen";
 
 export function AuthDialogTrigger({ locale, children, className = "button primary", mode = "signIn" }: { locale: Locale; children?: ReactNode; className?: string; mode?: "signIn" | "signUp" }) {
   const copy = messages[locale];
@@ -27,17 +21,36 @@ export function AuthDialogTrigger({ locale, children, className = "button primar
 
 function AuthDialog({ locale, initialMode, onClose }: { locale: Locale; initialMode: "signIn" | "signUp"; onClose: () => void }) {
   const copy = messages[locale];
-  const { isLoaded } = useAuth();
-  const { signIn } = useSignIn();
-  const { signUp } = useSignUp();
-  const [mode, setMode] = useState<AuthMode>(initialMode);
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [code, setCode] = useState("");
-  const [error, setError] = useState("");
-  const [busy, setBusy] = useState(false);
   const heading = useRef<HTMLHeadingElement>(null);
+  const redirectPath = typeof window === "undefined" ? "/" : `${window.location.pathname}${window.location.search}`;
+
+  const text = locale === "ar"
+    ? { signIn: "تسجيل الدخول", signUp: "إنشاء حساب", completeProfile: "اختر اسم المستخدم", saveUsername: "حفظ اسم المستخدم والمتابعة", username: "اسم المستخدم", usernamePlaceholder: "مثال: ahmed_dev", usernameHint: "٣ أحرف على الأقل، أحرف إنجليزية وأرقام وشرطة سفلية فقط.", email: "البريد الإلكتروني", password: "كلمة المرور", google: "المتابعة باستخدام Google", submitIn: "دخول", submitUp: "إنشاء الحساب", verify: "تأكيد البريد الإلكتروني", verifyHint: "اكتب الرمز الذي وصلك على بريدك الإلكتروني.", code: "رمز التحقق", confirm: "تأكيد", switchUp: "ليس لديك حساب؟ إنشاء حساب", switchIn: "لديك حساب بالفعل؟ تسجيل الدخول", loading: "جاري التحميل…", failed: "تعذر إكمال العملية. حاول مرة أخرى.", usernameShort: "اسم المستخدم قصير. استخدم ٣ أحرف على الأقل.", usernameLong: "اسم المستخدم طويل. الحد الأقصى ٣٢ حرفًا.", usernameCharset: "استخدم أحرفًا إنجليزية وأرقامًا وشرطة سفلية فقط." }
+    : { signIn: "Sign in", signUp: "Create account", completeProfile: "Choose your username", saveUsername: "Save username and continue", username: "Username", usernamePlaceholder: "e.g. ahmed_dev", usernameHint: "At least 3 characters, Latin letters, numbers and underscores only.", email: "Email address", password: "Password", google: "Continue with Google", submitIn: "Sign in", submitUp: "Create account", verify: "Confirm your email", verifyHint: "Enter the code sent to your email.", code: "Verification code", confirm: "Confirm", switchUp: "New here? Create an account", switchIn: "Already have an account? Sign in", loading: "Loading…", failed: "We couldn't complete that. Try again.", usernameShort: "Username is too short. Use at least 3 characters.", usernameLong: "Username is too long. Maximum 32 characters.", usernameCharset: "Use Latin letters, numbers and underscores only." };
+
+  const {
+    isLoaded,
+    isSignedIn,
+    user,
+    signUp,
+    mode,
+    setMode,
+    username,
+    setUsername,
+    email,
+    setEmail,
+    password,
+    setPassword,
+    code,
+    setCode,
+    error,
+    busy,
+    submit,
+    google,
+    saveMissingUsername,
+    savePostOAuthUsername,
+    setError,
+  } = useAuthFlow({ initialMode, redirectPath, copy: text });
 
   useEffect(() => { heading.current?.focus(); }, [mode]);
   useEffect(() => {
@@ -46,87 +59,39 @@ function AuthDialog({ locale, initialMode, onClose }: { locale: Locale; initialM
     return () => document.removeEventListener("keydown", close);
   }, [onClose]);
 
-  const text = locale === "ar"
-    ? { signIn: "تسجيل الدخول", signUp: "إنشاء حساب", username: "اسم المستخدم", usernamePlaceholder: "مثال: ahmed_dev", usernameHint: "٣ أحرف على الأقل، أحرف إنجليزية وأرقام وشرطة سفلية فقط.", usernameNeeded: "اكتب اسم المستخدم أولًا ثم تابع باستخدام Google.", email: "البريد الإلكتروني", password: "كلمة المرور", google: "المتابعة باستخدام Google", submitIn: "دخول", submitUp: "إنشاء الحساب", verify: "تأكيد البريد الإلكتروني", verifyHint: "اكتب الرمز الذي وصلك على بريدك الإلكتروني.", code: "رمز التحقق", confirm: "تأكيد", switchUp: "ليس لديك حساب؟ إنشاء حساب", switchIn: "لديك حساب بالفعل؟ تسجيل الدخول", loading: "جاري التحميل…", failed: "تعذر إكمال العملية. حاول مرة أخرى." }
-    : { signIn: "Sign in", signUp: "Create account", username: "Username", usernamePlaceholder: "e.g. ahmed_dev", usernameHint: "At least 3 characters, Latin letters, numbers and underscores only.", usernameNeeded: "Type your username first, then continue with Google.", email: "Email address", password: "Password", google: "Continue with Google", submitIn: "Sign in", submitUp: "Create account", verify: "Confirm your email", verifyHint: "Enter the code sent to your email.", code: "Verification code", confirm: "Confirm", switchUp: "New here? Create an account", switchIn: "Already have an account? Sign in", loading: "Loading…", failed: "We couldn't complete that. Try again." };
-
-  function usernameProblem(): string {
-    const problem = validateUsername(username);
-    if (problem === "short") return locale === "ar" ? "اسم المستخدم قصير. استخدم ٣ أحرف على الأقل." : "Username is too short. Use at least 3 characters.";
-    if (problem === "long") return locale === "ar" ? "اسم المستخدم طويل. الحد الأقصى ٣٢ حرفًا." : "Username is too long. Maximum 32 characters.";
-    if (problem === "charset") return locale === "ar" ? "استخدم أحرفًا إنجليزية وأرقامًا وشرطة سفلية فقط." : "Use Latin letters, numbers and underscores only.";
-    return "";
-  }
-
-  async function google() {
-    if (!isLoaded) return;
-    if (mode === "signUp") {
-      const problem = usernameProblem();
-      if (problem) { setError(problem); return; }
-      try { sessionStorage.setItem(PENDING_USERNAME_KEY, username.trim()); } catch { /* ignore */ }
-    }
-    setBusy(true); setError("");
-    try {
-      const callback = `${window.location.origin}/auth/callback`;
-      const complete = mode === "signUp" ? `${window.location.origin}/auth/sign-up` : `${window.location.origin}${window.location.pathname}${window.location.search}`;
-      const flow = mode === "signUp" ? signUp : signIn;
-      const { error: resultError } = await flow.sso({ strategy: "oauth_google", redirectUrl: complete, redirectCallbackUrl: callback });
-      if (resultError) throw resultError;
-    } catch (caught) { setBusy(false); setError(errorMessage(caught, text.failed)); }
-  }
-
-  async function submit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    if (!isLoaded) return;
-    setBusy(true); setError("");
-    try {
-      if (mode === "signIn") {
-        const { error: resultError } = await signIn.password({ identifier: email, password });
-        if (resultError) throw resultError;
-        if (signIn.status === "complete") await signIn.finalize({ navigate: ({ decorateUrl }) => { window.location.href = decorateUrl(window.location.pathname + window.location.search); } });
-        else setError(text.failed);
-      } else if (mode === "signUp") {
-        const problem = usernameProblem();
-        if (problem) { setError(problem); setBusy(false); return; }
-        const { error: resultError } = await signUp.password({ emailAddress: email, password, username: username.trim() });
-        if (resultError) throw resultError;
-        if (signUp.status === "missing_requirements" && signUp.unverifiedFields.includes("email_address")) {
-          const { error: verificationError } = await signUp.verifications.sendEmailCode();
-          if (verificationError) throw verificationError;
-          setMode("verify");
-        } else setError(text.failed);
-      } else {
-        const { error: verificationError } = await signUp.verifications.verifyEmailCode({ code });
-        if (verificationError) throw verificationError;
-        if (signUp.status === "complete") await signUp.finalize({ navigate: ({ decorateUrl }) => { window.location.href = decorateUrl(window.location.pathname + window.location.search); } });
-        else setError(text.failed);
-      }
-    } catch (caught) { setError(errorMessage(caught, text.failed)); }
-    finally { setBusy(false); }
-  }
-
-  const title = mode === "verify" ? text.verify : mode === "signIn" ? text.signIn : text.signUp;
+  const needsUsername = mode === "signUp" && signUp.status === "missing_requirements";
+  const needsPostOAuthUsername = mode === "signUp" && isSignedIn && user && !user.username;
+  const title = needsUsername || needsPostOAuthUsername ? text.completeProfile : mode === "verify" ? text.verify : mode === "signIn" ? text.signIn : text.signUp;
   const overlay = (
     <div className="auth-overlay" role="dialog" aria-modal="true" aria-labelledby="auth-dialog-title" onMouseDown={(event) => { if (event.target === event.currentTarget) onClose(); }}>
       <section className="auth-dialog" onMouseDown={(event) => event.stopPropagation()}>
         <button className="auth-dialog-close" type="button" onClick={onClose} aria-label={copy.close}>×</button>
         <span className="eyebrow">{copy.brandName}</span>
         <h2 id="auth-dialog-title" ref={heading} tabIndex={-1}>{title}</h2>
-        {mode !== "verify" && <>
+        {!needsUsername && !needsPostOAuthUsername && mode !== "verify" && <>
           <button className="auth-google-button" type="button" onClick={() => void google()} disabled={busy}><GoogleIcon />{text.google}</button>
           <div className="auth-separator" aria-hidden="true"><span>{locale === "ar" ? "أو" : "or"}</span></div>
         </>}
-        <form onSubmit={(event) => void submit(event)}>
-          {mode !== "verify" ? <>
-            {mode === "signUp" && <><label>{text.username}<input dir="ltr" autoComplete="username" value={username} onChange={(event) => setUsername(event.target.value)} placeholder={text.usernamePlaceholder} minLength={3} maxLength={32} required /></label><p className="field-hint">{text.usernameHint}</p></>}
-            <label>{text.email}<input type="email" autoComplete="email" value={email} onChange={(event) => setEmail(event.target.value)} required /></label>
-            <label>{text.password}<input type="password" autoComplete={mode === "signIn" ? "current-password" : "new-password"} value={password} onChange={(event) => setPassword(event.target.value)} minLength={8} required /></label>
-          </> : <><p className="field-hint">{text.verifyHint}</p><label>{text.code}<input inputMode="numeric" autoComplete="one-time-code" value={code} onChange={(event) => setCode(event.target.value)} required /></label></>}
-          {error && <p className="form-error" role="alert">{error}</p>}
-          <button className="button primary auth-submit" type="submit" disabled={busy || !isLoaded}>{busy ? text.loading : mode === "verify" ? text.confirm : mode === "signIn" ? text.submitIn : text.submitUp}</button>
-        </form>
+        {needsUsername || needsPostOAuthUsername ? (
+          <form onSubmit={(event) => void (needsUsername ? saveMissingUsername(event) : savePostOAuthUsername(event))}>
+            <label>{text.username}<input dir="ltr" autoComplete="username" value={username} onChange={(event) => setUsername(event.target.value)} placeholder={text.usernamePlaceholder} minLength={3} maxLength={32} required /></label>
+            <p className="field-hint">{text.usernameHint}</p>
+            {error && <p className="form-error" role="alert">{error}</p>}
+            <button className="button primary auth-submit" type="submit" disabled={busy || !isLoaded}>{busy ? text.loading : text.saveUsername}</button>
+          </form>
+        ) : (
+          <form onSubmit={(event) => void submit(event)}>
+            {mode !== "verify" ? <>
+              {mode === "signUp" && <><label>{text.username}<input dir="ltr" autoComplete="username" value={username} onChange={(event) => setUsername(event.target.value)} placeholder={text.usernamePlaceholder} minLength={3} maxLength={32} required /></label><p className="field-hint">{text.usernameHint}</p></>}
+              <label>{text.email}<input type="email" autoComplete="email" value={email} onChange={(event) => setEmail(event.target.value)} required /></label>
+              <label>{text.password}<input type="password" autoComplete={mode === "signIn" ? "current-password" : "new-password"} value={password} onChange={(event) => setPassword(event.target.value)} minLength={8} required /></label>
+            </> : <><p className="field-hint">{text.verifyHint}</p><label>{text.code}<input inputMode="numeric" autoComplete="one-time-code" value={code} onChange={(event) => setCode(event.target.value)} required /></label></>}
+            {error && <p className="form-error" role="alert">{error}</p>}
+            <button className="button primary auth-submit" type="submit" disabled={busy || !isLoaded}>{busy ? text.loading : mode === "verify" ? text.confirm : mode === "signIn" ? text.submitIn : text.submitUp}</button>
+          </form>
+        )}
         <div id="clerk-captcha" />
-        {mode !== "verify" && <button className="auth-switch" type="button" onClick={() => { setError(""); setMode((current) => current === "signIn" ? "signUp" : "signIn"); }}>{mode === "signIn" ? text.switchUp : text.switchIn}</button>}
+        {!needsUsername && !needsPostOAuthUsername && mode !== "verify" && <button className="auth-switch" type="button" onClick={() => { setError(""); setMode((current) => current === "signIn" ? "signUp" : "signIn"); }}>{mode === "signIn" ? text.switchUp : text.switchIn}</button>}
       </section>
     </div>
   );

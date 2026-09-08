@@ -11,6 +11,7 @@ import { CommunityStoreError, createSupabaseCommunityStore, type CommunityStore 
 import { createSupabaseOperations, OperationError, type Operations } from "./operations.ts";
 import { createRateLimiter } from "./rate-limit.ts";
 import { AccountDeletionError, createAccountDeletionStore, type AccountDeletionStore } from "./account-deletion.ts";
+import { createSiteStatsStore, SiteStatsError, type SiteStatsStore } from "./site-stats.ts";
 
 type LogSink = { info?: (line: string) => void; error?: (line: string) => void };
 
@@ -32,6 +33,7 @@ export type ServerOptions = {
   community?: CommunityStore;
   operations?: Operations;
   accountDeletion?: AccountDeletionStore;
+  siteStats?: SiteStatsStore;
 };
 
 export function accountPolicyEnabled(value = process.env.ACCOUNT_POLICY_ENABLED): boolean {
@@ -52,7 +54,7 @@ function questionIds(value: unknown): string[] | null {
   return ids.length > 0 && ids.length <= 200 && ids.every((id) => /^[a-zA-Z0-9._:-]{1,120}$/.test(id)) ? ids : null;
 }
 
-export async function buildServer({ allowedOrigins, ready = true, logger = console, auth, policy, tracks, catalogue, learnerState, submission, community, operations, accountDeletion }: ServerOptions): Promise<FastifyInstance> {
+export async function buildServer({ allowedOrigins, ready = true, logger = console, auth, policy, tracks, catalogue, learnerState, submission, community, operations, accountDeletion, siteStats }: ServerOptions): Promise<FastifyInstance> {
   const origins = new Set(allowedOrigins.filter(Boolean));
   const limiter = createRateLimiter({ limit: 300, windowMs: 60_000, maxKeys: 10_000 });
   const trustProxy = process.env.TRUST_PROXY_HOPS === "1";
@@ -69,7 +71,7 @@ export async function buildServer({ allowedOrigins, ready = true, logger = conso
     startedAt.set(request, process.hrtime.bigint());
     const id = request.id;
     reply.header("x-request-id", id);
-    if ((request.url.startsWith("/v1/questions") || request.url.startsWith("/v1/tracks") || request.url.startsWith("/v1/submissions")) && !limiter.allow(`${request.ip}:${request.url.split("?")[0]}`)) {
+    if ((request.url.startsWith("/v1/questions") || request.url.startsWith("/v1/tracks") || request.url.startsWith("/v1/submissions") || request.url.startsWith("/v1/site-stats")) && !limiter.allow(`${request.ip}:${request.url.split("?")[0]}`)) {
       reply.code(429).send({ error: "rate_limit_exceeded" });
       return;
     }
@@ -98,6 +100,12 @@ export async function buildServer({ allowedOrigins, ready = true, logger = conso
 
   app.get("/health", async () => ({ status: "ok" }));
   app.get("/v1/health", async () => ({ status: "ok" }));
+  app.post("/v1/site-stats/visit", async (request, reply) => {
+    if (!siteStats) return reply.code(503).send({ error: "site_stats_not_configured" });
+    const visitorId = (request.body as { visitorId?: unknown })?.visitorId;
+    if (typeof visitorId !== "string") return reply.code(400).send({ error: "invalid_visitor" });
+    return siteStats.recordVisitor(visitorId);
+  });
   app.get("/ready", async (_request, reply) => {
     const isReady = typeof ready === "function" ? await ready() : ready;
     if (!isReady) return reply.code(503).send({ status: "not_ready" });
@@ -250,6 +258,10 @@ export async function buildServer({ allowedOrigins, ready = true, logger = conso
       reply.code(error.status).send({ error: error.code });
       return;
     }
+    if (error instanceof SiteStatsError) {
+      reply.code(error.status).send({ error: error.code });
+      return;
+    }
     const statusCode = typeof error === "object" && error !== null && "statusCode" in error && typeof error.statusCode === "number" ? error.statusCode : 500;
     logger.error?.(JSON.stringify({ error: "request_failed", statusCode }));
     reply.code(statusCode >= 400 ? statusCode : 500).send({ error: "internal_error" });
@@ -273,7 +285,8 @@ export async function createProductionServer() {
   const community = supabaseUrl && serviceRoleKey ? createSupabaseCommunityStore({ url: supabaseUrl, serviceRoleKey }) : undefined;
   const operations = supabaseUrl && serviceRoleKey ? createSupabaseOperations({ url: supabaseUrl, serviceRoleKey }) : undefined;
   const accountDeletion = supabaseUrl && serviceRoleKey && process.env.CLERK_SECRET_KEY ? createAccountDeletionStore({ url: supabaseUrl, serviceRoleKey, clerkSecretKey: process.env.CLERK_SECRET_KEY }) : undefined;
-  return buildServer({ allowedOrigins: (process.env.CORS_ALLOWED_ORIGINS ?? "").split(",").map((origin) => origin.trim()), ready: true, auth, policy, tracks, catalogue, learnerState, submission, community, operations, accountDeletion });
+  const siteStats = supabaseUrl && serviceRoleKey && process.env.CLERK_SECRET_KEY ? createSiteStatsStore({ url: supabaseUrl, serviceRoleKey, clerkSecretKey: process.env.CLERK_SECRET_KEY }) : undefined;
+  return buildServer({ allowedOrigins: (process.env.CORS_ALLOWED_ORIGINS ?? "").split(",").map((origin) => origin.trim()), ready: true, auth, policy, tracks, catalogue, learnerState, submission, community, operations, accountDeletion, siteStats });
 }
 
 async function main() {

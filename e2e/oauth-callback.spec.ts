@@ -10,13 +10,12 @@ test("OAuth continuation and account transfers stay on local static auth pages",
   await expect(callback).toContainText('"signUpForceRedirectUrl":"/"');
 });
 
-test("sign-up page uses website-owned design with a username step for Google", async ({ page }) => {
+test("sign-up page uses website-owned design — Google button needs no username upfront", async ({ page }) => {
   await page.goto("/auth/sign-up");
   // No Clerk prebuilt component should be rendered.
   await expect(page.getByTestId("signup-component")).toHaveCount(0);
   await expect(page.getByTestId("signin-component")).toHaveCount(0);
-  // Website-owned username field + Google button.
-  await expect(page.getByLabel(/اسم المستخدم|Username/)).toBeVisible();
+  // Google button is always available without entering a username first.
   await expect(page.getByRole("button", { name: /Google/ })).toBeVisible();
 });
 
