@@ -1,6 +1,6 @@
 import type { NextConfig } from "next";
 
-const repositoryName = "tech-interview-prep";
+const repositoryName = "jahezdev";
 
 const nextConfig: NextConfig = {
   output: "export",
