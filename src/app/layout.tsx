@@ -71,13 +71,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <html lang="ar" dir="rtl" data-scroll-behavior="smooth" suppressHydrationWarning>
+    <html lang="ar" dir="rtl" data-scroll-behavior="smooth" data-locale-pending suppressHydrationWarning>
       <head>
         <StructuredData data={websiteJsonLd} />
         <script
           id="locale-init"
           dangerouslySetInnerHTML={{
-            __html: `(()=>{try{const k=${JSON.stringify(localeStorageKey)};const m=location.pathname.match(/^\/(ar|en)(?=\/|$)/);const p=location.pathname.replace(/^\/(?:ar|en)(?=\/|$)/,"")||"/";const stored=localStorage.getItem(k);const browser=/^en(?:-|$)/i.test(navigator.language||"")?"en":"ar";const l=m?.[1]||((stored==="en"||stored==="ar")?stored:browser);localStorage.setItem(k,l);document.documentElement.lang=l;document.documentElement.dir=l==="en"?"ltr":"rtl";const skip=/^\/(?:auth(?:\/|$)|sign-in$|sign-up$)/.test(location.pathname);const target="/"+l+(p==="/"?"":p)+location.search+location.hash;if(!skip&&m?.[1]!==l&&(!m||l==="en")){location.replace(target);return}if(m)history.replaceState(null,"",p+location.search+location.hash)}catch{}})()`,
+            __html: `(()=>{try{const k=${JSON.stringify(localeStorageKey)};const m=location.pathname.match(/^\/(ar|en)(?=\/|$)/);const p=location.pathname.replace(/^\/(?:ar|en)(?=\/|$)/,"")||"/";const stored=localStorage.getItem(k);const browser=/^en(?:-|$)/i.test(navigator.language||"")?"en":"ar";const l=m?.[1]||((stored==="en"||stored==="ar")?stored:browser);localStorage.setItem(k,l);document.documentElement.lang=l;document.documentElement.dir=l==="en"?"ltr":"rtl";const skip=/^\/(?:auth(?:\/|$)|sign-in$|sign-up$)/.test(location.pathname);const target="/"+l+(p==="/"?"":p)+location.search+location.hash;if(!skip&&m?.[1]!==l&&(!m||l==="en")){location.replace(target);return}if(m)history.replaceState(null,"",p+location.search+location.hash)}catch{document.documentElement.removeAttribute("data-locale-pending")}})()`,
           }}
         />
         <script
