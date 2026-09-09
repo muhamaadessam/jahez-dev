@@ -1259,6 +1259,11 @@ h3 {
   font-size: 1.8rem;
   line-height: 1;
   border: 1px solid color-mix(in srgb, var(--brand) 18%, var(--border));
+  color: var(--brand-strong);
+}
+
+.feature-icon svg {
+  display: block;
 }
 
 .feature-card h3 {
