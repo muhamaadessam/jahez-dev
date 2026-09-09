@@ -14,7 +14,12 @@ test("Clerk errors keep their useful message", () => {
 });
 
 test("a completed OAuth session saves its missing username on the user", () => {
-  assert.equal(usernameCompletionMode({ mode: "signUp", isSignedIn: true, hasUser: true, hasUsername: false, signUpStatus: "missing_requirements" }), "user");
+  assert.equal(usernameCompletionMode({ mode: "signUp", isSignedIn: true, hasUser: true, hasUsername: false, signUpId: undefined, signUpStatus: "missing_requirements" }), "user");
+});
+
+test("an untouched sign-up does not open the username completion step", () => {
+  assert.equal(usernameCompletionMode({ mode: "signUp", isSignedIn: false, hasUser: false, hasUsername: false, signUpId: undefined, signUpStatus: "missing_requirements" }), null);
+  assert.equal(usernameCompletionMode({ mode: "signUp", isSignedIn: false, hasUser: false, hasUsername: false, signUpId: "sua_test", signUpStatus: "missing_requirements" }), "signUp");
 });
 
 test("an empty Clerk update response does not block the username flow", async () => {

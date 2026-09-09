@@ -14,16 +14,17 @@ export type AuthFlowCopy = {
 
 export type UsernameCompletionMode = "signUp" | "user" | null;
 
-export function usernameCompletionMode({ mode, isSignedIn, hasUser, hasUsername, signUpStatus }: {
+export function usernameCompletionMode({ mode, isSignedIn, hasUser, hasUsername, signUpId, signUpStatus }: {
   mode: AuthFlowMode;
   isSignedIn: boolean;
   hasUser: boolean;
   hasUsername: boolean;
+  signUpId?: string | null;
   signUpStatus: string | null;
 }): UsernameCompletionMode {
   if (mode !== "signUp") return null;
   if (isSignedIn && hasUser && !hasUsername) return "user";
-  if (signUpStatus === "missing_requirements") return "signUp";
+  if (signUpId && signUpStatus === "missing_requirements") return "signUp";
   return null;
 }
 
