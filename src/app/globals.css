@@ -1109,8 +1109,10 @@ h3 {
   text-decoration: none;
 }
 
-.card-link:hover,
-.card-link:focus-visible {
+.card-link.card:hover,
+.card-link.card:focus-visible,
+.question-card:hover,
+.question-card:focus-within {
   border-color: color-mix(in srgb, var(--brand) 45%, var(--border));
   box-shadow: 0 16px 36px -10px var(--track-glow), var(--shadow);
   transform: translateY(-3px);
@@ -1609,7 +1611,8 @@ h3 {
   transition: color 180ms ease;
 }
 
-.card-link:hover .question-title {
+.question-card:hover .question-title,
+.question-card:focus-within .question-title {
   color: var(--brand);
 }
 
