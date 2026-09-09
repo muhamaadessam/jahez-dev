@@ -57,7 +57,8 @@ export function SiteShell({ children }: { children: ReactNode }) {
   const copy = messages[locale];
   const targetLocale: Locale = locale === "ar" ? "en" : "ar";
   const switchHref = `${localizedHref(targetLocale, unprefixedPath(pathname))}${query}`;
-  const href = (path: string) => localizedHref(locale, trackHref(path));
+  const href = (path: string) => localizedHref(locale, path === "/" ? "/" : trackHref(path));
+  const isHome = unprefixedPath(pathname) === "/";
   const links = (
     <>
       {cataloguePaths.map(([key, path]) => (
@@ -89,7 +90,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
           <Link className="brand" href={href("/")} prefetch={false} aria-label={`${copy.brandName} — ${copy.home}`}>
             <BrandLogo trackId={activeTrack?.id} />
             <span dir={locale === "ar" ? "rtl" : "ltr"}>{copy.brandName}</span>
-            {activeTrack && (
+            {activeTrack && !isHome && (
               <span className="brand-track-badge" title={activeTrack.name}>
                 {activeTrack.name}
               </span>

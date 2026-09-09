@@ -88,7 +88,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
         <script
           id="track-init"
           dangerouslySetInnerHTML={{
-            __html: `(()=>{try{const p=new URLSearchParams(location.search).get("track")||localStorage.getItem("selected-track")||"flutter";document.documentElement.dataset.track=p}catch{}})()`,
+            __html: `(()=>{try{const path=location.pathname.replace(/\\/+$/,"")||"/";if(path==="/"||path==="/ar"||path==="/en"){delete document.documentElement.dataset.track;return}const p=new URLSearchParams(location.search).get("track")||localStorage.getItem("selected-track")||"flutter";document.documentElement.dataset.track=p}catch{}})()`,
           }}
         />
       </head>
