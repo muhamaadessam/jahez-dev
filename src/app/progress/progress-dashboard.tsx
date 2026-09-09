@@ -1,17 +1,35 @@
 "use client";
 
+import { useAuth } from "@clerk/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import { getSavedQuestions, resetSavedQuestions, type SavedQuestions } from "../../study/progress";
 import { localizedHref, messages, type Locale } from "../../i18n";
-import { useActiveTrack } from "../active-track";
+import { ActiveTrackSelector, useActiveTrack } from "../active-track";
+import { AuthDialogTrigger } from "../auth-dialog";
+import { LoadingPlaceholder } from "../loading-placeholder";
 import { tracks } from "../../content/questions";
 import { withTrack } from "../../tracks/active-track";
 
 type QuestionSummary = { id: string; slug: string; trackId: string; question: string };
+const clerkEnabled = Boolean(process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY);
 
 export function ProgressDashboard({ questions, locale = "ar" }: { questions: QuestionSummary[]; locale?: Locale }) {
+  const copy = messages[locale];
+  if (!clerkEnabled) return <p className="empty-state">{copy.progressAuthSetup}</p>;
+  return <AuthenticatedProgressDashboard questions={questions} locale={locale} />;
+}
+
+function AuthenticatedProgressDashboard({ questions, locale = "ar" }: { questions: QuestionSummary[]; locale?: Locale }) {
+  const { isLoaded, isSignedIn } = useAuth();
+  const copy = messages[locale];
+  if (!isLoaded) return <LoadingPlaceholder variant="preferences" className="page-loading" />;
+  if (!isSignedIn) return <div className="empty-state"><h2>{copy.progressSignIn}</h2><AuthDialogTrigger locale={locale} className="button primary">{copy.signIn}</AuthDialogTrigger></div>;
+  return <SignedInProgressDashboard questions={questions} locale={locale} />;
+}
+
+function SignedInProgressDashboard({ questions, locale = "ar" }: { questions: QuestionSummary[]; locale?: Locale }) {
   const copy = messages[locale];
   const { phase, activeTrack, trackHref } = useActiveTrack();
   const trackQuestions = phase === "ready" && activeTrack ? questions.filter((question) => question.trackId === activeTrack.id) : [];
@@ -38,6 +56,7 @@ export function ProgressDashboard({ questions, locale = "ar" }: { questions: Que
 
   return (
     <>
+      <ActiveTrackSelector locale={locale} />
       <div className="progress-summary">
         <p>{copy.reviewed} <strong>{trackQuestions.filter((question) => data[question.id]?.progress === "reviewing" || data[question.id]?.progress === "mastered").length}</strong> {locale === "ar" ? "من" : "of"} {trackQuestions.length} {locale === "ar" ? "سؤالًا." : "questions."}</p>
         <Link className="button primary" href={localizedHref(locale, trackHref("/questions"))}>{copy.continueReview}</Link>
