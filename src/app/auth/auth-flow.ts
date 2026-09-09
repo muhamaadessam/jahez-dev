@@ -50,6 +50,35 @@ export function errorMessage(error: unknown, fallback: string): string {
   return typeof message === "string" && message.trim() ? message : fallback;
 }
 
+type UsernameUpdateUser = {
+  username?: string | null;
+  update: (params: { username: string }) => Promise<unknown>;
+  reload: () => Promise<unknown>;
+};
+
+export async function saveUsernameWithRecovery(user: UsernameUpdateUser, username: string): Promise<void> {
+  try {
+    await user.update({ username });
+    return;
+  } catch (error) {
+    if (!errorMessage(error, "").includes("Unexpected end of JSON input")) throw error;
+
+    let refreshed: unknown;
+    try {
+      refreshed = await user.reload();
+    } catch {
+      throw error;
+    }
+
+    const reloadedUsername =
+      refreshed && typeof refreshed === "object" && "username" in refreshed
+        ? (refreshed as { username?: unknown }).username
+        : undefined;
+    const currentUsername = typeof reloadedUsername === "string" ? reloadedUsername : user.username;
+    if (currentUsername !== username) throw error;
+  }
+}
+
 export function useAuthFlow({ initialMode, redirectPath, copy }: { initialMode: AuthFlowMode; redirectPath: string; copy: AuthFlowCopy }) {
   const { isLoaded, isSignedIn } = useAuth();
   const { signIn } = useSignIn();
@@ -163,7 +192,7 @@ export function useAuthFlow({ initialMode, redirectPath, copy }: { initialMode: 
     setBusy(true);
     setError("");
     try {
-      await user.update({ username: username.trim() });
+      await saveUsernameWithRecovery(user, username.trim());
       window.location.href = redirectPath;
     } catch (caught) {
       setError(errorMessage(caught, copy.failed));
