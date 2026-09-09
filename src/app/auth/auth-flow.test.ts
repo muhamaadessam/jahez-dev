@@ -31,3 +31,8 @@ test("real Clerk update errors still surface", async () => {
   const user = { async update() { throw new Error("Username is already taken."); } };
   await assert.rejects(() => saveUsernameWithRecovery(user, "dev"), /Username is already taken/);
 });
+
+test("Clerk errors returned in the update result still surface", async () => {
+  const user = { async update() { return { error: new Error("Username is already taken.") }; } };
+  await assert.rejects(() => saveUsernameWithRecovery(user, "dev"), /Username is already taken/);
+});
