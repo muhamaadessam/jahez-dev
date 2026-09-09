@@ -20,6 +20,7 @@ test("sign-up page uses website-owned design — Google button needs no username
 });
 
 test("sign-up page keeps the form hidden while Clerk hydrates", async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem("jahezdev-locale", "ar"));
   await page.goto("/auth/sign-up?clerk-loading=true");
   await expect(page.getByText("جاري التحميل…")).toBeVisible();
   await expect(page.getByRole("button", { name: /Google/ })).toHaveCount(0);

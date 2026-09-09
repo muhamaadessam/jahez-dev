@@ -2,6 +2,7 @@ import { topicTranslations, type Locale } from "./content/questions.ts";
 export type { Locale } from "./content/questions.ts";
 
 export const locales: Locale[] = ["ar", "en"];
+export const localeStorageKey = "jahezdev-locale";
 
 export const messages = {
   ar: {
@@ -44,6 +45,10 @@ export const messages = {
 
 export function localeFromPathname(pathname: string): Locale {
   return pathname.split("/").filter(Boolean).find((segment) => segment === "en" || segment === "ar") === "en" ? "en" : "ar";
+}
+
+export function localeFromLanguageTag(languageTag: string | null | undefined): Locale {
+  return /^en(?:-|$)/i.test(languageTag ?? "") ? "en" : "ar";
 }
 
 export function localizedHref(locale: Locale, path = "/"): string {

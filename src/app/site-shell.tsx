@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { usePathname } from "next/navigation";
 
-import { localeDirection, localeFromPathname, localizedHref, messages, type Locale } from "../i18n";
+import { localeDirection, localeFromLanguageTag, localeStorageKey, localizedHref, messages, type Locale } from "../i18n";
 import { repositoryUrl } from "./site-config";
 import { ThemeToggle } from "./theme-toggle";
 import { BrandLogo } from "./logo";
@@ -23,6 +23,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
   const routePathname = usePathname() ?? "/";
   const [pathname, setPathname] = useState(routePathname);
   const [query, setQuery] = useState("");
+  const [locale, setLocale] = useState<Locale>(() => routePathname.startsWith("/en") ? "en" : "ar");
   const [menuOpen, setMenuOpen] = useState(false);
   const menu = useRef<HTMLDialogElement>(null);
   const menuButton = useRef<HTMLButtonElement>(null);
@@ -32,9 +33,22 @@ export function SiteShell({ children }: { children: ReactNode }) {
     const sync = () => {
       setPathname(window.location.pathname);
       setQuery(window.location.search);
-      const locale = localeFromPathname(window.location.pathname);
-      document.documentElement.lang = locale;
-      document.documentElement.dir = localeDirection(locale);
+      const match = window.location.pathname.match(/^\/(ar|en)(?=\/|$)/);
+      let nextLocale: Locale = match?.[1] === "en" ? "en" : "ar";
+      try {
+        const stored = localStorage.getItem(localeStorageKey);
+        nextLocale = match?.[1] ? nextLocale : stored === "en" || stored === "ar" ? stored : localeFromLanguageTag(navigator.language);
+        localStorage.setItem(localeStorageKey, nextLocale);
+      } catch {
+        // Storage unavailable
+      }
+      setLocale(nextLocale);
+      document.documentElement.lang = nextLocale;
+      document.documentElement.dir = localeDirection(nextLocale);
+      if (match) {
+        const cleanPath = window.location.pathname.replace(/^\/(?:ar|en)(?=\/|$)/, "") || "/";
+        window.history.replaceState(null, "", `${cleanPath}${window.location.search}${window.location.hash}`);
+      }
     };
     sync();
     window.addEventListener("popstate", sync);
@@ -47,18 +61,25 @@ export function SiteShell({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     setPathname(routePathname);
-    const nextLocale = localeFromPathname(routePathname);
-    document.documentElement.lang = nextLocale;
-    document.documentElement.dir = localeDirection(nextLocale);
+    setQuery(window.location.search);
+    const match = window.location.pathname.match(/^\/(ar|en)(?=\/|$)/);
+    if (match) {
+      const cleanPath = window.location.pathname.replace(/^\/(?:ar|en)(?=\/|$)/, "") || "/";
+      window.history.replaceState(null, "", `${cleanPath}${window.location.search}${window.location.hash}`);
+    }
   }, [routePathname]);
-  useEffect(() => setQuery(window.location.search), [routePathname]);
 
-  const locale: Locale = localeFromPathname(pathname);
   const copy = messages[locale];
   const targetLocale: Locale = locale === "ar" ? "en" : "ar";
   const switchHref = `${localizedHref(targetLocale, unprefixedPath(pathname))}${query}`;
   const href = (path: string) => localizedHref(locale, path === "/" ? "/" : trackHref(path));
   const isHome = unprefixedPath(pathname) === "/";
+  const selectLocale = (nextLocale: Locale) => {
+    try { localStorage.setItem(localeStorageKey, nextLocale); } catch { /* Storage unavailable */ }
+    setLocale(nextLocale);
+    document.documentElement.lang = nextLocale;
+    document.documentElement.dir = localeDirection(nextLocale);
+  };
   const links = (
     <>
       {cataloguePaths.map(([key, path]) => (
@@ -100,7 +121,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
             <div className="nav-links">{links}</div>
             <div className="nav-actions">
               <ClerkControls locale={locale} myTracksHref={href("/my-tracks")} moderatorHref={href("/moderator")} />
-              <Link className="locale-switcher icon-control" href={switchHref} prefetch={false} aria-label={copy.language} title={copy.language}>
+              <Link className="locale-switcher icon-control" href={switchHref} prefetch={false} aria-label={copy.language} title={copy.language} onClick={() => selectLocale(targetLocale)}>
                 <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5h7M7.5 5v2.2a8.3 8.3 0 0 1-4.1 7.1M5 10.8c1.5 1.8 3.4 3.1 5.8 3.9M14 4l-4 10m2.2-4h7.3M16 13.5l3.5 6.5M12.7 16h6.6" /></svg>
                 <span className="sr-only">{copy.language}</span>
               </Link>
@@ -111,7 +132,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
           <dialog ref={menu} id="mobile-navigation" className="mobile-navigation" aria-labelledby="mobile-navigation-title" onClose={() => { setMenuOpen(false); menuButton.current?.focus(); }}>
             <div className="mobile-navigation-header"><strong id="mobile-navigation-title">{copy.menu}</strong><button className="mobile-menu-close" type="button" autoFocus onClick={() => menu.current?.close()}>{copy.close}</button></div>
             <div className="mobile-navigation-links">{links}</div>
-            <div className="mobile-navigation-actions"><ClerkControls locale={locale} myTracksHref={href("/my-tracks")} moderatorHref={href("/moderator")} /><Link className="locale-switcher icon-control" href={switchHref} prefetch={false} aria-label={copy.language} title={copy.language} onClick={() => menu.current?.close()}><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5h7M7.5 5v2.2a8.3 8.3 0 0 1-4.1 7.1M5 10.8c1.5 1.8 3.4 3.1 5.8 3.9M14 4l-4 10m2.2-4h7.3M16 13.5l3.5 6.5M12.7 16h6.6" /></svg><span className="sr-only">{copy.language}</span></Link><ThemeToggle locale={locale} /></div>
+            <div className="mobile-navigation-actions"><ClerkControls locale={locale} myTracksHref={href("/my-tracks")} moderatorHref={href("/moderator")} /><Link className="locale-switcher icon-control" href={switchHref} prefetch={false} aria-label={copy.language} title={copy.language} onClick={() => { selectLocale(targetLocale); menu.current?.close(); }}><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5h7M7.5 5v2.2a8.3 8.3 0 0 1-4.1 7.1M5 10.8c1.5 1.8 3.4 3.1 5.8 3.9M14 4l-4 10m2.2-4h7.3M16 13.5l3.5 6.5M12.7 16h6.6" /></svg><span className="sr-only">{copy.language}</span></Link><ThemeToggle locale={locale} /></div>
           </dialog>
           </nav>
         </header>

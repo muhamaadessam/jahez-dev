@@ -34,7 +34,7 @@ test.describe("database-only question route", () => {
     await expect(page.getByRole("heading", { name: "ما هو السؤال الديناميكي؟" })).toBeVisible();
     await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
     await page.getByRole("link", { name: "English" }).click();
-    await expect(page).toHaveURL(/\/en\/questions\/view\?slug=dynamic-question/);
+    await expect(page).toHaveURL(/\/questions\/view\?slug=dynamic-question/);
     await expect(page.getByRole("heading", { name: "What is a dynamic question?" })).toBeVisible();
     await expect(page.locator("html")).toHaveAttribute("dir", "ltr");
   });
