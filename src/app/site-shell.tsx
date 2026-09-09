@@ -29,7 +29,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
   const localeRedirected = useRef(false);
   const menu = useRef<HTMLDialogElement>(null);
   const menuButton = useRef<HTMLButtonElement>(null);
-  const { activeTrack, trackHref } = useActiveTrack();
+  const { activeTrack, trackOnlyHref } = useActiveTrack();
 
   useEffect(() => {
     const sync = () => {
@@ -79,7 +79,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
   const copy = messages[locale];
   const targetLocale: Locale = locale === "ar" ? "en" : "ar";
   const switchHref = `${localizedHref(targetLocale, unprefixedPath(pathname))}${query}`;
-  const href = (path: string) => localizedHref(locale, path === "/" ? "/" : trackHref(path));
+  const href = (path: string) => localizedHref(locale, path === "/" ? "/" : trackOnlyHref(path));
   const isHome = unprefixedPath(pathname) === "/";
   const selectLocale = (nextLocale: Locale) => {
     try { localStorage.setItem(localeStorageKey, nextLocale); } catch { /* Storage unavailable */ }

@@ -7,7 +7,7 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState, t
 
 import { tracks } from "../content/questions";
 import { localeFromPathname, localizedHref, messages, type Locale } from "../i18n";
-import { resolveActiveTrack, withQueryContext } from "../tracks/active-track";
+import { resolveActiveTrack, withQueryContext, withTrack } from "../tracks/active-track";
 import { loadPublicTracks, loadTrackPreferences, type TrackPreferenceState } from "../tracks/preferences";
 import { LoadingPlaceholder } from "./loading-placeholder";
 import { TrackLogo } from "./track-logos";
@@ -21,6 +21,7 @@ type ActiveTrackValue = {
   invalidTrack: boolean;
   setActiveTrack: (trackId: string) => void;
   trackHref: (path: string) => string;
+  trackOnlyHref: (path: string) => string;
   retry: () => void;
 };
 
@@ -144,6 +145,7 @@ function ActiveTrackProvider({ children, authenticated, loading = false, userId,
       activeTrack: effectivePhase === "loading" && !requestedTrack ? null : resolution.activeTrack,
       setActiveTrack,
       trackHref: (path) => withQueryContext(path, query, resolution.activeTrack?.slug),
+      trackOnlyHref: (path) => withTrack(path, resolution.activeTrack?.slug ?? ""),
       retry: () => setReload((current) => current + 1),
     };
   }, [authenticated, phase, preferences, query, requestedTrack, resolution, setActiveTrack, urlReady]);
@@ -191,8 +193,8 @@ export function ActiveTrackRecovery({ locale, invalidTopic = false }: { locale: 
 }
 
 export function ActiveTrackLink({ locale, path, className, children }: { locale: Locale; path: string; className?: string; children: ReactNode }) {
-  const { trackHref } = useActiveTrack();
-  return <Link className={className} href={localizedHref(locale, trackHref(path))}>{children}</Link>;
+  const { trackOnlyHref } = useActiveTrack();
+  return <Link className={className} href={localizedHref(locale, trackOnlyHref(path))}>{children}</Link>;
 }
 
 export function TrackContextGuard({ locale, trackId, children }: { locale: Locale; trackId: string; children: ReactNode }) {

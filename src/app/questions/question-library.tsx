@@ -42,7 +42,7 @@ function QuestionLibraryContent({ questions, topics, locale = "ar", auth, clerkE
   const [likeBusy, setLikeBusy] = useState<Record<string, boolean>>({});
   const [likeError, setLikeError] = useState("");
   const [askedStates, setAskedStates] = useState<AskedMarkerStates>({});
-  const { phase, activeTrack, invalidTrack, trackHref } = useActiveTrack();
+  const { phase, activeTrack, invalidTrack, trackOnlyHref } = useActiveTrack();
 
   useEffect(() => {
     function syncFromUrl() { setFilters((current) => ({ ...current, ...fromSearchParams(new URLSearchParams(window.location.search)) })); }
@@ -89,7 +89,7 @@ function QuestionLibraryContent({ questions, topics, locale = "ar", auth, clerkE
     return () => { cancelled = true; };
   }, [authLoaded, displayQuestions, getToken, userId]);
   const visibleQuestions = filters.sort === "most-asked" ? sortByInterviewFrequency(matchingQuestions, askedStates) : matchingQuestions;
-  const sessionHref = filters.topic && filters.difficulty ? trackHref(`/session?topic=${encodeURIComponent(filters.topic)}&difficulty=${encodeURIComponent(filters.difficulty)}`) : null;
+  const sessionHref = filters.topic && filters.difficulty ? trackOnlyHref(`/session?topic=${encodeURIComponent(filters.topic)}&difficulty=${encodeURIComponent(filters.difficulty)}`) : null;
 
   async function toggleLike(question: DisplayQuestion) {
     if (!question.visibility || question.visibility === "public" || !isSignedIn) return;
@@ -113,9 +113,9 @@ function QuestionLibraryContent({ questions, topics, locale = "ar", auth, clerkE
         <label>{copy.sort}<select value={filters.sort ?? "default"} onChange={(event) => updateFilters({ sort: event.target.value as LibraryFilters["sort"] })}><option value="default">{copy.defaultSort}</option><option value="most-asked">{copy.mostAsked}</option></select></label>
         <label className="filter-checkbox"><input type="checkbox" checked={filters.favoriteOnly} onChange={(event) => updateFilters({ favoriteOnly: event.target.checked })} />{copy.favoriteOnly}</label>
       </form>
-      <div className="library-toolbar"><p aria-live="polite">{visibleQuestions.length} {copy.available}</p>{sessionHref ? <Link className="button primary" href={localizedHref(locale, sessionHref)}>{copy.startSession}</Link> : <Link className="button" href={localizedHref(locale, trackHref("/session"))}>{copy.prepareSession}</Link>}</div>
+      <div className="library-toolbar"><p aria-live="polite">{visibleQuestions.length} {copy.available}</p>{sessionHref ? <Link className="button primary" href={localizedHref(locale, sessionHref)}>{copy.startSession}</Link> : <Link className="button" href={localizedHref(locale, trackOnlyHref("/session"))}>{copy.prepareSession}</Link>}</div>
       {filters.scope === "community" && communityLoading ? <LoadingPlaceholder variant="moderator" className="community-loading" /> : filters.scope === "community" && communityError ? <div className="empty-state"><p>{copy.communityLoadError}</p></div> : visibleQuestions.length ? <div className="grid">{visibleQuestions.map((question) => <article key={question.id} className="card question-card">
-        <Link className="card-link" href={localizedHref(locale, question.database ? `/questions/view?slug=${encodeURIComponent(question.slug)}&track=${encodeURIComponent(question.trackId)}` : trackHref(`/questions/${question.slug}`))}><div className="meta">{scopedTopics.filter((topic) => question.topicIds.includes(topic.id)).map((topic) => <span className="chip" key={topic.id} dir="ltr">{topic.name}</span>)}<span className="chip">{question.difficulty}</span><span className="chip">{copy.interviewFrequency}: {formatNumber(askedStates[question.id]?.interviewFrequency ?? 0, locale)}</span>{question.promotedAt && <span className="chip chip-accent">{copy.promoted}</span>}</div><h2 className="question-title">{question.question}</h2><p>{question.contributorUsername ? `${copy.contributor} @${question.contributorUsername}` : locale === "ar" ? "اختبر إجابتك قبل ما تكشف الشرح." : "Test your answer before revealing the explanation."}</p></Link>
+        <Link className="card-link" href={localizedHref(locale, question.database ? `/questions/view?slug=${encodeURIComponent(question.slug)}&track=${encodeURIComponent(question.trackId)}` : trackOnlyHref(`/questions/${question.slug}`))}><div className="meta">{scopedTopics.filter((topic) => question.topicIds.includes(topic.id)).map((topic) => <span className="chip" key={topic.id} dir="ltr">{topic.name}</span>)}<span className="chip">{question.difficulty}</span><span className="chip">{copy.interviewFrequency}: {formatNumber(askedStates[question.id]?.interviewFrequency ?? 0, locale)}</span>{question.promotedAt && <span className="chip chip-accent">{copy.promoted}</span>}</div><h2 className="question-title">{question.question}</h2><p>{question.contributorUsername ? `${copy.contributor} @${question.contributorUsername}` : locale === "ar" ? "اختبر إجابتك قبل ما تكشف الشرح." : "Test your answer before revealing the explanation."}</p></Link>
         {question.visibility === "community" && <div className="question-card-actions"><span className="like-count">{question.likeCount ?? 0} {copy.likes}</span>{isSignedIn ? <button className="button like-button" type="button" aria-pressed={question.likedByViewer} onClick={() => void toggleLike(question)} disabled={likeBusy[question.id] || !authLoaded}>{question.likedByViewer ? copy.unlike : copy.like}</button> : clerkEnabled ? <AuthDialogTrigger locale={locale} className="button like-button">{copy.signInToLike}</AuthDialogTrigger> : null}</div>}
         {likeError && <p className="form-error" role="alert">{likeError}</p>}
       </article>)}</div> : <div className="empty-state"><h2>{copy.noResults}</h2><p>{copy.expandFilters}</p>{filters.scope === "community" && !isSignedIn && clerkEnabled && <AuthDialogTrigger locale={locale} className="button">{copy.signInToLike}</AuthDialogTrigger>}</div>}

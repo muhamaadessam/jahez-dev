@@ -19,7 +19,7 @@ export function StudySession({ questions, topics, locale = "ar" }: { questions: 
   const [selection, setSelection] = useState<SessionSelection>({ topic: "", difficulty: "" });
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHydrated, setIsHydrated] = useState(false);
-  const { phase, activeTrack, invalidTrack, trackHref } = useActiveTrack();
+  const { phase, activeTrack, invalidTrack, trackOnlyHref } = useActiveTrack();
 
   useEffect(() => {
     function syncFromUrl() {
@@ -60,7 +60,7 @@ export function StudySession({ questions, topics, locale = "ar" }: { questions: 
   return (
     <section className="shell section">
       <header className="page-header">
-        <Link className="text-link" href={localizedHref(locale, trackHref("/questions"))}>{copy.backLibrary}</Link>
+        <Link className="text-link" href={localizedHref(locale, trackOnlyHref("/questions"))}>{copy.backLibrary}</Link>
         <h1>{copy.sessionTitle}</h1>
         <p>{copy.sessionDescription}</p>
       </header>
