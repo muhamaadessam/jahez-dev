@@ -11,10 +11,10 @@ test.describe("Discovery, study session, and progress journey", () => {
     await expect(page.getByText("إجمالي الزيارات")).toBeVisible();
     await expect(page.getByText("مستخدم مسجل")).toBeVisible();
     await expect(page.locator("[data-track-card]")).toHaveCount(9);
-    await expect(page.getByRole("link", { name: /اختيار المسار/ }).first()).toHaveAttribute("href", /\/ar\/topics\?track=/);
+    await expect(page.getByRole("link", { name: /ابدأ بهذا المسار/ }).first()).toHaveAttribute("href", /\/ar\/topics\?track=/);
     await expect(page.getByRole("heading", { name: "سؤال للمراجعة السريعة" })).toHaveCount(0);
     await expect(page.locator("html")).not.toHaveAttribute("data-track");
-    await page.getByRole("link", { name: /اختيار المسار/ }).first().click();
+    await page.getByRole("link", { name: /ابدأ بهذا المسار/ }).first().click();
     await expect(page).toHaveURL(/\/topics\?track=/);
     await page.goto("/");
 
