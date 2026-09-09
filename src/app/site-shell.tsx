@@ -25,6 +25,8 @@ export function SiteShell({ children }: { children: ReactNode }) {
   const [query, setQuery] = useState("");
   const [locale, setLocale] = useState<Locale>(() => routePathname.startsWith("/en") ? "en" : "ar");
   const [menuOpen, setMenuOpen] = useState(false);
+  const initialRouteLocale = routePathname.match(/^\/(ar|en)(?=\/|$)/)?.[1] as Locale | undefined;
+  const localeRedirected = useRef(false);
   const menu = useRef<HTMLDialogElement>(null);
   const menuButton = useRef<HTMLButtonElement>(null);
   const { activeTrack, trackHref } = useActiveTrack();
@@ -41,6 +43,11 @@ export function SiteShell({ children }: { children: ReactNode }) {
         localStorage.setItem(localeStorageKey, nextLocale);
       } catch {
         // Storage unavailable
+      }
+      if (!match && nextLocale === "en" && initialRouteLocale !== "en" && !localeRedirected.current && !/^\/(?:auth(?:\/|$)|sign-in$|sign-up$)/.test(window.location.pathname)) {
+        localeRedirected.current = true;
+        window.location.replace(`${localizedHref(nextLocale, unprefixedPath(window.location.pathname))}${window.location.search}${window.location.hash}`);
+        return;
       }
       setLocale(nextLocale);
       document.documentElement.lang = nextLocale;
