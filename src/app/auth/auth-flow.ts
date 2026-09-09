@@ -100,11 +100,12 @@ export function useAuthFlow({ initialMode, redirectPath, copy }: { initialMode: 
 
   async function finalize(resource: "signIn" | "signUp") {
     const target = resource === "signIn" ? signIn : signUp;
-    await target.finalize({
+    const result = await target.finalize({
       navigate: ({ decorateUrl }) => {
         window.location.href = decorateUrl(redirectPath);
       },
     });
+    if (result?.error) throw result.error;
   }
 
   async function submit(event: FormEvent<HTMLFormElement>) {
