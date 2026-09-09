@@ -21,18 +21,17 @@ test("versioned health and readiness routes are available", async () => {
   await app.close();
 });
 
-test("public site stats route records a visitor", async () => {
-  const calls: string[] = [];
+test("public site stats route records a visit", async () => {
+  let calls = 0;
   const app = await buildServer({
     allowedOrigins: [],
-    siteStats: { recordVisitor: async (visitorId) => { calls.push(visitorId); return { users: 4, visitors: 9 }; } },
+    siteStats: { recordVisit: async () => { calls += 1; return { users: 4, visits: 9 }; } },
   });
 
-  const response = await app.inject({ method: "POST", url: "/v1/site-stats/visit", payload: { visitorId: "visitor-123456789" } });
+  const response = await app.inject({ method: "POST", url: "/v1/site-stats/visit" });
   assert.equal(response.statusCode, 200);
-  assert.deepEqual(response.json(), { users: 4, visitors: 9 });
-  assert.deepEqual(calls, ["visitor-123456789"]);
-  assert.equal((await app.inject({ method: "POST", url: "/v1/site-stats/visit", payload: {} })).statusCode, 400);
+  assert.deepEqual(response.json(), { users: 4, visits: 9 });
+  assert.equal(calls, 1);
   await app.close();
 });
 
