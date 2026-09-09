@@ -60,7 +60,7 @@ function ActiveTrackProvider({ children, authenticated, loading = false, userId,
     window.addEventListener("popstate", sync);
     window.addEventListener("urlchange", sync);
     return () => { window.removeEventListener("popstate", sync); window.removeEventListener("urlchange", sync); };
-  }, []);
+  }, [pathname]);
 
   useEffect(() => {
     if (loading) { setPhase("loading"); return; }

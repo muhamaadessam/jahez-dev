@@ -29,6 +29,24 @@ test("anonymous Track catalogue can be served by the Node migration route", asyn
   expect(nodeRequests).toBeGreaterThan(0);
 });
 
+test("home Track cards keep the selected Track after client navigation", async ({ page }) => {
+  await page.route("http://127.0.0.1:3001/v1/tracks**", async (route) => {
+    await route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({ tracks: [
+        { id: "flutter", slug: "flutter", name: "Flutter" },
+        { id: "php", slug: "php", name: "PHP & Laravel" },
+      ] }),
+    });
+  });
+  await page.goto("/en");
+  await page.locator('[data-track-card="php"]').click();
+  await expect(page).toHaveURL(/\/topics\?track=php$/);
+  await expect(page.getByLabel("Active Track")).toHaveValue("php");
+  await expect(page.getByRole("heading", { name: "PHP Core Fundamentals" })).toBeVisible();
+});
+
 test("anonymous browsing exposes active Tracks and keeps a temporary Track in shareable links", async ({ page }) => {
   const preferenceWrites: string[] = [];
   page.on("request", (request) => { if (request.url().includes("set_track_preferences")) preferenceWrites.push(request.url()); });
