@@ -42,7 +42,7 @@ export function FullInterview({ questions, topics, locale = "ar" }: { questions:
   const [selection, setSelection] = useState<InterviewSelection>({ topicValues: [], difficulty: "", invalidTopics: false });
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHydrated, setIsHydrated] = useState(false);
-  const { phase, activeTrack, invalidTrack, trackHref } = useActiveTrack();
+  const { phase, activeTrack, invalidTrack, trackOnlyHref } = useActiveTrack();
   const scoped = useMemo(() => activeTrack ? scopeCatalogue(activeTrack.id, null, topics, questions) : null, [activeTrack, questions, topics]);
 
   useEffect(() => {
@@ -81,7 +81,7 @@ export function FullInterview({ questions, topics, locale = "ar" }: { questions:
   return (
     <section className="shell section interview-page">
       <header className="page-header">
-        <Link className="text-link" href={localizedHref(locale, trackHref("/questions"))}>{copy.backLibrary}</Link>
+        <Link className="text-link" href={localizedHref(locale, trackOnlyHref("/questions"))}>{copy.backLibrary}</Link>
         <span className="eyebrow">{copy.interviewEyebrow}</span>
         <h1>{copy.interviewTitle}</h1>
         <p>{copy.interviewDescription}</p>

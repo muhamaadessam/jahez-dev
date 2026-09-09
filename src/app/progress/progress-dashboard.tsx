@@ -31,7 +31,7 @@ function AuthenticatedProgressDashboard({ questions, locale = "ar" }: { question
 
 function SignedInProgressDashboard({ questions, locale = "ar" }: { questions: QuestionSummary[]; locale?: Locale }) {
   const copy = messages[locale];
-  const { phase, activeTrack, trackHref } = useActiveTrack();
+  const { phase, activeTrack, trackOnlyHref } = useActiveTrack();
   const trackQuestions = phase === "ready" && activeTrack ? questions.filter((question) => question.trackId === activeTrack.id) : [];
   const sections = [
     { title: copy.reviewing, matches: (saved: SavedQuestions[string]) => saved.progress === "reviewing" },
@@ -59,7 +59,7 @@ function SignedInProgressDashboard({ questions, locale = "ar" }: { questions: Qu
       <ActiveTrackSelector locale={locale} />
       <div className="progress-summary">
         <p>{copy.reviewed} <strong>{trackQuestions.filter((question) => data[question.id]?.progress === "reviewing" || data[question.id]?.progress === "mastered").length}</strong> {locale === "ar" ? "من" : "of"} {trackQuestions.length} {locale === "ar" ? "سؤالًا." : "questions."}</p>
-        <Link className="button primary" href={localizedHref(locale, trackHref("/questions"))}>{copy.continueReview}</Link>
+        <Link className="button primary" href={localizedHref(locale, trackOnlyHref("/questions"))}>{copy.continueReview}</Link>
       </div>
       <div className="progress-grid">
         {sections.map((section) => {

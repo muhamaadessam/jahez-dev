@@ -43,6 +43,12 @@ test("anonymous browsing exposes active Tracks and keeps a temporary Track in sh
   expect(preferenceWrites).toEqual([]);
 });
 
+test("global navigation drops route-specific query context", async ({ page }) => {
+  await page.goto("/en/interview?topics=dart&difficulty=Senior&track=flutter");
+  await page.getByRole("link", { name: "Question Library", exact: true }).click();
+  await expect(page).toHaveURL(/\/questions\?track=flutter$/);
+});
+
 test("anonymous progress asks learners to sign in", async ({ page }) => {
   await page.goto("/ar/progress?track=flutter");
   await expect(page.getByRole("heading", { name: "سجّل الدخول لمتابعة تقدّمك عبر أجهزتك." })).toBeVisible();

@@ -9,7 +9,7 @@ import { ActiveTrackSelector, useActiveTrack } from "../active-track";
 
 export function TopicCatalogue({ locale }: { locale: Locale }) {
   const copy = messages[locale];
-  const { phase, activeTrack, invalidTrack, trackHref } = useActiveTrack();
+  const { phase, activeTrack, invalidTrack, trackOnlyHref } = useActiveTrack();
   const scoped = activeTrack ? scopeCatalogue(activeTrack.id, null, topics, questions) : null;
   return <>
     <ActiveTrackSelector locale={locale} />
@@ -17,7 +17,7 @@ export function TopicCatalogue({ locale }: { locale: Locale }) {
       ? <div className="empty-state"><h2>{copy.emptyTrackTitle}</h2><p>{copy.emptyTrackDescription}</p></div>
       : <div className="grid">{scoped.topics.map((topic) => {
         const count = scoped.questions.filter((question) => question.topicIds.includes(topic.id)).length;
-        return <Link key={topic.id} className="card card-link" href={localizedHref(locale, trackHref(`/questions?topic=${topic.slug}`))}>
+        return <Link key={topic.id} className="card card-link" href={localizedHref(locale, trackOnlyHref(`/questions?topic=${topic.slug}`))}>
           <h2 dir="ltr">{topicName(locale, topic.id)}</h2>
           <p><span className="chip">{count} {copy.availableQuestions}</span></p>
           <span className="text-link">{copy.viewQuestions}</span>
