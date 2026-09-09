@@ -80,7 +80,12 @@ export function SiteShell({ children }: { children: ReactNode }) {
   const copy = messages[locale];
   const targetLocale: Locale = locale === "ar" ? "en" : "ar";
   const switchHref = `${localizedHref(targetLocale, unprefixedPath(pathname))}${query}`;
-  const href = (path: string) => localizedHref(locale, path === "/" ? "/" : trackOnlyHref(path));
+  const href = (path: string) => {
+    const nextHref = localizedHref(locale, path === "/" ? "/" : trackOnlyHref(path));
+    if (unprefixedPath(pathname) !== "/topics" || path !== "/questions") return nextHref;
+    const topic = new URLSearchParams(query).get("topic");
+    return topic ? `${nextHref}&topic=${encodeURIComponent(topic)}` : nextHref;
+  };
   const isHome = unprefixedPath(pathname) === "/";
   const selectLocale = (nextLocale: Locale) => {
     try { localStorage.setItem(localeStorageKey, nextLocale); } catch { /* Storage unavailable */ }
