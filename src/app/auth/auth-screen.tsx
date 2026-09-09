@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-import { localeFromPathname, type Locale } from "../../i18n";
+import { localeDirection, localeFromLanguageTag, localeStorageKey, type Locale } from "../../i18n";
 import { useAuthFlow, usernameCompletionMode, type AuthFlowCopy } from "./auth-flow";
 
 export { validateUsername } from "./auth-flow";
@@ -87,12 +87,20 @@ function usePageLocale(initial: Locale): [Locale, (next: Locale) => void] {
   const [locale, setLocale] = useState<Locale>(initial);
   useEffect(() => {
     try {
-      setLocale(localeFromPathname(window.location.pathname));
+      const stored = localStorage.getItem(localeStorageKey);
+      setLocale(stored === "ar" || stored === "en" ? stored : localeFromLanguageTag(navigator.language));
     } catch {
       /* keep initial */
     }
   }, []);
   return [locale, setLocale];
+}
+
+function persistLocale(setLocale: (next: Locale) => void, next: Locale) {
+  try { localStorage.setItem(localeStorageKey, next); } catch { /* Storage unavailable */ }
+  document.documentElement.lang = next;
+  document.documentElement.dir = localeDirection(next);
+  setLocale(next);
 }
 
 function Shell({ locale, setLocale, eyebrow, title, lead, children }: { locale: Locale; setLocale: (next: Locale) => void; eyebrow: string; title: string; lead: string; children: React.ReactNode }) {
@@ -102,8 +110,8 @@ function Shell({ locale, setLocale, eyebrow, title, lead, children }: { locale: 
         <div className="auth-page-top">
           <span className="eyebrow">{eyebrow}</span>
           <div className="auth-locale-toggle" role="group" aria-label="Language">
-            <button type="button" className={locale === "ar" ? "active" : ""} onClick={() => setLocale("ar")}>العربية</button>
-            <button type="button" className={locale === "en" ? "active" : ""} onClick={() => setLocale("en")}>English</button>
+            <button type="button" className={locale === "ar" ? "active" : ""} onClick={() => persistLocale(setLocale, "ar")}>العربية</button>
+            <button type="button" className={locale === "en" ? "active" : ""} onClick={() => persistLocale(setLocale, "en")}>English</button>
           </div>
         </div>
         <h1>{title}</h1>

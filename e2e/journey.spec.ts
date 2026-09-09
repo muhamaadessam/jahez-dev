@@ -1,6 +1,8 @@
 import { test, expect } from "@playwright/test";
 
 test.describe("Discovery, study session, and progress journey", () => {
+  test.beforeEach(({ page }) => page.addInitScript(() => localStorage.setItem("jahezdev-locale", "ar")));
+
   test("covers library discovery, answer reveal, question progress persistence after reload, and core navigation", async ({ page }) => {
     // 1. Home page & Topics discovery
     await page.goto("/");
@@ -13,7 +15,7 @@ test.describe("Discovery, study session, and progress journey", () => {
     await expect(page.getByRole("heading", { name: "سؤال للمراجعة السريعة" })).toHaveCount(0);
     await expect(page.locator("html")).not.toHaveAttribute("data-track");
     await page.getByRole("link", { name: /اختيار المسار/ }).first().click();
-    await expect(page).toHaveURL(/\/ar\/topics\?track=/);
+    await expect(page).toHaveURL(/\/topics\?track=/);
     await page.goto("/");
 
     const themeToggle = page.getByRole("button", { name: "تغيير المظهر" });
@@ -29,7 +31,7 @@ test.describe("Discovery, study session, and progress journey", () => {
     await page.click("text=عرض الأسئلة");
 
     // 2. Library Discovery & Filters
-    await expect(page).toHaveURL(/\/ar\/questions\?topic=dart/);
+    await expect(page).toHaveURL(/\/questions\?topic=dart/);
     const searchInput = page.getByLabel("ابحث في الأسئلة");
     await searchInput.fill("final");
 
@@ -119,13 +121,13 @@ test.describe("Discovery, study session, and progress journey", () => {
     await expect(page.locator("html")).toHaveAttribute("dir", "ltr");
     await expect(page.getByRole("heading", { name: "Walk into the interview with your answers organized." })).toBeVisible();
     await page.getByRole("link", { name: "Question Library" }).click();
-    await expect(page).toHaveURL(/\/en\/questions\?track=flutter$/);
+    await expect(page).toHaveURL(/\/questions\?track=flutter$/);
     await expect(page.getByLabel("Search questions")).toBeVisible();
     await page.getByText("What should a Flutter developer know about Final Vs Const In Dart?").click();
-    await expect(page).toHaveURL(/\/en\/questions\/final-vs-const-in-dart\?track=flutter$/);
+    await expect(page).toHaveURL(/\/questions\/final-vs-const-in-dart\?track=flutter$/);
     await expect(page.getByRole("heading", { name: "What should a Flutter developer know about Final Vs Const In Dart?" })).toBeVisible();
     await page.getByRole("link", { name: "العربية" }).click();
-    await expect(page).toHaveURL(/\/ar\/questions\/final-vs-const-in-dart\?track=flutter$/);
+    await expect(page).toHaveURL(/\/questions\/final-vs-const-in-dart\?track=flutter$/);
     await expect(page.locator("html")).toHaveAttribute("dir", "rtl");
   });
 });

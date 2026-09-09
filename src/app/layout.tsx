@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 
 import "./globals.css";
 import { ogImagePath, siteDescription, siteName, siteUrl, themeKey } from "./site-config";
+import { localeStorageKey } from "../i18n";
 import { SiteShell } from "./site-shell";
 import { ClerkRoot } from "./clerk-provider";
 import { StructuredData } from "./structured-data";
@@ -76,7 +77,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
         <script
           id="locale-init"
           dangerouslySetInnerHTML={{
-            __html: `(()=>{const l=location.pathname.split('/').filter(Boolean).find(s=>s==="en"||s==="ar")==="en"?"en":"ar";document.documentElement.lang=l;document.documentElement.dir=l==="en"?"ltr":"rtl"})()`,
+            __html: `(()=>{try{const k=${JSON.stringify(localeStorageKey)};const m=location.pathname.match(/^\/(ar|en)(?=\/|$)/);const p=location.pathname.replace(/^\/(?:ar|en)(?=\/|$)/,"")||"/";const stored=localStorage.getItem(k);const browser=/^en(?:-|$)/i.test(navigator.language||"")?"en":"ar";const l=m?.[1]||((stored==="en"||stored==="ar")?stored:browser);localStorage.setItem(k,l);document.documentElement.lang=l;document.documentElement.dir=l==="en"?"ltr":"rtl";const skip=/^\/(?:auth(?:\/|$)|sign-in$|sign-up$)/.test(location.pathname);const target="/"+l+(p==="/"?"":p)+location.search+location.hash;if(!skip&&m?.[1]!==l&&(!m||l==="en")){location.replace(target);return}if(m)history.replaceState(null,"",p+location.search+location.hash)}catch{}})()`,
           }}
         />
         <script

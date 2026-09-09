@@ -36,10 +36,10 @@ test("anonymous browsing exposes active Tracks and keeps a temporary Track in sh
   const selector = page.getByLabel("Active Track");
   await expect(selector.locator("option")).toHaveText(["Flutter", "Backend"]);
   await selector.selectOption("backend");
-  await expect(page).toHaveURL(/\/en\/topics\?track=backend$/);
+  await expect(page).toHaveURL(/\/topics\?track=backend$/);
   await expect(page.getByRole("heading", { name: "This Track has no content yet" })).toBeVisible();
   await page.getByRole("link", { name: "Question Library" }).click();
-  await expect(page).toHaveURL(/\/en\/questions\?track=backend$/);
+  await expect(page).toHaveURL(/\/questions\?track=backend$/);
   expect(preferenceWrites).toEqual([]);
 });
 
@@ -86,7 +86,7 @@ test("switching Active Track clears the previous session Topic", async ({ page }
   await page.goto("/en/session?track=flutter&topic=dart&difficulty=Junior");
   await expect(page.getByText(/Question 1 of \d+/)).toBeVisible();
   await page.getByLabel("Active Track").selectOption("backend");
-  await expect(page).toHaveURL(/\/en\/session\?track=backend&difficulty=Junior$/);
+  await expect(page).toHaveURL(/\/session\?track=backend&difficulty=Junior$/);
   await expect(page.getByRole("heading", { name: "This Track has no content yet" })).toBeVisible();
 });
 
@@ -95,7 +95,7 @@ test("Arabic and English keep Track context with RTL and LTR direction", async (
   await expect(page.locator("html")).toHaveAttribute("lang", "ar");
   await expect(page.locator("html")).toHaveAttribute("dir", "rtl");
   await page.getByRole("link", { name: "English" }).click();
-  await expect(page).toHaveURL(/\/en\/topics\?track=flutter$/);
+  await expect(page).toHaveURL(/\/topics\?track=flutter$/);
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
   await expect(page.locator("html")).toHaveAttribute("dir", "ltr");
 });
