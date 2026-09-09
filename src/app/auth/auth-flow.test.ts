@@ -22,6 +22,10 @@ test("an untouched sign-up does not open the username completion step", () => {
   assert.equal(usernameCompletionMode({ mode: "signUp", isSignedIn: false, hasUser: false, hasUsername: false, signUpId: "sua_test", signUpStatus: "missing_requirements" }), "signUp");
 });
 
+test("starting OAuth does not open username completion before redirect", () => {
+  assert.equal(usernameCompletionMode({ mode: "signUp", isSignedIn: false, hasUser: false, hasUsername: false, signUpId: "sua_test", signUpStatus: "missing_requirements", oauthPending: true }), null);
+});
+
 test("an empty Clerk update response does not block the username flow", async () => {
   const user = {
     async update() {

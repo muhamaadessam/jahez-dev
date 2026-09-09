@@ -14,15 +14,16 @@ export type AuthFlowCopy = {
 
 export type UsernameCompletionMode = "signUp" | "user" | null;
 
-export function usernameCompletionMode({ mode, isSignedIn, hasUser, hasUsername, signUpId, signUpStatus }: {
+export function usernameCompletionMode({ mode, isSignedIn, hasUser, hasUsername, signUpId, signUpStatus, oauthPending }: {
   mode: AuthFlowMode;
   isSignedIn: boolean;
   hasUser: boolean;
   hasUsername: boolean;
   signUpId?: string | null;
   signUpStatus: string | null;
+  oauthPending?: boolean;
 }): UsernameCompletionMode {
-  if (mode !== "signUp") return null;
+  if (mode !== "signUp" || oauthPending) return null;
   if (isSignedIn && hasUser && !hasUsername) return "user";
   if (signUpId && signUpStatus === "missing_requirements") return "signUp";
   return null;
@@ -78,6 +79,7 @@ export function useAuthFlow({ initialMode, redirectPath, copy }: { initialMode: 
   const [code, setCode] = useState("");
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
+  const [oauthPending, setOauthPending] = useState(false);
 
   function usernameValidationError(): string {
     return usernameError(username, copy);
@@ -86,6 +88,7 @@ export function useAuthFlow({ initialMode, redirectPath, copy }: { initialMode: 
   async function google() {
     if (!isLoaded) return;
     setBusy(true);
+    setOauthPending(true);
     setError("");
     try {
       const flow = mode === "signUp" ? signUp : signIn;
@@ -95,6 +98,7 @@ export function useAuthFlow({ initialMode, redirectPath, copy }: { initialMode: 
       if (resultError) throw resultError;
     } catch (caught) {
       setBusy(false);
+      setOauthPending(false);
       setError(errorMessage(caught, copy.failed));
     }
   }
@@ -204,6 +208,7 @@ export function useAuthFlow({ initialMode, redirectPath, copy }: { initialMode: 
     setCode,
     error,
     busy,
+    oauthPending,
     usernameError: usernameValidationError,
     google,
     submit,

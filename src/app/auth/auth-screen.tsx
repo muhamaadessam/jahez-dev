@@ -165,6 +165,7 @@ function EnabledSignUpScreen({ initialLocale = "ar" }: { initialLocale?: Locale 
     setCode,
     error,
     busy,
+    oauthPending,
     google,
     submit,
     saveMissingUsername,
@@ -172,7 +173,7 @@ function EnabledSignUpScreen({ initialLocale = "ar" }: { initialLocale?: Locale 
   } = useAuthFlow({ initialMode: "signUp", redirectPath: "/", copy: t });
 
   // Clerk redirected back with missing requirements (for example, a username required by the instance).
-  const completionMode = usernameCompletionMode({ mode, isSignedIn: Boolean(isSignedIn), hasUser: Boolean(user), hasUsername: Boolean(user?.username), signUpId: signUp.id, signUpStatus: signUp.status });
+  const completionMode = usernameCompletionMode({ mode, isSignedIn: Boolean(isSignedIn), hasUser: Boolean(user), hasUsername: Boolean(user?.username), signUpId: signUp.id, signUpStatus: signUp.status, oauthPending });
 
   if (isLoaded && completionMode === "signUp") {
     return (
