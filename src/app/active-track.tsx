@@ -43,6 +43,8 @@ function ActiveTrackProvider({ children, authenticated, loading = false, userId,
   getToken?: ReturnType<typeof useAuth>["getToken"];
 }) {
   const pathname = usePathname() ?? "/";
+  const normalizedPathname = pathname.replace(/\/+$/, "") || "/";
+  const isHome = normalizedPathname === "/" || normalizedPathname === "/ar" || normalizedPathname === "/en";
   const locale = localeFromPathname(pathname);
   const [query, setQuery] = useState("");
   const [urlReady, setUrlReady] = useState(false);
@@ -105,6 +107,10 @@ function ActiveTrackProvider({ children, authenticated, loading = false, userId,
     authenticated,
   });
   useEffect(() => {
+    if (isHome) {
+      delete document.documentElement.dataset.track;
+      return;
+    }
     const slug = resolution.activeTrack?.slug ?? resolution.activeTrack?.id;
     if (slug) {
       document.documentElement.dataset.track = slug;
@@ -116,7 +122,7 @@ function ActiveTrackProvider({ children, authenticated, loading = false, userId,
     } else {
       delete document.documentElement.dataset.track;
     }
-  }, [resolution.activeTrack]);
+  }, [isHome, resolution.activeTrack]);
 
   const setActiveTrack = useCallback((trackId: string) => {
     const track = resolution.selectableTracks.find(({ id, slug }) => id === trackId || slug === trackId);

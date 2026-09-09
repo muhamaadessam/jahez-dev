@@ -5,7 +5,12 @@ test.describe("Discovery, study session, and progress journey", () => {
     // 1. Home page & Topics discovery
     await page.goto("/");
     await expect(page.getByRole("heading", { name: "ادخل الانترفيو وإجابتك مرتبة في دماغك." })).toBeVisible();
-    await expect(page.getByText("سؤال دائم في النسخة الأولى")).toBeVisible();
+    await expect(page.getByText("إجمالي الأسئلة")).toBeVisible();
+    await expect(page.getByText("إجمالي الزيارات")).toBeVisible();
+    await expect(page.getByText("مستخدم مسجل")).toBeVisible();
+    await expect(page.locator("[data-track-card]")).toHaveCount(0);
+    await expect(page.getByRole("heading", { name: "سؤال للمراجعة السريعة" })).toHaveCount(0);
+    await expect(page.locator("html")).not.toHaveAttribute("data-track");
 
     const themeToggle = page.getByRole("button", { name: "تغيير المظهر" });
     const initialTheme = await page.locator("html").getAttribute("data-theme");
