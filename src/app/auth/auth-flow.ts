@@ -12,6 +12,21 @@ export type AuthFlowCopy = {
   usernameCharset: string;
 };
 
+export type UsernameCompletionMode = "signUp" | "user" | null;
+
+export function usernameCompletionMode({ mode, isSignedIn, hasUser, hasUsername, signUpStatus }: {
+  mode: AuthFlowMode;
+  isSignedIn: boolean;
+  hasUser: boolean;
+  hasUsername: boolean;
+  signUpStatus: string | null;
+}): UsernameCompletionMode {
+  if (mode !== "signUp") return null;
+  if (isSignedIn && hasUser && !hasUsername) return "user";
+  if (signUpStatus === "missing_requirements") return "signUp";
+  return null;
+}
+
 export function validateUsername(value: string): string | null {
   const trimmed = value.trim();
   if (trimmed.length < 4) return "short";

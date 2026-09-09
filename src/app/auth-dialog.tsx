@@ -7,7 +7,7 @@ import { createPortal } from "react-dom";
 
 import { messages, type Locale } from "../i18n";
 import { nodeRequest } from "../backend/api.ts";
-import { errorMessage, useAuthFlow } from "./auth/auth-flow";
+import { errorMessage, useAuthFlow, usernameCompletionMode } from "./auth/auth-flow";
 import { GoogleIcon } from "./auth/auth-screen";
 
 export function AuthDialogTrigger({ locale, children, className = "button primary", mode = "signIn" }: { locale: Locale; children?: ReactNode; className?: string; mode?: "signIn" | "signUp" }) {
@@ -59,8 +59,9 @@ function AuthDialog({ locale, initialMode, onClose }: { locale: Locale; initialM
     return () => document.removeEventListener("keydown", close);
   }, [onClose]);
 
-  const needsUsername = mode === "signUp" && signUp.status === "missing_requirements";
-  const needsPostOAuthUsername = mode === "signUp" && isSignedIn && user && !user.username;
+  const completionMode = usernameCompletionMode({ mode, isSignedIn: Boolean(isSignedIn), hasUser: Boolean(user), hasUsername: Boolean(user?.username), signUpStatus: signUp.status });
+  const needsUsername = completionMode === "signUp";
+  const needsPostOAuthUsername = completionMode === "user";
   const title = needsUsername || needsPostOAuthUsername ? text.completeProfile : mode === "verify" ? text.verify : mode === "signIn" ? text.signIn : text.signUp;
   const overlay = (
     <div className="auth-overlay" role="dialog" aria-modal="true" aria-labelledby="auth-dialog-title" onMouseDown={(event) => { if (event.target === event.currentTarget) onClose(); }}>
