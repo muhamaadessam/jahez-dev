@@ -19,6 +19,13 @@ test("sign-up page uses website-owned design — Google button needs no username
   await expect(page.getByRole("button", { name: /Google/ })).toBeVisible();
 });
 
+test("sign-up page keeps the form hidden while Clerk hydrates", async ({ page }) => {
+  await page.goto("/auth/sign-up?clerk-loading=true");
+  await expect(page.getByText("جاري التحميل…")).toBeVisible();
+  await expect(page.getByRole("button", { name: /Google/ })).toHaveCount(0);
+  await expect(page.getByRole("textbox", { name: "اسم المستخدم" })).toHaveCount(0);
+});
+
 test("sign-in page uses website-owned design without Clerk components", async ({ page }) => {
   await page.goto("/auth/sign-in");
   await expect(page.getByTestId("signup-component")).toHaveCount(0);
