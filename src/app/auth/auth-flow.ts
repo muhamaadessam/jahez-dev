@@ -155,10 +155,8 @@ export function useAuthFlow({ initialMode, redirectPath, copy }: { initialMode: 
     setBusy(true);
     setError("");
     try {
-      const { error: resultError } = await signUp.update({ username: username.trim() });
-      if (resultError) throw resultError;
-      if (signUp.status === "complete") await finalize("signUp");
-      else setError(copy.failed);
+      await saveUsernameWithRecovery(signUp, username.trim());
+      await finalize("signUp");
     } catch (caught) {
       setError(errorMessage(caught, copy.failed));
     } finally {
