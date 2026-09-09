@@ -52,6 +52,20 @@ function AuthDialog({ locale, initialMode, onClose }: { locale: Locale; initialM
     savePostOAuthUsername,
     setError,
   } = useAuthFlow({ initialMode, redirectPath, copy: text });
+  const [resettingSignUp, setResettingSignUp] = useState(initialMode === "signUp");
+  const signUpResetDone = useRef(false);
+
+  useEffect(() => {
+    if (mode !== "signUp") {
+      signUpResetDone.current = false;
+      setResettingSignUp(false);
+      return;
+    }
+    if (!isLoaded || signUpResetDone.current) return;
+    signUpResetDone.current = true;
+    setResettingSignUp(true);
+    void signUp.reset().finally(() => setResettingSignUp(false));
+  }, [isLoaded, mode, signUp]);
 
   useEffect(() => { heading.current?.focus(); }, [mode]);
   useEffect(() => {
@@ -60,7 +74,8 @@ function AuthDialog({ locale, initialMode, onClose }: { locale: Locale; initialM
     return () => document.removeEventListener("keydown", close);
   }, [onClose]);
 
-  const completionMode = usernameCompletionMode({ mode, isSignedIn: Boolean(isSignedIn), hasUser: Boolean(user), hasUsername: Boolean(user?.username), signUpId: signUp.id, signUpStatus: signUp.status, oauthPending });
+  const signupResetPending = mode === "signUp" && (!signUpResetDone.current || resettingSignUp);
+  const completionMode = signupResetPending ? null : usernameCompletionMode({ mode, isSignedIn: Boolean(isSignedIn), hasUser: Boolean(user), hasUsername: Boolean(user?.username), signUpId: signUp.id, signUpStatus: signUp.status, oauthPending });
   const needsUsername = completionMode === "signUp";
   const needsPostOAuthUsername = completionMode === "user";
   const title = needsUsername || needsPostOAuthUsername ? text.completeProfile : mode === "verify" ? text.verify : mode === "signIn" ? text.signIn : text.signUp;
@@ -71,7 +86,7 @@ function AuthDialog({ locale, initialMode, onClose }: { locale: Locale; initialM
         <span className="eyebrow">{copy.brandName}</span>
         <h2 id="auth-dialog-title" ref={heading} tabIndex={-1}>{title}</h2>
         {!needsUsername && !needsPostOAuthUsername && mode !== "verify" && <>
-          <button className="auth-google-button" type="button" onClick={() => void google()} disabled={busy}><GoogleIcon />{text.google}</button>
+          <button className="auth-google-button" type="button" onClick={() => void google()} disabled={busy || signupResetPending}><GoogleIcon />{text.google}</button>
           <div className="auth-separator" aria-hidden="true"><span>{locale === "ar" ? "أو" : "or"}</span></div>
         </>}
         {needsUsername || needsPostOAuthUsername ? (
@@ -79,7 +94,7 @@ function AuthDialog({ locale, initialMode, onClose }: { locale: Locale; initialM
             <label>{text.username}<input dir="ltr" autoComplete="username" value={username} onChange={(event) => setUsername(event.target.value)} placeholder={text.usernamePlaceholder} minLength={4} maxLength={64} required /></label>
             <p className="field-hint">{text.usernameHint}</p>
             {error && <p className="form-error" role="alert">{error}</p>}
-            <button className="button primary auth-submit" type="submit" disabled={busy || !isLoaded}>{busy ? text.loading : text.saveUsername}</button>
+            <button className="button primary auth-submit" type="submit" disabled={busy || !isLoaded || signupResetPending}>{busy ? text.loading : text.saveUsername}</button>
           </form>
         ) : (
           <form onSubmit={(event) => void submit(event)}>
@@ -89,7 +104,7 @@ function AuthDialog({ locale, initialMode, onClose }: { locale: Locale; initialM
               <label>{text.password}<input type="password" autoComplete={mode === "signIn" ? "current-password" : "new-password"} value={password} onChange={(event) => setPassword(event.target.value)} minLength={8} required /></label>
             </> : <><p className="field-hint">{text.verifyHint}</p><label>{text.code}<input inputMode="numeric" autoComplete="one-time-code" value={code} onChange={(event) => setCode(event.target.value)} required /></label></>}
             {error && <p className="form-error" role="alert">{error}</p>}
-            <button className="button primary auth-submit" type="submit" disabled={busy || !isLoaded}>{busy ? text.loading : mode === "verify" ? text.confirm : mode === "signIn" ? text.submitIn : text.submitUp}</button>
+            <button className="button primary auth-submit" type="submit" disabled={busy || !isLoaded || signupResetPending}>{busy ? text.loading : mode === "verify" ? text.confirm : mode === "signIn" ? text.submitIn : text.submitUp}</button>
           </form>
         )}
         <div id="clerk-captcha" />
