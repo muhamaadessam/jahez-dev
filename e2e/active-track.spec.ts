@@ -43,12 +43,15 @@ test("anonymous browsing exposes active Tracks and keeps a temporary Track in sh
   expect(preferenceWrites).toEqual([]);
 });
 
-test("progress summary is scoped to the active Track", async ({ page }) => {
+test("anonymous progress asks learners to sign in", async ({ page }) => {
   await page.goto("/ar/progress?track=flutter");
-  await expect(page.getByText(/راجعت 0 من 110 سؤالًا/)).toBeVisible();
+  await expect(page.getByRole("heading", { name: "سجّل الدخول لمتابعة تقدّمك عبر أجهزتك." })).toBeVisible();
+  await expect(page.locator("#main-content").getByRole("button", { name: "تسجيل الدخول" })).toBeVisible();
+  await expect(page.getByLabel("المسار النشط")).toHaveCount(0);
 });
 
 test("progress lets learners switch the active Track in place", async ({ page }) => {
+  await authenticate(page, [{ trackId: "flutter", isDefault: true }, { trackId: "backend", isDefault: false }]);
   await page.goto("/en/progress?track=flutter");
   const selector = page.getByLabel("Active Track");
   await expect(selector).toHaveValue("flutter");
