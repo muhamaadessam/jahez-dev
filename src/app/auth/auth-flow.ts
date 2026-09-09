@@ -56,7 +56,9 @@ type UsernameUpdateUser = {
 
 export async function saveUsernameWithRecovery(user: UsernameUpdateUser, username: string): Promise<void> {
   try {
-    await user.update({ username });
+    const result = await user.update({ username });
+    const resultError = (result as { error?: unknown } | null | undefined)?.error;
+    if (resultError) throw resultError;
   } catch (error) {
     if (!errorMessage(error, "").includes("Unexpected end of JSON input")) throw error;
     // Clerk can complete this PATCH with an empty 204 response; its SDK then fails while parsing JSON.
