@@ -3,9 +3,11 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-import { questions } from "../content/questions";
+import { questions, topics } from "../content/questions";
 import { formatNumber, localizedHref, messages, type Locale } from "../i18n";
 import { nodeRequest } from "../backend/api";
+import { useActiveTrack } from "./active-track";
+import { TrackLogo } from "./track-logos";
 
 type SiteStats = { users: number; visits: number };
 
@@ -29,11 +31,17 @@ function useSiteStats(): SiteStats | null {
 export function HomeHub({ locale = "ar" }: { locale?: Locale }) {
   const copy = messages[locale];
   const siteStats = useSiteStats();
+  const { selectableTracks } = useActiveTrack();
   const stats = [
     { value: formatNumber(questions.length, locale), label: copy.totalQuestions },
     { value: siteStats ? formatNumber(siteStats.visits, locale) : "—", label: copy.visitsCount },
     { value: siteStats ? formatNumber(siteStats.users, locale) : "—", label: copy.usersCount },
   ];
+  const trackStats = selectableTracks.map((track) => ({
+    ...track,
+    questionCount: questions.filter((question) => question.trackId === track.id).length,
+    topicCount: topics.filter((topic) => topic.trackId === track.id).length,
+  }));
 
   return (
     <>
@@ -42,11 +50,6 @@ export function HomeHub({ locale = "ar" }: { locale?: Locale }) {
           <span className="eyebrow">{copy.homeEyebrow}</span>
           <h1 id="home-title">{copy.homeTitle}</h1>
           <p className="lead">{copy.homeLead}</p>
-          <div className="actions">
-            <Link className="button primary" href={localizedHref(locale, "/topics")}>
-              {copy.exploreAllTracks}
-            </Link>
-          </div>
         </div>
 
         <div
@@ -60,6 +63,39 @@ export function HomeHub({ locale = "ar" }: { locale?: Locale }) {
               <strong>{stat.value}</strong>
               <span>{stat.label}</span>
             </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="shell section home-track-discovery" aria-labelledby="all-tracks-title">
+        <div className="section-header">
+          <div>
+            <h2 id="all-tracks-title">{copy.exploreAllTracks}</h2>
+            <p>{copy.exploreAllTracksLead}</p>
+          </div>
+        </div>
+
+        <div className="grid home-tracks-grid">
+          {trackStats.map((track) => (
+            <Link
+              key={track.id}
+              className="card home-track-card"
+              data-track-card={track.id}
+              href={localizedHref(locale, `/topics?track=${encodeURIComponent(track.slug)}`)}
+            >
+              <div className="home-track-header">
+                <div className="home-track-identity">
+                  <span className="home-track-logo-wrap" aria-hidden="true">
+                    <TrackLogo trackId={track.id} size={28} />
+                  </span>
+                  <h3 className="home-track-title">{track.name}</h3>
+                </div>
+              </div>
+              <p className="home-track-stats">
+                {formatNumber(track.questionCount, locale)} {copy.trackQuestions} · {formatNumber(track.topicCount, locale)} {copy.trackTopics}
+              </p>
+              <span className="home-track-card-cta">{copy.chooseTrack} <span aria-hidden="true">{locale === "ar" ? "←" : "→"}</span></span>
+            </Link>
           ))}
         </div>
       </section>
@@ -93,18 +129,6 @@ export function HomeHub({ locale = "ar" }: { locale?: Locale }) {
             <h3>{copy.feature4Title}</h3>
             <p>{copy.feature4Lead}</p>
           </div>
-        </div>
-      </section>
-
-      <section className="shell section home-track-discovery" aria-labelledby="all-tracks-title">
-        <div className="section-header">
-          <div>
-            <h2 id="all-tracks-title">{copy.exploreAllTracks}</h2>
-            <p>{copy.exploreAllTracksLead}</p>
-          </div>
-          <Link className="button primary" href={localizedHref(locale, "/topics")}>
-            {copy.exploreAllTracks}
-          </Link>
         </div>
       </section>
     </>
