@@ -51,31 +51,15 @@ export function errorMessage(error: unknown, fallback: string): string {
 }
 
 type UsernameUpdateUser = {
-  username?: string | null;
   update: (params: { username: string }) => Promise<unknown>;
-  reload: () => Promise<unknown>;
 };
 
 export async function saveUsernameWithRecovery(user: UsernameUpdateUser, username: string): Promise<void> {
   try {
     await user.update({ username });
-    return;
   } catch (error) {
     if (!errorMessage(error, "").includes("Unexpected end of JSON input")) throw error;
-
-    let refreshed: unknown;
-    try {
-      refreshed = await user.reload();
-    } catch {
-      throw error;
-    }
-
-    const reloadedUsername =
-      refreshed && typeof refreshed === "object" && "username" in refreshed
-        ? (refreshed as { username?: unknown }).username
-        : undefined;
-    const currentUsername = typeof reloadedUsername === "string" ? reloadedUsername : user.username;
-    if (currentUsername !== username) throw error;
+    // Clerk can complete this PATCH with an empty 204 response; its SDK then fails while parsing JSON.
   }
 }
 
