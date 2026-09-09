@@ -172,6 +172,10 @@ function EnabledSignUpScreen({ initialLocale = "ar" }: { initialLocale?: Locale 
     savePostOAuthUsername,
   } = useAuthFlow({ initialMode: "signUp", redirectPath: "/", copy: t });
 
+  if (!isLoaded) {
+    return <AuthUnavailableScreen initialLocale={initialLocale} mode="signUp" />;
+  }
+
   // Clerk redirected back with missing requirements (for example, a username required by the instance).
   const completionMode = usernameCompletionMode({ mode, isSignedIn: Boolean(isSignedIn), hasUser: Boolean(user), hasUsername: Boolean(user?.username), signUpId: signUp.id, signUpStatus: signUp.status, oauthPending });
 
@@ -266,6 +270,10 @@ function EnabledSignInScreen({ initialLocale = "ar" }: { initialLocale?: Locale 
     redirectPath: "/",
     copy: t,
   });
+
+  if (!isLoaded) {
+    return <AuthUnavailableScreen initialLocale={initialLocale} mode="signIn" />;
+  }
 
   if (isLoaded && isSignedIn) {
     return (

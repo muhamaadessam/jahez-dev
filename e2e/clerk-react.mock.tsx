@@ -5,12 +5,14 @@ import { useSyncExternalStore, type ReactNode } from "react";
 const subscribe = () => () => {};
 const signedIn = () => typeof window !== "undefined" && localStorage.getItem("playwright-authenticated") === "true";
 const useSignedIn = () => useSyncExternalStore(subscribe, signedIn, () => false);
+const clerkLoaded = () => typeof window === "undefined" || !new URLSearchParams(window.location.search).has("clerk-loading");
 const getToken = async () => "playwright-token";
 
 export function ClerkProvider({ children }: { children: ReactNode }) { return children; }
 export function useAuth() {
   const isSignedIn = useSignedIn();
-  return { isLoaded: true, isSignedIn, userId: isSignedIn ? "user_playwright" : null, getToken };
+  const isLoaded = useSyncExternalStore(subscribe, clerkLoaded, () => false);
+  return { isLoaded, isSignedIn, userId: isSignedIn ? "user_playwright" : null, getToken };
 }
 export function useUser() {
   const verified = typeof window === "undefined" || localStorage.getItem("playwright-email-verified") !== "false";
