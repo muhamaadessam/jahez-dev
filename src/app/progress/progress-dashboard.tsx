@@ -13,7 +13,8 @@ type QuestionSummary = { id: string; slug: string; trackId: string; question: st
 
 export function ProgressDashboard({ questions, locale = "ar" }: { questions: QuestionSummary[]; locale?: Locale }) {
   const copy = messages[locale];
-  const { trackHref } = useActiveTrack();
+  const { phase, activeTrack, trackHref } = useActiveTrack();
+  const trackQuestions = phase === "ready" && activeTrack ? questions.filter((question) => question.trackId === activeTrack.id) : [];
   const sections = [
     { title: copy.reviewing, matches: (saved: SavedQuestions[string]) => saved.progress === "reviewing" },
     { title: copy.mastered, matches: (saved: SavedQuestions[string]) => saved.progress === "mastered" },
@@ -38,12 +39,12 @@ export function ProgressDashboard({ questions, locale = "ar" }: { questions: Que
   return (
     <>
       <div className="progress-summary">
-        <p>{copy.reviewed} <strong>{questions.filter((question) => data[question.id]?.progress === "reviewing" || data[question.id]?.progress === "mastered").length}</strong> {locale === "ar" ? "من" : "of"} {questions.length} {locale === "ar" ? "سؤالًا." : "questions."}</p>
+        <p>{copy.reviewed} <strong>{trackQuestions.filter((question) => data[question.id]?.progress === "reviewing" || data[question.id]?.progress === "mastered").length}</strong> {locale === "ar" ? "من" : "of"} {trackQuestions.length} {locale === "ar" ? "سؤالًا." : "questions."}</p>
         <Link className="button primary" href={localizedHref(locale, trackHref("/questions"))}>{copy.continueReview}</Link>
       </div>
       <div className="progress-grid">
         {sections.map((section) => {
-          const matching = questions.filter((question) => {
+          const matching = trackQuestions.filter((question) => {
             const study = data[question.id];
             return study ? section.matches(study) : false;
           });

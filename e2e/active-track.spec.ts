@@ -43,6 +43,11 @@ test("anonymous browsing exposes active Tracks and keeps a temporary Track in sh
   expect(preferenceWrites).toEqual([]);
 });
 
+test("progress summary is scoped to the active Track", async ({ page }) => {
+  await page.goto("/ar/progress?track=flutter");
+  await expect(page.getByText(/راجعت 0 من 110 سؤالًا/)).toBeVisible();
+});
+
 test("authenticated catalogue exposes only active Track Preferences", async ({ page }) => {
   await authenticate(page, [{ trackId: "backend", isDefault: true }]);
   await page.goto("/en/questions");
