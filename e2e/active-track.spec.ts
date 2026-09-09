@@ -48,6 +48,15 @@ test("progress summary is scoped to the active Track", async ({ page }) => {
   await expect(page.getByText(/راجعت 0 من 110 سؤالًا/)).toBeVisible();
 });
 
+test("progress lets learners switch the active Track in place", async ({ page }) => {
+  await page.goto("/en/progress?track=flutter");
+  const selector = page.getByLabel("Active Track");
+  await expect(selector).toHaveValue("flutter");
+  await selector.selectOption("backend");
+  await expect(page).toHaveURL(/\/progress\?track=backend$/);
+  await expect(page.getByText(/Reviewed 0 of 0 questions/)).toBeVisible();
+});
+
 test("authenticated catalogue exposes only active Track Preferences", async ({ page }) => {
   await authenticate(page, [{ trackId: "backend", isDefault: true }]);
   await page.goto("/en/questions");
