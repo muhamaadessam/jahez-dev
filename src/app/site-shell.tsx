@@ -52,6 +52,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
       setLocale(nextLocale);
       document.documentElement.lang = nextLocale;
       document.documentElement.dir = localeDirection(nextLocale);
+      document.documentElement.removeAttribute("data-locale-pending");
       if (match) {
         const cleanPath = window.location.pathname.replace(/^\/(?:ar|en)(?=\/|$)/, "") || "/";
         window.history.replaceState(null, "", `${cleanPath}${window.location.search}${window.location.hash}`);

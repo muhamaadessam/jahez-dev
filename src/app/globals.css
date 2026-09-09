@@ -340,6 +340,10 @@ html {
   scroll-behavior: smooth;
 }
 
+html[data-locale-pending] body {
+  visibility: hidden;
+}
+
 body {
   margin: 0;
   background-color: var(--background);
