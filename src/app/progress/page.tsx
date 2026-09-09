@@ -3,6 +3,7 @@ import { ProgressDashboard } from "./progress-dashboard";
 import { getQuestionTranslation, type Locale } from "../../content/questions";
 import { messages } from "../../i18n";
 import { localizedMetadata } from "../metadata";
+import { ActiveTrackSelector } from "../active-track";
 
 export const metadata = localizedMetadata("ar", "/progress", "تقدمي", "تقدمك في مراجعة أسئلة Flutter.");
 
@@ -15,6 +16,7 @@ export default function ProgressPage({ locale = "ar" }: { locale?: Locale }) {
         <h1>{copy.progressTitle}</h1>
         <p>{copy.progressDescription}</p>
       </header>
+      <ActiveTrackSelector locale={locale} />
       <ProgressDashboard questions={questions.map((question) => ({ id: question.id, slug: question.slug, trackId: question.trackId, question: getQuestionTranslation(question, locale).question }))} locale={locale} />
     </section>
   );
