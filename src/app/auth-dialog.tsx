@@ -45,6 +45,7 @@ function AuthDialog({ locale, initialMode, onClose }: { locale: Locale; initialM
     setCode,
     error,
     busy,
+    oauthPending,
     submit,
     google,
     saveMissingUsername,
@@ -59,7 +60,7 @@ function AuthDialog({ locale, initialMode, onClose }: { locale: Locale; initialM
     return () => document.removeEventListener("keydown", close);
   }, [onClose]);
 
-  const completionMode = usernameCompletionMode({ mode, isSignedIn: Boolean(isSignedIn), hasUser: Boolean(user), hasUsername: Boolean(user?.username), signUpId: signUp.id, signUpStatus: signUp.status });
+  const completionMode = usernameCompletionMode({ mode, isSignedIn: Boolean(isSignedIn), hasUser: Boolean(user), hasUsername: Boolean(user?.username), signUpId: signUp.id, signUpStatus: signUp.status, oauthPending });
   const needsUsername = completionMode === "signUp";
   const needsPostOAuthUsername = completionMode === "user";
   const title = needsUsername || needsPostOAuthUsername ? text.completeProfile : mode === "verify" ? text.verify : mode === "signIn" ? text.signIn : text.signUp;
