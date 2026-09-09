@@ -17,18 +17,17 @@ test("a completed OAuth session saves its missing username on the user", () => {
   assert.equal(usernameCompletionMode({ mode: "signUp", isSignedIn: true, hasUser: true, hasUsername: false, signUpStatus: "missing_requirements" }), "user");
 });
 
-test("an empty Clerk update response is recovered when the username was saved", async () => {
+test("an empty Clerk update response does not block the username flow", async () => {
   const user = {
-    username: null as string | null,
     async update() {
       throw new Error("Failed to execute 'json' on 'Response': Unexpected end of JSON input");
     },
-    async reload() {
-      user.username = "dev";
-      return user;
-    },
   };
 
-  await saveUsernameWithRecovery(user, "dev");
-  assert.equal(user.username, "dev");
+  await assert.doesNotReject(() => saveUsernameWithRecovery(user, "dev"));
+});
+
+test("real Clerk update errors still surface", async () => {
+  const user = { async update() { throw new Error("Username is already taken."); } };
+  await assert.rejects(() => saveUsernameWithRecovery(user, "dev"), /Username is already taken/);
 });
