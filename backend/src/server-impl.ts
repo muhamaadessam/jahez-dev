@@ -102,9 +102,7 @@ export async function buildServer({ allowedOrigins, ready = true, logger = conso
   app.get("/v1/health", async () => ({ status: "ok" }));
   app.post("/v1/site-stats/visit", async (request, reply) => {
     if (!siteStats) return reply.code(503).send({ error: "site_stats_not_configured" });
-    const visitorId = (request.body as { visitorId?: unknown })?.visitorId;
-    if (typeof visitorId !== "string") return reply.code(400).send({ error: "invalid_visitor" });
-    return siteStats.recordVisitor(visitorId);
+    return siteStats.recordVisit();
   });
   app.get("/ready", async (_request, reply) => {
     const isReady = typeof ready === "function" ? await ready() : ready;

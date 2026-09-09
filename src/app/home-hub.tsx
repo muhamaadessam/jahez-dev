@@ -10,20 +10,7 @@ import { scopeCatalogue } from "../tracks/active-track";
 import { useActiveTrack } from "./active-track";
 import { TrackLogo } from "./track-logos";
 
-const visitorIdKey = "jahezdev-visitor-id";
-type SiteStats = { users: number; visitors: number };
-
-function getVisitorId(): string {
-  try {
-    const saved = window.localStorage.getItem(visitorIdKey);
-    if (saved) return saved;
-    const value = window.crypto.randomUUID();
-    window.localStorage.setItem(visitorIdKey, value);
-    return value;
-  } catch {
-    return window.crypto.randomUUID();
-  }
-}
+type SiteStats = { users: number; visits: number };
 
 function useSiteStats(): SiteStats | null {
   const [stats, setStats] = useState<SiteStats | null>(null);
@@ -32,7 +19,7 @@ function useSiteStats(): SiteStats | null {
     let active = true;
     nodeRequest<SiteStats>({
       path: "/site-stats/visit",
-      init: { method: "POST", body: JSON.stringify({ visitorId: getVisitorId() }) },
+      init: { method: "POST" },
     }).then((value) => {
       if (active) setStats(value);
     }).catch(() => undefined);
@@ -114,8 +101,8 @@ export function HomeHub({ locale = "ar" }: { locale?: Locale }) {
             </div>
             <span className="home-community-stat-divider" aria-hidden="true" />
             <div className="home-community-stat">
-              <strong>{siteStats ? formatNumber(siteStats.visitors, locale) : "—"}</strong>
-              <span>{copy.visitorsCount}</span>
+              <strong>{siteStats ? formatNumber(siteStats.visits, locale) : "—"}</strong>
+              <span>{copy.visitsCount}</span>
             </div>
           </div>
         </div>
