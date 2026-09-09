@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import { localeFromPathname, type Locale } from "../../i18n";
-import { useAuthFlow, type AuthFlowCopy } from "./auth-flow";
+import { useAuthFlow, usernameCompletionMode, type AuthFlowCopy } from "./auth-flow";
 
 export { validateUsername } from "./auth-flow";
 
@@ -172,7 +172,9 @@ function EnabledSignUpScreen({ initialLocale = "ar" }: { initialLocale?: Locale 
   } = useAuthFlow({ initialMode: "signUp", redirectPath: "/", copy: t });
 
   // Clerk redirected back with missing requirements (for example, a username required by the instance).
-  if (isLoaded && signUp.status === "missing_requirements") {
+  const completionMode = usernameCompletionMode({ mode, isSignedIn: Boolean(isSignedIn), hasUser: Boolean(user), hasUsername: Boolean(user?.username), signUpStatus: signUp.status });
+
+  if (isLoaded && completionMode === "signUp") {
     return (
       <Shell locale={locale} setLocale={setLocale} eyebrow={t.brand} title={t.completeProfileTitle} lead={t.completeProfileHint}>
         <form className="auth-page-form" onSubmit={(event) => void saveMissingUsername(event)}>
@@ -188,7 +190,7 @@ function EnabledSignUpScreen({ initialLocale = "ar" }: { initialLocale?: Locale 
   }
 
   // Case 2: session already complete (Google OAuth finished) but user has no username yet
-  if (isLoaded && isSignedIn && user && !user.username) {
+  if (isLoaded && completionMode === "user") {
     return (
       <Shell locale={locale} setLocale={setLocale} eyebrow={t.brand} title={t.completeProfileTitle} lead={t.completeProfileHint}>
         <form className="auth-page-form" onSubmit={(event) => void savePostOAuthUsername(event)}>
