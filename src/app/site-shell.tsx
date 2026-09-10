@@ -5,6 +5,7 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import { usePathname } from "next/navigation";
 
 import { localeDirection, localeFromLanguageTag, localeStorageKey, localizedHref, messages, type Locale } from "../i18n";
+import { isTrackScopedPath } from "../tracks/active-track";
 import { repositoryUrl } from "./site-config";
 import { ThemeToggle } from "./theme-toggle";
 import { BrandLogo } from "./logo";
@@ -14,9 +15,14 @@ import { useActiveTrack } from "./active-track";
 
 const cataloguePaths = [["topics", "/topics"], ["questions", "/questions"], ["interview", "/interview"]] as const;
 const activityPaths = [["progress", "/progress"], ["submit", "/submissions"]] as const;
+const genericPaths = ["/privacy", "/terms", "/sign-in", "/sign-up", "/auth"] as const;
 
 function unprefixedPath(pathname: string): string {
   return pathname === "/en" || pathname === "/ar" ? "/" : pathname.replace(/^\/(?:en|ar)(?=\/)/, "") || "/";
+}
+
+function isGenericPath(pathname: string): boolean {
+  return genericPaths.some((path) => pathname === path || pathname.startsWith(`${path}/`));
 }
 
 export function SiteShell({ children }: { children: ReactNode }) {
@@ -80,13 +86,15 @@ export function SiteShell({ children }: { children: ReactNode }) {
   const copy = messages[locale];
   const targetLocale: Locale = locale === "ar" ? "en" : "ar";
   const switchHref = `${localizedHref(targetLocale, unprefixedPath(pathname))}${query}`;
+  const currentPath = unprefixedPath(pathname);
+  const isHome = currentPath === "/";
+  const isUnknownRoute = !isHome && !isTrackScopedPath(currentPath) && !isGenericPath(currentPath);
   const href = (path: string) => {
-    const nextHref = localizedHref(locale, path === "/" ? "/" : trackOnlyHref(path));
+    const nextHref = localizedHref(locale, path === "/" || isUnknownRoute ? path : trackOnlyHref(path));
     if (unprefixedPath(pathname) !== "/topics" || path !== "/questions") return nextHref;
     const topic = new URLSearchParams(query).get("topic");
     return topic ? `${nextHref}&topic=${encodeURIComponent(topic)}` : nextHref;
   };
-  const isHome = unprefixedPath(pathname) === "/";
   const selectLocale = (nextLocale: Locale) => {
     try { localStorage.setItem(localeStorageKey, nextLocale); } catch { /* Storage unavailable */ }
     setLocale(nextLocale);
@@ -124,7 +132,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
           <Link className="brand" href={href("/")} prefetch={false} aria-label={`${copy.brandName} — ${copy.home}`}>
             <BrandLogo trackId={activeTrack?.id} />
             <span dir={locale === "ar" ? "rtl" : "ltr"}>{copy.brandName}</span>
-            {activeTrack && !isHome && (
+            {activeTrack && !isHome && !isUnknownRoute && (
               <span className="brand-track-badge" title={activeTrack.name}>
                 {activeTrack.name}
               </span>

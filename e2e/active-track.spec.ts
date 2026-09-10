@@ -71,6 +71,14 @@ test("global navigation drops route-specific query context", async ({ page }) =>
   await expect(page).toHaveURL(/\/questions\?track=flutter$/);
 });
 
+test("unknown routes use generic recovery without Track context", async ({ page }) => {
+  await page.goto("/en/does-not-exist?track=flutter");
+  await expect(page.getByRole("heading", { name: "This page is off the map." })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Back to home" })).toHaveAttribute("href", "/en");
+  await expect(page.getByRole("link", { name: "Question Library", exact: true })).toHaveAttribute("href", "/en/questions");
+  await expect(page.locator(".brand-track-badge")).toHaveCount(0);
+});
+
 test("anonymous progress asks learners to sign in", async ({ page }) => {
   await page.goto("/ar/progress?track=flutter");
   await expect(page.getByRole("heading", { name: "سجّل الدخول لمتابعة تقدّمك عبر أجهزتك." })).toBeVisible();

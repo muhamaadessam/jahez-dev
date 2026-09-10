@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import type { InterviewQuestion, Topic, Track } from "../content/questions.ts";
-import { resolveActiveTrack, scopeCatalogue, withQueryContext, withTrack } from "./active-track.ts";
+import { isTrackScopedPath, resolveActiveTrack, scopeCatalogue, withQueryContext, withTrack } from "./active-track.ts";
 
 const tracks: Track[] = [
   { id: "flutter", slug: "flutter", name: "Flutter" },
@@ -84,4 +84,10 @@ test("shareable links preserve Track alongside existing query parameters and str
   assert.equal(withTrack("/session", "flutter"), "/session?track=flutter");
   assert.equal(withTrack("/questions/", "ui-ux"), "/questions?track=ui-ux");
   assert.equal(withQueryContext("/questions/?topic=oop", "?track=flutter&topic=dart&view=compact", "backend"), "/questions?track=backend&topic=oop&view=compact");
+});
+
+test("unknown routes stay outside Track context", () => {
+  assert.equal(isTrackScopedPath("/en/questions/view"), true);
+  assert.equal(isTrackScopedPath("/ar/does-not-exist"), false);
+  assert.equal(isTrackScopedPath("/does-not-exist"), false);
 });

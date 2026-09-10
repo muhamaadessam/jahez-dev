@@ -1,32 +1,38 @@
-import Link from "next/link";
+"use client";
 
-/*
- * THESIS: Turn a dead link into a calm reset point instead of a generic error card.
- * OWN-WORLD: The existing blue study-room palette, with a single cyan route marker and quiet orbital motion.
- * STORY: The visitor understands the page moved, recognizes the product, and returns to the Arabic library or home.
- * FIRST VIEWPORT: A centered 404 route marker sits beside the message; recovery actions stay directly beneath it.
- * FORM: Full-width error state, compact two-action recovery, with motion staged as a slow signal sweep.
- */
+import Link from "next/link";
+import { useEffect, useState } from "react";
+
+import { localizedHref, messages, type Locale } from "../i18n";
+
 export default function NotFound() {
+  const [locale, setLocale] = useState<Locale>("ar");
+
+  useEffect(() => {
+    setLocale(document.documentElement.lang === "en" ? "en" : "ar");
+  }, []);
+
+  const copy = messages[locale];
+
   return (
     <section className="not-found-page" aria-labelledby="not-found-title">
-      <div className="not-found-scene" aria-hidden="true">
-        <span className="not-found-orbit not-found-orbit-one" />
-        <span className="not-found-orbit not-found-orbit-two" />
-        <span className="not-found-node not-found-node-one" />
-        <span className="not-found-node not-found-node-two" />
-        <span className="not-found-node not-found-node-three" />
-        <span className="not-found-route">404</span>
+      <div className="not-found-visual" aria-hidden="true">
+        <span className="not-found-visual-frame" />
+        <span className="not-found-code">404</span>
+        <span className="not-found-visual-label">ROUTE / 404</span>
       </div>
       <div className="not-found-copy">
-        <span className="eyebrow">Tech Interview Prep · Route not found</span>
-        <h1 id="not-found-title">الصفحة دي خرجت من المسار.</h1>
-        <p>الرابط مش موجود أو اتنقل. ارجع للمكتبة وكمّل مراجعتك من مكان واضح.</p>
+        <span className="eyebrow">{copy.notFoundEyebrow}</span>
+        <h1 id="not-found-title">{copy.notFoundTitle}</h1>
+        <p>{copy.notFoundDescription}</p>
         <div className="not-found-actions">
-          <Link className="button primary" href="/ar">العودة للرئيسية</Link>
-          <Link className="button" href="/ar/questions">فتح مكتبة الأسئلة</Link>
+          <Link className="button primary" href={localizedHref(locale, "/")}>{copy.notFoundHome}</Link>
+          <Link className="button" href={localizedHref(locale, "/questions")}>{copy.notFoundLibrary}</Link>
         </div>
-        <p className="not-found-english">The page you’re looking for moved. Start again from the question library.</p>
+        <div className="not-found-hint">
+          <span className="not-found-hint-dot" aria-hidden="true" />
+          <span>{copy.notFoundHint}</span>
+        </div>
       </div>
     </section>
   );

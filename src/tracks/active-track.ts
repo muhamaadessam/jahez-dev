@@ -9,6 +9,13 @@ type ResolveActiveTrackOptions = {
   authenticated: boolean;
 };
 
+const trackScopedPaths = ["/topics", "/questions", "/interview", "/session", "/progress", "/submissions", "/moderator", "/my-tracks"] as const;
+
+export function isTrackScopedPath(pathname: string): boolean {
+  const path = pathname.replace(/^\/(?:en|ar)(?=\/|$)/, "") || "/";
+  return trackScopedPaths.some((route) => path === route || path.startsWith(`${route}/`));
+}
+
 export type ActiveTrackResolution = {
   activeTrack: Track | null;
   selectableTracks: Track[];

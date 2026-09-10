@@ -7,7 +7,7 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState, t
 
 import { tracks } from "../content/questions";
 import { localeFromPathname, localizedHref, messages, type Locale } from "../i18n";
-import { resolveActiveTrack, withTrack } from "../tracks/active-track";
+import { isTrackScopedPath, resolveActiveTrack, withTrack } from "../tracks/active-track";
 import { loadPublicTracks, loadTrackPreferences, type TrackPreferenceState } from "../tracks/preferences";
 import { LoadingPlaceholder } from "./loading-placeholder";
 import { TrackLogo } from "./track-logos";
@@ -45,7 +45,7 @@ function ActiveTrackProvider({ children, authenticated, loading = false, userId,
 }) {
   const pathname = usePathname() ?? "/";
   const normalizedPathname = pathname.replace(/\/+$/, "") || "/";
-  const isHome = normalizedPathname === "/" || normalizedPathname === "/ar" || normalizedPathname === "/en";
+  const carriesTrackContext = isTrackScopedPath(normalizedPathname);
   const locale = localeFromPathname(pathname);
   const [query, setQuery] = useState("");
   const [urlReady, setUrlReady] = useState(false);
@@ -108,7 +108,7 @@ function ActiveTrackProvider({ children, authenticated, loading = false, userId,
     authenticated,
   });
   useEffect(() => {
-    if (isHome) {
+    if (!carriesTrackContext) {
       delete document.documentElement.dataset.track;
       return;
     }
@@ -123,7 +123,7 @@ function ActiveTrackProvider({ children, authenticated, loading = false, userId,
     } else {
       delete document.documentElement.dataset.track;
     }
-  }, [isHome, resolution.activeTrack]);
+  }, [carriesTrackContext, resolution.activeTrack]);
 
   const setActiveTrack = useCallback((trackId: string) => {
     const track = resolution.selectableTracks.find(({ id, slug }) => id === trackId || slug === trackId);
