@@ -284,6 +284,7 @@ test("the catalogue contains 100 questions for each of the 8 specialized tracks"
     assert.equal(trackQuestions.length, 100, `Track ${trackId} should have 100 questions`);
     assert.deepEqual(new Set(trackQuestions.map((q) => q.difficulty)), new Set(["Junior", "Mid", "Senior"]));
     for (const q of trackQuestions) {
+      assert.match(q.id, /^[a-z0-9]+-[0-9]{3}$/, `Invalid database question ID: ${q.id}`);
       assert.ok(q.question);
       assert.ok(q.shortAnswer);
       assert.ok(q.explanation);
