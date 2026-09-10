@@ -12,7 +12,7 @@ import { scopeCatalogue } from "../../tracks/active-track";
 import { ActiveTrackRecovery, ActiveTrackSelector, useActiveTrack } from "../active-track";
 import { LoadingPlaceholder } from "../loading-placeholder";
 
-type InterviewSelection = { topicValues: string[]; difficulty: DifficultyLevel | ""; invalidTopics: boolean };
+type InterviewSelection = { topicValues: string[]; difficulty: DifficultyLevel | ""; invalidTopics: boolean; started: boolean };
 
 function readSelection(search: string, availableTopics: Topic[]): InterviewSelection {
   const params = new URLSearchParams(search);
@@ -23,6 +23,7 @@ function readSelection(search: string, availableTopics: Topic[]): InterviewSelec
     topicValues,
     difficulty: difficulty && difficultyOptions.includes(difficulty as DifficultyLevel) ? difficulty as DifficultyLevel : "",
     invalidTopics: values.length !== topicValues.length,
+    started: params.get("started") === "1",
   };
 }
 
@@ -30,6 +31,7 @@ function updateUrl(selection: InterviewSelection, track: string | null) {
   const params = new URLSearchParams();
   if (selection.topicValues.length) params.set("topics", selection.topicValues.join(","));
   if (selection.difficulty) params.set("difficulty", selection.difficulty);
+  if (selection.started) params.set("started", "1");
   if (track) params.set("track", track);
   const cleanPathname = window.location.pathname.replace(/\/+$/, "") || "/";
   const query = params.toString();
@@ -39,7 +41,7 @@ function updateUrl(selection: InterviewSelection, track: string | null) {
 
 export function FullInterview({ questions, topics, locale = "ar" }: { questions: InterviewQuestion[]; topics: Topic[]; locale?: Locale }) {
   const copy = messages[locale];
-  const [selection, setSelection] = useState<InterviewSelection>({ topicValues: [], difficulty: "", invalidTopics: false });
+  const [selection, setSelection] = useState<InterviewSelection>({ topicValues: [], difficulty: "", invalidTopics: false, started: false });
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHydrated, setIsHydrated] = useState(false);
   const { phase, activeTrack, invalidTrack, trackOnlyHref } = useActiveTrack();
@@ -60,10 +62,18 @@ export function FullInterview({ questions, topics, locale = "ar" }: { questions:
   const sessionQuestions = selection.topicValues.length && selection.difficulty
     ? filterInterviewQuestions(scoped?.questions ?? [], selection.topicValues, selection.difficulty, scoped?.topics ?? [])
     : [];
-  const question = sessionQuestions[currentIndex];
+  const question = selection.started ? sessionQuestions[currentIndex] : undefined;
 
   function updateSelection(update: Partial<InterviewSelection>) {
-    const next = { ...selection, ...update, invalidTopics: false };
+    const next = { ...selection, ...update, invalidTopics: false, started: false };
+    setSelection(next);
+    setCurrentIndex(0);
+    updateUrl(next, activeTrack?.slug ?? null);
+  }
+
+  function startInterview() {
+    if (!selection.topicValues.length || !selection.difficulty) return;
+    const next = { ...selection, started: true };
     setSelection(next);
     setCurrentIndex(0);
     updateUrl(next, activeTrack?.slug ?? null);
@@ -87,34 +97,41 @@ export function FullInterview({ questions, topics, locale = "ar" }: { questions:
         <p>{copy.interviewDescription}</p>
       </header>
 
-      <ActiveTrackSelector locale={locale} />
       {phase !== "ready" || invalidTrack || !activeTrack ? null : selection.invalidTopics ? <ActiveTrackRecovery locale={locale} invalidTopic /> : !scoped?.topics.length ? <div className="empty-state"><h2>{copy.emptyTrackTitle}</h2><p>{copy.emptyTrackDescription}</p></div> : <>
-
-      <div className="interview-builder">
-        <fieldset className="topic-picker">
-          <legend>{copy.chooseTopics} <span className="topic-count">{selection.topicValues.length} {copy.selected}</span></legend>
-          <div className="topic-options">
-            {scoped.topics.map((topic) => (
-              <label key={topic.id} className="checkbox-item" dir="ltr">
-                <input
-                  type="checkbox"
-                  checked={selection.topicValues.includes(topic.slug) || selection.topicValues.includes(topic.id)}
-                  onChange={(event) => toggleTopic(topic, event.target.checked)}
-                />
-                {topicName(locale, topic.id)}
-              </label>
-            ))}
-          </div>
-        </fieldset>
-        <label className="interview-level">
-          {copy.interviewLevel}
-          <select value={selection.difficulty} onChange={(event) => updateSelection({ difficulty: event.target.value as InterviewSelection["difficulty"] })}>
-            <option value="">{copy.chooseDifficulty}</option>
-            {difficultyOptions.map((difficulty) => <option key={difficulty} value={difficulty}>{difficulty}</option>)}
-          </select>
-          <span className="filter-hint">{copy.inclusiveHint}</span>
-        </label>
-      </div>
+      <ActiveTrackSelector
+        locale={locale}
+        filterTitle={copy.interviewTitle}
+        filterSummary={`${activeTrack?.name ?? ""} · ${selection.topicValues.length ? `${selection.topicValues.length} ${copy.selected}${selection.difficulty ? ` · ${selection.difficulty}` : ""}` : copy.chooseTopics}`}
+        filterActiveCount={selection.topicValues.length + (selection.difficulty ? 1 : 0)}
+        onClear={() => updateSelection({ topicValues: [], difficulty: "" })}
+        filterContent={() => <div className="filter-dialog-fields interview-filter-fields">
+          <fieldset className="topic-picker">
+            <legend>{copy.chooseTopics} <span className="topic-count">{selection.topicValues.length} {copy.selected}</span></legend>
+            <div className="topic-options">
+              {scoped.topics.map((topic) => {
+                const selected = selection.topicValues.includes(topic.slug) || selection.topicValues.includes(topic.id);
+                return <label key={topic.id} className={`topic-option${selected ? " selected" : ""}`} dir="ltr">
+                  <input className="sr-only" type="checkbox" checked={selected} onChange={(event) => toggleTopic(topic, event.target.checked)} />
+                  <span className="topic-option-copy"><strong>{topicName(locale, topic.id)}</strong></span>
+                  <span className="topic-option-mark" aria-hidden="true">{selected ? "✓" : ""}</span>
+                </label>;
+              })}
+            </div>
+          </fieldset>
+          <label className="interview-level">
+            {copy.interviewLevel}
+            <select value={selection.difficulty} onChange={(event) => updateSelection({ difficulty: event.target.value as InterviewSelection["difficulty"] })}>
+              <option value="">{copy.chooseDifficulty}</option>
+              {difficultyOptions.map((difficulty) => <option key={difficulty} value={difficulty}>{difficulty}</option>)}
+            </select>
+            <span className="filter-hint">{copy.inclusiveHint}</span>
+          </label>
+        </div>}
+        action={<>
+          <button className="button primary interview-start-button" type="button" disabled={!selection.topicValues.length || !selection.difficulty} onClick={startInterview}>{copy.startInterview}</button>
+          {selection.started && <span className="interview-status">{copy.question} {currentIndex + 1} {copy.of} {sessionQuestions.length}</span>}
+        </>}
+      />
 
       {question ? (
         <>

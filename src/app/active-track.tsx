@@ -7,10 +7,11 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState, t
 
 import { tracks } from "../content/questions";
 import { localeFromPathname, localizedHref, messages, type Locale } from "../i18n";
-import { resolveActiveTrack, withTrack } from "../tracks/active-track";
+import { isTrackScopedPath, resolveActiveTrack, withTrack } from "../tracks/active-track";
 import { loadPublicTracks, loadTrackPreferences, type TrackPreferenceState } from "../tracks/preferences";
 import { LoadingPlaceholder } from "./loading-placeholder";
 import { TrackLogo } from "./track-logos";
+import { FilterDialog } from "./filter-dialog";
 
 type Phase = "loading" | "ready" | "error";
 type ActiveTrackValue = {
@@ -44,7 +45,7 @@ function ActiveTrackProvider({ children, authenticated, loading = false, userId,
 }) {
   const pathname = usePathname() ?? "/";
   const normalizedPathname = pathname.replace(/\/+$/, "") || "/";
-  const isHome = normalizedPathname === "/" || normalizedPathname === "/ar" || normalizedPathname === "/en";
+  const carriesTrackContext = isTrackScopedPath(normalizedPathname);
   const locale = localeFromPathname(pathname);
   const [query, setQuery] = useState("");
   const [urlReady, setUrlReady] = useState(false);
@@ -107,7 +108,7 @@ function ActiveTrackProvider({ children, authenticated, loading = false, userId,
     authenticated,
   });
   useEffect(() => {
-    if (isHome) {
+    if (!carriesTrackContext) {
       delete document.documentElement.dataset.track;
       return;
     }
@@ -122,7 +123,7 @@ function ActiveTrackProvider({ children, authenticated, loading = false, userId,
     } else {
       delete document.documentElement.dataset.track;
     }
-  }, [isHome, resolution.activeTrack]);
+  }, [carriesTrackContext, resolution.activeTrack]);
 
   const setActiveTrack = useCallback((trackId: string) => {
     const track = resolution.selectableTracks.find(({ id, slug }) => id === trackId || slug === trackId);
@@ -131,6 +132,7 @@ function ActiveTrackProvider({ children, authenticated, loading = false, userId,
     params.set("track", track.slug);
     params.delete("topic");
     params.delete("topics");
+    params.delete("started");
     const cleanPathname = window.location.pathname.replace(/\/+$/, "") || "/";
     window.history.replaceState(null, "", `${cleanPathname}?${params}`);
     window.dispatchEvent(new Event("urlchange"));
@@ -156,7 +158,15 @@ export function useActiveTrack(): ActiveTrackValue {
   return value;
 }
 
-export function ActiveTrackSelector({ locale }: { locale: Locale }) {
+export function ActiveTrackSelector({ locale, filterTitle, filterSummary, filterActiveCount = 0, onClear, filterContent, action }: {
+  locale: Locale;
+  filterTitle?: string;
+  filterSummary?: string;
+  filterActiveCount?: number;
+  onClear?: () => void;
+  filterContent?: (controls: { close: () => void }) => ReactNode;
+  action?: ReactNode;
+}) {
   const { phase, authenticated, activeTrack, selectableTracks, invalidTrack, setActiveTrack, retry } = useActiveTrack();
   const copy = messages[locale];
   if (phase === "loading") return <LoadingPlaceholder variant="track" />;
@@ -164,23 +174,28 @@ export function ActiveTrackSelector({ locale }: { locale: Locale }) {
   if (invalidTrack) return <ActiveTrackRecovery locale={locale} />;
   if (!activeTrack) return <div className="empty-state"><h2>{copy.emptyTrackTitle}</h2><p>{copy.emptyTrackDescription}</p>{authenticated && <Link className="button" href={localizedHref(locale, "/my-tracks")}>{copy.manageTrackPreferences}</Link>}</div>;
   return <div className="active-track-selector">
-    <div className="active-track-selector-control">
-      <span className="active-track-selector-logo" aria-hidden="true">
-        <TrackLogo trackId={activeTrack.id} size={22} />
-      </span>
-      <label>
-        {copy.activeTrack}
-        <div className="active-track-selector-select-wrap">
-          <select value={activeTrack.id} onChange={(event) => setActiveTrack(event.target.value)}>
-            {selectableTracks.map((track) => <option key={track.id} value={track.id}>{track.name}</option>)}
-          </select>
-          <svg className="active-track-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" aria-hidden="true">
-            <path d="M6 8l4 4 4-4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </div>
-      </label>
-    </div>
-    {authenticated && <Link className="text-link" href={localizedHref(locale, "/my-tracks")}>{copy.manageTrackPreferences}</Link>}
+    <FilterDialog locale={locale} title={filterTitle ?? copy.activeTrack} summary={filterSummary ?? activeTrack.name} activeCount={1 + filterActiveCount} onClear={onClear}>
+      {({ close }) => <>
+        <section className="filter-dialog-section track-filter-section">
+          <div className="filter-dialog-section-heading"><span>{copy.activeTrack}</span><strong dir="ltr">{activeTrack.name}</strong></div>
+          <div className="track-filter-options">
+            {selectableTracks.map((track) => {
+              const selected = track.id === activeTrack.id;
+              return <button className={`track-filter-option${selected ? " selected" : ""}`} type="button" key={track.id} aria-pressed={selected} onClick={() => { setActiveTrack(track.id); close(); }}>
+                <span className="track-filter-option-logo" aria-hidden="true"><TrackLogo trackId={track.id} size={28} /></span>
+                <span className="track-filter-option-copy"><strong dir="ltr">{track.name}</strong></span>
+                <span className="track-filter-check" aria-hidden="true">{selected ? "✓" : ""}</span>
+              </button>;
+            })}
+          </div>
+        </section>
+        {filterContent?.({ close })}
+      </>}
+    </FilterDialog>
+    {(authenticated || action) && <div className="active-track-selector-actions">
+      {authenticated && <Link className="text-link" href={localizedHref(locale, "/my-tracks")}>{copy.manageTrackPreferences}</Link>}
+      {action}
+    </div>}
   </div>;
 }
 

@@ -3,9 +3,10 @@ import type { InterviewQuestion } from "./questions.ts";
 type PythonQuestion = Omit<InterviewQuestion, "translations">;
 
 const source = (title: string, url: string) => ({ title, url });
+let nextQuestionNumber = 1;
 
 const question = (
-  id: string,
+  _sourceId: string,
   topicId: string,
   slug: string,
   difficulty: PythonQuestion["difficulty"],
@@ -16,7 +17,7 @@ const question = (
   sourceUrl: string,
   codeExample?: string,
 ): PythonQuestion => ({
-  id: `python-${id}`,
+  id: `python-${String(nextQuestionNumber++).padStart(3, "0")}`,
   slug,
   trackId: "python",
   topicIds: [topicId],
@@ -150,4 +151,3 @@ export const pythonBaseQuestions: PythonQuestion[] = [
   question("web-009", "python-web-data", "python-idempotency-retry-safe-writes", "Senior", "إزاي تمنع retry من إنشاء duplicate write؟", "استخدم idempotency key أو operation identifier محفوظًا مع نتيجة العملية، مع contract يحدد ما يحدث عند إعادة نفس الطلب.", "timeout لا يعني أن الخادم لم ينفذ؛ لذلك client قد يعيد المحاولة بعد نجاح غير مرئي. صمم write endpoint والسياسة التخزينية معًا، ولا تعتمد على client memory وحدها.", "RFC 9110 — HTTP Semantics", "https://www.rfc-editor.org/rfc/rfc9110"),
   question("web-010", "python-web-data", "python-payload-validation-and-domain-model", "Senior", "إزاي تفصل API schema عن domain model؟", "حوّل payload الخارجي إلى model داخلي بعد validation، ولا تجعل شكل JSON يحدد كل domain decisions.", "الفصل يمنع تسرب أسماء API وتغيراتها إلى core logic، ويسمح بإرجاع serialization مختلفة. احتفظ برسائل validation مفيدة، ورفض الحقول غير المتوقعة إذا كان ذلك جزءًا من security contract.", "Python documentation — dataclasses", "https://docs.python.org/3/library/dataclasses.html"),
 ];
-

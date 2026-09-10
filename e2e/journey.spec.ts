@@ -10,7 +10,7 @@ test.describe("Discovery, study session, and progress journey", () => {
     await expect(page.getByText("إجمالي الأسئلة")).toBeVisible();
     await expect(page.getByText("إجمالي الزيارات")).toBeVisible();
     await expect(page.getByText("مستخدم مسجل")).toBeVisible();
-    await expect(page.locator("[data-track-card]")).toHaveCount(9);
+    await expect(page.locator("[data-track-card]")).toHaveCount(10);
     await expect(page.getByRole("link", { name: /ابدأ بهذا المسار/ }).first()).toHaveAttribute("href", /\/ar\/topics\?track=/);
     await expect(page.getByRole("heading", { name: "سؤال للمراجعة السريعة" })).toHaveCount(0);
     await expect(page.locator("html")).not.toHaveAttribute("data-track");
@@ -32,14 +32,17 @@ test.describe("Discovery, study session, and progress journey", () => {
 
     // 2. Library Discovery & Filters
     await expect(page).toHaveURL(/\/questions\?topic=dart/);
-    const searchInput = page.getByLabel("ابحث في الأسئلة");
+    await page.locator(".filter-trigger").last().click();
+    const filterDialog = page.getByRole("dialog");
+    const searchInput = filterDialog.getByLabel("ابحث في الأسئلة");
     await searchInput.fill("final");
 
     // Search and Topic reflected in URL, omitting personal progress / favorites
     await expect(page).toHaveURL(/\/questions\?search=final&topic=dart/);
 
     // Select Difficulty Level
-    await page.getByLabel("مستوى الصعوبة").selectOption("Junior");
+    await filterDialog.getByLabel("مستوى الصعوبة").selectOption("Junior");
+    await filterDialog.getByRole("button", { name: "حفظ الاختيارات" }).click();
     await expect(page).toHaveURL(/\/questions\?search=final&topic=dart&difficulty=Junior/);
 
     // Verify session button is available when topic & difficulty are set
@@ -83,6 +86,10 @@ test.describe("Discovery, study session, and progress journey", () => {
     // Navigate to Study Session
     await page.goto("/session?topic=dart&difficulty=Junior");
     await expect(page.getByRole("heading", { name: "جلسة مراجعة" })).toBeVisible();
+    await page.locator(".active-track-selector .filter-trigger").click();
+    await page.getByRole("button", { name: "حفظ الاختيارات" }).click();
+    await page.locator(".active-track-selector-actions .button.primary").click();
+    await expect(page).toHaveURL(/started=1/);
     await expect(page.getByText(/سؤال 1 من \d+/)).toBeVisible();
     const firstSessionQuestion = page.getByRole("heading", { level: 2 });
     await expect(firstSessionQuestion).toHaveText("ما الفرق بين final و const في Dart؟");
@@ -107,11 +114,16 @@ test.describe("Discovery, study session, and progress journey", () => {
     // 6. Full interview: multiple topics and inclusive difficulty
     await page.goto("/interview");
     await expect(page.getByRole("heading", { name: "ابنِ انترفيو شامل" })).toBeVisible();
-    await page.getByRole("checkbox", { name: "Dart" }).check();
-    await page.getByRole("checkbox", { name: "Widgets" }).check();
-    await page.getByLabel("مستوى المقابلة").selectOption("Senior");
+    await page.locator(".active-track-selector .filter-trigger").click();
+    const interviewDialog = page.getByRole("dialog");
+    await interviewDialog.locator(".topic-option").filter({ hasText: "Dart" }).click();
+    await interviewDialog.locator(".topic-option").filter({ hasText: "Widgets" }).click();
+    await interviewDialog.getByLabel("مستوى المقابلة").selectOption("Senior");
+    await interviewDialog.getByRole("button", { name: "حفظ الاختيارات" }).click();
     await expect(page).toHaveURL(/topics=dart(?:%2C|,)widgets&difficulty=Senior/);
-    await expect(page.getByText(/سؤال 1 من \d+/)).toBeVisible();
+    await page.getByRole("button", { name: "ابدأ مقابلة كاملة" }).click();
+    await expect(page).toHaveURL(/started=1/);
+    await expect(page.locator(".session-progress")).toHaveText(/سؤال 1 من \d+/);
     await expect(page.getByRole("heading", { level: 2 })).toHaveText("ما الفرق بين final و const في Dart؟");
   });
 
@@ -122,7 +134,9 @@ test.describe("Discovery, study session, and progress journey", () => {
     await expect(page.getByRole("heading", { name: "Walk into the interview with your answers organized." })).toBeVisible();
     await page.getByRole("link", { name: "Question Library" }).click();
     await expect(page).toHaveURL(/\/questions\?track=flutter$/);
-    await expect(page.getByLabel("Search questions")).toBeVisible();
+    await page.locator(".filter-trigger").last().click();
+    await expect(page.getByRole("dialog").getByLabel("Search questions")).toBeVisible();
+    await page.getByRole("dialog").getByRole("button", { name: "Save choices" }).click();
     await page.getByText("What should a Flutter developer know about Final Vs Const In Dart?").click();
     await expect(page).toHaveURL(/\/questions\/final-vs-const-in-dart\?track=flutter$/);
     await expect(page.getByRole("heading", { name: "What should a Flutter developer know about Final Vs Const In Dart?" })).toBeVisible();
