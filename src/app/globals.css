@@ -2072,6 +2072,13 @@ h3 {
   min-width: 170px;
 }
 
+.interview-start-hint {
+  max-width: 250px;
+  color: var(--muted);
+  font-size: .78rem;
+  line-height: 1.5;
+}
+
 .interview-status {
   color: var(--muted);
   font-size: .9rem;
@@ -2248,6 +2255,20 @@ h3 {
   display: grid;
   gap: 12px;
   max-width: 900px;
+}
+
+.interview-history-embedded {
+  margin-block-start: 52px;
+  padding-block-start: 28px;
+  border-block-start: 1px solid var(--border);
+}
+
+.interview-history-header {
+  margin-block-end: 18px;
+}
+
+.interview-history-header h2 {
+  margin: 0;
 }
 
 .interview-history-item {

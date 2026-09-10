@@ -7,7 +7,7 @@ import InterviewsPage from "../../interviews/page";
 export function generateStaticParams() { return [{ locale: "ar" }, { locale: "en" }]; }
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const locale = (await params).locale as Locale;
-  return localizedMetadata(locale, "/interviews", locale === "ar" ? "مقابلاتي" : "My interviews", locale === "ar" ? "المقابلات التي بدأت بها وتقدمك في كل واحدة." : "The interviews you started and your progress in each one.");
+  return localizedMetadata(locale, "/interview", locale === "ar" ? "مقابلة كاملة" : "Full interview", locale === "ar" ? "إعداد مقابلة كاملة مع مقابلاتك السابقة وتقدمك في كل واحدة." : "Set up a full interview and return to your previous sessions.");
 }
 export default async function LocalizedInterviews({ params }: { params: Promise<{ locale: string }> }) {
   const locale = (await params).locale as Locale;
