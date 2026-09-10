@@ -50,9 +50,9 @@ test("every question has complete Arabic and English translations", () => {
   }
 });
 
-test("production validation enforces the 910-question topic distribution", () => {
+test("production validation enforces the 1010-question topic distribution", () => {
   assert.doesNotThrow(() => validateProductionCatalogue());
-  assert.throws(() => validateProductionCatalogue(questions.slice(0, -1)), /exactly 910 questions/);
+  assert.throws(() => validateProductionCatalogue(questions.slice(0, -1)), /exactly 1010 questions/);
   const wrongDistribution = questions.map((question, index) => index === 0 ? { ...question, topicIds: ["widgets"] } : question);
   assert.throws(() => validateProductionCatalogue(wrongDistribution), /Topic dart must contain exactly 12/);
   assert.throws(() => validateProductionCatalogue(questions.map((question, index) => index === 0 ? { ...question, difficulty: "Expert" as never } : question)), /invalid difficulty/);
@@ -251,7 +251,8 @@ test("the catalogue keeps official HTTPS sources and real review dates", () => {
     "dart.dev", "api.dart.dev", "docs.flutter.dev", "api.flutter.dev", "blog.cleancoder.com", "www.rfc-editor.org", "developer.android.com", "kotlinlang.org",
     "nodejs.org", "php.net", "www.php.net", "laravel.com", "learn.microsoft.com", "dotnet.microsoft.com", "react.dev", "legacy.reactjs.org", "reactnative.dev", "docs.expo.dev", "expo.dev", "reactnavigation.org",
     "martinfowler.com", "refactoring.guru", "en.wikipedia.org", "developer.mozilla.org", "sandimetz.com",
-    "www.nngroup.com", "lawsofux.com", "material.io", "developer.apple.com", "www.w3.org", "www.microsoft.com"
+    "www.nngroup.com", "lawsofux.com", "material.io", "developer.apple.com", "www.w3.org", "www.microsoft.com",
+    "docs.python.org", "peps.python.org", "packaging.python.org", "pip.pypa.io", "docs.pytest.org", "coverage.readthedocs.io", "wiki.python.org"
   ];
   for (const question of questions) {
     assert.equal(new Date(`${question.lastReviewedAt}T00:00:00Z`).toISOString().slice(0, 10), question.lastReviewedAt);
@@ -277,8 +278,8 @@ test("the Android Native track contains its 100 planned questions across 14 topi
   }
 });
 
-test("the catalogue contains 100 questions for each of the 7 specialized tracks", () => {
-  for (const trackId of ["node", "php", "dotnet", "react", "react-native", "fundamentals", "ui-ux"]) {
+test("the catalogue contains 100 questions for each of the 8 specialized tracks", () => {
+  for (const trackId of ["node", "php", "dotnet", "react", "react-native", "fundamentals", "ui-ux", "python"]) {
     const trackQuestions = questions.filter((q) => q.trackId === trackId);
     assert.equal(trackQuestions.length, 100, `Track ${trackId} should have 100 questions`);
     assert.deepEqual(new Set(trackQuestions.map((q) => q.difficulty)), new Set(["Junior", "Mid", "Senior"]));

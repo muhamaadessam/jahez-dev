@@ -11,6 +11,7 @@ import { reactNativeBaseQuestions } from "./react-native-questions.ts";
 import { flutterExpansionBaseQuestions } from "./flutter-expansion-questions.ts";
 import { fundamentalsBaseQuestions } from "./fundamentals-questions.ts";
 import { uiUxBaseQuestions } from "./ui-ux-questions.ts";
+import { pythonBaseQuestions } from "./python-questions.ts";
 
 export type FollowUpQuestionRef = {
   id: string;
@@ -70,6 +71,7 @@ export const tracks: Track[] = [
   { id: "react-native", slug: "react-native", name: "React Native" },
   { id: "fundamentals", slug: "fundamentals", name: "Software Fundamentals" },
   { id: "ui-ux", slug: "ui-ux", name: "UI / UX Design" },
+  { id: "python", slug: "python", name: "Python" },
 ];
 
 export const topics: Topic[] = [
@@ -186,6 +188,18 @@ export const topics: Topic[] = [
   { id: "accessibility-inclusive", slug: "accessibility-inclusive", trackId: "ui-ux", name: "Accessibility & Inclusive Design (a11y)" },
   { id: "product-metrics", slug: "product-metrics", trackId: "ui-ux", name: "UX Metrics & Product Performance" },
   { id: "mobile-platform-guidelines", slug: "mobile-platform-guidelines", trackId: "ui-ux", name: "Mobile Platform Guidelines (HIG & Material)" },
+
+  // Python Topics
+  { id: "python-fundamentals", slug: "python-fundamentals", trackId: "python", name: "Python Fundamentals" },
+  { id: "python-data-model", slug: "python-data-model", trackId: "python", name: "Data Model & Object Protocols" },
+  { id: "python-functions", slug: "python-functions", trackId: "python", name: "Functions & Functional Patterns" },
+  { id: "python-typing", slug: "python-typing", trackId: "python", name: "Type Hints & Static Analysis" },
+  { id: "python-errors", slug: "python-errors", trackId: "python", name: "Exceptions & Resource Safety" },
+  { id: "python-concurrency", slug: "python-concurrency", trackId: "python", name: "Concurrency, Threads & Asyncio" },
+  { id: "python-testing", slug: "python-testing", trackId: "python", name: "Testing & Quality" },
+  { id: "python-packaging", slug: "python-packaging", trackId: "python", name: "Packaging & Tooling" },
+  { id: "python-performance", slug: "python-performance", trackId: "python", name: "Performance & Profiling" },
+  { id: "python-web-data", slug: "python-web-data", trackId: "python", name: "Web, APIs & Data Integration" },
 ];
 
 const baseQuestions: Omit<InterviewQuestion, "translations">[] = [
@@ -1653,6 +1667,7 @@ export const questions: InterviewQuestion[] = [
   ...reactNativeBaseQuestions,
   ...fundamentalsBaseQuestions,
   ...uiUxBaseQuestions,
+  ...pythonBaseQuestions,
 ].map((question) => ({
   ...question,
   translations: {
@@ -1757,6 +1772,18 @@ const englishTopicTranslations: Record<string, string> = {
   "accessibility-inclusive": "Accessibility & Inclusive Design (a11y)",
   "product-metrics": "UX Metrics & Product Performance",
   "mobile-platform-guidelines": "Mobile Platform Guidelines (HIG & Material)",
+
+  // Python
+  "python-fundamentals": "Python Fundamentals",
+  "python-data-model": "Data Model & Object Protocols",
+  "python-functions": "Functions & Functional Patterns",
+  "python-typing": "Type Hints & Static Analysis",
+  "python-errors": "Exceptions & Resource Safety",
+  "python-concurrency": "Concurrency, Threads & Asyncio",
+  "python-testing": "Testing & Quality",
+  "python-packaging": "Packaging & Tooling",
+  "python-performance": "Performance & Profiling",
+  "python-web-data": "Web, APIs & Data Integration",
 };
 
 export const topicTranslations: Record<Locale, Record<string, string>> = {
@@ -1907,6 +1934,18 @@ export const productionTopicCounts = {
   "accessibility-inclusive": 10,
   "product-metrics": 10,
   "mobile-platform-guidelines": 10,
+
+  // Python (100)
+  "python-fundamentals": 10,
+  "python-data-model": 10,
+  "python-functions": 10,
+  "python-typing": 10,
+  "python-errors": 10,
+  "python-concurrency": 10,
+  "python-testing": 10,
+  "python-packaging": 10,
+  "python-performance": 10,
+  "python-web-data": 10,
 } as const;
 
 const approvedSourceHosts = new Set([
@@ -1941,6 +1980,13 @@ const approvedSourceHosts = new Set([
   "developer.apple.com",
   "www.w3.org",
   "www.microsoft.com",
+  "docs.python.org",
+  "peps.python.org",
+  "packaging.python.org",
+  "pip.pypa.io",
+  "docs.pytest.org",
+  "coverage.readthedocs.io",
+  "wiki.python.org",
 ]);
 
 export function validateQuestions(interviewQuestions: InterviewQuestion[]): void {
@@ -1975,7 +2021,7 @@ export function validateQuestions(interviewQuestions: InterviewQuestion[]): void
 export function validateProductionCatalogue(interviewQuestions: InterviewQuestion[] = questions): void {
   validateQuestions(interviewQuestions);
   validateBilingualCatalogue(interviewQuestions);
-  if (interviewQuestions.length !== 910) throw new Error(`Production catalogue must contain exactly 910 questions; found ${interviewQuestions.length}`);
+  if (interviewQuestions.length !== 1010) throw new Error(`Production catalogue must contain exactly 1010 questions; found ${interviewQuestions.length}`);
   for (const [topicId, expectedCount] of Object.entries(productionTopicCounts)) {
     const actualCount = interviewQuestions.filter((question) => question.topicIds.includes(topicId)).length;
     if (actualCount !== expectedCount) throw new Error(`Topic ${topicId} must contain exactly ${expectedCount} questions; found ${actualCount}`);
