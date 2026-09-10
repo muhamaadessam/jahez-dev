@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import { questions, topics } from "../content/questions";
-import { formatNumber, localizedHref, messages, type Locale } from "../i18n";
+import { formatApproximateCount, formatNumber, localizedHref, messages, type Locale } from "../i18n";
 import { nodeRequest } from "../backend/api";
 import { useActiveTrack } from "./active-track";
 import { TrackLogo } from "./track-logos";
@@ -91,9 +91,9 @@ export function HomeHub({ locale = "ar" }: { locale?: Locale }) {
   const siteStats = useSiteStats();
   const { selectableTracks } = useActiveTrack();
   const stats = [
-    { value: formatNumber(questions.length, locale), label: copy.totalQuestions },
-    { value: siteStats ? formatNumber(siteStats.visits, locale) : "—", label: copy.visitsCount },
-    { value: siteStats ? formatNumber(siteStats.users, locale) : "—", label: copy.usersCount },
+    { value: formatApproximateCount(questions.length, locale), label: copy.totalQuestions },
+    { value: siteStats ? formatApproximateCount(siteStats.visits, locale) : "—", label: copy.visitsCount },
+    { value: siteStats ? formatApproximateCount(siteStats.users, locale) : "—", label: copy.usersCount },
   ];
   const trackStats = selectableTracks.map((track) => ({
     ...track,
@@ -133,7 +133,7 @@ export function HomeHub({ locale = "ar" }: { locale?: Locale }) {
             </div>
 
             <div className="home-stat-primary">
-              <strong className="home-stat-primary-value">{stats[0].value}</strong>
+              <strong className="home-stat-primary-value" dir="ltr">{stats[0].value}</strong>
               <span className="home-stat-primary-label">{stats[0].label}</span>
             </div>
 
@@ -141,11 +141,11 @@ export function HomeHub({ locale = "ar" }: { locale?: Locale }) {
 
             <div className="home-stats-grid">
               <div className="home-stat-item">
-                <strong className="home-stat-item-value">{stats[1].value}</strong>
+                <strong className="home-stat-item-value" dir="ltr">{stats[1].value}</strong>
                 <span className="home-stat-item-label">{stats[1].label}</span>
               </div>
               <div className="home-stat-item">
-                <strong className="home-stat-item-value">{stats[2].value}</strong>
+                <strong className="home-stat-item-value" dir="ltr">{stats[2].value}</strong>
                 <span className="home-stat-item-label">{stats[2].label}</span>
               </div>
             </div>

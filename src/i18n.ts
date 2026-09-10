@@ -74,6 +74,15 @@ export function formatNumber(value: number, locale: Locale): string {
   return new Intl.NumberFormat(localeWithLatinDigits(locale)).format(value);
 }
 
+export function formatApproximateCount(value: number, locale: Locale): string {
+  const count = Math.max(0, Math.floor(value));
+  if (count < 1000) {
+    const rounded = count === 0 ? 0 : Math.max(100, Math.floor(count / 100) * 100);
+    return `+${formatNumber(rounded, locale)}`;
+  }
+  return `+${formatNumber(Math.floor(count / 1000), locale)}K`;
+}
+
 export function formatDate(value: string, locale: Locale): string {
   return new Intl.DateTimeFormat(localeWithLatinDigits(locale), { dateStyle: "medium" }).format(new Date(`${value}T00:00:00Z`));
 }
