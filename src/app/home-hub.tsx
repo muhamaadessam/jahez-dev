@@ -63,6 +63,14 @@ export function HomeHub({ locale = "ar" }: { locale?: Locale }) {
           <span className="eyebrow">{copy.homeEyebrow}</span>
           <h1 id="home-title">{copy.homeTitle}</h1>
           <p className="lead">{copy.homeLead}</p>
+          <div className="actions">
+            <Link className="button primary" href={localizedHref(locale, "/session")}>
+              {copy.startReview}
+            </Link>
+            <Link className="button" href={localizedHref(locale, "/topics")}>
+              {copy.exploreTopics}
+            </Link>
+          </div>
         </div>
 
         <div
@@ -89,22 +97,22 @@ export function HomeHub({ locale = "ar" }: { locale?: Locale }) {
         </div>
 
         <div className="grid home-features-grid">
-          <div className="card feature-card">
+          <div className="card feature-card" data-feature-num="1">
             <div className="feature-icon" aria-hidden="true"><FeatureIcon name="book" /></div>
             <h3>{copy.feature1Title}</h3>
             <p>{copy.feature1Lead}</p>
           </div>
-          <div className="card feature-card">
+          <div className="card feature-card" data-feature-num="2">
             <div className="feature-icon" aria-hidden="true"><FeatureIcon name="target" /></div>
             <h3>{copy.feature2Title}</h3>
             <p>{copy.feature2Lead}</p>
           </div>
-          <div className="card feature-card">
+          <div className="card feature-card" data-feature-num="3">
             <div className="feature-icon" aria-hidden="true"><FeatureIcon name="review" /></div>
             <h3>{copy.feature3Title}</h3>
             <p>{copy.feature3Lead}</p>
           </div>
-          <div className="card feature-card">
+          <div className="card feature-card" data-feature-num="4">
             <div className="feature-icon" aria-hidden="true"><FeatureIcon name="progress" /></div>
             <h3>{copy.feature4Title}</h3>
             <p>{copy.feature4Lead}</p>

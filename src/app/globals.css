@@ -620,10 +620,10 @@ a {
 }
 
 .home-landing {
-  display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(320px, .9fr);
-  align-items: center;
-  gap: 34px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 54px;
   padding-block: 84px 64px;
 }
 
@@ -632,6 +632,7 @@ a {
 }
 
 .home-community-stats-wide {
+  width: 100%;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   max-width: none;
   margin-block-start: 0;
@@ -774,6 +775,10 @@ h3 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
   margin-block-start: 28px;
+}
+
+.home-community-stats.home-community-stats-wide {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .home-community-stat {
@@ -1243,10 +1248,26 @@ h3 {
 }
 
 .feature-card {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 12px;
   transition: transform 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
+  overflow: hidden;
+}
+
+.feature-card::after {
+  content: attr(data-feature-num);
+  position: absolute;
+  inset-block-start: -24px;
+  inset-inline-end: -16px;
+  font-size: 10rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--brand);
+  opacity: 0.03;
+  pointer-events: none;
+  user-select: none;
 }
 
 .feature-card:hover {
@@ -3557,7 +3578,7 @@ h3 {
     padding-block: 48px 40px;
   }
 
-  .home-community-stats-wide {
+  .home-community-stats.home-community-stats-wide {
     grid-template-columns: 1fr;
   }
 
