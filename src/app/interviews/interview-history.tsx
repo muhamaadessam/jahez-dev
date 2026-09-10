@@ -18,7 +18,7 @@ function InterviewStats({ interview, progress, locale }: { interview: SavedInter
   return <div className="interview-history-stats"><span>{copy.notStarted}: {formatNumber(counts["not-started"], locale)}</span><span>{copy.reviewing}: {formatNumber(counts.reviewing, locale)}</span><span>{copy.mastered}: {formatNumber(counts.mastered, locale)}</span></div>;
 }
 
-export function InterviewHistory({ locale = "ar" }: { locale?: Locale }) {
+export function InterviewHistory({ locale = "ar", embedded = false }: { locale?: Locale; embedded?: boolean }) {
   const copy = messages[locale];
   const [interviews, setInterviews] = useState<SavedInterview[]>([]);
   const [progress, setProgress] = useState<SavedQuestions>({});
@@ -34,10 +34,10 @@ export function InterviewHistory({ locale = "ar" }: { locale?: Locale }) {
     return () => { window.removeEventListener("study-state-merged", load); window.removeEventListener("study-state-change", load); };
   }, []);
 
-  return <section className="shell section interview-history-page">
-    <header className="page-header">
+  const content = <>
+    <header className={embedded ? "section-header interview-history-header" : "page-header"}>
       <span className="eyebrow">{copy.interviewsEyebrow}</span>
-      <h1>{copy.interviewsTitle}</h1>
+      {embedded ? <h2>{copy.interviewsTitle}</h2> : <h1>{copy.interviewsTitle}</h1>}
       <p>{copy.interviewsDescription}</p>
     </header>
     {interviews.length ? <div className="interview-history-list">
@@ -57,5 +57,7 @@ export function InterviewHistory({ locale = "ar" }: { locale?: Locale }) {
         </article>;
       })}
     </div> : <div className="empty-state"><h2>{copy.interviewsEmptyTitle}</h2><p>{copy.interviewsEmptyDescription}</p><Link className="button primary" href={localizedHref(locale, "/interview")}>{copy.startInterview}</Link></div>}
-  </section>;
+  </>;
+
+  return embedded ? <section className="interview-history-embedded">{content}</section> : <section className="shell section interview-history-page">{content}</section>;
 }

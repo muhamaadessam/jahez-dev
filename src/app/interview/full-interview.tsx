@@ -11,6 +11,7 @@ import { localizedHref, messages, topicName } from "../../i18n";
 import { scopeCatalogue } from "../../tracks/active-track";
 import { ActiveTrackRecovery, ActiveTrackSelector, useActiveTrack } from "../active-track";
 import { LoadingPlaceholder } from "../loading-placeholder";
+import { InterviewHistory } from "../interviews/interview-history";
 import { createInterview, findResumableInterview, getSavedInterviews, updateInterview, type SavedInterview } from "../../study/interviews";
 import { getSavedQuestions, type SavedQuestions } from "../../study/progress";
 
@@ -188,6 +189,7 @@ export function FullInterview({ questions, topics, locale = "ar" }: { questions:
         </div>}
         action={<>
           <button className="button primary interview-start-button" type="button" disabled={!selection.topicValues.length || !selection.difficulty || !preparedQuestions.length} onClick={startInterview}>{copy.startInterview}</button>
+          {!selection.topicValues.length || !selection.difficulty ? <span className="interview-start-hint">{copy.interviewSetupHint}</span> : !preparedQuestions.length ? <span className="interview-start-hint">{copy.interviewNoQuestionsHint}</span> : null}
           {selection.started && <span className="interview-status">{copy.question} {currentIndex + 1} {copy.of} {sessionQuestions.length}</span>}
         </>}
       />
@@ -222,6 +224,7 @@ export function FullInterview({ questions, topics, locale = "ar" }: { questions:
         </div>
       )}
       </>}
+      <InterviewHistory locale={locale} embedded />
     </section>
   );
 }
