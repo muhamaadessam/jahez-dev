@@ -183,7 +183,7 @@ export function ActiveTrackSelector({ locale, filterTitle, filterSummary, filter
               const selected = track.id === activeTrack.id;
               return <button className={`track-filter-option${selected ? " selected" : ""}`} type="button" key={track.id} aria-pressed={selected} onClick={() => { setActiveTrack(track.id); close(); }}>
                 <span className="track-filter-option-logo" aria-hidden="true"><TrackLogo trackId={track.id} size={28} /></span>
-                <span className="track-filter-option-copy"><strong dir="ltr">{track.name}</strong><small>{copy.activeTrack}</small></span>
+                <span className="track-filter-option-copy"><strong dir="ltr">{track.name}</strong></span>
                 <span className="track-filter-check" aria-hidden="true">{selected ? "✓" : ""}</span>
               </button>;
             })}

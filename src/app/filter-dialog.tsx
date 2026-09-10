@@ -54,7 +54,6 @@ export function FilterDialog({ locale, title, summary, activeCount, children, on
       <section className="filter-dialog" role="dialog" aria-modal="true" aria-labelledby={headingId} dir={locale === "ar" ? "rtl" : "ltr"}>
         <header className="filter-dialog-header">
           <div>
-            <span className="eyebrow">{copy.filters}</span>
             <h2 id={headingId} ref={heading} tabIndex={-1}>{title}</h2>
           </div>
           <button className="filter-dialog-close" type="button" onClick={close} aria-label={copy.close}>×</button>

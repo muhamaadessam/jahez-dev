@@ -112,7 +112,7 @@ export function FullInterview({ questions, topics, locale = "ar" }: { questions:
                 const selected = selection.topicValues.includes(topic.slug) || selection.topicValues.includes(topic.id);
                 return <label key={topic.id} className={`topic-option${selected ? " selected" : ""}`} dir="ltr">
                   <input className="sr-only" type="checkbox" checked={selected} onChange={(event) => toggleTopic(topic, event.target.checked)} />
-                  <span className="topic-option-copy"><strong>{topicName(locale, topic.id)}</strong><small>{copy.chooseTopics}</small></span>
+                  <span className="topic-option-copy"><strong>{topicName(locale, topic.id)}</strong></span>
                   <span className="topic-option-mark" aria-hidden="true">{selected ? "✓" : ""}</span>
                 </label>;
               })}
