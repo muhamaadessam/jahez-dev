@@ -11,8 +11,10 @@ import { localizedHref, messages, topicName } from "../../i18n";
 import { scopeCatalogue } from "../../tracks/active-track";
 import { ActiveTrackRecovery, ActiveTrackSelector, useActiveTrack } from "../active-track";
 import { LoadingPlaceholder } from "../loading-placeholder";
+import { createInterview, findResumableInterview, getSavedInterviews, updateInterview, type SavedInterview } from "../../study/interviews";
+import { getSavedQuestions, type SavedQuestions } from "../../study/progress";
 
-type InterviewSelection = { topicValues: string[]; difficulty: DifficultyLevel | ""; invalidTopics: boolean; started: boolean };
+type InterviewSelection = { topicValues: string[]; difficulty: DifficultyLevel | ""; invalidTopics: boolean; started: boolean; sessionId: string | null };
 
 function readSelection(search: string, availableTopics: Topic[]): InterviewSelection {
   const params = new URLSearchParams(search);
@@ -24,6 +26,7 @@ function readSelection(search: string, availableTopics: Topic[]): InterviewSelec
     difficulty: difficulty && difficultyOptions.includes(difficulty as DifficultyLevel) ? difficulty as DifficultyLevel : "",
     invalidTopics: values.length !== topicValues.length,
     started: params.get("started") === "1",
+    sessionId: params.get("session"),
   };
 }
 
@@ -32,6 +35,7 @@ function updateUrl(selection: InterviewSelection, track: string | null) {
   if (selection.topicValues.length) params.set("topics", selection.topicValues.join(","));
   if (selection.difficulty) params.set("difficulty", selection.difficulty);
   if (selection.started) params.set("started", "1");
+  if (selection.sessionId) params.set("session", selection.sessionId);
   if (track) params.set("track", track);
   const cleanPathname = window.location.pathname.replace(/\/+$/, "") || "/";
   const query = params.toString();
@@ -41,31 +45,62 @@ function updateUrl(selection: InterviewSelection, track: string | null) {
 
 export function FullInterview({ questions, topics, locale = "ar" }: { questions: InterviewQuestion[]; topics: Topic[]; locale?: Locale }) {
   const copy = messages[locale];
-  const [selection, setSelection] = useState<InterviewSelection>({ topicValues: [], difficulty: "", invalidTopics: false, started: false });
+  const [selection, setSelection] = useState<InterviewSelection>({ topicValues: [], difficulty: "", invalidTopics: false, started: false, sessionId: null });
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHydrated, setIsHydrated] = useState(false);
+  const [savedInterviews, setSavedInterviews] = useState<SavedInterview[]>([]);
+  const [savedQuestions, setSavedQuestions] = useState<SavedQuestions>({});
   const { phase, activeTrack, invalidTrack, trackOnlyHref } = useActiveTrack();
   const scoped = useMemo(() => activeTrack ? scopeCatalogue(activeTrack.id, null, topics, questions) : null, [activeTrack, questions, topics]);
+  const activeSession = selection.sessionId ? savedInterviews.find((interview) => interview.id === selection.sessionId) : undefined;
 
   useEffect(() => {
     function syncFromUrl() {
-      setSelection(readSelection(window.location.search, scoped?.topics ?? []));
-      setCurrentIndex(0);
+      const parsed = readSelection(window.location.search, scoped?.topics ?? []);
+      const stored = getSavedInterviews(localStorage);
+      const session = parsed.sessionId ? stored.find((interview) => interview.id === parsed.sessionId && interview.trackId === activeTrack?.id) : undefined;
+      setSavedInterviews(stored);
+      setSavedQuestions(getSavedQuestions(localStorage));
+      if (session) {
+        setSelection({ topicValues: session.topicSlugs, difficulty: session.difficulty, invalidTopics: false, started: true, sessionId: session.id });
+        setCurrentIndex(Math.min(session.currentIndex, Math.max(0, session.questionIds.length - 1)));
+      } else {
+        setSelection(parsed);
+        setCurrentIndex(0);
+      }
     }
     syncFromUrl();
     setIsHydrated(true);
     window.addEventListener("popstate", syncFromUrl);
     window.addEventListener("urlchange", syncFromUrl);
-    return () => { window.removeEventListener("popstate", syncFromUrl); window.removeEventListener("urlchange", syncFromUrl); };
-  }, [scoped]);
+    const refreshState = () => {
+      setSavedQuestions(getSavedQuestions(localStorage));
+      setSavedInterviews(getSavedInterviews(localStorage));
+    };
+    window.addEventListener("study-state-change", refreshState);
+    window.addEventListener("study-state-merged", refreshState);
+    return () => {
+      window.removeEventListener("popstate", syncFromUrl);
+      window.removeEventListener("urlchange", syncFromUrl);
+      window.removeEventListener("study-state-change", refreshState);
+      window.removeEventListener("study-state-merged", refreshState);
+    };
+  }, [activeTrack, scoped]);
 
-  const sessionQuestions = selection.topicValues.length && selection.difficulty
+  const preparedQuestions = selection.topicValues.length && selection.difficulty
     ? filterInterviewQuestions(scoped?.questions ?? [], selection.topicValues, selection.difficulty, scoped?.topics ?? [])
     : [];
+  const sessionQuestions = activeSession
+    ? activeSession.questionIds.map((id) => scoped?.questions.find((candidate) => candidate.id === id)).filter((candidate): candidate is InterviewQuestion => Boolean(candidate))
+    : preparedQuestions;
   const question = selection.started ? sessionQuestions[currentIndex] : undefined;
+  const sessionStats = sessionQuestions.reduce((result, candidate) => {
+    result[savedQuestions[candidate.id]?.progress ?? "not-started"] += 1;
+    return result;
+  }, { "not-started": 0, reviewing: 0, mastered: 0 });
 
   function updateSelection(update: Partial<InterviewSelection>) {
-    const next = { ...selection, ...update, invalidTopics: false, started: false };
+    const next = { ...selection, ...update, invalidTopics: false, started: false, sessionId: null };
     setSelection(next);
     setCurrentIndex(0);
     updateUrl(next, activeTrack?.slug ?? null);
@@ -73,10 +108,34 @@ export function FullInterview({ questions, topics, locale = "ar" }: { questions:
 
   function startInterview() {
     if (!selection.topicValues.length || !selection.difficulty) return;
-    const next = { ...selection, started: true };
+    const resumable = activeTrack ? findResumableInterview(savedInterviews, { trackId: activeTrack.id, topicSlugs: selection.topicValues, difficulty: selection.difficulty }) : undefined;
+    const session = resumable ?? (activeTrack ? createInterview(localStorage, {
+      trackId: activeTrack.id,
+      trackSlug: activeTrack.slug,
+      topicSlugs: selection.topicValues,
+      difficulty: selection.difficulty,
+      questionIds: preparedQuestions.map((candidate) => candidate.id),
+    }) : undefined);
+    if (!session) return;
+    const next = { ...selection, started: true, sessionId: session.id };
     setSelection(next);
-    setCurrentIndex(0);
+    setSavedInterviews(getSavedInterviews(localStorage));
+    setCurrentIndex(resumable?.currentIndex ?? 0);
     updateUrl(next, activeTrack?.slug ?? null);
+  }
+
+  function moveToQuestion(index: number) {
+    setCurrentIndex(index);
+    if (selection.sessionId) {
+      const updated = updateInterview(localStorage, selection.sessionId, { currentIndex: index });
+      if (updated) setSavedInterviews((current) => current.map((interview) => interview.id === updated.id ? updated : interview));
+    }
+  }
+
+  function completeInterview() {
+    if (!selection.sessionId) return;
+    const updated = updateInterview(localStorage, selection.sessionId, { currentIndex: Math.max(0, sessionQuestions.length - 1), completed: true });
+    if (updated) setSavedInterviews((current) => current.map((interview) => interview.id === updated.id ? updated : interview));
   }
 
   function toggleTopic(topic: Topic, checked: boolean) {
@@ -128,13 +187,17 @@ export function FullInterview({ questions, topics, locale = "ar" }: { questions:
           </label>
         </div>}
         action={<>
-          <button className="button primary interview-start-button" type="button" disabled={!selection.topicValues.length || !selection.difficulty} onClick={startInterview}>{copy.startInterview}</button>
+          <button className="button primary interview-start-button" type="button" disabled={!selection.topicValues.length || !selection.difficulty || !preparedQuestions.length} onClick={startInterview}>{copy.startInterview}</button>
           {selection.started && <span className="interview-status">{copy.question} {currentIndex + 1} {copy.of} {sessionQuestions.length}</span>}
         </>}
       />
 
       {question ? (
         <>
+          {activeSession && <div className="interview-session-summary" aria-live="polite">
+            <div><strong>{activeSession.completed ? copy.interviewDone : copy.interviewInProgress}</strong><span>{copy.interviewLastOpened}: {activeSession.updatedAt.slice(0, 10)}</span></div>
+            <div className="interview-session-stats"><span>{copy.notStarted}: {sessionStats["not-started"]}</span><span>{copy.reviewing}: {sessionStats.reviewing}</span><span>{copy.mastered}: {sessionStats.mastered}</span></div>
+          </div>}
           <div className="session-progress" aria-live="polite">{copy.question} {currentIndex + 1} {copy.of} {sessionQuestions.length}</div>
           <article className="question-body session-question">
             <div className="meta">
@@ -148,8 +211,8 @@ export function FullInterview({ questions, topics, locale = "ar" }: { questions:
             </div>
           </article>
           <nav className="session-navigation" aria-label={copy.interviewTitle}>
-            <button className="button" type="button" disabled={currentIndex === 0} onClick={() => setCurrentIndex((index) => index - 1)}>{copy.previous}</button>
-            <button className="button primary" type="button" disabled={currentIndex === sessionQuestions.length - 1} onClick={() => setCurrentIndex((index) => index + 1)}>{copy.next}</button>
+            <button className="button" type="button" disabled={currentIndex === 0} onClick={() => moveToQuestion(currentIndex - 1)}>{copy.previous}</button>
+            <button className="button primary" type="button" onClick={() => currentIndex === sessionQuestions.length - 1 ? completeInterview() : moveToQuestion(currentIndex + 1)}>{currentIndex === sessionQuestions.length - 1 ? copy.finishInterview : copy.next}</button>
           </nav>
         </>
       ) : (

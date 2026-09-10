@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { localizedHref, type Locale } from "../i18n.ts";
 import { ogImagePath, siteName } from "./site-config.ts";
 
-const noIndexPaths = new Set(["/moderator", "/my-tracks", "/progress", "/submissions"]);
+const noIndexPaths = new Set(["/interviews", "/moderator", "/my-tracks", "/progress", "/submissions"]);
 
 export function localizedMetadata(locale: Locale, path: string, title: string, description: string): Metadata {
   const canonical = localizedHref(locale, path);
