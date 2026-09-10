@@ -94,14 +94,16 @@ function QuestionControlsContent({ questionId, locale = "ar", auth, clerkEnabled
           </label>
         ))}
       </fieldset>
-      <label className="favorite-control">
-        <input
-          type="checkbox"
-          checked={questionState.favorite}
-          onChange={(event) => update({ favorite: event.target.checked })}
-        />
-        {messages[locale].favorite}
-      </label>
+      <button
+        className={`favorite-button${questionState.favorite ? " is-favorite" : ""}`}
+        type="button"
+        aria-pressed={questionState.favorite}
+        aria-label={questionState.favorite ? messages[locale].removeFavorite : messages[locale].favorite}
+        title={questionState.favorite ? messages[locale].removeFavorite : messages[locale].favorite}
+        onClick={() => update({ favorite: !questionState.favorite })}
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.8 8.7c0 5.1-8.8 10.1-8.8 10.1S3.2 13.8 3.2 8.7A4.7 4.7 0 0 1 12 6.2a4.7 4.7 0 0 1 8.8 2.5Z" /></svg>
+      </button>
       {askedAvailable ? <div className="asked-marker" aria-live="polite">
         <div className="asked-marker-summary"><span>{messages[locale].interviewFrequency}: {askedLoading ? "…" : formatNumber(asked.interviewFrequency, locale)}</span>{isSignedIn ? <span>{messages[locale].askedMarker}: {askedLoading ? "…" : formatNumber(asked.personalCount ?? 0, locale)}</span> : null}</div>
         {isSignedIn ? <div className="asked-marker-actions"><button className="button icon-control" type="button" onClick={() => void changeAsked(-1)} disabled={askedBusy || askedLoading || !asked.personalCount} aria-label={`${messages[locale].decreaseAsked} (${asked.personalCount ?? 0})`}>−</button><button className="button icon-control" type="button" onClick={() => void changeAsked(1)} disabled={askedBusy || askedLoading} aria-label={`${messages[locale].increaseAsked} (${asked.personalCount ?? 0})`}>+</button></div> : clerkEnabled ? <AuthDialogTrigger locale={locale} className="text-link">{messages[locale].signInToMarkAsked}</AuthDialogTrigger> : null}

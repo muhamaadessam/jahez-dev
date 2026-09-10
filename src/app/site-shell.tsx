@@ -14,7 +14,7 @@ import { ModeratorNavLink } from "./moderator-nav-link";
 import { useActiveTrack } from "./active-track";
 
 const cataloguePaths = [["topics", "/topics"], ["questions", "/questions"], ["interview", "/interview"]] as const;
-const activityPaths = [["progress", "/progress"], ["submit", "/submissions"]] as const;
+const activityPaths = [["interviews", "/interviews"], ["progress", "/progress"], ["submit", "/submissions"]] as const;
 const genericPaths = ["/privacy", "/terms", "/sign-in", "/sign-up", "/auth"] as const;
 
 function unprefixedPath(pathname: string): string {
