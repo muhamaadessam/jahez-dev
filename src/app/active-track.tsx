@@ -11,6 +11,7 @@ import { resolveActiveTrack, withTrack } from "../tracks/active-track";
 import { loadPublicTracks, loadTrackPreferences, type TrackPreferenceState } from "../tracks/preferences";
 import { LoadingPlaceholder } from "./loading-placeholder";
 import { TrackLogo } from "./track-logos";
+import { FilterDialog } from "./filter-dialog";
 
 type Phase = "loading" | "ready" | "error";
 type ActiveTrackValue = {
@@ -131,6 +132,7 @@ function ActiveTrackProvider({ children, authenticated, loading = false, userId,
     params.set("track", track.slug);
     params.delete("topic");
     params.delete("topics");
+    params.delete("started");
     const cleanPathname = window.location.pathname.replace(/\/+$/, "") || "/";
     window.history.replaceState(null, "", `${cleanPathname}?${params}`);
     window.dispatchEvent(new Event("urlchange"));
@@ -164,22 +166,18 @@ export function ActiveTrackSelector({ locale }: { locale: Locale }) {
   if (invalidTrack) return <ActiveTrackRecovery locale={locale} />;
   if (!activeTrack) return <div className="empty-state"><h2>{copy.emptyTrackTitle}</h2><p>{copy.emptyTrackDescription}</p>{authenticated && <Link className="button" href={localizedHref(locale, "/my-tracks")}>{copy.manageTrackPreferences}</Link>}</div>;
   return <div className="active-track-selector">
-    <div className="active-track-selector-control">
-      <span className="active-track-selector-logo" aria-hidden="true">
-        <TrackLogo trackId={activeTrack.id} size={22} />
-      </span>
-      <label>
-        {copy.activeTrack}
-        <div className="active-track-selector-select-wrap">
-          <select value={activeTrack.id} onChange={(event) => setActiveTrack(event.target.value)}>
-            {selectableTracks.map((track) => <option key={track.id} value={track.id}>{track.name}</option>)}
-          </select>
-          <svg className="active-track-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" aria-hidden="true">
-            <path d="M6 8l4 4 4-4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </div>
-      </label>
-    </div>
+    <FilterDialog locale={locale} title={copy.activeTrack} summary={activeTrack.name} activeCount={1}>
+      {({ close }) => <div className="track-filter-options">
+        {selectableTracks.map((track) => {
+          const selected = track.id === activeTrack.id;
+          return <button className={`track-filter-option${selected ? " selected" : ""}`} type="button" key={track.id} aria-pressed={selected} onClick={() => { setActiveTrack(track.id); close(); }}>
+            <span className="track-filter-option-logo" aria-hidden="true"><TrackLogo trackId={track.id} size={28} /></span>
+            <span className="track-filter-option-copy"><strong dir="ltr">{track.name}</strong><small>{copy.activeTrack}</small></span>
+            <span className="track-filter-check" aria-hidden="true">{selected ? "✓" : ""}</span>
+          </button>;
+        })}
+      </div>}
+    </FilterDialog>
     {authenticated && <Link className="text-link" href={localizedHref(locale, "/my-tracks")}>{copy.manageTrackPreferences}</Link>}
   </div>;
 }

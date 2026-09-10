@@ -37,7 +37,7 @@ test("mobile drawer contains contextual links, traps focus, and closes with Esca
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/en/topics?track=flutter&topic=dart");
 
-  await expect(page.getByLabel("Active Track")).toBeVisible();
+  await expect(page.locator(".active-track-selector .filter-trigger")).toBeVisible();
   await expect(page.getByRole("heading", { name: "Dart" })).toBeVisible();
   await expect(page.getByText(/questions currently available for review/).first()).toBeVisible();
   const trigger = page.getByRole("button", { name: "Menu" });
