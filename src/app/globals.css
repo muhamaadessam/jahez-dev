@@ -328,6 +328,34 @@
   }
 }
 
+/* 10. Python (Signature Python Blue) */
+:root:not([data-theme="dark"])[data-track="python"],
+:root[data-track="python"] {
+  --brand: #306998;
+  --brand-strong: #1e4b75;
+  --surface-soft: #f0f7fc;
+  --on-brand: #ffffff;
+  --track-glow: rgb(48 105 152 / 16%);
+}
+
+:root[data-theme="dark"][data-track="python"] {
+  --brand: #4b8bbe;
+  --brand-strong: #69a7dc;
+  --surface-soft: #0e1e2f;
+  --on-brand: #031020;
+  --track-glow: rgb(75 139 190 / 22%);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme])[data-track="python"] {
+    --brand: #4b8bbe;
+    --brand-strong: #69a7dc;
+    --surface-soft: #0e1e2f;
+    --on-brand: #031020;
+    --track-glow: rgb(75 139 190 / 22%);
+  }
+}
+
 /* ==========================================================================
    Base Elements & Ambient Background
    ========================================================================== */

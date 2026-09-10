@@ -16,6 +16,7 @@ const TRACK_LOGOS: Record<string, { src: string; label: string }> = {
   "react-native": { src: "/tracks/react-native.svg", label: "React Native" },
   fundamentals: { src: "/tracks/fundamentals.svg", label: "Software Fundamentals" },
   "ui-ux": { src: "/tracks/ui-ux.svg", label: "UI / UX Design" },
+  python: { src: "/tracks/python.svg", label: "Python" },
 };
 
 export function TrackLogo({ trackId, size = 32, className = "" }: TrackLogoProps): ReactElement {
