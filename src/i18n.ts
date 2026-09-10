@@ -74,17 +74,15 @@ export function formatNumber(value: number, locale: Locale): string {
   return new Intl.NumberFormat(localeWithLatinDigits(locale)).format(value);
 }
 
-const approximateCountTiers = [
-  [1, 1, ""], [5, 5, ""], [10, 10, ""], [50, 50, ""], [100, 100, ""], [500, 500, ""],
-  [1_000, 1, "K"], [5_000, 5, "K"], [10_000, 10, "K"], [50_000, 50, "K"], [100_000, 100, "K"], [500_000, 500, "K"],
-  [1_000_000, 1, "M"], [5_000_000, 5, "M"], [10_000_000, 10, "M"], [50_000_000, 50, "M"], [100_000_000, 100, "M"], [500_000_000, 500, "M"],
-  [1_000_000_000, 1, "B"], [5_000_000_000, 5, "B"], [10_000_000_000, 10, "B"],
-] as const;
-
 export function formatApproximateCount(value: number, locale: Locale): string {
   const count = Math.max(0, Math.floor(value));
-  const tier = [...approximateCountTiers].reverse().find(([minimum]) => count >= minimum);
-  return tier ? `+${formatNumber(tier[1], locale)}${tier[2]}` : `+${formatNumber(0, locale)}`;
+  if (count < 1000) {
+    const rounded = count === 0 ? 0 : Math.max(100, Math.floor(count / 100) * 100);
+    return `+${formatNumber(rounded, locale)}`;
+  }
+  if (count < 1_000_000) return `+${formatNumber(Math.floor(count / 1_000), locale)}K`;
+  if (count < 1_000_000_000) return `+${formatNumber(Math.floor(count / 1_000_000), locale)}M`;
+  return `+${formatNumber(Math.floor(count / 1_000_000_000), locale)}B`;
 }
 
 export function formatDate(value: string, locale: Locale): string {

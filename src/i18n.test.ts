@@ -3,12 +3,13 @@ import test from "node:test";
 
 import { formatApproximateCount } from "./i18n.ts";
 
-test("formatApproximateCount uses Google Play-style thresholds", () => {
-  assert.equal(formatApproximateCount(4, "en"), "+1");
-  assert.equal(formatApproximateCount(5, "en"), "+5");
+test("formatApproximateCount rounds hundreds, then floors unit counts", () => {
   assert.equal(formatApproximateCount(116, "ar"), "+100");
-  assert.equal(formatApproximateCount(910, "en"), "+500");
+  assert.equal(formatApproximateCount(910, "en"), "+900");
   assert.equal(formatApproximateCount(1_000, "en"), "+1K");
-  assert.equal(formatApproximateCount(4_900, "ar"), "+1K");
+  assert.equal(formatApproximateCount(2_100, "ar"), "+2K");
+  assert.equal(formatApproximateCount(21_500, "en"), "+21K");
+  assert.equal(formatApproximateCount(999_999, "en"), "+999K");
   assert.equal(formatApproximateCount(1_000_000, "en"), "+1M");
+  assert.equal(formatApproximateCount(2_100_000_000, "en"), "+2B");
 });
