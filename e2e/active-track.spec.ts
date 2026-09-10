@@ -30,7 +30,7 @@ test("anonymous Track catalogue can be served by the Node migration route", asyn
     await route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ tracks: [{ id: "backend", slug: "backend", name: "Backend" }] }) });
   });
   await page.goto("/en/topics");
-  await expect(page.locator(".active-track-selector .filter-trigger-summary")).toHaveText("Backend");
+  await expect(page.locator(".active-track-selector .filter-trigger-summary")).toContainText("Backend");
   expect(nodeRequests).toBeGreaterThan(0);
 });
 
@@ -56,7 +56,7 @@ test("anonymous browsing exposes active Tracks and keeps a temporary Track in sh
   const preferenceWrites: string[] = [];
   page.on("request", (request) => { if (request.url().includes("set_track_preferences")) preferenceWrites.push(request.url()); });
   await page.goto("/en/topics");
-  await expect(page.locator(".active-track-selector .filter-trigger-summary")).toHaveText("Flutter");
+  await expect(page.locator(".active-track-selector .filter-trigger-summary")).toContainText("Flutter");
   await selectTrack(page, "Backend");
   await expect(page).toHaveURL(/\/topics\?track=backend$/);
   await expect(page.getByRole("heading", { name: "This Track has no content yet" })).toBeVisible();
@@ -90,7 +90,7 @@ test("progress lets learners switch the active Track in place", async ({ page })
 test("authenticated catalogue exposes only active Track Preferences", async ({ page }) => {
   await authenticate(page, [{ trackId: "backend", isDefault: true }]);
   await page.goto("/en/questions");
-  await expect(page.locator(".active-track-selector .filter-trigger-summary")).toHaveText("Backend");
+  await expect(page.locator(".active-track-selector .filter-trigger-summary")).toContainText("Backend");
   await page.locator(".active-track-selector .filter-trigger").click();
   await expect(page.getByRole("dialog").locator(".track-filter-option")).toHaveCount(1);
   await expect(page.getByRole("heading", { name: "This Track has no content yet" })).toBeVisible();
@@ -103,7 +103,7 @@ test("valid URL Track wins over Account Default Track and invalid Topic context 
     { trackId: "backend", isDefault: true },
   ]);
   await page.goto("/en/questions?track=flutter&topic=dart");
-  await expect(page.locator(".active-track-selector .filter-trigger-summary")).toHaveText("Flutter");
+  await expect(page.locator(".active-track-selector .filter-trigger-summary")).toContainText("Flutter");
   await expect(page.getByText("What should a Flutter developer know about Final Vs Const In Dart?")).toBeVisible();
 
   await page.goto("/en/questions?track=flutter&topic=api");
@@ -121,7 +121,7 @@ test("Study Session stays within one Topic and Full Interview includes multiple 
 
   await page.goto("/en/interview?track=flutter&topics=dart,widgets&difficulty=Senior&started=1");
   await expect(page.locator(".session-progress")).toHaveText(/Question 1 of \d+/);
-  await page.locator(".interview-builder .filter-trigger").click();
+  await page.locator(".active-track-selector .filter-trigger").click();
   const interviewDialog = page.getByRole("dialog");
   await expect(interviewDialog.getByLabel("Dart")).toBeChecked();
   await expect(interviewDialog.getByLabel("Widgets")).toBeChecked();

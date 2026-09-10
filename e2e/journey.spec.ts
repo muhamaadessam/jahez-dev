@@ -86,9 +86,9 @@ test.describe("Discovery, study session, and progress journey", () => {
     // Navigate to Study Session
     await page.goto("/session?topic=dart&difficulty=Junior");
     await expect(page.getByRole("heading", { name: "جلسة مراجعة" })).toBeVisible();
-    await page.locator(".session-filters .filter-trigger").click();
+    await page.locator(".active-track-selector .filter-trigger").click();
     await page.getByRole("button", { name: "حفظ الاختيارات" }).click();
-    await page.locator(".session-filters .button.primary").click();
+    await page.locator(".active-track-selector-actions .button.primary").click();
     await expect(page).toHaveURL(/started=1/);
     await expect(page.getByText(/سؤال 1 من \d+/)).toBeVisible();
     const firstSessionQuestion = page.getByRole("heading", { level: 2 });
@@ -114,7 +114,7 @@ test.describe("Discovery, study session, and progress journey", () => {
     // 6. Full interview: multiple topics and inclusive difficulty
     await page.goto("/interview");
     await expect(page.getByRole("heading", { name: "ابنِ انترفيو شامل" })).toBeVisible();
-    await page.locator(".interview-builder .filter-trigger").click();
+    await page.locator(".active-track-selector .filter-trigger").click();
     const interviewDialog = page.getByRole("dialog");
     await interviewDialog.locator(".topic-option").filter({ hasText: "Dart" }).click();
     await interviewDialog.locator(".topic-option").filter({ hasText: "Widgets" }).click();

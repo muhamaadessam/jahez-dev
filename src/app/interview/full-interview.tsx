@@ -10,7 +10,6 @@ import { AnswerDisclosure, QuestionControls } from "../question-controls";
 import { localizedHref, messages, topicName } from "../../i18n";
 import { scopeCatalogue } from "../../tracks/active-track";
 import { ActiveTrackRecovery, ActiveTrackSelector, useActiveTrack } from "../active-track";
-import { FilterDialog } from "../filter-dialog";
 import { LoadingPlaceholder } from "../loading-placeholder";
 
 type InterviewSelection = { topicValues: string[]; difficulty: DifficultyLevel | ""; invalidTopics: boolean; started: boolean };
@@ -98,44 +97,41 @@ export function FullInterview({ questions, topics, locale = "ar" }: { questions:
         <p>{copy.interviewDescription}</p>
       </header>
 
-      <ActiveTrackSelector locale={locale} />
       {phase !== "ready" || invalidTrack || !activeTrack ? null : selection.invalidTopics ? <ActiveTrackRecovery locale={locale} invalidTopic /> : !scoped?.topics.length ? <div className="empty-state"><h2>{copy.emptyTrackTitle}</h2><p>{copy.emptyTrackDescription}</p></div> : <>
-
-      <div className="interview-builder">
-        <FilterDialog
-          locale={locale}
-          title={copy.interviewTitle}
-          summary={selection.topicValues.length ? `${selection.topicValues.length} ${copy.selected}${selection.difficulty ? ` · ${selection.difficulty}` : ""}` : copy.chooseTopics}
-          activeCount={selection.topicValues.length + (selection.difficulty ? 1 : 0)}
-          onClear={() => updateSelection({ topicValues: [], difficulty: "" })}
-        >
-          {() => <div className="filter-dialog-fields interview-filter-fields">
-            <fieldset className="topic-picker">
-              <legend>{copy.chooseTopics} <span className="topic-count">{selection.topicValues.length} {copy.selected}</span></legend>
-              <div className="topic-options">
-                {scoped.topics.map((topic) => {
-                  const selected = selection.topicValues.includes(topic.slug) || selection.topicValues.includes(topic.id);
-                  return <label key={topic.id} className={`topic-option${selected ? " selected" : ""}`} dir="ltr">
-                    <input className="sr-only" type="checkbox" checked={selected} onChange={(event) => toggleTopic(topic, event.target.checked)} />
-                    <span className="topic-option-copy"><strong>{topicName(locale, topic.id)}</strong><small>{copy.chooseTopics}</small></span>
-                    <span className="topic-option-mark" aria-hidden="true">{selected ? "✓" : ""}</span>
-                  </label>;
-                })}
-              </div>
-            </fieldset>
-            <label className="interview-level">
-              {copy.interviewLevel}
-              <select value={selection.difficulty} onChange={(event) => updateSelection({ difficulty: event.target.value as InterviewSelection["difficulty"] })}>
-                <option value="">{copy.chooseDifficulty}</option>
-                {difficultyOptions.map((difficulty) => <option key={difficulty} value={difficulty}>{difficulty}</option>)}
-              </select>
-              <span className="filter-hint">{copy.inclusiveHint}</span>
-            </label>
-          </div>}
-        </FilterDialog>
-        <button className="button primary interview-start-button" type="button" disabled={!selection.topicValues.length || !selection.difficulty} onClick={startInterview}>{copy.startInterview}</button>
-        {selection.started && <span className="interview-status">{copy.question} {currentIndex + 1} {copy.of} {sessionQuestions.length}</span>}
-      </div>
+      <ActiveTrackSelector
+        locale={locale}
+        filterTitle={copy.interviewTitle}
+        filterSummary={`${activeTrack?.name ?? ""} · ${selection.topicValues.length ? `${selection.topicValues.length} ${copy.selected}${selection.difficulty ? ` · ${selection.difficulty}` : ""}` : copy.chooseTopics}`}
+        filterActiveCount={selection.topicValues.length + (selection.difficulty ? 1 : 0)}
+        onClear={() => updateSelection({ topicValues: [], difficulty: "" })}
+        filterContent={() => <div className="filter-dialog-fields interview-filter-fields">
+          <fieldset className="topic-picker">
+            <legend>{copy.chooseTopics} <span className="topic-count">{selection.topicValues.length} {copy.selected}</span></legend>
+            <div className="topic-options">
+              {scoped.topics.map((topic) => {
+                const selected = selection.topicValues.includes(topic.slug) || selection.topicValues.includes(topic.id);
+                return <label key={topic.id} className={`topic-option${selected ? " selected" : ""}`} dir="ltr">
+                  <input className="sr-only" type="checkbox" checked={selected} onChange={(event) => toggleTopic(topic, event.target.checked)} />
+                  <span className="topic-option-copy"><strong>{topicName(locale, topic.id)}</strong><small>{copy.chooseTopics}</small></span>
+                  <span className="topic-option-mark" aria-hidden="true">{selected ? "✓" : ""}</span>
+                </label>;
+              })}
+            </div>
+          </fieldset>
+          <label className="interview-level">
+            {copy.interviewLevel}
+            <select value={selection.difficulty} onChange={(event) => updateSelection({ difficulty: event.target.value as InterviewSelection["difficulty"] })}>
+              <option value="">{copy.chooseDifficulty}</option>
+              {difficultyOptions.map((difficulty) => <option key={difficulty} value={difficulty}>{difficulty}</option>)}
+            </select>
+            <span className="filter-hint">{copy.inclusiveHint}</span>
+          </label>
+        </div>}
+        action={<>
+          <button className="button primary interview-start-button" type="button" disabled={!selection.topicValues.length || !selection.difficulty} onClick={startInterview}>{copy.startInterview}</button>
+          {selection.started && <span className="interview-status">{copy.question} {currentIndex + 1} {copy.of} {sessionQuestions.length}</span>}
+        </>}
+      />
 
       {question ? (
         <>

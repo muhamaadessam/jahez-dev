@@ -10,7 +10,6 @@ import { AnswerDisclosure, QuestionControls } from "../question-controls";
 import { localizedHref, messages, topicName } from "../../i18n";
 import { scopeCatalogue } from "../../tracks/active-track";
 import { ActiveTrackRecovery, ActiveTrackSelector, useActiveTrack } from "../active-track";
-import { FilterDialog } from "../filter-dialog";
 import { LoadingPlaceholder } from "../loading-placeholder";
 
 type SessionSelection = { topic: string; difficulty: DifficultyLevel | ""; started: boolean };
@@ -83,30 +82,31 @@ export function StudySession({ questions, topics, locale = "ar" }: { questions: 
         <p>{copy.sessionDescription}</p>
       </header>
 
-      <ActiveTrackSelector locale={locale} />
       {phase !== "ready" || invalidTrack || !activeTrack ? null : scoped?.invalidTopic ? <ActiveTrackRecovery locale={locale} invalidTopic /> : !scoped?.topics.length ? <div className="empty-state"><h2>{copy.emptyTrackTitle}</h2><p>{copy.emptyTrackDescription}</p></div> : <>
-
-      <div className="session-filters">
-        <FilterDialog locale={locale} title={copy.sessionTitle} summary={selection.topic && selection.difficulty ? `${topicName(locale, selectedTopic?.id ?? selection.topic)} · ${selection.difficulty}` : copy.chooseTopic} activeCount={(selection.topic ? 1 : 0) + (selection.difficulty ? 1 : 0)} onClear={() => updateSelection({ topic: "", difficulty: "" })}>
-          {() => <div className="filter-dialog-fields">
-            <label>
-              {copy.topic}
-              <select value={selection.topic} onChange={(event) => updateSelection({ topic: event.target.value })}>
-                <option value="">{copy.chooseTopic}</option>
-                {scoped.topics.map((topic) => <option key={topic.id} value={topic.slug} dir="ltr">{topicName(locale, topic.id)}</option>)}
-              </select>
-            </label>
-            <label>
-              {copy.difficulty}
-              <select value={selection.difficulty} onChange={(event) => updateSelection({ difficulty: event.target.value as SessionSelection["difficulty"] })}>
-                <option value="">{copy.chooseDifficulty}</option>
-                {difficultyOptions.map((difficulty) => <option key={difficulty} value={difficulty}>{difficulty}</option>)}
-              </select>
-            </label>
-          </div>}
-        </FilterDialog>
-        <button className="button primary" type="button" disabled={!selection.topic || !selection.difficulty} onClick={startSession}>{copy.startStudy}</button>
-      </div>
+      <ActiveTrackSelector
+        locale={locale}
+        filterTitle={copy.sessionTitle}
+        filterSummary={`${activeTrack?.name ?? ""} · ${selection.topic && selection.difficulty ? `${topicName(locale, selectedTopic?.id ?? selection.topic)} · ${selection.difficulty}` : copy.chooseTopic}`}
+        filterActiveCount={(selection.topic ? 1 : 0) + (selection.difficulty ? 1 : 0)}
+        onClear={() => updateSelection({ topic: "", difficulty: "" })}
+        filterContent={() => <div className="filter-dialog-fields">
+          <label>
+            {copy.topic}
+            <select value={selection.topic} onChange={(event) => updateSelection({ topic: event.target.value })}>
+              <option value="">{copy.chooseTopic}</option>
+              {scoped.topics.map((topic) => <option key={topic.id} value={topic.slug} dir="ltr">{topicName(locale, topic.id)}</option>)}
+            </select>
+          </label>
+          <label>
+            {copy.difficulty}
+            <select value={selection.difficulty} onChange={(event) => updateSelection({ difficulty: event.target.value as SessionSelection["difficulty"] })}>
+              <option value="">{copy.chooseDifficulty}</option>
+              {difficultyOptions.map((difficulty) => <option key={difficulty} value={difficulty}>{difficulty}</option>)}
+            </select>
+          </label>
+        </div>}
+        action={<button className="button primary" type="button" disabled={!selection.topic || !selection.difficulty} onClick={startSession}>{copy.startStudy}</button>}
+      />
 
       {question ? (
         <>

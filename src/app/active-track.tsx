@@ -158,7 +158,15 @@ export function useActiveTrack(): ActiveTrackValue {
   return value;
 }
 
-export function ActiveTrackSelector({ locale }: { locale: Locale }) {
+export function ActiveTrackSelector({ locale, filterTitle, filterSummary, filterActiveCount = 0, onClear, filterContent, action }: {
+  locale: Locale;
+  filterTitle?: string;
+  filterSummary?: string;
+  filterActiveCount?: number;
+  onClear?: () => void;
+  filterContent?: (controls: { close: () => void }) => ReactNode;
+  action?: ReactNode;
+}) {
   const { phase, authenticated, activeTrack, selectableTracks, invalidTrack, setActiveTrack, retry } = useActiveTrack();
   const copy = messages[locale];
   if (phase === "loading") return <LoadingPlaceholder variant="track" />;
@@ -166,19 +174,28 @@ export function ActiveTrackSelector({ locale }: { locale: Locale }) {
   if (invalidTrack) return <ActiveTrackRecovery locale={locale} />;
   if (!activeTrack) return <div className="empty-state"><h2>{copy.emptyTrackTitle}</h2><p>{copy.emptyTrackDescription}</p>{authenticated && <Link className="button" href={localizedHref(locale, "/my-tracks")}>{copy.manageTrackPreferences}</Link>}</div>;
   return <div className="active-track-selector">
-    <FilterDialog locale={locale} title={copy.activeTrack} summary={activeTrack.name} activeCount={1}>
-      {({ close }) => <div className="track-filter-options">
-        {selectableTracks.map((track) => {
-          const selected = track.id === activeTrack.id;
-          return <button className={`track-filter-option${selected ? " selected" : ""}`} type="button" key={track.id} aria-pressed={selected} onClick={() => { setActiveTrack(track.id); close(); }}>
-            <span className="track-filter-option-logo" aria-hidden="true"><TrackLogo trackId={track.id} size={28} /></span>
-            <span className="track-filter-option-copy"><strong dir="ltr">{track.name}</strong><small>{copy.activeTrack}</small></span>
-            <span className="track-filter-check" aria-hidden="true">{selected ? "✓" : ""}</span>
-          </button>;
-        })}
-      </div>}
+    <FilterDialog locale={locale} title={filterTitle ?? copy.activeTrack} summary={filterSummary ?? activeTrack.name} activeCount={1 + filterActiveCount} onClear={onClear}>
+      {({ close }) => <>
+        <section className="filter-dialog-section track-filter-section">
+          <div className="filter-dialog-section-heading"><span>{copy.activeTrack}</span><strong dir="ltr">{activeTrack.name}</strong></div>
+          <div className="track-filter-options">
+            {selectableTracks.map((track) => {
+              const selected = track.id === activeTrack.id;
+              return <button className={`track-filter-option${selected ? " selected" : ""}`} type="button" key={track.id} aria-pressed={selected} onClick={() => { setActiveTrack(track.id); close(); }}>
+                <span className="track-filter-option-logo" aria-hidden="true"><TrackLogo trackId={track.id} size={28} /></span>
+                <span className="track-filter-option-copy"><strong dir="ltr">{track.name}</strong><small>{copy.activeTrack}</small></span>
+                <span className="track-filter-check" aria-hidden="true">{selected ? "✓" : ""}</span>
+              </button>;
+            })}
+          </div>
+        </section>
+        {filterContent?.({ close })}
+      </>}
     </FilterDialog>
-    {authenticated && <Link className="text-link" href={localizedHref(locale, "/my-tracks")}>{copy.manageTrackPreferences}</Link>}
+    {(authenticated || action) && <div className="active-track-selector-actions">
+      {authenticated && <Link className="text-link" href={localizedHref(locale, "/my-tracks")}>{copy.manageTrackPreferences}</Link>}
+      {action}
+    </div>}
   </div>;
 }
 

@@ -1414,6 +1414,20 @@ h3 {
   transition: background-color 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
 }
 
+.active-track-selector-actions {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-inline-start: auto;
+  flex-wrap: wrap;
+}
+
+.active-track-selector-actions .interview-status {
+  white-space: nowrap;
+}
+
 .filter-trigger {
   display: inline-flex;
   min-width: min(100%, 280px);
@@ -1713,6 +1727,28 @@ h3 {
   padding: 24px;
 }
 
+.filter-dialog-section {
+  display: grid;
+  gap: 12px;
+  margin-block-end: 22px;
+  padding-block-end: 22px;
+  border-block-end: 1px solid var(--border);
+}
+
+.filter-dialog-section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  color: var(--muted);
+  font-size: .9rem;
+  font-weight: 800;
+}
+
+.filter-dialog-section-heading strong {
+  color: var(--brand-strong);
+}
+
 .filter-dialog-fields {
   display: grid;
   gap: 16px;
@@ -2004,14 +2040,6 @@ h3 {
    Interview Simulator & Topics Picker
    ========================================================================== */
 
-.interview-builder {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  align-items: center;
-  margin-block-end: 28px;
-}
-
 .interview-start-button {
   min-width: 170px;
 }
@@ -2024,31 +2052,6 @@ h3 {
 
 .interview-page .page-header {
   padding-block-start: 44px;
-}
-
-.interview-builder>label {
-  display: grid;
-  gap: 6px;
-  align-self: start;
-  min-height: auto;
-  padding: 18px;
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  background: var(--surface);
-  color: var(--muted);
-  font-weight: 800;
-  box-shadow: var(--shadow-sm);
-}
-
-.interview-builder select {
-  width: 100%;
-  min-height: 44px;
-  padding-inline: 12px;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  background: var(--surface);
-  color: var(--text);
-  font: inherit;
 }
 
 .topic-picker {
@@ -2154,14 +2157,6 @@ h3 {
   border-color: var(--brand);
   background: var(--brand);
   color: var(--on-brand);
-}
-
-.session-filters {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 12px;
 }
 
 .session-progress {
@@ -3846,18 +3841,18 @@ h3 {
     grid-template-columns: 1fr;
   }
 
-  .interview-builder {
-    align-items: stretch;
-    flex-direction: column;
+  .active-track-selector-actions {
+    width: 100%;
+    justify-content: stretch;
   }
 
-  .interview-builder .filter-trigger,
-  .interview-start-button {
+  .active-track-selector-actions>.button,
+  .active-track-selector-actions .interview-start-button {
     width: 100%;
   }
 
-  .interview-status {
-    align-self: flex-start;
+  .active-track-selector-actions .interview-status {
+    width: 100%;
   }
 
   .topic-options {
