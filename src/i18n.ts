@@ -77,7 +77,7 @@ export function formatNumber(value: number, locale: Locale): string {
 export function formatApproximateCount(value: number, locale: Locale): string {
   const count = Math.max(0, Math.floor(value));
   if (count < 1000) {
-    const rounded = count === 0 ? 0 : Math.max(100, Math.floor(count / 100) * 100);
+    const rounded = count >= 500 ? 500 : count >= 100 ? 100 : count >= 50 ? 50 : count >= 10 ? 10 : count >= 5 ? 5 : count === 0 ? 0 : 1;
     return `+${formatNumber(rounded, locale)}`;
   }
   if (count < 1_000_000) return `+${formatNumber(Math.floor(count / 1_000), locale)}K`;
