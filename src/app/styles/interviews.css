@@ -625,11 +625,21 @@
 }
 
 .interview-history-header {
-  margin-block-end: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  margin-block-end: 18px;
 }
 
+.interview-history-header h1,
 .interview-history-header h2 {
   margin: 0;
+}
+
+.interview-history-header p {
+  margin: 0;
+  color: var(--muted);
 }
 
 .interview-history-filter-bar {
@@ -743,8 +753,16 @@
 
 .interview-history-list {
   display: grid;
-  gap: 14px;
-  max-width: 900px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  width: 100%;
+}
+
+@media (max-width: 900px) {
+  .interview-history-list {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
 }
 
 .interview-history-item {
