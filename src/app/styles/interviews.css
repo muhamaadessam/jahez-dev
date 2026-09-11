@@ -116,6 +116,7 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 8px;
   margin-top: 4px;
+  direction: ltr;
 }
 
 .topic-option {
@@ -131,6 +132,8 @@
   background: var(--surface-soft);
   color: var(--text);
   cursor: pointer;
+  direction: ltr;
+  text-align: left;
   transition: all 180ms ease;
 }
 
@@ -152,6 +155,7 @@
   display: grid;
   min-width: 0;
   gap: 1px;
+  text-align: left;
 }
 
 .topic-option-copy strong {
@@ -316,20 +320,13 @@
   width: 100%;
   align-items: center;
   justify-content: space-between;
-  gap: 6px;
+  gap: 8px;
 }
 
 .difficulty-card-pill {
   font-size: 0.84rem;
   font-weight: 800;
   color: var(--diff-accent);
-}
-
-.difficulty-card-meter {
-  font-size: 0.72rem;
-  letter-spacing: 1.5px;
-  color: var(--diff-accent);
-  opacity: 0.85;
 }
 
 .difficulty-card-body {
@@ -351,12 +348,10 @@
 }
 
 .difficulty-card-radio {
-  position: absolute;
-  top: 12px;
-  inset-inline-end: 12px;
   display: grid;
-  width: 14px;
-  height: 14px;
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
   place-items: center;
   border: 1.5px solid color-mix(in srgb, var(--diff-accent) 40%, var(--border));
   border-radius: 50%;
@@ -370,8 +365,8 @@
 
 .difficulty-card-radio-dot {
   display: block;
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   background: var(--diff-accent);
   transform: scale(0);

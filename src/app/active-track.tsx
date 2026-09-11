@@ -188,10 +188,10 @@ export function ActiveTrackSelector({ locale, filterTitle, filterSummary, filter
             <span className="section-title-label">{copy.activeTrack}</span>
             <span className="active-track-badge-pill" dir="ltr">{activeTrack.name}</span>
           </div>
-          <div className="track-filter-options">
+          <div className="track-filter-options" dir="ltr">
             {selectableTracks.map((track) => {
               const selected = track.id === activeTrack.id;
-              return <button className={`track-filter-option${selected ? " selected" : ""}`} type="button" key={track.id} aria-pressed={selected} onClick={() => { setActiveTrack(track.id); close(); }}>
+              return <button className={`track-filter-option${selected ? " selected" : ""}`} type="button" key={track.id} aria-pressed={selected} onClick={() => { setActiveTrack(track.id); close(); }} dir="ltr">
                 <span className="track-filter-option-logo" aria-hidden="true"><TrackLogo trackId={track.id} size={28} /></span>
                 <span className="track-filter-option-copy"><strong dir="ltr">{track.name}</strong></span>
                 <span className="track-filter-check" aria-hidden="true">

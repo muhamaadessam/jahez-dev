@@ -259,12 +259,12 @@ export function FullInterview({ questions, topics, locale = "ar" }: { questions:
               </div>
             </div>
 
-            <div className="topic-options">
+            <div className="topic-options" dir="ltr">
               {scoped.topics.map((topic) => {
                 const selected = selection.topicValues.includes(topic.slug) || selection.topicValues.includes(topic.id);
                 return <label key={topic.id} className={`topic-option${selected ? " selected" : ""}`} dir="ltr">
                   <input className="sr-only" type="checkbox" checked={selected} onChange={(event) => toggleTopic(topic, event.target.checked)} />
-                  <span className="topic-option-copy"><strong>{topicName(locale, topic.id)}</strong></span>
+                  <span className="topic-option-copy"><strong dir="ltr">{topicName(locale, topic.id)}</strong></span>
                   <span className="topic-option-mark" aria-hidden="true">{selected ? "✓" : ""}</span>
                 </label>;
               })}
@@ -300,17 +300,14 @@ export function FullInterview({ questions, topics, locale = "ar" }: { questions:
                 const isSelected = selection.difficulty === difficulty;
                 const meta = {
                   Junior: {
-                    dots: "● ○ ○",
                     label: copy.juniorLabel,
                     desc: copy.juniorDesc,
                   },
                   Mid: {
-                    dots: "● ● ○",
                     label: copy.midLabel,
                     desc: copy.midDesc,
                   },
                   Senior: {
-                    dots: "● ● ●",
                     label: copy.seniorLabel,
                     desc: copy.seniorDesc,
                   },
@@ -327,14 +324,13 @@ export function FullInterview({ questions, topics, locale = "ar" }: { questions:
                   >
                     <div className="difficulty-card-top">
                       <span className="difficulty-card-pill">{difficulty}</span>
-                      <span className="difficulty-card-meter" aria-hidden="true">{meta?.dots}</span>
+                      <div className="difficulty-card-radio" aria-hidden="true">
+                        <span className="difficulty-card-radio-dot" />
+                      </div>
                     </div>
                     <div className="difficulty-card-body">
                       {locale === "ar" && <strong className="difficulty-card-ar">{meta?.label}</strong>}
                       <span className="difficulty-card-desc">{meta?.desc}</span>
-                    </div>
-                    <div className="difficulty-card-radio" aria-hidden="true">
-                      <span className="difficulty-card-radio-dot" />
                     </div>
                   </button>
                 );
