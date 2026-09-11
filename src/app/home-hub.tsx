@@ -202,7 +202,7 @@ export function HomeHub({ locale = "ar" }: { locale?: Locale }) {
               href={localizedHref(locale, `/topics?track=${encodeURIComponent(track.slug)}`)}
             >
               <div className="home-track-header">
-                <div className="home-track-identity">
+                <div className="home-track-identity" dir="ltr">
                   <span className="home-track-logo-wrap" aria-hidden="true">
                     <TrackLogo trackId={track.id} size={28} />
                   </span>
