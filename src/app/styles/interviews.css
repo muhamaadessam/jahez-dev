@@ -170,13 +170,22 @@
   height: 22px;
   flex: 0 0 auto;
   place-items: center;
-  border: 1.5px solid var(--border);
+  border: 1.5px solid color-mix(in srgb, var(--brand) 55%, var(--border));
+  background: color-mix(in srgb, var(--brand) 10%, var(--surface-soft));
+  box-shadow: 0 0 6px color-mix(in srgb, var(--brand) 15%, transparent);
   border-radius: 6px;
-  color: var(--muted);
+  color: var(--on-brand);
   font-size: .78rem;
   font-weight: 900;
   line-height: 1;
   transition: all 160ms ease;
+}
+
+.topic-option:hover .topic-option-mark,
+.topic-option:focus-within .topic-option-mark {
+  border-color: color-mix(in srgb, var(--brand) 85%, var(--border));
+  background: color-mix(in srgb, var(--brand) 18%, var(--surface-soft));
+  box-shadow: 0 0 10px color-mix(in srgb, var(--brand) 30%, transparent);
 }
 
 .topic-option:has(input:checked) .topic-option-mark,
@@ -184,7 +193,7 @@
   border-color: var(--brand);
   background: var(--brand);
   color: var(--on-brand);
-  box-shadow: 0 0 10px color-mix(in srgb, var(--brand) 40%, transparent);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--brand) 45%, transparent);
 }
 
 /* ==========================================================================
@@ -353,14 +362,23 @@
   height: 18px;
   flex: 0 0 auto;
   place-items: center;
-  border: 1.5px solid color-mix(in srgb, var(--diff-accent) 40%, var(--border));
+  border: 1.5px solid color-mix(in srgb, var(--diff-accent) 55%, var(--border));
+  background: color-mix(in srgb, var(--diff-accent) 10%, var(--surface-soft));
+  box-shadow: 0 0 6px color-mix(in srgb, var(--diff-accent) 15%, transparent);
   border-radius: 50%;
   transition: all 160ms ease;
 }
 
+.difficulty-card:hover .difficulty-card-radio,
+.difficulty-card:focus-visible .difficulty-card-radio {
+  border-color: color-mix(in srgb, var(--diff-accent) 85%, var(--border));
+  background: color-mix(in srgb, var(--diff-accent) 18%, var(--surface-soft));
+  box-shadow: 0 0 10px color-mix(in srgb, var(--diff-accent) 30%, transparent);
+}
+
 .difficulty-card.selected .difficulty-card-radio {
   border-color: var(--diff-accent);
-  background: color-mix(in srgb, var(--diff-accent) 20%, transparent);
+  background: color-mix(in srgb, var(--diff-accent) 22%, transparent);
 }
 
 .difficulty-card-radio-dot {
