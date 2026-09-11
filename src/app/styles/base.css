@@ -8,6 +8,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 html[data-locale-pending] body {
@@ -16,6 +17,7 @@ html[data-locale-pending] body {
 
 body {
   margin: 0;
+  overflow-x: hidden;
   background-color: var(--background);
   background-image:
     radial-gradient(ellipse 90% 45% at 50% -8%, color-mix(in srgb, var(--brand) 12%, transparent), transparent 70%),
@@ -48,6 +50,12 @@ a {
 .shell {
   width: min(1200px, calc(100% - 48px));
   margin-inline: auto;
+}
+
+@media (max-width: 640px) {
+  .shell {
+    width: min(1200px, calc(100% - 32px));
+  }
 }
 
 .skip-link {
