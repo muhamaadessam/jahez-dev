@@ -1,0 +1,283 @@
+/* ==========================================================================
+   Dynamic Track Themes (Per-Language Colors & Ambient Accents)
+   ========================================================================== */
+
+/* 1. Flutter (Signature Sky Blue) */
+:root:not([data-theme="dark"])[data-track="flutter"],
+:root[data-track="flutter"] {
+  --brand: #0284c7;
+  --brand-strong: #0369a1;
+  --surface-soft: #f0f9ff;
+  --on-brand: #ffffff;
+  --track-glow: rgb(2 132 199 / 16%);
+}
+
+:root[data-theme="dark"][data-track="flutter"] {
+  --brand: #38bdf8;
+  --brand-strong: #7dd3fc;
+  --surface-soft: #0c1e2e;
+  --on-brand: #041424;
+  --track-glow: rgb(56 189 248 / 22%);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme])[data-track="flutter"] {
+    --brand: #38bdf8;
+    --brand-strong: #7dd3fc;
+    --surface-soft: #0c1e2e;
+    --on-brand: #041424;
+    --track-glow: rgb(56 189 248 / 22%);
+  }
+}
+
+/* 2. Android Native (Signature Android Emerald Green) */
+:root:not([data-theme="dark"])[data-track="android-native"],
+:root[data-track="android-native"] {
+  --brand: #16a34a;
+  --brand-strong: #15803d;
+  --surface-soft: #f0fdf4;
+  --on-brand: #ffffff;
+  --track-glow: rgb(22 163 74 / 16%);
+}
+
+:root[data-theme="dark"][data-track="android-native"] {
+  --brand: #4ade80;
+  --brand-strong: #86efac;
+  --surface-soft: #082414;
+  --on-brand: #021a0c;
+  --track-glow: rgb(74 222 128 / 22%);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme])[data-track="android-native"] {
+    --brand: #4ade80;
+    --brand-strong: #86efac;
+    --surface-soft: #082414;
+    --on-brand: #021a0c;
+    --track-glow: rgb(74 222 128 / 22%);
+  }
+}
+
+/* 3. Node.js (Signature Node Green) */
+:root:not([data-theme="dark"])[data-track="node"],
+:root[data-track="node"] {
+  --brand: #15803d;
+  --brand-strong: #166534;
+  --surface-soft: #f0fdf4;
+  --on-brand: #ffffff;
+  --track-glow: rgb(21 128 61 / 16%);
+}
+
+:root[data-theme="dark"][data-track="node"] {
+  --brand: #22c55e;
+  --brand-strong: #4ade80;
+  --surface-soft: #082414;
+  --on-brand: #021a0c;
+  --track-glow: rgb(34 197 94 / 22%);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme])[data-track="node"] {
+    --brand: #22c55e;
+    --brand-strong: #4ade80;
+    --surface-soft: #082414;
+    --on-brand: #021a0c;
+    --track-glow: rgb(34 197 94 / 22%);
+  }
+}
+
+/* 4. PHP & Laravel (Signature Laravel Crimson Coral) */
+:root:not([data-theme="dark"])[data-track="php"],
+:root[data-track="php"] {
+  --brand: #dc2626;
+  --brand-strong: #b91c1c;
+  --surface-soft: #fef2f2;
+  --on-brand: #ffffff;
+  --track-glow: rgb(220 38 38 / 16%);
+}
+
+:root[data-theme="dark"][data-track="php"] {
+  --brand: #f87171;
+  --brand-strong: #fca5a5;
+  --surface-soft: #2b0d12;
+  --on-brand: #200408;
+  --track-glow: rgb(248 113 113 / 22%);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme])[data-track="php"] {
+    --brand: #f87171;
+    --brand-strong: #fca5a5;
+    --surface-soft: #2b0d12;
+    --on-brand: #200408;
+    --track-glow: rgb(248 113 113 / 22%);
+  }
+}
+
+/* 5. .NET (Signature .NET Violet) */
+:root:not([data-theme="dark"])[data-track="dotnet"],
+:root[data-track="dotnet"] {
+  --brand: #7c3aed;
+  --brand-strong: #6d28d9;
+  --surface-soft: #f5f3ff;
+  --on-brand: #ffffff;
+  --track-glow: rgb(124 58 237 / 16%);
+}
+
+:root[data-theme="dark"][data-track="dotnet"] {
+  --brand: #a78bfa;
+  --brand-strong: #c4b5fd;
+  --surface-soft: #1e1338;
+  --on-brand: #120626;
+  --track-glow: rgb(167 139 250 / 22%);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme])[data-track="dotnet"] {
+    --brand: #a78bfa;
+    --brand-strong: #c4b5fd;
+    --surface-soft: #1e1338;
+    --on-brand: #120626;
+    --track-glow: rgb(167 139 250 / 22%);
+  }
+}
+
+/* 6. React (Signature React Cyan) */
+:root:not([data-theme="dark"])[data-track="react"],
+:root[data-track="react"] {
+  --brand: #087ea4;
+  --brand-strong: #055e7a;
+  --surface-soft: #f0f9ff;
+  --on-brand: #ffffff;
+  --track-glow: rgb(8 126 164 / 16%);
+}
+
+:root[data-theme="dark"][data-track="react"] {
+  --brand: #38bdf8;
+  --brand-strong: #7dd3fc;
+  --surface-soft: #0c1e2e;
+  --on-brand: #041424;
+  --track-glow: rgb(56 189 248 / 22%);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme])[data-track="react"] {
+    --brand: #38bdf8;
+    --brand-strong: #7dd3fc;
+    --surface-soft: #0c1e2e;
+    --on-brand: #041424;
+    --track-glow: rgb(56 189 248 / 22%);
+  }
+}
+
+/* 7. React Native (Signature Deep Cyan) */
+:root:not([data-theme="dark"])[data-track="react-native"],
+:root[data-track="react-native"] {
+  --brand: #0284c7;
+  --brand-strong: #0369a1;
+  --surface-soft: #f0f9ff;
+  --on-brand: #ffffff;
+  --track-glow: rgb(2 132 199 / 16%);
+}
+
+:root[data-theme="dark"][data-track="react-native"] {
+  --brand: #38bdf8;
+  --brand-strong: #7dd3fc;
+  --surface-soft: #0c1e2e;
+  --on-brand: #041424;
+  --track-glow: rgb(56 189 248 / 22%);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme])[data-track="react-native"] {
+    --brand: #38bdf8;
+    --brand-strong: #7dd3fc;
+    --surface-soft: #0c1e2e;
+    --on-brand: #041424;
+    --track-glow: rgb(56 189 248 / 22%);
+  }
+}
+
+/* 8. Software Fundamentals (Signature Tech Indigo) */
+:root:not([data-theme="dark"])[data-track="fundamentals"],
+:root[data-track="fundamentals"] {
+  --brand: #4f46e5;
+  --brand-strong: #4338ca;
+  --surface-soft: #eef2ff;
+  --on-brand: #ffffff;
+  --track-glow: rgb(79 70 229 / 16%);
+}
+
+:root[data-theme="dark"][data-track="fundamentals"] {
+  --brand: #818cf8;
+  --brand-strong: #a5b4fc;
+  --surface-soft: #161836;
+  --on-brand: #0b0d26;
+  --track-glow: rgb(129 140 248 / 22%);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme])[data-track="fundamentals"] {
+    --brand: #818cf8;
+    --brand-strong: #a5b4fc;
+    --surface-soft: #161836;
+    --on-brand: #0b0d26;
+    --track-glow: rgb(129 140 248 / 22%);
+  }
+}
+
+/* 9. UI / UX Design (Signature Figma Fuchsia) */
+:root:not([data-theme="dark"])[data-track="ui-ux"],
+:root[data-track="ui-ux"] {
+  --brand: #9333ea;
+  --brand-strong: #7e22ce;
+  --surface-soft: #faf5ff;
+  --on-brand: #ffffff;
+  --track-glow: rgb(147 51 234 / 16%);
+}
+
+:root[data-theme="dark"][data-track="ui-ux"] {
+  --brand: #c084fc;
+  --brand-strong: #d8b4fe;
+  --surface-soft: #260d38;
+  --on-brand: #180424;
+  --track-glow: rgb(192 132 252 / 22%);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme])[data-track="ui-ux"] {
+    --brand: #c084fc;
+    --brand-strong: #d8b4fe;
+    --surface-soft: #260d38;
+    --on-brand: #180424;
+    --track-glow: rgb(192 132 252 / 22%);
+  }
+}
+
+/* 10. Python (Signature Python Blue) */
+:root:not([data-theme="dark"])[data-track="python"],
+:root[data-track="python"] {
+  --brand: #306998;
+  --brand-strong: #1e4b75;
+  --surface-soft: #f0f7fc;
+  --on-brand: #ffffff;
+  --track-glow: rgb(48 105 152 / 16%);
+}
+
+:root[data-theme="dark"][data-track="python"] {
+  --brand: #4b8bbe;
+  --brand-strong: #69a7dc;
+  --surface-soft: #0e1e2f;
+  --on-brand: #031020;
+  --track-glow: rgb(75 139 190 / 22%);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme])[data-track="python"] {
+    --brand: #4b8bbe;
+    --brand-strong: #69a7dc;
+    --surface-soft: #0e1e2f;
+    --on-brand: #031020;
+    --track-glow: rgb(75 139 190 / 22%);
+  }
+}
