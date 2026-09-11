@@ -68,7 +68,7 @@ function ActiveTrackProvider({ children, authenticated, loading = false, userId,
     if (!authenticated || !userId || !getToken) { setPreferences(null); setPhase("ready"); return; }
     let current = true;
     setPhase("loading");
-    loadTrackPreferences({ userId, locale, getToken })
+    loadTrackPreferences({ locale, getToken })
       .then((state) => { if (current) { setPreferences(state); setPhase("ready"); } })
       .catch(() => { if (current) setPhase("error"); });
     return () => { current = false; };

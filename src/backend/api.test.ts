@@ -40,3 +40,21 @@ test("nodeRequest keeps JSON content type for requests with a body", async () =>
     delete process.env.NEXT_PUBLIC_API_URL;
   }
 });
+
+test("nodeRequest preserves Headers instances passed by callers", async () => {
+  process.env.NEXT_PUBLIC_API_URL = "https://api.example";
+  try {
+    let request: Request | undefined;
+    await nodeRequest({
+      path: "/example",
+      init: { headers: new Headers({ "X-Request-Id": "request-1" }) },
+      fetchImpl: async (input, init) => {
+        request = new Request(input, init);
+        return Response.json({ ok: true });
+      },
+    });
+    assert.equal(request?.headers.get("x-request-id"), "request-1");
+  } finally {
+    delete process.env.NEXT_PUBLIC_API_URL;
+  }
+});

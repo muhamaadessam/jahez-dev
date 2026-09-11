@@ -22,7 +22,7 @@ function EnabledModeratorNavLink({ locale, href, onClick }: { locale: Locale; hr
   useEffect(() => {
     let current = true;
     if (!isSignedIn || !userId) { setModerator(false); return; }
-    hasModeratorAccess({ userId, getToken }).then((allowed) => { if (current) setModerator(allowed); }).catch(() => { if (current) setModerator(false); });
+    hasModeratorAccess({ getToken }).then((allowed) => { if (current) setModerator(allowed); }).catch(() => { if (current) setModerator(false); });
     return () => { current = false; };
   }, [getToken, isSignedIn, userId]);
 

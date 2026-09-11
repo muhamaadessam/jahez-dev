@@ -31,14 +31,12 @@ export function mergeSavedQuestions(local: SavedQuestions, remote: SavedQuestion
 
 export async function syncStudyProgress({
   storage,
-  userId,
   getToken,
   fetchImpl = fetch,
   mode = "merge",
   storageKey,
 }: {
   storage: Pick<StudyStorage, "getItem" | "setItem">;
-  userId: string;
   getToken: TokenProvider;
   fetchImpl?: FetchLike;
   mode?: "merge" | "replace";

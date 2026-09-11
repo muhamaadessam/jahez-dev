@@ -1,6 +1,5 @@
 import { writeFileSync } from "node:fs";
 import { resolve } from "node:path";
-import type { InterviewQuestion } from "../src/content/questions.ts";
 
 interface QuestionDef {
   id: string;

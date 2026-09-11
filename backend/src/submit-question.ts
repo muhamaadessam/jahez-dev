@@ -1,4 +1,4 @@
-import { normalizeQuestion, validateSubmission, type ValidatedSubmission } from "../../src/submissions/validation.ts";
+import { normalizeQuestion, validateSubmission, type ValidatedSubmission } from "../../shared/submissions.ts";
 import { fetchUpstream } from "./upstream.ts";
 
 const cors = {
@@ -8,6 +8,7 @@ const cors = {
   "Content-Type": "application/json",
 };
 type FetchLike = typeof fetch;
+export type SupabaseConfig = { url: string; key: string };
 
 class DatabaseError extends Error {
   readonly status: number;
@@ -23,19 +24,19 @@ function response(body: Record<string, unknown>, status = 200): Response {
   return new Response(JSON.stringify(body), { status, headers: cors });
 }
 
-function dbConfig(): { url: string; key: string } {
+function dbConfig(): SupabaseConfig {
   const url = process.env.SUPABASE_URL?.replace(/\/$/, "");
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (!url || !key) throw new Error("server_configuration_error");
   return { url, key };
 }
 
-async function dbRequest(path: string, key: string, init: RequestInit = {}, fetchImpl: FetchLike = fetch): Promise<Response> {
-  const response = await fetchUpstream(fetchImpl, `${process.env.SUPABASE_URL?.replace(/\/$/, "")}${path}`, {
+async function dbRequest(config: SupabaseConfig, path: string, init: RequestInit = {}, fetchImpl: FetchLike = fetch): Promise<Response> {
+  const response = await fetchUpstream(fetchImpl, `${config.url.replace(/\/$/, "")}${path}`, {
     ...init,
     headers: {
-      apikey: key,
-      Authorization: `Bearer ${key}`,
+      apikey: config.key,
+      Authorization: `Bearer ${config.key}`,
       "Content-Type": "application/json",
       ...(init.headers ?? {}),
     },
@@ -56,9 +57,9 @@ function intersects(a: string[], b: string[]): boolean {
   return b.some((value) => set.has(value));
 }
 
-async function isDuplicate(draft: ValidatedSubmission, key: string, fetchImpl: FetchLike = fetch): Promise<string | null> {
+async function isDuplicate(draft: ValidatedSubmission, config: SupabaseConfig, fetchImpl: FetchLike = fetch): Promise<string | null> {
   const query = `/rest/v1/submissions?select=id,payload,topic_ids&track_id=eq.${encodeURIComponent(draft.trackId)}&status=in.(pending,issue_created,changes_requested,approved,published)&order=created_at.desc&limit=100`;
-  const rows = await (await dbRequest(query, key, {}, fetchImpl)).json() as Array<{ id: string; payload?: unknown; topic_ids?: unknown }>;
+  const rows = await (await dbRequest(config, query, {}, fetchImpl)).json() as Array<{ id: string; payload?: unknown; topic_ids?: unknown }>;
   const normalized = normalizeQuestion(draft.question);
   const match = rows.find((row) => {
     const payload = jsonValue(row.payload) as { question?: unknown };
@@ -68,10 +69,9 @@ async function isDuplicate(draft: ValidatedSubmission, key: string, fetchImpl: F
   return match?.id ?? null;
 }
 
-export async function handleSubmit(request: Request, fetchImpl: FetchLike = fetch): Promise<Response> {
+export async function handleSubmit(request: Request, fetchImpl: FetchLike = fetch, configured?: SupabaseConfig): Promise<Response> {
   const userId = request.headers.get("x-account-id");
   if (!userId) return response({ error: "unauthenticated" }, 401);
-  const db = (path: string, key: string, init: RequestInit = {}) => dbRequest(path, key, init, fetchImpl);
 
   let draft: ValidatedSubmission;
   try {
@@ -81,8 +81,9 @@ export async function handleSubmit(request: Request, fetchImpl: FetchLike = fetc
   }
 
   try {
-    const { key } = dbConfig();
-    const duplicateOf = await isDuplicate(draft, key, fetchImpl);
+    const config = configured ?? dbConfig();
+    const db = (path: string, init: RequestInit = {}) => dbRequest(config, path, init, fetchImpl);
+    const duplicateOf = await isDuplicate(draft, config, fetchImpl);
     const payload = {
       question: draft.question,
       ...(draft.shortAnswer ? { shortAnswer: draft.shortAnswer } : {}),
@@ -92,7 +93,7 @@ export async function handleSubmit(request: Request, fetchImpl: FetchLike = fetc
       ...(draft.commonMistakes.length ? { commonMistakes: draft.commonMistakes } : {}),
       ...(draft.followUpQuestions.length ? { followUpQuestions: draft.followUpQuestions } : {}),
     };
-    const created = await (await db("/rest/v1/rpc/create_submission_for_account", key, {
+    const created = await (await db("/rest/v1/rpc/create_submission_for_account", {
       method: "POST",
       body: JSON.stringify({ p_account_id: userId, p_track_id: draft.trackId, p_topic_ids: draft.topicIds, p_difficulty: draft.difficulty, p_payload: payload, p_idempotency_key: draft.idempotencyKey, p_duplicate_of: duplicateOf, p_display_name: draft.displayName }),
     })).json() as Array<{ submission_id?: string; submission_status?: string; duplicate_advisory?: boolean }>;

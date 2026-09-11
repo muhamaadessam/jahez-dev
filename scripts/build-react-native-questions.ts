@@ -1,21 +1,6 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 
-interface QuestionDef {
-  id: string;
-  topicId: string;
-  title: string;
-  shortAnswer: string;
-  detailedAnswer: string;
-  codeExample: string;
-  commonMistakes: string;
-  followUp: string;
-  difficulty: 'junior' | 'mid' | 'senior';
-  importance: 'essential' | 'advanced';
-  tags: string[];
-  docUrl: string;
-}
-
 const topics = [
   { id: 'react-native-core', prefix: 'rncore', name: 'React Native Architecture & Bridge / New Architecture' },
   { id: 'react-native-components', prefix: 'rncomp', name: 'Core Components & Primitives' },

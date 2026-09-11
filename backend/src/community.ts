@@ -1,5 +1,4 @@
-import type { CommunityQuestion } from "../../src/community/catalogue.ts";
-import type { DifficultyLevel } from "../../src/content/questions.ts";
+import type { CommunityQuestion, DifficultyLevel } from "../../shared/contracts.ts";
 import { fetchUpstream } from "./upstream.ts";
 
 export class CommunityStoreError extends Error {
