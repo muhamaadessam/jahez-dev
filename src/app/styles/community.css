@@ -1,0 +1,306 @@
+/* ==========================================================================
+   Submissions & Forms
+   ========================================================================== */
+
+.submission-form {
+  display: grid;
+  width: min(1280px, 100%);
+  gap: 24px;
+  margin-inline: auto;
+  padding: 28px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.submission-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.submission-grid>label,
+.submission-topics {
+  display: grid;
+  gap: 7px;
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.submission-grid input:not(.sr-only),
+.submission-grid select,
+.submission-grid textarea {
+  width: 100%;
+  min-height: 46px;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+}
+
+.submission-grid textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.submission-grid input:focus-visible,
+.submission-grid select:focus-visible,
+.submission-grid textarea:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--brand) 45%, transparent);
+  outline-offset: 1px;
+}
+
+.submission-grid>label:not(:nth-child(1)):not(:nth-child(6)),
+.submission-topics {
+  grid-column: 1 / -1;
+}
+
+.submission-topics {
+  margin: 0;
+  padding: 18px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+}
+
+.submission-topics legend {
+  padding-inline: 6px;
+  color: var(--text);
+}
+
+.field-hint {
+  color: var(--muted);
+  font-size: .82rem;
+  font-weight: 500;
+}
+
+.consent-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.consent-checkbox input {
+  width: 18px;
+  height: 18px;
+}
+
+.form-status,
+.form-success,
+.form-error {
+  margin: 0;
+  padding: 14px 16px;
+  border-radius: 8px;
+  overflow-wrap: anywhere;
+}
+
+.form-status {
+  background: var(--surface-soft);
+  color: var(--brand-strong);
+}
+
+.form-success {
+  background: #eaf8ef;
+  color: #146c3a;
+}
+
+.form-error {
+  background: #fff1f0;
+  color: #a32116;
+}
+
+.text-button {
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 800;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   Moderator Console
+   ========================================================================== */
+
+.moderator-console {
+  display: grid;
+  gap: 20px;
+}
+
+.moderator-toolbar {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.moderator-toolbar label,
+.moderator-card label {
+  display: grid;
+  gap: 6px;
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.moderator-toolbar select,
+.moderator-card input,
+.moderator-card textarea {
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+}
+
+.moderator-list {
+  display: grid;
+  gap: 16px;
+}
+
+.moderator-card {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+}
+
+.moderator-card>*,
+.moderator-card label,
+.moderator-prompt {
+  min-width: 0;
+}
+
+.moderator-card h2,
+.moderator-card p {
+  margin: 0;
+}
+
+.moderator-card input,
+.moderator-card textarea {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.moderator-card textarea {
+  min-height: 84px;
+  resize: vertical;
+}
+
+.moderator-prompt {
+  display: grid;
+  gap: 8px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--surface) 75%, var(--brand));
+}
+
+.moderator-prompt textarea {
+  min-height: 220px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: .8rem;
+  direction: ltr;
+  text-align: left;
+}
+
+.moderator-id-input,
+.moderator-json-input {
+  direction: ltr;
+  text-align: left;
+}
+
+.moderator-id-input {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: .02em;
+}
+
+.moderator-json-input {
+  min-height: 240px !important;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace !important;
+  font-size: .82rem;
+  line-height: 1.6;
+}
+
+.moderator-import {
+  display: grid;
+  gap: .75rem;
+  margin-block: 1rem;
+}
+
+.moderator-json-preview {
+  max-height: 24rem;
+  overflow: auto;
+  direction: ltr;
+  text-align: left;
+  white-space: pre-wrap;
+}
+
+.moderator-submission-id {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 8px;
+  align-items: center;
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--surface) 82%, var(--brand));
+  color: var(--muted);
+  font: inherit;
+  text-align: start;
+  cursor: copy;
+  transition: border-color .2s ease, background .2s ease, transform .2s ease;
+}
+
+.moderator-submission-id:hover,
+.moderator-submission-id.is-copied {
+  border-color: var(--brand);
+  background: color-mix(in srgb, var(--surface) 68%, var(--brand));
+}
+
+.moderator-submission-id:active {
+  transform: scale(.995);
+}
+
+.moderator-submission-id code {
+  overflow: hidden;
+  color: var(--text);
+  font: .78rem ui-monospace, SFMono-Regular, Menlo, monospace;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.follow-up-editor fieldset {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: 8px 16px;
+  margin: 0;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.follow-up-editor .filter-checkbox {
+  display: flex !important;
+  min-width: 0;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.follow-up-editor select {
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+}

@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { createInterview, findResumableInterview, getSavedInterviews, updateInterview } from "./interviews.ts";
+import { createInterview, deleteInterview, findResumableInterview, getSavedInterviews, updateInterview } from "./interviews.ts";
 
 function storage() {
   const data = new Map<string, string>();
@@ -19,4 +19,6 @@ test("interview sessions persist, resume, and complete", () => {
   assert.equal(getSavedInterviews(local)[0].currentIndex, 1);
   updateInterview(local, interview.id, { completed: true });
   assert.equal(findResumableInterview(getSavedInterviews(local), interview), undefined);
+  deleteInterview(local, interview.id);
+  assert.equal(getSavedInterviews(local).length, 0);
 });

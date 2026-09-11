@@ -7,7 +7,7 @@ import { getQuestionTranslation, type DifficultyLevel, type InterviewQuestion, t
 import { difficultyOptions, filterInterviewQuestions } from "../../content/question-search";
 import { AnswerContent } from "../answer-content";
 import { AnswerDisclosure, QuestionControls } from "../question-controls";
-import { localizedHref, messages, topicName } from "../../i18n";
+import { formatNumber, localizedHref, messages, topicName } from "../../i18n";
 import { scopeCatalogue } from "../../tracks/active-track";
 import { ActiveTrackRecovery, ActiveTrackSelector, useActiveTrack } from "../active-track";
 import { LoadingPlaceholder } from "../loading-placeholder";
@@ -51,9 +51,17 @@ export function FullInterview({ questions, topics, locale = "ar" }: { questions:
   const [isHydrated, setIsHydrated] = useState(false);
   const [savedInterviews, setSavedInterviews] = useState<SavedInterview[]>([]);
   const [savedQuestions, setSavedQuestions] = useState<SavedQuestions>({});
+  const [validationError, setValidationError] = useState<string | null>(null);
+  const [isShaking, setIsShaking] = useState(false);
   const { phase, activeTrack, invalidTrack, trackOnlyHref } = useActiveTrack();
   const scoped = useMemo(() => activeTrack ? scopeCatalogue(activeTrack.id, null, topics, questions) : null, [activeTrack, questions, topics]);
   const activeSession = selection.sessionId ? savedInterviews.find((interview) => interview.id === selection.sessionId) : undefined;
+
+  useEffect(() => {
+    if (!validationError) return;
+    const timer = setTimeout(() => setValidationError(null), 5000);
+    return () => clearTimeout(timer);
+  }, [validationError]);
 
   useEffect(() => {
     function syncFromUrl() {
@@ -101,10 +109,46 @@ export function FullInterview({ questions, topics, locale = "ar" }: { questions:
   }, { "not-started": 0, reviewing: 0, mastered: 0 });
 
   function updateSelection(update: Partial<InterviewSelection>) {
+    setValidationError(null);
     const next = { ...selection, ...update, invalidTopics: false, started: false, sessionId: null };
     setSelection(next);
     setCurrentIndex(0);
     updateUrl(next, activeTrack?.slug ?? null);
+  }
+
+  function handleStart() {
+    if (!selection.topicValues.length && !selection.difficulty) {
+      setValidationError(copy.interviewValidationMissingBoth);
+      triggerShake();
+      return;
+    }
+    if (!selection.topicValues.length) {
+      setValidationError(copy.interviewValidationMissingTopics);
+      triggerShake();
+      return;
+    }
+    if (!selection.difficulty) {
+      setValidationError(copy.interviewValidationMissingLevel);
+      triggerShake();
+      return;
+    }
+    if (!preparedQuestions.length) {
+      setValidationError(copy.interviewNoQuestionsHint);
+      triggerShake();
+      return;
+    }
+    setValidationError(null);
+    startInterview();
+  }
+
+  function triggerShake() {
+    setIsShaking(true);
+    setTimeout(() => setIsShaking(false), 500);
+  }
+
+  function openFilterDialog() {
+    setValidationError(null);
+    document.querySelector<HTMLButtonElement>(".active-track-selector .filter-trigger")?.click();
   }
 
   function startInterview() {
@@ -157,6 +201,29 @@ export function FullInterview({ questions, topics, locale = "ar" }: { questions:
         <p>{copy.interviewDescription}</p>
       </header>
 
+      {validationError && (
+        <div className="interview-toast-container" role="alert" aria-live="assertive">
+          <div className="interview-toast">
+            <span className="interview-toast-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="8" x2="12" y2="12" />
+                <line x1="12" y1="16" x2="12.01" y2="16" />
+              </svg>
+            </span>
+            <div className="interview-toast-content">
+              <p className="interview-toast-message">{validationError}</p>
+            </div>
+            <button className="button sm interview-toast-action" type="button" onClick={openFilterDialog}>
+              {copy.interviewOpenFilterAction}
+            </button>
+            <button className="interview-toast-close" type="button" onClick={() => setValidationError(null)} aria-label={copy.close}>
+              ×
+            </button>
+          </div>
+        </div>
+      )}
+
       {phase !== "ready" || invalidTrack || !activeTrack ? null : selection.invalidTopics ? <ActiveTrackRecovery locale={locale} invalidTopic /> : !scoped?.topics.length ? <div className="empty-state"><h2>{copy.emptyTrackTitle}</h2><p>{copy.emptyTrackDescription}</p></div> : <>
       <ActiveTrackSelector
         locale={locale}
@@ -188,8 +255,13 @@ export function FullInterview({ questions, topics, locale = "ar" }: { questions:
           </label>
         </div>}
         action={<>
-          <button className="button primary interview-start-button" type="button" disabled={!selection.topicValues.length || !selection.difficulty || !preparedQuestions.length} onClick={startInterview}>{copy.startInterview}</button>
-          {!selection.topicValues.length || !selection.difficulty ? <span className="interview-start-hint">{copy.interviewSetupHint}</span> : !preparedQuestions.length ? <span className="interview-start-hint">{copy.interviewNoQuestionsHint}</span> : null}
+          <button
+            className={`button primary interview-start-button${isShaking ? " shake-animation" : ""}`}
+            type="button"
+            onClick={handleStart}
+          >
+            {copy.startInterview}
+          </button>
           {selection.started && <span className="interview-status">{copy.question} {currentIndex + 1} {copy.of} {sessionQuestions.length}</span>}
         </>}
       />
@@ -217,14 +289,9 @@ export function FullInterview({ questions, topics, locale = "ar" }: { questions:
             <button className="button primary" type="button" onClick={() => currentIndex === sessionQuestions.length - 1 ? completeInterview() : moveToQuestion(currentIndex + 1)}>{currentIndex === sessionQuestions.length - 1 ? copy.finishInterview : copy.next}</button>
           </nav>
         </>
-      ) : (
-        <div className="empty-state">
-          <h2>{selection.topicValues.length || selection.difficulty ? copy.completeSetup : copy.startInterview}</h2>
-          <p>{copy.interviewEmpty}</p>
-        </div>
-      )}
+      ) : null}
       </>}
-      <InterviewHistory locale={locale} embedded />
+      {!selection.started && <InterviewHistory locale={locale} embedded activeTrackId={activeTrack?.id} />}
     </section>
   );
 }

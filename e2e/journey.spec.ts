@@ -64,20 +64,20 @@ test.describe("Discovery, study session, and progress journey", () => {
 
     // 4. Question Progress Persistence after reload
     const masteredRadio = page.getByLabel("متقن");
-    const favoriteCheckbox = page.getByLabel("حفظ في المفضلة");
+    const favoriteButton = page.getByRole("button", { name: "إضافة للمفضلة" });
 
     await masteredRadio.check();
-    await favoriteCheckbox.check();
+    await favoriteButton.click();
 
     await expect(masteredRadio).toBeChecked();
-    await expect(favoriteCheckbox).toBeChecked();
+    await expect(page.getByRole("button", { name: "إزالة من المفضلة" })).toHaveAttribute("aria-pressed", "true");
     await expect(page.getByText("تم حفظ التقدم على هذا الجهاز")).toBeAttached();
 
     // Reload page to verify persistence
     await page.reload();
 
     await expect(page.getByLabel("متقن")).toBeChecked();
-    await expect(page.getByLabel("حفظ في المفضلة")).toBeChecked();
+    await expect(page.getByRole("button", { name: "إزالة من المفضلة" })).toHaveAttribute("aria-pressed", "true");
 
     // 5. Core Navigation Journey: Back to library & Study Session navigation
     await page.click("text=← مكتبة الأسئلة");

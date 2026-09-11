@@ -1,0 +1,76 @@
+/* ==========================================================================
+   Design System Tokens (Adaptive Palette & Modern Theming)
+   ========================================================================== */
+
+:root {
+  --direction-sign: 1;
+  color-scheme: light;
+  --background: #f8fafc;
+  --surface: #ffffff;
+  --surface-soft: #f1f5f9;
+  --surface-elevated: #ffffff;
+  --text: #0f172a;
+  --text-secondary: #334155;
+  --muted: #64748b;
+  --border: #e2e8f0;
+  --border-subtle: #edf2f7;
+  --brand: #0284c7;
+  --brand-strong: #0369a1;
+  --on-brand: #ffffff;
+  --logo-chevron: #0284c7;
+  --logo-check: #059669;
+  --track-glow: rgb(2 132 199 / 14%);
+  --shadow-sm: 0 1px 3px 0 rgb(15 23 42 / 0.06);
+  --shadow: 0 10px 30px -5px rgb(15 23 42 / 0.08), 0 4px 10px -2px rgb(15 23 42 / 0.03);
+  --shadow-lg: 0 20px 40px -10px rgb(15 23 42 / 0.12), 0 8px 16px -4px rgb(15 23 42 / 0.05);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --background: #080c14;
+    --surface: #0e1422;
+    --surface-soft: #151d2e;
+    --surface-elevated: #151d30;
+    --text: #f8fafc;
+    --text-secondary: #cbd5e1;
+    --muted: #94a3b8;
+    --border: #1e293b;
+    --border-subtle: #172033;
+    --brand: #38bdf8;
+    --brand-strong: #7dd3fc;
+    --on-brand: #041424;
+    --logo-chevron: #38bdf8;
+    --logo-check: #10b981;
+    --track-glow: rgb(56 189 248 / 20%);
+    --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.6);
+    --shadow: 0 14px 38px -8px rgb(0 0 0 / 0.65), 0 0 0 1px rgba(255, 255, 255, 0.05);
+    --shadow-lg: 0 24px 60px -12px rgb(0 0 0 / 0.75), 0 0 0 1px rgba(255, 255, 255, 0.07);
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --background: #080c14;
+  --surface: #0e1422;
+  --surface-soft: #151d2e;
+  --surface-elevated: #151d30;
+  --text: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --muted: #94a3b8;
+  --border: #1e293b;
+  --border-subtle: #172033;
+  --brand: #38bdf8;
+  --brand-strong: #7dd3fc;
+  --on-brand: #041424;
+  --logo-chevron: #38bdf8;
+  --logo-check: #10b981;
+  --track-glow: rgb(56 189 248 / 20%);
+  --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.6);
+  --shadow: 0 14px 38px -8px rgb(0 0 0 / 0.65), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  --shadow-lg: 0 24px 60px -12px rgb(0 0 0 / 0.75), 0 0 0 1px rgba(255, 255, 255, 0.07);
+}
+
+html[dir="ltr"] {
+  --direction-sign: -1;
+}
