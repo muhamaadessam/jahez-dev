@@ -14,7 +14,7 @@ test("submission adapter validates input and keeps provider credentials server-s
       ? [{ submission_id: "s1", submission_status: "pending", duplicate_advisory: false }]
       : []);
   } });
-  const result = await store.submit(draft, "clerk-token", "account-1") as { submissionId: string; status: string; prompt?: string };
+  const result = await store.submit(draft, "account-1") as { submissionId: string; status: string; prompt?: string };
   assert.equal(result.submissionId, "s1");
   assert.equal(result.status, "pending");
   assert.equal(result.prompt, undefined);
@@ -24,5 +24,5 @@ test("submission adapter validates input and keeps provider credentials server-s
   assert.ok(create);
   assert.deepEqual(await create.json(), { p_account_id: "account-1", p_track_id: "flutter", p_topic_ids: ["dart"], p_difficulty: "Junior", p_payload: { question: "What is final?", shortAnswer: "A", explanation: "B", sources: ["https://dart.dev"] }, p_idempotency_key: draft.idempotencyKey, p_duplicate_of: null, p_display_name: null });
   assert.ok(requests.every((request) => !request.url.includes("/functions/v1/")));
-  await assert.rejects(store.submit({ ...draft, question: "<script>" }, "clerk-token", "account-1"), (error: unknown) => error instanceof SubmissionRouteError && error.status === 400);
+  await assert.rejects(store.submit({ ...draft, question: "<script>" }, "account-1"), (error: unknown) => error instanceof SubmissionRouteError && error.status === 400);
 });

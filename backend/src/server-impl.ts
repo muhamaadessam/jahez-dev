@@ -166,7 +166,7 @@ export async function buildServer({ allowedOrigins, ready = true, logger = conso
     if (!operations) return reply.code(503).send({ error: "moderation_not_configured" });
     const body = request.body;
     if (!body || typeof body !== "object" || Array.isArray(body) || typeof (body as { action?: unknown }).action !== "string") return reply.code(400).send({ error: "invalid_moderation_request" });
-    return operations.moderate(body as Record<string, unknown>, request.account!.token!, request.account!.sub);
+    return operations.moderate(body as Record<string, unknown>, request.account!.sub);
   });
   app.get("/v1/asked-markers", async (request, reply) => {
     if (!learnerState) return reply.code(503).send({ error: "learner_state_not_configured" });
@@ -207,7 +207,7 @@ export async function buildServer({ allowedOrigins, ready = true, logger = conso
   });
   app.post("/v1/submissions", { preHandler: [app.authenticate, app.requireAuthenticated] }, async (request, reply) => {
     if (!submission) return reply.code(503).send({ error: "submission_not_configured" });
-    return submission.submit(request.body as never, request.account!.token, request.account!.sub);
+    return submission.submit(request.body, request.account!.sub);
   });
   app.delete("/v1/me/account", { preHandler: [app.authenticate] }, async (request, reply) => {
     if (!accountDeletion) return reply.code(503).send({ error: "account_deletion_not_configured" });

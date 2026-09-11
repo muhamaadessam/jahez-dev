@@ -1,5 +1,5 @@
 import { fetchUpstream } from "./upstream.ts";
-import { validateImportedQuestion, type ImportedQuestion } from "../../src/submissions/validation.ts";
+import { validateImportedQuestion, type ImportedQuestion } from "../../shared/submissions.ts";
 
 const cors = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",

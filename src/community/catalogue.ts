@@ -1,18 +1,9 @@
-import type { Locale } from "../content/questions";
-import type { SearchableQuestion } from "../content/question-search";
+import type { CommunityQuestion, Locale } from "../../shared/contracts.ts";
 import { nodeRequest } from "../backend/api.ts";
 
 export type CommunityScope = "public" | "community";
 
-export type CommunityQuestion = SearchableQuestion & {
-  database: true;
-  visibility: CommunityScope;
-  contributorUsername: string | null;
-  likeCount: number;
-  promotedAt: string | null;
-  publishedAt: string | null;
-  likedByViewer: boolean;
-};
+export type { CommunityQuestion } from "../../shared/contracts.ts";
 
 type TokenProvider = (options?: { template?: string }) => Promise<string | null>;
 

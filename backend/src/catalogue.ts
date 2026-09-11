@@ -1,4 +1,4 @@
-import type { DatabaseQuestion } from "../../src/questions/database.ts";
+import type { DatabaseQuestion } from "../../shared/contracts.ts";
 import { createQuestionReader, QuestionNotFound } from "./question-reader.ts";
 import { fetchUpstream } from "./upstream.ts";
 

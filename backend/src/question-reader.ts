@@ -1,5 +1,4 @@
-import type { DifficultyLevel, FollowUpQuestionRef, Locale, QuestionTranslation } from "../../src/content/questions.ts";
-import type { DatabaseQuestion } from "../../src/questions/database.ts";
+import type { DatabaseQuestion, DifficultyLevel, FollowUpQuestionRef, Locale, QuestionTranslation } from "../../shared/contracts.ts";
 
 export class QuestionNotFound extends Error {}
 

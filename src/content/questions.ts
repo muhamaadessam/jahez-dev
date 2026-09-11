@@ -1,5 +1,6 @@
-export type DifficultyLevel = "Junior" | "Mid" | "Senior";
-export type Locale = "ar" | "en";
+import type { DifficultyLevel, FollowUpQuestionRef, Locale, QuestionTranslation } from "../../shared/contracts.ts";
+
+export type { DifficultyLevel, FollowUpQuestionRef, Locale, QuestionTranslation } from "../../shared/contracts.ts";
 
 import { staticFollowUpTargets } from "./follow-up-relations.ts";
 import { androidBaseQuestions } from "./android-questions.ts";
@@ -12,24 +13,6 @@ import { flutterExpansionBaseQuestions } from "./flutter-expansion-questions.ts"
 import { fundamentalsBaseQuestions } from "./fundamentals-questions.ts";
 import { uiUxBaseQuestions } from "./ui-ux-questions.ts";
 import { pythonBaseQuestions } from "./python-questions.ts";
-
-export type FollowUpQuestionRef = {
-  id: string;
-  slug: string;
-  label: string;
-  href?: string;
-};
-
-export type QuestionTranslation = {
-  question: string;
-  shortAnswer: string;
-  explanation: string;
-  codeExample?: string;
-  commonMistakes?: string[];
-  followUpQuestions?: string[];
-  followUpQuestionRefs?: FollowUpQuestionRef[];
-  sources: { title: string; url: string }[];
-};
 
 export type Track = {
   id: string;

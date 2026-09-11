@@ -64,7 +64,7 @@ test("Asked Marker HTTP interface keeps public frequency and Account state behin
     readAsked: async (ids: string[], userId?: string) => { calls.push({ ids, userId }); return Object.fromEntries(ids.map((id) => [id, { personalCount: userId ? 2 : null, interviewFrequency: 7 }])); },
     adjustAsked: async (questionId: string, delta: -1 | 1, userId: string) => { calls.push({ questionId, delta, userId }); return { personalCount: 3, interviewFrequency: 8 }; },
   };
-  const auth = { preHandler: async (request: Parameters<NonNullable<Parameters<typeof buildServer>[0]["auth"]>["preHandler"]>[0]) => { request.account = { sub: "account-1", claims: {}, token: "token" }; } };
+  const auth = { preHandler: async (request: Parameters<NonNullable<Parameters<typeof buildServer>[0]["auth"]>["preHandler"]>[0]) => { request.account = { sub: "account-1", claims: {} }; } };
   const policy = { requireAuthenticated: async () => undefined, requireModerator: async () => undefined, requireOwnership: async () => "account-1" };
   const app = await buildServer({ allowedOrigins: [], auth, policy, learnerState });
 
@@ -86,7 +86,7 @@ test("Community Question HTTP interface owns catalogue and Like traffic", async 
     likedQuestionIds: async (questionIds: string[], userId: string) => { calls.push(["liked", questionIds, userId]); return ["q1"]; },
     setLike: async (questionId: string, liked: boolean, userId: string) => { calls.push(["set", questionId, liked, userId]); return { liked, likeCount: 5, promoted: false }; },
   };
-  const auth = { preHandler: async (request: Parameters<NonNullable<Parameters<typeof buildServer>[0]["auth"]>["preHandler"]>[0]) => { request.account = { sub: "account-1", claims: { email_verified: true }, token: "token" }; } };
+  const auth = { preHandler: async (request: Parameters<NonNullable<Parameters<typeof buildServer>[0]["auth"]>["preHandler"]>[0]) => { request.account = { sub: "account-1", claims: { email_verified: true } }; } };
   const policy = { requireAuthenticated: async () => undefined, requireModerator: async () => undefined, requireOwnership: async () => "account-1" };
   const app = await buildServer({ allowedOrigins: [], auth, policy, community });
 
@@ -101,7 +101,7 @@ test("Community Question HTTP interface owns catalogue and Like traffic", async 
 
 test("Account deletion uses the authenticated Clerk subject even when active-account policy denies access", async () => {
   const deleted: string[] = [];
-  const auth = { preHandler: async (request: Parameters<NonNullable<Parameters<typeof buildServer>[0]["auth"]>["preHandler"]>[0]) => { request.account = { sub: "account-1", claims: {}, token: "token" }; } };
+  const auth = { preHandler: async (request: Parameters<NonNullable<Parameters<typeof buildServer>[0]["auth"]>["preHandler"]>[0]) => { request.account = { sub: "account-1", claims: {} }; } };
   const policy = { requireAuthenticated: async () => { throw new PolicyError("account_suspended"); }, requireModerator: async () => undefined, requireOwnership: async () => "account-1" };
   const app = await buildServer({ allowedOrigins: [], auth, policy, accountDeletion: { deleteAccount: async (userId) => { deleted.push(userId); } } });
 
@@ -115,21 +115,21 @@ test("Account deletion uses the authenticated Clerk subject even when active-acc
 test("Moderator HTTP interface owns access checks and actions", async () => {
   const calls: unknown[] = [];
   const operations = {
-    moderate: async (body: Record<string, unknown>, token: string) => { calls.push(["moderate", body, token]); return { submissions: [] }; },
+    moderate: async (body: Record<string, unknown>, userId: string) => { calls.push(["moderate", body, userId]); return { submissions: [] }; },
   };
-  const auth = { preHandler: async (request: Parameters<NonNullable<Parameters<typeof buildServer>[0]["auth"]>["preHandler"]>[0]) => { request.account = { sub: "moderator-1", claims: {}, token: "clerk-token" }; } };
+  const auth = { preHandler: async (request: Parameters<NonNullable<Parameters<typeof buildServer>[0]["auth"]>["preHandler"]>[0]) => { request.account = { sub: "moderator-1", claims: {} }; } };
   const policy = { requireAuthenticated: async () => undefined, requireModerator: async () => undefined, requireOwnership: async () => "moderator-1" };
   const app = await buildServer({ allowedOrigins: [], auth, policy, operations });
 
   assert.deepEqual((await app.inject({ method: "GET", url: "/v1/me/moderator-access" })).json(), { allowed: true });
   assert.deepEqual((await app.inject({ method: "POST", url: "/v1/moderation/actions", payload: { action: "list_submissions" } })).json(), { submissions: [] });
   assert.equal((await app.inject({ method: "POST", url: "/v1/advisories", payload: { submissionId: "submission-1" } })).statusCode, 404);
-  assert.deepEqual(calls, [["moderate", { action: "list_submissions" }, "clerk-token"]]);
+  assert.deepEqual(calls, [["moderate", { action: "list_submissions" }, "moderator-1"]]);
   await app.close();
 });
 
 test("moderator access reports a normal learner as denied without a failed request", async () => {
-  const auth = { preHandler: async (request: Parameters<NonNullable<Parameters<typeof buildServer>[0]["auth"]>["preHandler"]>[0]) => { request.account = { sub: "learner-1", claims: {}, token: "token" }; } };
+  const auth = { preHandler: async (request: Parameters<NonNullable<Parameters<typeof buildServer>[0]["auth"]>["preHandler"]>[0]) => { request.account = { sub: "learner-1", claims: {} }; } };
   const policy = { requireAuthenticated: async () => undefined, requireModerator: async () => { throw new PolicyError("moderator_required"); }, requireOwnership: async () => "learner-1" };
   const app = await buildServer({ allowedOrigins: [], auth, policy });
 

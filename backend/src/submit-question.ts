@@ -1,4 +1,4 @@
-import { normalizeQuestion, validateSubmission, type ValidatedSubmission } from "../../src/submissions/validation.ts";
+import { normalizeQuestion, validateSubmission, type ValidatedSubmission } from "../../shared/submissions.ts";
 import { fetchUpstream } from "./upstream.ts";
 
 const cors = {

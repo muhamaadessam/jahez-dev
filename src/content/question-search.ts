@@ -1,5 +1,8 @@
-import type { InterviewQuestion, DifficultyLevel, Topic } from "./questions.ts";
+import type { DifficultyLevel, SearchableQuestion } from "../../shared/contracts.ts";
+import type { Topic } from "./questions.ts";
 import type { QuestionProgress, SavedQuestions } from "../study/progress.ts";
+
+export type { SearchableQuestion } from "../../shared/contracts.ts";
 
 export type LibraryScope = "public" | "community";
 
@@ -12,8 +15,6 @@ export type LibraryFilters = {
   sort?: "default" | "most-asked";
   scope?: LibraryScope;
 };
-
-export type SearchableQuestion = Pick<InterviewQuestion, "id" | "slug" | "trackId" | "topicIds" | "difficulty" | "question" | "shortAnswer">;
 
 export const difficultyOptions: DifficultyLevel[] = ["Junior", "Mid", "Senior"];
 const difficultyRank: Record<DifficultyLevel, number> = { Junior: 1, Mid: 2, Senior: 3 };

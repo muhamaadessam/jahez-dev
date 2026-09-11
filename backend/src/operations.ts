@@ -1,6 +1,6 @@
 import { handleModerator } from "./moderator-actions.ts";
 import type { SupabaseConfig } from "./moderator-actions.ts";
-import { buildSubmissionPrompt } from "../../src/submissions/validation.ts";
+import { buildSubmissionPrompt } from "../../shared/submissions.ts";
 
 export class OperationError extends Error {
   readonly code: string;
@@ -9,7 +9,7 @@ export class OperationError extends Error {
 }
 
 export type Operations = {
-  moderate: (body: Record<string, unknown>, accessToken: string, userId?: string) => Promise<unknown>;
+  moderate: (body: Record<string, unknown>, userId: string) => Promise<unknown>;
 };
 
 export function createSupabaseOperations({ url, serviceRoleKey, fetchImpl = fetch }: { url: string; serviceRoleKey: string; fetchImpl?: typeof fetch }): Operations {
@@ -29,6 +29,6 @@ export function createSupabaseOperations({ url, serviceRoleKey, fetchImpl = fetc
     return payload;
   };
   return {
-    moderate: (body, _accessToken, userId) => userId ? body.action === "list_submissions" ? listSubmissions(body) : call(handleModerator, body, userId) : Promise.reject(new OperationError("unauthenticated", 401)),
+    moderate: (body, userId) => body.action === "list_submissions" ? listSubmissions(body) : call(handleModerator, body, userId),
   };
 }
