@@ -89,3 +89,8 @@ export function updateInterview(
   writeInterviews(storage, interviews.map((interview) => interview.id === id ? updated : interview), key);
   return updated;
 }
+
+export function deleteInterview(storage: InterviewStorage, id: string, key = interviewStorageKey(storage)): void {
+  const interviews = getSavedInterviews(storage, key);
+  writeInterviews(storage, interviews.filter((interview) => interview.id !== id), key);
+}
