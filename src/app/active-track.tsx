@@ -174,17 +174,29 @@ export function ActiveTrackSelector({ locale, filterTitle, filterSummary, filter
   if (invalidTrack) return <ActiveTrackRecovery locale={locale} />;
   if (!activeTrack) return <div className="empty-state"><h2>{copy.emptyTrackTitle}</h2><p>{copy.emptyTrackDescription}</p>{authenticated && <Link className="button" href={localizedHref(locale, "/my-tracks")}>{copy.manageTrackPreferences}</Link>}</div>;
   return <div className="active-track-selector">
-    <FilterDialog locale={locale} title={filterTitle ?? copy.activeTrack} summary={filterSummary ?? activeTrack.name} activeCount={1 + filterActiveCount} onClear={onClear}>
+    <FilterDialog
+      locale={locale}
+      title={filterTitle ?? copy.activeTrack}
+      subtitle={filterTitle ? copy.interviewSubtitle : undefined}
+      summary={filterSummary ?? activeTrack.name}
+      activeCount={1 + filterActiveCount}
+      onClear={onClear}
+    >
       {({ close }) => <>
         <section className="filter-dialog-section track-filter-section">
-          <div className="filter-dialog-section-heading"><span>{copy.activeTrack}</span><strong dir="ltr">{activeTrack.name}</strong></div>
+          <div className="filter-dialog-section-heading">
+            <span className="section-title-label">{copy.activeTrack}</span>
+            <span className="active-track-badge-pill" dir="ltr">{activeTrack.name}</span>
+          </div>
           <div className="track-filter-options">
             {selectableTracks.map((track) => {
               const selected = track.id === activeTrack.id;
               return <button className={`track-filter-option${selected ? " selected" : ""}`} type="button" key={track.id} aria-pressed={selected} onClick={() => { setActiveTrack(track.id); close(); }}>
                 <span className="track-filter-option-logo" aria-hidden="true"><TrackLogo trackId={track.id} size={28} /></span>
                 <span className="track-filter-option-copy"><strong dir="ltr">{track.name}</strong></span>
-                <span className="track-filter-check" aria-hidden="true">{selected ? "✓" : ""}</span>
+                <span className="track-filter-check" aria-hidden="true">
+                  <span className="track-filter-radio-dot" />
+                </span>
               </button>;
             })}
           </div>

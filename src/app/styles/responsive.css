@@ -272,6 +272,19 @@
     grid-template-columns: 1fr;
   }
 
+  .topic-options {
+    grid-template-columns: 1fr;
+  }
+
+  .difficulty-tier-cards {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .difficulty-card {
+    min-height: auto;
+  }
+
   .filter-dialog {
     max-height: calc(100dvh - 24px);
   }

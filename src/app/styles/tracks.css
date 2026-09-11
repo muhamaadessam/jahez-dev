@@ -391,36 +391,65 @@ html[dir="ltr"] .home-track-card:focus-visible .home-track-card-cta span {
   line-height: 1;
 }
 
+.active-track-badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--brand) 15%, transparent);
+  border: 1px solid color-mix(in srgb, var(--brand) 30%, transparent);
+  color: var(--brand-strong);
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.active-track-badge-pill::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--brand);
+  box-shadow: 0 0 8px var(--brand);
+}
+
 .track-filter-options {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 6px;
+  gap: 8px;
 }
 
 .track-filter-option {
   display: grid;
-  grid-template-columns: 30px minmax(0, 1fr) 20px;
+  grid-template-columns: 32px minmax(0, 1fr) 22px;
   min-width: 0;
   align-items: center;
-  gap: 8px;
-  min-height: 44px;
-  padding: 7px 9px;
+  gap: 10px;
+  min-height: 48px;
+  padding: 8px 12px;
   border: 1px solid var(--border);
-  border-radius: 8px;
-  background: transparent;
+  border-radius: 12px;
+  background: var(--surface-soft);
   color: var(--text);
   font: inherit;
   font-size: .9rem;
   text-align: start;
   cursor: pointer;
-  transition: border-color 180ms ease, background-color 180ms ease;
+  transition: all 180ms ease;
 }
 
 .track-filter-option:hover,
-.track-filter-option:focus-visible,
+.track-filter-option:focus-visible {
+  border-color: color-mix(in srgb, var(--brand) 40%, var(--border));
+  background: color-mix(in srgb, var(--brand) 6%, var(--surface-soft));
+  transform: translateY(-1px);
+}
+
 .track-filter-option.selected {
   border-color: var(--brand);
-  background: color-mix(in srgb, var(--brand) 7%, transparent);
+  background: color-mix(in srgb, var(--brand) 12%, var(--surface-soft));
+  box-shadow: 0 0 16px -4px color-mix(in srgb, var(--brand) 30%, transparent);
 }
 
 .track-filter-option:focus-visible {
@@ -430,12 +459,13 @@ html[dir="ltr"] .home-track-card:focus-visible .home-track-card-cta span {
 
 .track-filter-option-logo {
   display: grid;
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
   place-items: center;
   border: 0;
-  border-radius: 7px;
+  border-radius: 8px;
   background: var(--surface);
+  box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.3);
 }
 
 .track-filter-option-logo img,
@@ -453,6 +483,8 @@ html[dir="ltr"] .home-track-card:focus-visible .home-track-card-cta span {
 
 .track-filter-option-copy strong {
   overflow-wrap: anywhere;
+  font-size: 0.92rem;
+  font-weight: 700;
 }
 
 .track-filter-check {
@@ -460,16 +492,31 @@ html[dir="ltr"] .home-track-card:focus-visible .home-track-card-cta span {
   width: 20px;
   height: 20px;
   place-items: center;
-  border: 1px solid var(--border);
-  border-radius: 5px;
+  border: 1.5px solid var(--border);
+  border-radius: 50%;
   color: var(--on-brand);
   font-size: .7rem;
   font-weight: 900;
+  transition: all 160ms ease;
+}
+
+.track-filter-radio-dot {
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--brand);
+  transform: scale(0);
+  transition: transform 160ms cubic-bezier(.16, 1, .3, 1);
 }
 
 .track-filter-option.selected .track-filter-check {
   border-color: var(--brand);
-  background: var(--brand);
+  background: color-mix(in srgb, var(--brand) 20%, transparent);
+}
+
+.track-filter-option.selected .track-filter-radio-dot {
+  transform: scale(1);
 }
 
 :root[data-theme="dark"] .active-track-selector {
