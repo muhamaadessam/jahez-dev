@@ -233,7 +233,32 @@ export function FullInterview({ questions, topics, locale = "ar" }: { questions:
         onClear={() => updateSelection({ topicValues: [], difficulty: "" })}
         filterContent={() => <div className="filter-dialog-fields interview-filter-fields">
           <fieldset className="topic-picker">
-            <legend>{copy.chooseTopics} <span className="topic-count">{selection.topicValues.length} {copy.selected}</span></legend>
+            <legend className="sr-only">{copy.chooseTopics} <span className="topic-count">{selection.topicValues.length} {copy.selected}</span></legend>
+            <div className="topic-picker-toolbar">
+              <div className="topic-picker-title-wrap">
+                <span className="topic-picker-title">{copy.chooseTopics}</span>
+                <span className="topic-count-badge" aria-live="polite">
+                  {selection.topicValues.length} / {scoped.topics.length} {copy.selected}
+                </span>
+              </div>
+              <div className="topic-quick-actions">
+                <button
+                  type="button"
+                  className="topic-action-pill"
+                  onClick={() => updateSelection({ topicValues: scoped.topics.map((t) => t.slug) })}
+                >
+                  {copy.selectAll}
+                </button>
+                <button
+                  type="button"
+                  className="topic-action-pill"
+                  onClick={() => updateSelection({ topicValues: [] })}
+                >
+                  {copy.clearAll}
+                </button>
+              </div>
+            </div>
+
             <div className="topic-options">
               {scoped.topics.map((topic) => {
                 const selected = selection.topicValues.includes(topic.slug) || selection.topicValues.includes(topic.id);
@@ -245,14 +270,86 @@ export function FullInterview({ questions, topics, locale = "ar" }: { questions:
               })}
             </div>
           </fieldset>
-          <label className="interview-level">
-            {copy.interviewLevel}
-            <select value={selection.difficulty} onChange={(event) => updateSelection({ difficulty: event.target.value as InterviewSelection["difficulty"] })}>
-              <option value="">{copy.chooseDifficulty}</option>
-              {difficultyOptions.map((difficulty) => <option key={difficulty} value={difficulty}>{difficulty}</option>)}
-            </select>
-            <span className="filter-hint">{copy.inclusiveHint}</span>
-          </label>
+
+          <div className="difficulty-tier-section">
+            <div className="difficulty-tier-heading">
+              <span className="difficulty-tier-title">{copy.interviewLevel}</span>
+              {selection.difficulty && (
+                <span className="difficulty-tier-badge" data-level={selection.difficulty.toLowerCase()}>
+                  {selection.difficulty}
+                </span>
+              )}
+            </div>
+
+            {/* Native label & select for screen readers and Playwright tests */}
+            <label className="interview-level-native-label">
+              <span className="sr-only">{copy.interviewLevel}</span>
+              <select
+                className="interview-level-native-select"
+                value={selection.difficulty}
+                onChange={(event) => updateSelection({ difficulty: event.target.value as InterviewSelection["difficulty"] })}
+              >
+                <option value="">{copy.chooseDifficulty}</option>
+                {difficultyOptions.map((difficulty) => <option key={difficulty} value={difficulty}>{difficulty}</option>)}
+              </select>
+            </label>
+
+            {/* Visual 3-Tier Difficulty Cards */}
+            <div className="difficulty-tier-cards">
+              {difficultyOptions.map((difficulty) => {
+                const isSelected = selection.difficulty === difficulty;
+                const meta = {
+                  Junior: {
+                    dots: "● ○ ○",
+                    label: copy.juniorLabel,
+                    desc: copy.juniorDesc,
+                  },
+                  Mid: {
+                    dots: "● ● ○",
+                    label: copy.midLabel,
+                    desc: copy.midDesc,
+                  },
+                  Senior: {
+                    dots: "● ● ●",
+                    label: copy.seniorLabel,
+                    desc: copy.seniorDesc,
+                  },
+                }[difficulty];
+
+                return (
+                  <button
+                    key={difficulty}
+                    type="button"
+                    role="radio"
+                    aria-checked={isSelected}
+                    className={`difficulty-card diff-${difficulty.toLowerCase()}${isSelected ? " selected" : ""}`}
+                    onClick={() => updateSelection({ difficulty: isSelected ? "" : difficulty })}
+                  >
+                    <div className="difficulty-card-top">
+                      <span className="difficulty-card-pill">{difficulty}</span>
+                      <span className="difficulty-card-meter" aria-hidden="true">{meta?.dots}</span>
+                    </div>
+                    <div className="difficulty-card-body">
+                      {locale === "ar" && <strong className="difficulty-card-ar">{meta?.label}</strong>}
+                      <span className="difficulty-card-desc">{meta?.desc}</span>
+                    </div>
+                    <div className="difficulty-card-radio" aria-hidden="true">
+                      <span className="difficulty-card-radio-dot" />
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="filter-inclusive-callout">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="16" x2="12" y2="12" />
+                <line x1="12" y1="8" x2="12.01" y2="8" />
+              </svg>
+              <span>{copy.inclusiveHint}</span>
+            </div>
+          </div>
         </div>}
         action={<>
           <button

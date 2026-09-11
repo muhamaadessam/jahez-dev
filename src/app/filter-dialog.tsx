@@ -7,13 +7,14 @@ import { messages, type Locale } from "../i18n";
 type FilterDialogProps = {
   locale: Locale;
   title: string;
+  subtitle?: string;
   summary: string;
   activeCount: number;
   children: (controls: { close: () => void }) => ReactNode;
   onClear?: () => void;
 };
 
-export function FilterDialog({ locale, title, summary, activeCount, children, onClear }: FilterDialogProps) {
+export function FilterDialog({ locale, title, subtitle, summary, activeCount, children, onClear }: FilterDialogProps) {
   const copy = messages[locale];
   const [open, setOpen] = useState(false);
   const headingId = useId();
@@ -53,15 +54,23 @@ export function FilterDialog({ locale, title, summary, activeCount, children, on
     {open && <div className="filter-overlay" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) close(); }}>
       <section className="filter-dialog" role="dialog" aria-modal="true" aria-labelledby={headingId} dir={locale === "ar" ? "rtl" : "ltr"}>
         <header className="filter-dialog-header">
-          <div>
-            <h2 id={headingId} ref={heading} tabIndex={-1}>{title}</h2>
+          <div className="filter-dialog-heading-wrap">
+            <div className="filter-dialog-title-row">
+              <span className="filter-dialog-icon-badge" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6" />
+                </svg>
+              </span>
+              <h2 id={headingId} ref={heading} tabIndex={-1}>{title}</h2>
+            </div>
+            {subtitle && <p className="filter-dialog-subtitle">{subtitle}</p>}
           </div>
           <button className="filter-dialog-close" type="button" onClick={close} aria-label={copy.close}>×</button>
         </header>
         <div className="filter-dialog-body">{children({ close })}</div>
         <footer className="filter-dialog-actions">
-          {onClear && <button className="button" type="button" onClick={onClear}>{copy.clearFilters}</button>}
-          <button className="button primary" type="button" onClick={close}>{copy.saveFilters}</button>
+          {onClear && <button className="button filter-clear-btn" type="button" onClick={onClear}>{copy.clearFilters}</button>}
+          <button className="button primary filter-save-btn" type="button" onClick={close}>{copy.saveFilters}</button>
         </footer>
       </section>
     </div>}
