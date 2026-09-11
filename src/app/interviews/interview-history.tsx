@@ -77,7 +77,7 @@ export function InterviewHistory({
 
   const content = (
     <>
-      <header className={embedded ? "section-header interview-history-header" : "page-header"}>
+      <header className={embedded ? "interview-history-header" : "page-header"}>
         <span className="eyebrow">{copy.interviewsEyebrow}</span>
         {embedded ? <h2>{copy.interviewsTitle}</h2> : <h1>{copy.interviewsTitle}</h1>}
         <p>{copy.interviewsDescription}</p>
