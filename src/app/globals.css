@@ -5,6 +5,7 @@
    ========================================================================== */
 
 :root {
+  --direction-sign: 1;
   color-scheme: light;
   --background: #f8fafc;
   --surface: #ffffff;
@@ -70,6 +71,10 @@
   --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.6);
   --shadow: 0 14px 38px -8px rgb(0 0 0 / 0.65), 0 0 0 1px rgba(255, 255, 255, 0.05);
   --shadow-lg: 0 24px 60px -12px rgb(0 0 0 / 0.75), 0 0 0 1px rgba(255, 255, 255, 0.07);
+}
+
+html[dir="ltr"] {
+  --direction-sign: -1;
 }
 
 /* ==========================================================================
@@ -404,7 +409,7 @@ a {
 }
 
 .shell {
-  width: min(1600px, calc(100% - 48px));
+  width: min(1200px, calc(100% - 48px));
   margin-inline: auto;
 }
 
@@ -474,7 +479,7 @@ a {
   width: 40px;
   height: 40px;
   flex: 0 0 auto;
-  border-radius: 12px;
+  border-radius: 8px;
   transition: all 220ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -524,7 +529,7 @@ a {
 
 .nav-links a {
   padding: 8px 12px;
-  border-radius: 10px;
+  border-radius: 8px;
   color: var(--muted);
   text-decoration: none;
   font-weight: 700;
@@ -564,7 +569,7 @@ a {
   min-height: 38px;
   padding: 6px 12px;
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: 8px;
   background: var(--surface);
   color: var(--text);
   font: inherit;
@@ -575,8 +580,8 @@ a {
   transition: all 180ms ease;
 }
 
-.auth-button:hover,
-.auth-button:focus-visible {
+.auth-button:not(:disabled):hover,
+.auth-button:not(:disabled):focus-visible {
   border-color: var(--brand);
   transform: translateY(-1px);
 }
@@ -588,8 +593,8 @@ a {
   box-shadow: 0 3px 12px var(--track-glow);
 }
 
-.auth-button-primary:hover,
-.auth-button-primary:focus-visible {
+.auth-button-primary:not(:disabled):hover,
+.auth-button-primary:not(:disabled):focus-visible {
   filter: brightness(1.08);
 }
 
@@ -601,7 +606,7 @@ a {
   place-items: center;
   padding: 0;
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: 8px;
   background: var(--surface);
   color: var(--brand-strong);
   font: inherit;
@@ -719,13 +724,13 @@ h3 {
 h1 {
   max-width: 780px;
   margin-block: 18px 20px;
-  font-size: clamp(2.3rem, 6vw, 4.6rem);
+  font-size: clamp(2rem, 5vw, 3.2rem);
   line-height: 1.2;
   letter-spacing: -0.025em;
 }
 
 h2 {
-  font-size: clamp(1.6rem, 3.2vw, 2.25rem);
+  font-size: clamp(1.4rem, 2.5vw, 1.8rem);
   line-height: 1.35;
   letter-spacing: -0.01em;
 }
@@ -755,7 +760,7 @@ h3 {
   justify-content: center;
   padding-inline: 22px;
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: 8px;
   background: var(--surface);
   color: var(--text);
   font-weight: 800;
@@ -769,8 +774,8 @@ h3 {
     color 180ms ease;
 }
 
-.button:hover,
-.button:focus-visible {
+.button:not(:disabled):hover,
+.button:not(:disabled):focus-visible {
   border-color: color-mix(in srgb, var(--brand) 60%, var(--border));
   background: var(--surface-soft);
   transform: translateY(-1.5px);
@@ -784,8 +789,8 @@ h3 {
   box-shadow: 0 4px 16px -2px var(--track-glow);
 }
 
-.button.primary:hover,
-.button.primary:focus-visible {
+.button.primary:not(:disabled):hover,
+.button.primary:not(:disabled):focus-visible {
   border-color: var(--brand-strong);
   filter: brightness(1.08);
   transform: translateY(-1.5px);
@@ -805,7 +810,7 @@ h3 {
   gap: 18px;
   padding: clamp(22px, 3vw, 28px);
   border: 1px solid color-mix(in srgb, var(--brand) 24%, var(--border));
-  border-radius: 20px;
+  border-radius: 16px;
   background: color-mix(in srgb, var(--surface) 94%, var(--brand) 6%);
   box-shadow: 0 16px 36px -10px var(--track-glow), var(--shadow-sm);
   overflow: hidden;
@@ -879,7 +884,7 @@ h3 {
   gap: 4px;
   padding: 12px 14px;
   border: 1px solid color-mix(in srgb, var(--brand) 16%, var(--border));
-  border-radius: 12px;
+  border-radius: 8px;
   background: color-mix(in srgb, var(--surface) 60%, var(--surface-soft));
 }
 
@@ -905,7 +910,7 @@ h3 {
 .question-body {
   position: relative;
   border: 1px solid var(--border);
-  border-radius: 22px;
+  border-radius: 16px;
   background: var(--surface);
   box-shadow: var(--shadow);
   transition: transform 240ms cubic-bezier(0.16, 1, 0.3, 1),
@@ -1034,7 +1039,7 @@ h3 {
   flex-direction: column;
   padding: 10px 14px;
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: 8px;
   background: color-mix(in srgb, var(--surface) 60%, var(--surface-soft));
 }
 
@@ -1057,7 +1062,7 @@ h3 {
   justify-content: space-between;
   gap: 8px;
   padding: 10px 14px;
-  border-radius: 10px;
+  border-radius: 8px;
   background: color-mix(in srgb, var(--brand) 12%, transparent);
   color: var(--brand-strong);
   font-size: 0.88rem;
@@ -1068,15 +1073,23 @@ h3 {
 
 .hero-card-action:hover {
   background: color-mix(in srgb, var(--brand) 20%, transparent);
+}
+html[dir="rtl"] .hero-card-action:hover {
   transform: translateX(-2px);
+}
+html[dir="ltr"] .hero-card-action:hover {
+  transform: translateX(2px);
 }
 
 .hero-card-action-arrow {
   transition: transform 180ms ease;
 }
 
-.hero-card-action:hover .hero-card-action-arrow {
+html[dir="rtl"] .hero-card-action:hover .hero-card-action-arrow {
   transform: translateX(-4px);
+}
+html[dir="ltr"] .hero-card-action:hover .hero-card-action-arrow {
+  transform: translateX(4px);
 }
 
 .hero-card-hint {
@@ -1112,7 +1125,7 @@ h3 {
   gap: 14px;
   padding: 8px 18px;
   border: 1px solid color-mix(in srgb, var(--brand) 28%, var(--border));
-  border-radius: 14px;
+  border-radius: 16px;
   background: var(--surface-soft);
   color: var(--text);
   font-weight: 800;
@@ -1131,7 +1144,7 @@ h3 {
   min-height: 40px;
   padding-inline: 12px;
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: 8px;
   background: var(--surface);
   color: var(--text);
   font: inherit;
@@ -1247,7 +1260,7 @@ h3 {
   padding: 10px;
   box-sizing: border-box;
   flex: 0 0 auto;
-  border-radius: 14px;
+  border-radius: 16px;
   background: var(--surface-soft);
   border: 1px solid color-mix(in srgb, var(--brand) 24%, var(--border));
   box-shadow: 0 3px 12px color-mix(in srgb, var(--brand) 12%, transparent);
@@ -1312,9 +1325,13 @@ h3 {
   transition: transform 180ms ease;
 }
 
-.home-track-card:hover .home-track-card-cta span,
-.home-track-card:focus-visible .home-track-card-cta span {
+html[dir="rtl"] .home-track-card:hover .home-track-card-cta span,
+html[dir="rtl"] .home-track-card:focus-visible .home-track-card-cta span {
   transform: translateX(-3px);
+}
+html[dir="ltr"] .home-track-card:hover .home-track-card-cta span,
+html[dir="ltr"] .home-track-card:focus-visible .home-track-card-cta span {
+  transform: translateX(3px);
 }
 
 .home-features-grid {
@@ -1328,7 +1345,7 @@ h3 {
   gap: 14px;
   padding: clamp(24px, 3vw, 32px);
   border: 1px solid var(--border);
-  border-radius: 20px;
+  border-radius: 16px;
   background: var(--surface);
   transition: transform 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
   overflow: hidden;
@@ -1346,7 +1363,7 @@ h3 {
   justify-content: center;
   width: 54px;
   height: 54px;
-  border-radius: 14px;
+  border-radius: 16px;
   background: color-mix(in srgb, var(--brand) 8%, var(--surface));
   border: 1px solid color-mix(in srgb, var(--brand) 20%, var(--border));
   color: var(--brand-strong);
@@ -1385,7 +1402,7 @@ h3 {
 
 .page-header h1 {
   margin-block: 10px 14px;
-  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
 }
 
 .page-header p {
@@ -1406,7 +1423,7 @@ h3 {
   margin-block-end: 20px;
   padding: 6px;
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: 8px;
   background: var(--surface-soft);
   box-shadow: none;
 }
@@ -1433,7 +1450,7 @@ h3 {
   gap: 8px;
   padding: 6px 10px;
   border: 1px solid transparent;
-  border-radius: 9px;
+  border-radius: 8px;
   background: transparent;
   color: var(--text);
   font: inherit;
@@ -1502,7 +1519,7 @@ h3 {
   min-height: 44px;
   padding: 7px 9px;
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: 8px;
   background: transparent;
   color: var(--text);
   font: inherit;
@@ -1758,7 +1775,7 @@ h3 {
   min-height: 46px;
   padding-inline: 14px;
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: 8px;
   background: var(--background);
   color: var(--text);
   font: inherit;
@@ -1784,7 +1801,7 @@ h3 {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  border-radius: 20px;
+  border-radius: 16px;
 }
 
 .question-card .card-link {
@@ -1809,7 +1826,7 @@ h3 {
 .like-button {
   min-height: 38px;
   padding: 6px 14px;
-  border-radius: 10px;
+  border-radius: 8px;
 }
 
 .chip {
@@ -1840,7 +1857,7 @@ h3 {
   min-width: 0;
   padding: 48px 24px;
   border: 1px dashed var(--border);
-  border-radius: 20px;
+  border-radius: 16px;
   overflow-wrap: anywhere;
   text-align: center;
   color: var(--muted);
@@ -1895,7 +1912,7 @@ h3 {
 
 .question-body {
   padding: clamp(24px, 5vw, 48px);
-  border-radius: 24px;
+  border-radius: 16px;
 }
 
 .question-controls {
@@ -1913,7 +1930,7 @@ h3 {
   margin: 0;
   padding: 12px 16px;
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: 8px;
 }
 
 .question-controls label {
@@ -1932,7 +1949,7 @@ h3 {
   place-items: center;
   padding: 0;
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: 8px;
   background: var(--surface);
   color: var(--muted);
   cursor: pointer;
@@ -1972,7 +1989,7 @@ h3 {
   min-width: min(100%, 260px);
   padding: 10px 12px;
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: 8px;
   background: var(--surface-soft);
 }
 
@@ -2000,7 +2017,7 @@ h3 {
 .answer {
   margin-block: 32px 0;
   border-radius: 16px;
-  border-inline-start: 3px solid var(--brand);
+  border: 1px solid color-mix(in srgb, var(--brand) 24%, var(--border));
   background: var(--surface-soft);
   overflow: hidden;
 }
@@ -2038,7 +2055,7 @@ h3 {
 .answer pre {
   overflow-x: auto;
   padding: 18px;
-  border-radius: 14px;
+  border-radius: 16px;
   background: #080c14;
   color: #edf7ff;
   border: 1px solid #1e293b;
@@ -2058,7 +2075,7 @@ h3 {
   align-self: start;
   padding: 22px;
   border: 1px solid var(--border);
-  border-radius: 18px;
+  border-radius: 16px;
   color: var(--muted);
   background: var(--surface);
   box-shadow: var(--shadow-sm);
@@ -2093,7 +2110,7 @@ h3 {
   margin: 0;
   padding: 0;
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: 8px;
   background: transparent;
   box-shadow: none;
 }
@@ -2136,7 +2153,7 @@ h3 {
   gap: 8px;
   padding: 8px 10px;
   border: 1px solid var(--border);
-  border-radius: 9px;
+  border-radius: 8px;
   background: transparent;
   color: var(--text);
   cursor: pointer;
@@ -2212,7 +2229,7 @@ h3 {
   margin-block: 20px 10px;
   padding: 14px 16px;
   border: 1px solid var(--border);
-  border-radius: 14px;
+  border-radius: 16px;
   background: var(--surface-soft);
 }
 
@@ -2347,7 +2364,7 @@ h3 {
   margin-block-end: 24px;
   padding: 20px 24px;
   border: 1px solid var(--border);
-  border-radius: 18px;
+  border-radius: 16px;
   background: var(--surface-soft);
 }
 
@@ -2379,7 +2396,7 @@ h3 {
   margin-block-start: 28px;
   padding: 24px;
   border: 1px solid var(--border);
-  border-radius: 18px;
+  border-radius: 16px;
   background: var(--surface);
 }
 
@@ -2410,7 +2427,7 @@ h3 {
   margin-inline: auto;
   padding: 28px;
   border: 1px solid var(--border);
-  border-radius: 22px;
+  border-radius: 16px;
   background: var(--surface);
   box-shadow: var(--shadow);
 }
@@ -2436,7 +2453,7 @@ h3 {
   min-height: 46px;
   padding: 10px 14px;
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: 8px;
   background: var(--surface);
   color: var(--text);
   font: inherit;
@@ -2463,7 +2480,7 @@ h3 {
   margin: 0;
   padding: 18px;
   border: 1px solid var(--border);
-  border-radius: 18px;
+  border-radius: 16px;
 }
 
 .submission-topics legend {
@@ -2496,7 +2513,7 @@ h3 {
 .form-error {
   margin: 0;
   padding: 14px 16px;
-  border-radius: 12px;
+  border-radius: 8px;
   overflow-wrap: anywhere;
 }
 
@@ -2555,7 +2572,7 @@ h3 {
   min-height: 44px;
   padding: 10px 12px;
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: 8px;
   background: var(--surface);
   color: var(--text);
   font: inherit;
@@ -2600,7 +2617,7 @@ h3 {
   gap: 8px;
   padding: 12px;
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: 8px;
   background: color-mix(in srgb, var(--surface) 75%, var(--brand));
 }
 
@@ -2652,7 +2669,7 @@ h3 {
   width: 100%;
   padding: 8px 12px;
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: 8px;
   background: color-mix(in srgb, var(--surface) 82%, var(--brand));
   color: var(--muted);
   font: inherit;
@@ -2686,7 +2703,7 @@ h3 {
   margin: 0;
   padding: 14px;
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: 8px;
 }
 
 .follow-up-editor .filter-checkbox {
@@ -2700,7 +2717,7 @@ h3 {
   min-height: 44px;
   padding: 10px 12px;
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: 8px;
   background: var(--surface);
   color: var(--text);
   font: inherit;
@@ -2732,7 +2749,7 @@ h3 {
   margin: auto;
   padding: clamp(24px, 5vw, 36px);
   border: 1px solid color-mix(in srgb, var(--brand) 25%, var(--border));
-  border-radius: 22px;
+  border-radius: 16px;
   background: var(--surface);
   box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.55);
 }
@@ -2762,7 +2779,7 @@ h3 {
   min-height: 46px;
   padding: 10px 14px;
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: 8px;
   background: var(--background);
   color: var(--text);
   font: inherit;
@@ -2808,7 +2825,7 @@ h3 {
   justify-content: center;
   gap: 10px;
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: 8px;
   background: var(--background);
   color: var(--text);
   font: inherit;
@@ -2927,7 +2944,7 @@ h3 {
   gap: 4px;
   padding: 8px;
   border: 1px solid var(--border);
-  border-radius: 14px;
+  border-radius: 16px;
   background: var(--surface);
   box-shadow: var(--shadow-lg);
 }
@@ -3021,7 +3038,7 @@ h3 {
 .account-tabs button {
   padding: 11px 13px;
   border: 0;
-  border-radius: 10px;
+  border-radius: 8px;
   background: transparent;
   color: var(--muted);
   font: inherit;
@@ -3057,7 +3074,7 @@ h3 {
   min-height: 44px;
   padding: 9px 12px;
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: 8px;
   background: var(--background);
   color: var(--text);
   font: inherit;
@@ -3123,7 +3140,7 @@ h3 {
   height: 30px;
   flex: 0 0 auto;
   place-items: center;
-  border-radius: 9px;
+  border-radius: 8px;
   background: var(--surface-soft);
   color: var(--brand-strong);
   font-weight: 900;
@@ -3132,7 +3149,7 @@ h3 {
 .account-danger {
   padding: 16px;
   border: 1px solid color-mix(in srgb, #d9485f 45%, var(--border));
-  border-radius: 12px;
+  border-radius: 8px;
 }
 
 .track-preferences-card {
@@ -3165,7 +3182,7 @@ h3 {
   margin: 0;
   padding: 16px;
   border: 1px solid var(--border);
-  border-radius: 14px;
+  border-radius: 16px;
 }
 
 .track-options legend {
@@ -3181,7 +3198,7 @@ h3 {
   gap: 10px;
   padding: 10px 12px;
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: 8px;
   background: var(--background);
   cursor: pointer;
   overflow-wrap: anywhere;
@@ -3269,7 +3286,7 @@ h3 {
   min-height: 52px;
   padding: 10px 12px;
   border: 1px solid var(--border);
-  border-radius: 14px;
+  border-radius: 16px;
   background: var(--surface-soft);
 }
 
@@ -3281,7 +3298,7 @@ h3 {
 .loading-skeleton-select {
   width: 100%;
   height: 40px;
-  border-radius: 9px;
+  border-radius: 8px;
 }
 
 .loading-preferences {
@@ -3289,7 +3306,7 @@ h3 {
   min-height: 300px;
   padding: clamp(24px, 5vw, 40px);
   border: 1px solid var(--border);
-  border-radius: 20px;
+  border-radius: 16px;
   background: var(--surface);
   box-shadow: var(--shadow);
 }
@@ -3319,7 +3336,7 @@ h3 {
 .loading-skeleton-button {
   width: 140px;
   height: 42px;
-  border-radius: 10px;
+  border-radius: 8px;
 }
 
 .loading-interview,
@@ -3336,7 +3353,7 @@ h3 {
 .loading-skeleton-heading {
   width: min(58%, 460px);
   height: 34px;
-  border-radius: 10px;
+  border-radius: 8px;
 }
 
 .loading-skeleton-builder {
@@ -3395,7 +3412,7 @@ h3 {
   min-height: 420px;
   padding: 24px;
   border: 1px solid var(--border);
-  border-radius: 20px;
+  border-radius: 16px;
   background: var(--surface);
   box-shadow: var(--shadow);
 }
@@ -3488,7 +3505,7 @@ h3 {
 @keyframes hero-card-arrive {
   from {
     opacity: .01;
-    transform: translateX(-18px) scale(.98);
+    transform: translateX(calc(-18px * var(--direction-sign, 1))) scale(.98);
     box-shadow: 0 0 0 transparent;
   }
 
@@ -3598,9 +3615,16 @@ h3 {
 .footer-group a:hover,
 .footer-group a:focus-visible {
   color: var(--brand-strong);
-  transform: translateX(-2px);
   text-decoration: underline;
   text-underline-offset: 4px;
+}
+html[dir="rtl"] .footer-group a:hover,
+html[dir="rtl"] .footer-group a:focus-visible {
+  transform: translateX(-2px);
+}
+html[dir="ltr"] .footer-group a:hover,
+html[dir="ltr"] .footer-group a:focus-visible {
+  transform: translateX(2px);
 }
 
 .footer-bottom {
@@ -3693,7 +3717,7 @@ h3 {
   place-items: center;
   justify-self: center;
   border: 1px solid color-mix(in srgb, var(--brand) 42%, var(--border));
-  border-radius: 28px;
+  border-radius: 16px;
   background: linear-gradient(145deg, color-mix(in srgb, var(--surface-soft) 94%, var(--brand)), var(--surface));
   box-shadow: 0 28px 70px color-mix(in srgb, var(--brand) 12%, transparent);
   overflow: hidden;
@@ -3710,7 +3734,7 @@ h3 {
   position: absolute;
   inset: 18px;
   border: 1px solid color-mix(in srgb, var(--brand) 24%, var(--border));
-  border-radius: 18px;
+  border-radius: 16px;
 }
 
 .not-found-visual-frame::after {
@@ -3859,7 +3883,7 @@ h3 {
     margin-inline-start: auto;
     padding-inline: 14px;
     border: 1px solid var(--border);
-    border-radius: 10px;
+    border-radius: 8px;
     background: var(--surface);
     color: var(--text);
     font: inherit;
@@ -3874,7 +3898,7 @@ h3 {
     margin-inline-end: 12px;
     padding: 0;
     border: 1px solid var(--border);
-    border-radius: 18px;
+    border-radius: 16px;
     background: var(--surface);
     color: var(--text);
     box-shadow: var(--shadow-lg);
@@ -3898,7 +3922,7 @@ h3 {
     min-height: 40px;
     padding-inline: 12px;
     border: 1px solid var(--border);
-    border-radius: 9px;
+    border-radius: 8px;
     background: var(--background);
     color: var(--text);
     font: inherit;
@@ -3914,7 +3938,7 @@ h3 {
   .mobile-navigation-links a {
     min-height: 48px;
     padding: 10px 12px;
-    border-radius: 9px;
+    border-radius: 8px;
     color: var(--text);
     font-weight: 800;
     text-decoration: none;
@@ -4178,7 +4202,7 @@ h3 {
   width: min(520px, 100%);
   padding: clamp(24px, 5vw, 36px);
   border: 1px solid color-mix(in srgb, var(--brand) 25%, var(--border));
-  border-radius: 22px;
+  border-radius: 16px;
   background: var(--surface);
   box-shadow: var(--shadow);
 }
@@ -4250,7 +4274,7 @@ h3 {
   min-height: 46px;
   padding: 10px 14px;
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: 8px;
   background: var(--background);
   color: var(--text);
   font: inherit;
