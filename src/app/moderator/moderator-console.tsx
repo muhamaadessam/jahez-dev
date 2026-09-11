@@ -49,7 +49,7 @@ function AuthenticatedModeratorConsole({ locale }: { locale: Locale }) {
   useEffect(() => {
     if (!isSignedIn) { setModeratorAccess(false); return; }
     let active = true;
-    void hasModeratorAccess({ userId: "page-access-check", getToken }).then((allowed) => { if (active) setModeratorAccess(allowed); });
+    void hasModeratorAccess({ getToken }).then((allowed) => { if (active) setModeratorAccess(allowed); });
     return () => { active = false; };
   }, [getToken, isSignedIn]);
   useEffect(() => { if (moderatorAccess === true) void load(); }, [load, moderatorAccess]);

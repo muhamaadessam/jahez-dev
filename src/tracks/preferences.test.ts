@@ -23,7 +23,7 @@ test("Track Preferences read and write only through Node", async () => {
     requests.push(new Request(input, init));
     return init?.method === "PUT" ? new Response(null, { status: 204 }) : Response.json({ tracks: [{ id: "flutter", name: "Flutter" }], preferences: [{ trackId: "flutter", isDefault: true }], unavailableTracks: [] });
   };
-  const state = await loadTrackPreferences({ userId: "browser-id-is-ignored", locale: "en", getToken: async (options) => { assert.equal(options, undefined); return "clerk-token"; }, fetchImpl });
+  const state = await loadTrackPreferences({ locale: "en", getToken: async (options) => { assert.equal(options, undefined); return "clerk-token"; }, fetchImpl });
   assert.equal(state.tracks[0].id, "flutter");
   await saveTrackPreferences({ trackIds: ["flutter", "flutter"], defaultTrackId: "flutter", getToken: async () => "clerk-token", fetchImpl });
   assert.deepEqual(requests.map(({ url }) => url), ["https://api.example/v1/me/track-preferences?locale=en", "https://api.example/v1/me/track-preferences"]);

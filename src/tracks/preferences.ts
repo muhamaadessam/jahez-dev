@@ -34,17 +34,14 @@ export function resolveTrackSelection({ tracks, preferences }: TrackPreferenceSt
 }
 
 export async function loadTrackPreferences({
-  userId,
   locale,
   getToken,
   fetchImpl = fetch,
 }: {
-  userId: string;
   locale: Locale;
   getToken: TokenProvider;
   fetchImpl?: FetchLike;
 }): Promise<TrackPreferenceState> {
-  void userId;
   const token = await getToken();
   if (!token) throw new TrackPreferencesError("unauthenticated", 401);
   try { return await nodeRequest<TrackPreferenceState>({ path: `/me/track-preferences?locale=${encodeURIComponent(locale)}`, token, fetchImpl }); }

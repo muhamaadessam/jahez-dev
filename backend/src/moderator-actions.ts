@@ -26,8 +26,10 @@ function config(): { url: string; key: string } {
 
 type FetchLike = typeof fetch;
 
-async function db(path: string, key: string, init: RequestInit = {}, fetchImpl: FetchLike = fetch): Promise<Response> {
-  const result = await fetchUpstream(fetchImpl, `${process.env.SUPABASE_URL?.replace(/\/$/, "")}${path}`, {
+export type SupabaseConfig = { url: string; key: string };
+
+async function db(base: string, path: string, key: string, init: RequestInit = {}, fetchImpl: FetchLike = fetch): Promise<Response> {
+  const result = await fetchUpstream(fetchImpl, `${base.replace(/\/$/, "")}${path}`, {
     ...init,
     headers: { apikey: key, Authorization: `Bearer ${key}`, "Content-Type": "application/json", ...(init.headers ?? {}) },
   });
@@ -39,16 +41,17 @@ function text(value: unknown, max = 500): string | null {
   return typeof value === "string" && value.trim() ? value.trim().slice(0, max) : null;
 }
 
-async function audit(key: string, actor: string, action: string, targetType: string, targetId: string | null, reason: string | null, metadata: Record<string, unknown>, fetchImpl: FetchLike): Promise<void> {
-  await db("/rest/v1/moderation_audit_events", key, { method: "POST", headers: { Prefer: "return=minimal" }, body: JSON.stringify([{ actor_user_id: await pseudonymousUserId(actor), action, target_type: targetType, target_id: targetId, reason, metadata }]) }, fetchImpl);
+async function audit(base: string, key: string, actor: string, action: string, targetType: string, targetId: string | null, reason: string | null, metadata: Record<string, unknown>, fetchImpl: FetchLike): Promise<void> {
+  await db(base, "/rest/v1/moderation_audit_events", key, { method: "POST", headers: { Prefer: "return=minimal" }, body: JSON.stringify([{ actor_user_id: await pseudonymousUserId(actor), action, target_type: targetType, target_id: targetId, reason, metadata }]) }, fetchImpl);
 }
 
-export async function handleModerator(request: Request, fetchImpl: FetchLike = fetch): Promise<Response> {
-  const query = (path: string, key: string, init: RequestInit = {}) => db(path, key, init, fetchImpl);
+export async function handleModerator(request: Request, fetchImpl: FetchLike = fetch, configured?: SupabaseConfig): Promise<Response> {
   const actor = request.headers.get("x-account-id");
   if (!actor) return response({ error: "unauthenticated" }, 401);
   try {
-    const { key } = config();
+    const database = configured ?? config();
+    const { key } = database;
+    const query = (path: string, queryKey = key, init: RequestInit = {}) => db(database.url, path, queryKey, init, fetchImpl);
     const roles = await (await query(`/rest/v1/account_roles?select=role,suspended&user_id=eq.${encodeURIComponent(actor)}&limit=1`, key)).json() as Array<{ role?: string; suspended?: boolean }>;
     const configuredModerators = (process.env.MODERATOR_USER_IDS ?? "").split(",").map((id) => id.trim()).filter(Boolean);
     if ((!configuredModerators.includes(actor) && roles[0]?.role !== "moderator") || roles[0]?.suspended) return response({ error: "moderator_required" }, 403);
@@ -114,7 +117,7 @@ export async function handleModerator(request: Request, fetchImpl: FetchLike = f
       if (targetIds.length) await query("/rest/v1/question_follow_ups", key, { method: "POST", headers: { Prefer: "return=minimal" }, body: JSON.stringify(targetIds.map((targetId, index) => ({ source_revision_id: revisionId, target_question_id: targetId, position: index + 1 }))) });
       await query(`/rest/v1/question_revisions?id=eq.${encodeURIComponent(revisionId)}`, key, { method: "PATCH", headers: { Prefer: "return=minimal" }, body: JSON.stringify({ status: "published" }) });
       await query(`/rest/v1/interview_questions?id=eq.${encodeURIComponent(questionId)}`, key, { method: "PATCH", headers: { Prefer: "return=minimal" }, body: JSON.stringify({ published_revision_id: revisionId }) });
-      await audit(key, actor, action, "question_revision", questionId, null, { revision_id: revisionId, target_question_ids: targetIds }, fetchImpl);
+      await audit(database.url, key, actor, action, "question_revision", questionId, null, { revision_id: revisionId, target_question_ids: targetIds }, fetchImpl);
       return response({ ok: true, questionId, revisionId });
     }
     if (action === "list_submissions") {
@@ -133,7 +136,7 @@ export async function handleModerator(request: Request, fetchImpl: FetchLike = f
       if (!target) return response({ error: "payload_invalid" }, 400);
       const suspended = action === "suspend_account";
       await query("/rest/v1/account_roles", key, { method: "POST", headers: { Prefer: "resolution=merge-duplicates,return=minimal" }, body: JSON.stringify([{ user_id: target, suspended, suspension_reason: suspended ? reason : null, suspended_at: suspended ? new Date().toISOString() : null }]) });
-      await audit(key, actor, action, "account", await pseudonymousUserId(target), reason, {}, fetchImpl);
+      await audit(database.url, key, actor, action, "account", await pseudonymousUserId(target), reason, {}, fetchImpl);
       return response({ ok: true, action });
     }
     if (action === "changes_requested" || action === "reject_submission") {
@@ -144,11 +147,11 @@ export async function handleModerator(request: Request, fetchImpl: FetchLike = f
       if (rows[0].status === "published") return response({ error: "use_unpublish_action" }, 409);
       if (action === "changes_requested") {
         await query(`/rest/v1/submissions?id=eq.${encodeURIComponent(submissionId)}`, key, { method: "PATCH", headers: { Prefer: "return=minimal" }, body: JSON.stringify({ status: "changes_requested", review_notes: reason, reviewed_by: actor, reviewed_at: new Date().toISOString() }) });
-        await audit(key, actor, action, "submission", submissionId, reason, {}, fetchImpl);
+        await audit(database.url, key, actor, action, "submission", submissionId, reason, {}, fetchImpl);
         return response({ ok: true });
       }
       await query(`/rest/v1/submissions?id=eq.${encodeURIComponent(submissionId)}`, key, { method: "PATCH", headers: { Prefer: "return=minimal" }, body: JSON.stringify({ status: "rejected", review_notes: reason, reviewed_by: actor, reviewed_at: new Date().toISOString(), closed_at: new Date().toISOString(), closed_by: actor }) });
-      await audit(key, actor, action, "submission", submissionId, reason, {}, fetchImpl);
+      await audit(database.url, key, actor, action, "submission", submissionId, reason, {}, fetchImpl);
       return response({ ok: true });
     }
     if (action === "publish_submission") {
@@ -167,7 +170,7 @@ export async function handleModerator(request: Request, fetchImpl: FetchLike = f
       if (current[0].visibility !== "community") return response({ error: "question_not_community" }, 409);
       const updated = await (await query(`/rest/v1/interview_questions?id=eq.${encodeURIComponent(questionId)}`, key, { method: "PATCH", headers: { Prefer: "return=representation" }, body: JSON.stringify({ community_unpublished_at: new Date().toISOString() }) })).json() as Array<{ id: string }>;
       if (!updated.length) return response({ error: "not_found" }, 404);
-      await audit(key, actor, action, "question", questionId, reason, {}, fetchImpl);
+      await audit(database.url, key, actor, action, "question", questionId, reason, {}, fetchImpl);
       return response({ ok: true });
     }
     if (action === "republish_question") {
@@ -175,7 +178,7 @@ export async function handleModerator(request: Request, fetchImpl: FetchLike = f
       if (!questionId) return response({ error: "payload_invalid" }, 400);
       const updated = await (await query(`/rest/v1/interview_questions?id=eq.${encodeURIComponent(questionId)}&published_revision_id=not.is.null`, key, { method: "PATCH", headers: { Prefer: "return=representation" }, body: JSON.stringify({ community_unpublished_at: null, visibility: "community", community_published_at: new Date().toISOString() }) })).json() as Array<{ id: string }>;
       if (!updated.length) return response({ error: "question_not_ready" }, 409);
-      await audit(key, actor, action, "question", questionId, null, {}, fetchImpl);
+      await audit(database.url, key, actor, action, "question", questionId, null, {}, fetchImpl);
       return response({ ok: true });
     }
     return response({ error: "unsupported_action" }, 400);

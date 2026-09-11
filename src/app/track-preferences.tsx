@@ -50,7 +50,7 @@ function TrackPreferencesManager({ locale, mode, userId, getToken }: { locale: L
     setValidation("");
     setSaved(false);
     try {
-      const state = await loadTrackPreferences({ userId, locale, getToken });
+      const state = await loadTrackPreferences({ locale, getToken });
       const selection = resolveTrackSelection(state);
       setTracks(state.tracks);
       setUnavailableTracks(state.unavailableTracks);

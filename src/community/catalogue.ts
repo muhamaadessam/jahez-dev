@@ -1,4 +1,4 @@
-import type { DifficultyLevel, Locale } from "../content/questions";
+import type { Locale } from "../content/questions";
 import type { SearchableQuestion } from "../content/question-search";
 import { nodeRequest } from "../backend/api.ts";
 

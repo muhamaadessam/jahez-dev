@@ -1,21 +1,6 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 
-interface QuestionDef {
-  id: string;
-  topicId: string;
-  title: string;
-  shortAnswer: string;
-  detailedAnswer: string;
-  codeExample: string;
-  commonMistakes: string;
-  followUp: string;
-  difficulty: 'junior' | 'mid' | 'senior';
-  importance: 'essential' | 'advanced';
-  tags: string[];
-  docUrl: string;
-}
-
 const topics = [
   { id: 'react-core', prefix: 'rcore', name: 'React Core & Virtual DOM' },
   { id: 'react-hooks', prefix: 'rhook', name: 'Hooks Fundamentals' },

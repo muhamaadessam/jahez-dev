@@ -29,7 +29,7 @@ test("moderationRequest reports function errors", async () => {
 });
 
 test("navigation access is decided by the Node policy endpoint", async () => {
-  const check = (body: unknown, status = 200) => hasModeratorAccess({ userId: "browser-id-is-ignored", getToken: async () => "token", fetchImpl: async (input) => { assert.equal(String(input), "https://api.example/v1/me/moderator-access"); return new Response(JSON.stringify(body), { status }); } });
+  const check = (body: unknown, status = 200) => hasModeratorAccess({ getToken: async () => "token", fetchImpl: async (input) => { assert.equal(String(input), "https://api.example/v1/me/moderator-access"); return new Response(JSON.stringify(body), { status }); } });
   assert.equal(await check({ allowed: true }), true);
   assert.equal(await check({ error: "moderator_required" }, 403), false);
 });

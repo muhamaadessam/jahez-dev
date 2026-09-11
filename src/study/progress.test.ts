@@ -79,7 +79,6 @@ test("cloud sync leaves local state untouched when no authenticated token is ava
   const before = getSavedQuestions(storage);
   const result = await syncStudyProgress({
     storage,
-    userId: "user_test",
     getToken: async () => null,
   });
   assert.equal(result.synced, false);
@@ -92,7 +91,7 @@ test("cloud sync uses Node learner-state read/merge/write when enabled", async (
     const storage = memoryStorage();
     saveQuestionState(storage, "dart-001", { progress: "reviewing" });
     const urls: string[] = [];
-    const result = await syncStudyProgress({ storage, userId: "user_test", getToken: async () => "token", fetchImpl: async (input, init) => { urls.push(`${init?.method ?? "GET"} ${String(input)}`); return init?.method === "PUT" ? new Response(null, { status: 204 }) : Response.json({ progress: [{ questionId: "dart-001", progress: "mastered" }], favorites: ["dart-002"] }); } });
+    const result = await syncStudyProgress({ storage, getToken: async () => "token", fetchImpl: async (input, init) => { urls.push(`${init?.method ?? "GET"} ${String(input)}`); return init?.method === "PUT" ? new Response(null, { status: 204 }) : Response.json({ progress: [{ questionId: "dart-001", progress: "mastered" }], favorites: ["dart-002"] }); } });
     assert.equal(result.merged["dart-001"].progress, "mastered");
     assert.ok(urls.some((url) => url.endsWith("/v1/me/learner-state")));
   } finally { delete process.env.NEXT_PUBLIC_API_URL; }

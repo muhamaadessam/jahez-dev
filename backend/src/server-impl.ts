@@ -40,10 +40,6 @@ export function accountPolicyEnabled(value = process.env.ACCOUNT_POLICY_ENABLED)
   return value !== "false";
 }
 
-export function selectRoute<T>(enabled: boolean, next: T, legacy: T): T {
-  return enabled ? next : legacy;
-}
-
 function requestId(value: unknown): string {
   return typeof value === "string" && /^[a-zA-Z0-9._:-]{1,120}$/.test(value) ? value : crypto.randomUUID();
 }
@@ -100,7 +96,7 @@ export async function buildServer({ allowedOrigins, ready = true, logger = conso
 
   app.get("/health", async () => ({ status: "ok" }));
   app.get("/v1/health", async () => ({ status: "ok" }));
-  app.post("/v1/site-stats/visit", async (request, reply) => {
+  app.post("/v1/site-stats/visit", async (_request, reply) => {
     if (!siteStats) return reply.code(503).send({ error: "site_stats_not_configured" });
     return siteStats.recordVisit();
   });

@@ -33,7 +33,7 @@ export function StudySync() {
     syncingGeneration.current = expectedGeneration;
     const storageKey = accountStorageKey(userId);
     try {
-      const result = await syncStudyProgress({ storage: localStorage, userId, getToken, mode, storageKey });
+      const result = await syncStudyProgress({ storage: localStorage, getToken, mode, storageKey });
       if (expectedGeneration !== generation.current) return;
       if (result.synced) {
         window.dispatchEvent(new Event("study-state-merged"));

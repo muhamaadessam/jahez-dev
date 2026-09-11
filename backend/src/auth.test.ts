@@ -6,7 +6,7 @@ import { exportJWK, SignJWT } from "jose";
 
 import { createClerkAuth } from "./auth.ts";
 import { createAccountPolicy, createSupabaseAccountRoleStore } from "./account-policy.ts";
-import { accountPolicyEnabled, buildServer, selectRoute } from "./server-impl.ts";
+import { accountPolicyEnabled, buildServer } from "./server-impl.ts";
 
 const issuer = "https://clerk.example";
 
@@ -81,8 +81,6 @@ test("Fastify, Clerk, Account policy, and Supabase adapter integrate through one
   assert.equal((await app.inject({ method: "GET", url: "/v1/contribute", headers: { authorization: await bearer({ email_verified: false }) } })).statusCode, 200);
   assert.equal(accountPolicyEnabled("false"), false);
   assert.equal(accountPolicyEnabled("true"), true);
-  assert.equal(selectRoute(false, "node", "edge"), "edge");
-  assert.equal(selectRoute(true, "node", "edge"), "node");
   await app.close();
   await jwks.close();
 });

@@ -5,7 +5,7 @@ import { createSupabaseLearnerStateStore } from "./learner-state.ts";
 
 test("learner state adapter keeps every Supabase request behind server credentials", async () => {
   const urls: string[] = [];
-  const store = createSupabaseLearnerStateStore({ url: "https://db.example", serviceRoleKey: "service-secret", fetchImpl: async (input, init) => {
+  const store = createSupabaseLearnerStateStore({ url: "https://db.example", serviceRoleKey: "service-secret", fetchImpl: async (input) => {
     urls.push(String(input));
     if (String(input).includes("question_progress?select")) return Response.json([{ question_id: "q1", progress: "mastered" }]);
     if (String(input).includes("favorites?select")) return Response.json([{ question_id: "q2" }]);

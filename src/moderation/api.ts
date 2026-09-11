@@ -36,15 +36,12 @@ export async function moderationRequest<T>({
 }
 
 export async function hasModeratorAccess({
-  userId,
   getToken,
   fetchImpl = fetch,
 }: {
-  userId: string;
   getToken: () => Promise<string | null>;
   fetchImpl?: typeof fetch;
 }): Promise<boolean> {
-  void userId;
   const token = await getToken();
   if (!token) return false;
   try { return (await nodeRequest<{ allowed: boolean }>({ path: "/me/moderator-access", token, fetchImpl })).allowed === true; }
